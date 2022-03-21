@@ -1,5 +1,6 @@
 /* Created by and for usage of FF Studios (2021). */
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
@@ -10,6 +11,14 @@ namespace FFStudio
 #region Fields
 		public GameSettings gameSettings;
 		public CurrentLevelData currentLevelData;
+
+
+		[ BoxGroup( "Pool" ) ] public Pool_UIPopUpText pool_UIPopUpText;
+
+		private void Awake()
+		{
+			pool_UIPopUpText.InitPool( transform, true );
+		}
 #endregion
 	}
 }

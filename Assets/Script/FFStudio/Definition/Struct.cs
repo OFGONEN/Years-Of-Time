@@ -16,10 +16,10 @@ namespace FFStudio
 		public Vector3 scale; // Local scale.
 	}
 
-	[Serializable]
+	[ Serializable ]
 	public struct EventPair
 	{
-		public EventListenerDelegateResponse eventListener;
+		public MultipleEventListenerDelegateResponse eventListener;
 		public UnityEvent unityEvent;
 
 		public void Pair()
@@ -28,7 +28,7 @@ namespace FFStudio
 		}
 	}
 
-	[Serializable]
+	[ Serializable ]
 	public struct ParticleData
 	{
 		public ParticleSpawnEvent particle_event;
@@ -38,7 +38,7 @@ namespace FFStudio
 		public float size;
 	}
 
-	[Serializable]
+	[ Serializable ]
 	public struct PopUpTextData
 	{
 		public string text;
@@ -48,7 +48,7 @@ namespace FFStudio
 		public float size;
 	}
 
-	[Serializable]
+	[ Serializable ]
 	public struct RandomParticlePool
 	{
 		public string alias;

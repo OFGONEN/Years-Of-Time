@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
@@ -11,10 +9,11 @@ namespace FFStudio
 	public class UnityMessageEvents : MonoBehaviour
 	{
 #region Fields
-        [ BoxGroup( "Setup" ) ] public UnityEvent onEnableEvent;
-        [ BoxGroup( "Setup" ) ] public UnityEvent onDisableEvent;
-        [ BoxGroup( "Setup" ) ] public UnityEvent onAwakeEvent;
-        [ BoxGroup( "Setup" ) ] public UnityEvent onStartEvent;
+    [ Title( "Setup" ) ]
+        public UnityEvent onEnableEvent;
+        public UnityEvent onDisableEvent;
+        public UnityEvent onAwakeEvent;
+        public UnityEvent onStartEvent;
 #endregion
 
 #region Properties

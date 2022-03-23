@@ -11,8 +11,9 @@ namespace FFStudio
 	public class AnimatorInterface : MonoBehaviour
 	{
 #region Fields
-		[ BoxGroup( "Setup" ), SerializeField ] private Animator animator;
-		[ BoxGroup( "Setup" ), SerializeField ] private AnimationParameterData[] parameterDatas;
+	[ Title( "Setup" ) ]
+		[ SerializeField ] private Animator animator;
+		[ SerializeField ] private AnimationParameterData[] parameterDatas;
 #endregion
 
 #region Properties

@@ -8,8 +8,9 @@ namespace FFStudio
 	public class ParticleEffect : MonoBehaviour
 	{
 #region Fields
-		[ BoxGroup( "Setup" ) ] public MultipleEventListenerDelegateResponse level_finish_listener;
-		[ BoxGroup( "Setup" ) ] public string alias;
+	[ Title( "Setup" ) ]
+		public MultipleEventListenerDelegateResponse level_finish_listener;
+		public string alias;
 
 		// Private Fields \\
 		private ParticleEffectPool particle_pool;

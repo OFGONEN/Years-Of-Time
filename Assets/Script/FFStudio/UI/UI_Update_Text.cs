@@ -10,8 +10,8 @@ namespace FFStudio
         where SharedDataNotifierType : SharedDataNotifier< SharedDataType >
     {
 #region Fields
-        [ BoxGroup( "Setup" ), SerializeField ]
-        protected SharedDataNotifierType sharedDataNotifier;
+    [ Title( "Setup" ) ]
+        [ SerializeField ] protected SharedDataNotifierType sharedDataNotifier;
 
         protected TextMeshProUGUI ui_Text; 
 #endregion

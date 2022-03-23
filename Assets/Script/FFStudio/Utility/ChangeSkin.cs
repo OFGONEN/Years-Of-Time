@@ -7,12 +7,13 @@ using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
-    // Info: Updates current renderer skin with target renderer skin
+    // Info: Updates current renderer skin with target renderer skin.
 	public class ChangeSkin : MonoBehaviour 
 	{
 #region Fields
-        [ BoxGroup( "Setup" ), Tooltip( "Renderer With Target Skin" ) ] public SkinnedMeshRenderer skinRenderer_target; 
-        [ BoxGroup( "Setup" ), SerializeField ] private SkinnedMeshRenderer skinRenderer_current; 
+	[ Title( "Setup" ) ]
+        [ Tooltip( "Renderer With Target Skin" ) ] public SkinnedMeshRenderer skinRenderer_target; 
+        [ SerializeField ] private SkinnedMeshRenderer skinRenderer_current; 
 #endregion
 
 #region Properties

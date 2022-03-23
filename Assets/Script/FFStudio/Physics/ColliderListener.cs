@@ -9,7 +9,8 @@ namespace FFStudio
 	public abstract class ColliderListener< DelegateType, CallbackArgumentType > : MonoBehaviour
 	{
 #region Fields (Inspector Interface)
-		[ BoxGroup( "Setup" ), SerializeField ] private Component attachedComponent;
+	[ Title( "Setup" ) ]
+		[ SerializeField ] private Component attachedComponent;
 
 		public Component AttachedComponent => attachedComponent;
 		public Collider AttachedCollider => attachedCollider;

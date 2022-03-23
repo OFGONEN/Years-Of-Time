@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -11,8 +9,9 @@ namespace FFStudio
 	public class PopUpTextSpawner : MonoBehaviour
 	{
 #region Fields
-		[ BoxGroup( "Setup" ) ] public Pool_UIPopUpText pool_UIPopUpText;
-		[ BoxGroup( "Setup" ) ] public PopUpTextData[] popUpTextDatas;
+	[ Title( "Setup" ) ] 
+		public Pool_UIPopUpText pool_UIPopUpText;
+		public PopUpTextData[] popUpTextDatas;
 #endregion
 
 #region Properties

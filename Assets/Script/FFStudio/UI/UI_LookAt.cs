@@ -10,8 +10,9 @@ namespace FFStudio
 	public class UI_LookAt : MonoBehaviour
 	{
 #region Fields
-        [ BoxGroup( "Setup" ) ] public SharedReferenceNotifier lookAt_Reference;
-        [ BoxGroup( "Setup" ) ] public Vector3 lookAt_Axis;
+	[ Title( "Setup" ) ]
+        public SharedReferenceNotifier lookAt_Reference;
+        public Vector3 lookAt_Axis;
 
 		// Private
 		private Transform lookAt_Transform;

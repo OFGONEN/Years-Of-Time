@@ -11,8 +11,9 @@ namespace FFStudio
 	[ CreateAssetMenu( fileName = "LevelData", menuName = "FF/Data/LevelData" ) ]
 	public class LevelData : ScriptableObject
     {
-		[ BoxGroup( "Setup" ), ValueDropdown( "SceneList" ), LabelText( "Scene Index" ) ] public int scene_index;
-        [ BoxGroup( "Setup" ), LabelText( "Override As Active Scene" ) ] public bool scene_overrideAsActiveScene;
+	[ Title( "Setup" ) ]
+		[ ValueDropdown( "SceneList" ), LabelText( "Scene Index" ) ] public int scene_index;
+        [ LabelText( "Override As Active Scene" ) ] public bool scene_overrideAsActiveScene;
 
 #if UNITY_EDITOR
 		private static IEnumerable SceneList()

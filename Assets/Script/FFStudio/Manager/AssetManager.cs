@@ -9,12 +9,15 @@ namespace FFStudio
 	public class AssetManager : MonoBehaviour
 	{
 #region Fields
+	[ Title( "Setup" ) ]
 		public GameSettings gameSettings;
 		public CurrentLevelData currentLevelData;
 
+	[ Title( "Pool" ) ]
+		public Pool_UIPopUpText pool_UIPopUpText;
+#endregion
 
-		[ BoxGroup( "Pool" ) ] public Pool_UIPopUpText pool_UIPopUpText;
-
+#region Implementation
 		private void Awake()
 		{
 			pool_UIPopUpText.InitPool( transform, true );

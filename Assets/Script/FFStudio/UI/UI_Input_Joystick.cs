@@ -7,10 +7,10 @@ using Sirenix.OdinInspector;
 public class UI_Input_Joystick : UIEntity
 {
 #region Fields
-    [ BoxGroup( "Setup" ) ] public RectTransform image_base;
-    [ BoxGroup( "Setup" ) ] public RectTransform image_stick;
-    [ BoxGroup( "Setup" ) ] public SharedInput_JoyStick input_JoyStick;
-
+[ Title( "Setup" ) ] 
+    public RectTransform image_base;
+    public RectTransform image_stick;
+    public SharedInput_JoyStick input_JoyStick;
 #endregion
 
 #region Properties

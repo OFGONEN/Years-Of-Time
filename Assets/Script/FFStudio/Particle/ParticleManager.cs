@@ -9,11 +9,13 @@ namespace FFStudio
 	public class ParticleManager : MonoBehaviour
 	{
 #region Fields
-		[ BoxGroup( "Listener" ) ] public EventListenerDelegateResponse listener_pfx_spawn;
-		[ BoxGroup( "Listener" ) ] public EventListenerDelegateResponse listener_pfx_spawn_random;
+	[ Title( "Event Listeners" ) ]
+		public EventListenerDelegateResponse listener_pfx_spawn;
+		public EventListenerDelegateResponse listener_pfx_spawn_random;
 
-		[ BoxGroup( "Setup" ), SerializeField ] private ParticleEffectPool[] pools_pfx;
-		[ BoxGroup( "Setup" ), SerializeField ] private RandomParticlePool[] pools_pfx_random; //Info: All pools needs to be in particleEffectPools aswell.
+	[ Title( "Setup" ) ]
+		[ SerializeField ] private ParticleEffectPool[] pools_pfx;
+		[ SerializeField ] private RandomParticlePool[] pools_pfx_random; //Info: All pools needs to be in particleEffectPools aswell.
 
 		private Dictionary< string, ParticleEffectPool > dictionary_pool_pfx;
 		private Dictionary< string, RandomParticlePool > dictionary_pool_pfx_random;

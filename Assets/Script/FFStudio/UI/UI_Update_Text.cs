@@ -30,6 +30,7 @@ namespace FFStudio
         private void Awake()
         {
             ui_Text = GetComponentInChildren< TextMeshProUGUI >();
+            OnSharedDataChange();
         }
 #endregion
 

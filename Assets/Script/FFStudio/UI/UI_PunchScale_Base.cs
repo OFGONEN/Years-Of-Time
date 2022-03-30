@@ -29,12 +29,14 @@ namespace FFStudio
 #region Unity API
         private void OnEnable()
         {
-            notifier_count.Subscribe( OnCountChange );
+            if( notifier_count )
+                notifier_count.Subscribe( OnCountChange );
         }
         
         private void OnDisable()
         {
-            notifier_count.Unsubscribe( OnCountChange );
+            if( notifier_count )
+    			notifier_count.Unsubscribe( OnCountChange );
         }
         
         private void Awake()

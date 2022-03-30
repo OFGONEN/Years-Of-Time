@@ -20,7 +20,7 @@ namespace FFStudio
 #region Implementation
 		private void Awake()
 		{
-			pool_UIPopUpText.InitPool( transform, true );
+			pool_UIPopUpText.InitPool( transform, false );
 		}
 #endregion
 	}

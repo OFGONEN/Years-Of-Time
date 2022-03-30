@@ -85,7 +85,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5545418623886406342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,12 +116,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: eaaacbd90b1464ad2b2a3a962a8a84b2, type: 2}
-        m_TargetAssemblyTypeName: FFStudio.ComponentPool`1[[UIPopUpText, Assembly-CSharp
+        m_TargetAssemblyTypeName: FFStudio.ComponentPool`1[[FFStudio.UIPopUpText,
+          Assembly-CSharp
         m_MethodName: ReturnEntity
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 6316872551600914418}
-          m_ObjectArgumentAssemblyTypeName: UIPopUpText, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: FFStudio.UIPopUpText, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

@@ -4,8 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 
-/* Created by and for usage of FF Studios (2021). */
-
 namespace FFEditor
 {
 	public class FFModelImportUtility : AssetPostprocessor
@@ -16,7 +14,8 @@ namespace FFEditor
 		static readonly string prefix_envr = "envr";
 		static readonly string prefix_gnrc = "gnrc";
 		static readonly string prefix_char = "char";
-		
+		static readonly string prefix_anim = "anim";
+
 		void OnPreprocessModel()
 		{
 			var modelPrefix = GetModelPrefix();
@@ -33,15 +32,15 @@ namespace FFEditor
 			modelImporter.importLights = false;
 
 			/* Rig Tab. */
-			if( modelPrefix == prefix_prop || modelPrefix == "envr" )
+			if( modelPrefix == prefix_prop || modelPrefix == prefix_envr )
 				modelImporter.animationType = ModelImporterAnimationType.None;
-            else if( modelPrefix == "char" )
+            else if( modelPrefix == prefix_char )
 				modelImporter.animationType = ModelImporterAnimationType.Human;
-            else if( modelPrefix == "gnrc" )
+            else if( modelPrefix == prefix_gnrc )
 				modelImporter.animationType = ModelImporterAnimationType.Generic;
 
 			/* Animation Tab. */
-            modelImporter.importAnimation = modelPrefix == "char" || modelPrefix == "anim";
+            modelImporter.importAnimation = modelPrefix == prefix_char || modelPrefix == prefix_anim ;
 
 			AssetDatabase.ImportAsset( assetPath );
 		}

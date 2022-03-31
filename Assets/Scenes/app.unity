@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 228778972}
   m_Layer: 0
-  m_Name: ---UI---
+  m_Name: --- UI ---
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -281,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 916131063}
   m_Layer: 0
-  m_Name: ---Lighting---
+  m_Name: --- Lighting ---
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,7 +434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1593237017}
   m_Layer: 0
-  m_Name: ---Managers---
+  m_Name: --- Managers ---
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

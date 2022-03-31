@@ -41,7 +41,7 @@ namespace FFEditor
 				modelImporter.animationType = ModelImporterAnimationType.Generic;
 
 			/* Animation Tab. */
-            modelImporter.importAnimation = modelPrefix == "char";
+            modelImporter.importAnimation = modelPrefix == "char" || modelPrefix == "anim";
 
 			AssetDatabase.ImportAsset( assetPath );
 		}

@@ -12,16 +12,19 @@ namespace FFEditor
 	{
 		public Material defaultMaterial;
 
-		private void OnPreprocessModel()
+		static readonly string prefix_prop = "prop";
+		static readonly string prefix_envr = "envr";
+		static readonly string prefix_gnrc = "gnrc";
+		static readonly string prefix_char = "char";
+		
+		void OnPreprocessModel()
 		{
-			var modelImporter = assetImporter as ModelImporter;
+			var modelPrefix = GetModelPrefix();
 			
-			// Info: Only pre-process models for the FIRST time.
-			if( modelImporter.importSettingsMissing == false )
+			if( ShouldProcess( modelPrefix ) == false )
 				return;
 
-			var modelNameOnly = assetPath.Split( '/' ).Last();
-			var modelPrefix   = modelNameOnly.Split( '_' ).First();
+			var modelImporter = assetImporter as ModelImporter;
 
 			/* Model Tab. */
 			modelImporter.importBlendShapes = false;
@@ -30,7 +33,7 @@ namespace FFEditor
 			modelImporter.importLights = false;
 
 			/* Rig Tab. */
-			if( modelPrefix == "prop" || modelPrefix == "envr" )
+			if( modelPrefix == prefix_prop || modelPrefix == "envr" )
 				modelImporter.animationType = ModelImporterAnimationType.None;
             else if( modelPrefix == "char" )
 				modelImporter.animationType = ModelImporterAnimationType.Human;
@@ -43,25 +46,23 @@ namespace FFEditor
 			AssetDatabase.ImportAsset( assetPath );
 		}
 
-		private void OnPostprocessModel( GameObject gameObject )
+		void OnPostprocessModel( GameObject gameObject )
 		{
-			var modelImporter = assetImporter as ModelImporter;
-
-			// Info: Only pre-process models for the FIRST time.
-			if( modelImporter.importSettingsMissing == false )
-				return;
-
-			RemapDefaultMaterial( gameObject.transform );
-            
-			AssetDatabase.WriteImportSettingsIfDirty( assetPath );
+			if( ShouldProcess( GetModelPrefix() ) )
+			{
+				FFStudio.FFLogger.Log( "FFModelImportUtility: Remapping default material for " + assetPath.Split( '/' ).Last() + ".",
+								   	   gameObject );
+				RemapDefaultMaterial( gameObject.transform );
+				AssetDatabase.WriteImportSettingsIfDirty( assetPath );
+			}
 		}
 
-		private void RemapDefaultMaterial( Transform transform )
+		void RemapDefaultMaterial( Transform transform )
 		{
 			Renderer renderer = transform.gameObject.GetComponent< Renderer >();
 
 			if( defaultMaterial == null )
-				defaultMaterial = AssetDatabase.LoadAssetAtPath< Material >( "Assets/Material/material_atlas.mat" );
+				defaultMaterial = AssetDatabase.LoadAssetAtPath< Material >( "Assets/Material/mat_atlas.mat" );
 
 			if( renderer != null )
 			{
@@ -75,6 +76,23 @@ namespace FFEditor
 			foreach( Transform child in transform )
 				RemapDefaultMaterial( child );
 		}
-	}
 
+		bool ShouldProcess( string prefix )
+		{
+			var modelImporter = assetImporter as ModelImporter;
+
+			// Info: Only pre-process models for the FIRST time.
+			if( modelImporter.importSettingsMissing == false )
+				return false;
+
+			return prefix == prefix_prop || prefix == prefix_envr || prefix == prefix_gnrc || prefix == prefix_char;
+		}
+		
+		string GetModelPrefix()
+		{
+			var modelNameOnly = assetPath.Split( '/' ).Last();
+			var modelPrefix = modelNameOnly.Split( '_' ).First();
+			return modelPrefix;
+		}
+	}
 }

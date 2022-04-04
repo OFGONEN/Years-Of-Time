@@ -5,24 +5,25 @@
 #pragma target 3.0
 
 UNITY_INSTANCING_BUFFER_START(Props)
-UNITY_DEFINE_INSTANCED_PROP(int, _ScaleMode)
-UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
-UNITY_DEFINE_INSTANCED_PROP(float, _Radius)
-UNITY_DEFINE_INSTANCED_PROP(float, _RadiusSpace)
-UNITY_DEFINE_INSTANCED_PROP(float, _Thickness)
-UNITY_DEFINE_INSTANCED_PROP(float, _ThicknessSpace)
+PROP_DEF(int, _ScaleMode)
+PROP_DEF(half4, _Color)
+PROP_DEF(half, _Radius)
+PROP_DEF(half, _RadiusSpace)
+PROP_DEF(half, _Thickness)
+PROP_DEF(half, _ThicknessSpace)
+PROP_DEF(half, _AngleStart)
+PROP_DEF(half, _AngleEnd)
 UNITY_INSTANCING_BUFFER_END(Props)
 
 struct VertexInput {
 	float4 vertex : POSITION;
 	float3 normal : NORMAL;
-	float2 uv0 : TEXCOORD0;
 	UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 struct VertexOutput {
 	float4 pos : SV_POSITION;
-	float pxCoverage : TEXCOORD0;
-	float4 debug : TEXCOORD1;
+	half3 uvAndPxCoverage : TEXCOORD0;
+	UNITY_FOG_COORDS(1)
 	UNITY_VERTEX_INPUT_INSTANCE_ID
 	UNITY_VERTEX_OUTPUT_STEREO
 };
@@ -33,40 +34,48 @@ VertexOutput vert(VertexInput v) {
 	UNITY_TRANSFER_INSTANCE_ID(v, o);
 	UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 	
-	int scaleMode = UNITY_ACCESS_INSTANCED_PROP(Props, _ScaleMode);
+	int scaleMode = PROP(_ScaleMode);
     half uniformScale = GetUniformScale();
-    half scaleThickness = scaleMode == SCALE_MODE_UNIFORM ? 1 : 1.0/uniformScale;
+    half scaleThickness = scaleMode == SCALE_MODE_UNIFORM ? uniformScale : 1;
     
-    float radiusMajorTarget = UNITY_ACCESS_INSTANCED_PROP(Props, _Radius);
-    int radiusMajorSpace = UNITY_ACCESS_INSTANCED_PROP(Props, _RadiusSpace);
-    int thicknessSpace = UNITY_ACCESS_INSTANCED_PROP(Props, _ThicknessSpace);
-    float thicknessTarget = UNITY_ACCESS_INSTANCED_PROP(Props, _Thickness) * scaleThickness;
+    half radiusMajorTarget = PROP(_Radius) * uniformScale;
+    int radiusMajorSpace = PROP(_RadiusSpace);
+    int thicknessSpace = PROP(_ThicknessSpace);
+    half thicknessTarget = PROP(_Thickness) * scaleThickness;
     
-    
-    // calc radius & tube center
-    float3 objectOrigin = LocalToWorldPos(float3(0,0,0));
-    float3 camRight = CameraToWorldVec(float3(1,0,0));
-	LineWidthData widthDataRadius = GetScreenSpaceWidthDataSimple( objectOrigin, camRight, radiusMajorTarget * 2 /*to thickness*/, radiusMajorSpace );
+    // calc radius
+	LineWidthData widthDataRadius = GetScreenSpaceWidthDataSimple( OBJ_ORIGIN, CAM_RIGHT, radiusMajorTarget * 2 /*to thickness*/, radiusMajorSpace );
 	float radiusMajor = widthDataRadius.thicknessMeters / 2;
-    float3 dirFromCenter = normalize( float3( v.vertex.xy, 0 ) );
-    float3 tubeCenter = dirFromCenter * radiusMajor;
-    float3 tubeCenterWorld = LocalToWorldPos( tubeCenter );
 	
 	// calc thickness
-    float3 tangentWorld = LocalToWorldVec( float3(dirFromCenter.y,-dirFromCenter.x, 0) );
-    float3 camForward = GetCameraForwardDirection();
-	float3 camLineNormal = normalize(cross(camForward, tangentWorld));
-	LineWidthData widthDataThickness = GetScreenSpaceWidthDataSimple( tubeCenterWorld, camLineNormal, thicknessTarget, thicknessSpace );
-	o.pxCoverage = widthDataThickness.thicknessPixelsTarget;
+	LineWidthData widthDataThickness = GetScreenSpaceWidthDataSimple( OBJ_ORIGIN, CAM_RIGHT, thicknessTarget, thicknessSpace );
+	o.uvAndPxCoverage.z = widthDataThickness.thicknessPixelsTarget;
 	float thicknessRadius = widthDataThickness.thicknessMeters * 0.5;
-	
-	float3 localPos = tubeCenter + v.normal * thicknessRadius; 
-	o.pos = LocalToClipPos( localPos );
+
+	// local space pos
+    half3 dirFromCenter = normalize( half3( v.vertex.xy, 0 ) );
+    half3 tubeCenter = dirFromCenter * radiusMajor;
+	half3 localPos = tubeCenter + v.normal * thicknessRadius;
+	o.uvAndPxCoverage.xy = localPos.xy;
+	o.pos = LocalToClipPos( localPos / uniformScale );
+	UNITY_TRANSFER_FOG(o,o.pos);
 	return o;
 }
 
 FRAG_OUTPUT_V4 frag( VertexOutput i ) : SV_Target {
 	UNITY_SETUP_INSTANCE_ID(i);
-	float4 color = UNITY_ACCESS_INSTANCED_PROP(Props, _Color);
-	return ShapesOutput( color, saturate(i.pxCoverage) );
+	half angStartRaw = PROP(_AngleStart);
+	half angEndRaw = PROP(_AngleEnd);
+	half angStart = min(angStartRaw,angEndRaw);
+	half angEnd = max(angStartRaw,angEndRaw);
+	half angDeltaRaw = angEnd - angStart;
+	half angDelta = clamp( angDeltaRaw, -TAU, TAU );
+	if( abs(angDeltaRaw) < TAU-VERY_SMOL ) {
+		half2 uv = Rotate( i.uvAndPxCoverage.xy, -angStart+ TAU/2 );
+		half ang = DirToAng(uv)+TAU/2;
+		clip((ang<angDelta)-0.5);
+	}
+	
+	half4 color = PROP(_Color);
+	return SHAPES_OUTPUT( color, saturate(i.uvAndPxCoverage.z), i );
 }

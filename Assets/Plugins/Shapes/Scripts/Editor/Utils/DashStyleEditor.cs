@@ -12,6 +12,7 @@ namespace Shapes {
 		SerializedProperty propOffset;
 		SerializedProperty propSpacing;
 		SerializedProperty propSnap;
+		SerializedProperty propShapeModifier;
 
 		SerializedProperty propDashed;
 		SerializedProperty propGeometry; // line only
@@ -30,7 +31,7 @@ namespace Shapes {
 			return editor;
 		}
 
-		public static DashStyleEditor GetRingDashEditor( SerializedProperty propDashSettings, SerializedProperty dashSizeLinked, SerializedProperty propDashed ) {
+		public static DashStyleEditor GetDashEditor( SerializedProperty propDashSettings, SerializedProperty dashSizeLinked, SerializedProperty propDashed ) {
 			DashStyleEditor editor = new DashStyleEditor {
 				isLine = false,
 				propDashed = propDashed,
@@ -47,6 +48,7 @@ namespace Shapes {
 			propOffset = propDashSettings.FindPropertyRelative( "offset" );
 			propSpacing = propDashSettings.FindPropertyRelative( "spacing" );
 			propSnap = propDashSettings.FindPropertyRelative( "snap" );
+			propShapeModifier = propDashSettings.FindPropertyRelative( "shapeModifier" );
 		}
 
 		public void DrawProperties() {
@@ -108,15 +110,19 @@ namespace Shapes {
 			if( canSetStyle ) {
 				using( new EditorGUILayout.HorizontalScope() ) {
 					EditorGUILayout.PrefixLabel( "Style" );
-					ShapesUI.DrawTypeSwitchButtons( propType, ShapesAssets.LineDashButtonContents );
+					ShapesUI.DrawTypeSwitchButtons( propType, UIAssets.LineDashButtonContents );
 				}
+
+				bool canEditStyle = propShapeModifier.hasMultipleDifferentValues || ( (DashType)propType.enumValueIndex ).HasModifier();
+				using( new EditorGUI.DisabledScope( canEditStyle == false ) )
+					EditorGUILayout.PropertyField( propShapeModifier );
 			} else { // this else is only applicable for lines
 				using( new EditorGUI.DisabledScope( true ) ) {
 					using( new EditorGUILayout.HorizontalScope() ) {
 						EditorGUILayout.PrefixLabel( new GUIContent( "Style", "3D lines support basic dashes only" ) );
-						GUILayout.Toggle( true, ShapesAssets.LineDashButtonContents[0], ShapesUI.GetMiniButtonStyle( 0, 3 ), GUILayout.MinHeight( 20 ) );
-						GUILayout.Toggle( false, ShapesAssets.LineDashButtonContents[1], ShapesUI.GetMiniButtonStyle( 1, 3 ), GUILayout.MinHeight( 20 ) );
-						GUILayout.Toggle( false, ShapesAssets.LineDashButtonContents[2], ShapesUI.GetMiniButtonStyle( 2, 3 ), GUILayout.MinHeight( 20 ) );
+						GUILayout.Toggle( true, UIAssets.LineDashButtonContents[0], ShapesUI.GetMiniButtonStyle( 0, 3 ), GUILayout.MinHeight( 20 ) );
+						GUILayout.Toggle( false, UIAssets.LineDashButtonContents[1], ShapesUI.GetMiniButtonStyle( 1, 3 ), GUILayout.MinHeight( 20 ) );
+						GUILayout.Toggle( false, UIAssets.LineDashButtonContents[2], ShapesUI.GetMiniButtonStyle( 2, 3 ), GUILayout.MinHeight( 20 ) );
 					}
 				}
 			}

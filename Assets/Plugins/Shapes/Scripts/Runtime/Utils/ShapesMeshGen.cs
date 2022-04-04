@@ -1,20 +1,24 @@
-﻿using System.Collections.Generic;
+﻿// Shapes © Freya Holmér - https://twitter.com/FreyaHolmer/
+// Website & Documentation - https://acegikmo.com/shapes/
+
+// Uncomment this below if you want more detailed breakdowns over what exactly fails in polygon creation.
+// This is disabled by default for performance reasons.
+// #define DEBUG_POLYGON_CREATION
+
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-// Shapes © Freya Holmér - https://twitter.com/FreyaHolmer/
-// Website & Documentation - https://acegikmo.com/shapes/
 namespace Shapes {
 
-
 	public static class ShapesMeshGen {
-
 
 		static bool SamePosition( Vector3 a, Vector3 b ) {
 			float delta = Mathf.Max( Mathf.Max( Mathf.Abs( b.x - a.x ), Mathf.Abs( b.y - a.y ) ), Mathf.Abs( b.z - a.z ) );
 			return delta < 0.00001f;
 		}
 
-		public static void GenPolylineMesh( Mesh mesh, IList<PolylinePoint> path, bool closed, PolylineJoins joins, bool useColors ) {
+		public static void GenPolylineMesh( Mesh mesh, IList<PolylinePoint> path, bool closed, PolylineJoins joins, bool flattenZ, bool useColors ) {
 			mesh.Clear(); // todo maybe not always do this you know?
 
 			int pointCount = path.Count;
@@ -93,8 +97,8 @@ namespace Shapes {
 
 
 				// Indices & verts
-				Vector3 vert = path[i].point;
-				Color color = useColors ? path[i].color : default;
+				Vector3 vert = flattenZ ? new Vector3( path[i].point.x, path[i].point.y, 0f ) : path[i].point;
+				Color color = useColors ? path[i].color.ColorSpaceAdjusted() : default;
 				iv0 = i * vertsPerPathPoint;
 				if( separateJoinMesh ) {
 					iv1 = iv0 + 1; // "prev" outer
@@ -293,12 +297,10 @@ namespace Shapes {
 			public ReflexState ReflexState {
 				get {
 					if( reflex == ReflexState.Unknown ) {
-						Vector2 dirNext = next.pt - pt;
-						Vector2 dirPrev = pt - prev.pt;
-						if( generatingClockwisePolygon )
-							reflex = ShapesMath.Determinant( dirPrev, dirNext ) >= -0.001f ? ReflexState.Reflex : ReflexState.Convex;
-						else
-							reflex = ShapesMath.Determinant( dirNext, dirPrev ) >= -0.001f ? ReflexState.Reflex : ReflexState.Convex;
+						Vector2 dirNext = ShapesMath.Dir( pt, next.pt );
+						Vector2 dirPrev = ShapesMath.Dir( prev.pt, pt );
+						int cwSign = generatingClockwisePolygon ? 1 : -1;
+						reflex = cwSign * ShapesMath.Determinant( dirPrev, dirNext ) >= -0.001f ? ReflexState.Reflex : ReflexState.Convex;
 					}
 
 					return reflex;
@@ -311,6 +313,12 @@ namespace Shapes {
 		public static void GenPolygonMesh( Mesh mesh, List<Vector2> path, PolygonTriangulation triangulation ) {
 			// kinda have to do this, the algorithm relies on knowing this
 			generatingClockwisePolygon = ShapesMath.PolygonSignedArea( path ) > 0;
+			float clockwiseSign = generatingClockwisePolygon ? 1f : -1f;
+
+			#if DEBUG_POLYGON_CREATION
+			List<string> debugString = new List<string>();
+			debugString.Add( "Polygon creation process:" );
+			#endif
 
 			mesh.Clear(); // todo maybe not always do this you know?
 			int pointCount = path.Count;
@@ -342,6 +350,9 @@ namespace Shapes {
 				int countLeft;
 				int safeguard = 1000000;
 				while( ( countLeft = pointsLeft.Count ) >= 3 && ( safeguard-- > 0 ) ) {
+					#if DEBUG_POLYGON_CREATION
+					debugString.Add( $"------- Searching for convex points... -------" );
+					#endif
 					//for( int k = 0; k < pointsLeft.Count * 2; k++ ) {
 					if( countLeft == 3 ) {
 						// final triangle
@@ -357,6 +368,9 @@ namespace Shapes {
 						EarClipPoint p = pointsLeft[i];
 						if( p.ReflexState == ReflexState.Convex ) {
 							// it's convex! now make sure there are no reflex points inside
+							#if DEBUG_POLYGON_CREATION
+							debugString.Add( $"{p.vertIndex} is convex, testing:" );
+							#endif
 							bool canClipEar = true;
 							int idPrev = ( i + countLeft - 1 ) % countLeft;
 							int idNext = ( i + 1 ) % countLeft;
@@ -366,14 +380,24 @@ namespace Shapes {
 								if( j == idNext ) continue; // skip prev
 								if( pointsLeft[j].ReflexState == ReflexState.Reflex ) {
 									// found a reflex point, make sure it's outside the triangle
-									if( ShapesMath.PointInsideTriangle( p.next.pt, p.pt, p.prev.pt, pointsLeft[j].pt, 0f, -0.0001f, 0f ) ) {
+									if( ShapesMath.PointInsideTriangle( p.next.pt, p.pt, p.prev.pt, pointsLeft[j].pt, 0f, clockwiseSign * -0.0001f, 0f ) ) {
+										#if DEBUG_POLYGON_CREATION
+										debugString.Add( $"<color=#fa0>[{pointsLeft[j].vertIndex} is inside [{p.next.vertIndex},{p.vertIndex},{p.prev.vertIndex}]</color>" );
+										#endif
 										canClipEar = false; // it's inside, rip
 										break;
+									} else {
+										#if DEBUG_POLYGON_CREATION
+										debugString.Add( $"[{pointsLeft[j].vertIndex} is not inside [{p.next.vertIndex},{p.vertIndex},{p.prev.vertIndex}]" );
+										#endif
 									}
 								}
 							}
 
 							if( canClipEar ) {
+								#if DEBUG_POLYGON_CREATION
+								debugString.Add( $"<color=#af2>[{p.next.vertIndex},{p.vertIndex},{p.prev.vertIndex}] created</color>" );
+								#endif
 								meshTriangles[tri++] = p.next.vertIndex;
 								meshTriangles[tri++] = p.vertIndex;
 								meshTriangles[tri++] = p.prev.vertIndex;
@@ -383,13 +407,25 @@ namespace Shapes {
 								pointsLeft.RemoveAt( i );
 								foundConvex = true;
 								break; // stop search for more convex edges, restart loop
+							} else {
+								#if DEBUG_POLYGON_CREATION
+								debugString.Add( $"<color=#fa0>[{p.next.vertIndex},{p.vertIndex},{p.prev.vertIndex}] has points inside, skipping</color>" );
+								#endif
 							}
 						}
 					}
 
 					// no convex found??
 					if( foundConvex == false ) {
-						Debug.LogError( "Invalid polygon triangulation - no convex edges found. Your polygon is likely self-intersecting" );
+						string s = "Invalid polygon triangulation - no convex edges found. Your polygon is likely self-intersecting.\n";
+						s += "Failed point set:\n";
+						s += string.Join( "\n", pointsLeft.Select( p => $"[{p.vertIndex}]: {p.ReflexState}" ) );
+						#if DEBUG_POLYGON_CREATION
+						s += "\n";
+						debugString.Add( $"<color=#f33>No convex points found</color>" );
+						s += string.Join( "\n", debugString );
+						#endif
+						Debug.LogError( s );
 						goto breakBoth;
 					}
 				}

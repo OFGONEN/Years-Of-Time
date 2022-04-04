@@ -125,8 +125,10 @@ namespace FFStudio
 			var endPos   = transform.position + currentEndVector_editor * radius;
 
 			Draw.Sphere( startPos, 0.1f );
-            
-			Draw.ArcDashed( transform.position, rotationAxisMaskVector, radius, currentStartAngle_editor, currentEndAngle_editor );
+
+			Draw.UseDashes = true;
+
+			Draw.Arc( transform.position, rotationAxisMaskVector, radius, currentStartAngle_editor, currentEndAngle_editor );
 
 			var arrowDirection = Vector3.Cross( rotationAxisMaskVector, currentEndVector_editor ).normalized;
 			Draw.Cone( endPos, arrowDirection, 0.1f, 0.2f, Color.red );

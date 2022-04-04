@@ -5,35 +5,36 @@
 #pragma target 3.0
 
 UNITY_INSTANCING_BUFFER_START(Props)
-UNITY_DEFINE_INSTANCED_PROP(int, _ScaleMode)
-UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
-UNITY_DEFINE_INSTANCED_PROP(float4, _ColorEnd)
-UNITY_DEFINE_INSTANCED_PROP(float3, _PointStart)
-UNITY_DEFINE_INSTANCED_PROP(float3, _PointEnd)
-UNITY_DEFINE_INSTANCED_PROP(float, _Thickness)
-UNITY_DEFINE_INSTANCED_PROP(int, _ThicknessSpace)
-UNITY_DEFINE_INSTANCED_PROP(float, _DashSize)
-UNITY_DEFINE_INSTANCED_PROP(float, _DashOffset)
-UNITY_DEFINE_INSTANCED_PROP(float, _DashSpacing)
-UNITY_DEFINE_INSTANCED_PROP(int, _DashSpace)
-UNITY_DEFINE_INSTANCED_PROP(int, _DashSnap)
+PROP_DEF(int, _ScaleMode)
+PROP_DEF(half4, _Color)
+PROP_DEF(half4, _ColorEnd)
+PROP_DEF(float3, _PointStart)
+PROP_DEF(float3, _PointEnd)
+PROP_DEF(half, _Thickness)
+PROP_DEF(int, _ThicknessSpace)
+SHAPES_DASH_PROPERTIES
 UNITY_INSTANCING_BUFFER_END(Props)
+
+#include "../DashUtils.cginc"
+
+#define IP_dash_coord intp0.x
+#define IP_dash_spacePerPeriod intp0.y
+#define IP_dash_thicknessPerPeriod intp0.z
+#define IP_pxCoverage intp0.w
 
 struct VertexInput {
 	float4 vertex : POSITION;
-	float2 uv0 : TEXCOORD0;
 	UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 struct VertexOutput {
 	float4 pos : SV_POSITION;
+	half4 intp0 : TEXCOORD0;
 	#if defined(CAP_SQUARE)
-	    float colorBlend : TEXCOORD0; // needed since we need unclamped color blend value to the frag shader
+		half colorBlend : TEXCOORD1; // needed since we need unclamped color blend value in the frag shader
 	#else
-	    float4 color : TEXCOORD0;
+		half4 color : TEXCOORD1;
 	#endif
-	float3 wPos : TEXCOORD1;
-	float pxCoverage : TEXCOORD2;
-	LineDashData dashData : TEXCOORD3;
+	UNITY_FOG_COORDS(2)
 	UNITY_VERTEX_INPUT_INSTANCE_ID
 	UNITY_VERTEX_OUTPUT_STEREO
 };
@@ -44,46 +45,47 @@ VertexOutput vert(VertexInput v) {
 	UNITY_TRANSFER_INSTANCE_ID(v, o);
 	UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-	float3 a = LocalToWorldPos( UNITY_ACCESS_INSTANCED_PROP(Props, _PointStart) );
-	float3 b = LocalToWorldPos( UNITY_ACCESS_INSTANCED_PROP(Props, _PointEnd) );
+	float3 a = LocalToWorldPos( PROP(_PointStart) );
+	float3 b = LocalToWorldPos( PROP(_PointEnd) );
 	
-	int scaleMode = UNITY_ACCESS_INSTANCED_PROP(Props, _ScaleMode);
+	int scaleMode = PROP(_ScaleMode);
     half uniformScale = GetUniformScale();
 	half scaleThickness = scaleMode == SCALE_MODE_UNIFORM ? uniformScale : 1;
-	half scaleDashes = uniformScale;
-	half scaleSpacing = uniformScale;
 	 
-	float thickness = UNITY_ACCESS_INSTANCED_PROP(Props, _Thickness) * scaleThickness;
-	float thicknessSpace = UNITY_ACCESS_INSTANCED_PROP(Props, _ThicknessSpace);
+	
+	half thickness = PROP(_Thickness) * scaleThickness;
+	int thicknessSpace = PROP(_ThicknessSpace);
 
-	float lineLength;
-	float3 right;
-	float3 normal;
-	float3 forward;
+	half lineLength;
+	half3 right;
+	half3 normal;
+	half3 forward;
 	GetDirMag(b - a, /*out*/ forward, /*out*/ lineLength);
+	float side = saturate( v.vertex.z );
+	float3 vertOrigin = side > 0.5 ? b : a;
+	half3 camForward = -DirectionToNearPlanePos(vertOrigin);
+	half3 camLineNormal;
 
     if( lineLength < 0.0001 ){ // degenerate case (start == end)
-        right   = float3(1,0,0);
-        normal  = float3(0,1,0);
-        forward = float3(0,0,1);
+        right   = CAM_RIGHT;
+        normal  = CAM_UP;
+        forward = CAM_FORWARD;
+    	camLineNormal = normal;
     } else {
-        float prettyVertical = abs(forward.y) >= 0.99;
-        float3 upRef = prettyVertical ? float3(1,0,0) : float3(0,1,0);
+        bool prettyVertical = abs(forward.y) >= 0.99;
+        half3 upRef = prettyVertical ? half3(1,0,0) : half3(0,1,0);
         normal = normalize(cross(upRef,forward));
         right = cross( normal, forward );
+    	camLineNormal = normalize(cross(camForward, forward));
     }
 
-	float side = saturate( v.uv0.y );
-	float3 vertOrigin = side > 0.5 ? b : a;
-	float3 camForward = DirectionToNearPlanePos(vertOrigin);
-	float3 camLineNormal = normalize(cross(camForward, forward));
     LineWidthData widthData = GetScreenSpaceWidthDataSimple( vertOrigin, camLineNormal, thickness, thicknessSpace );
-    o.pxCoverage = widthData.thicknessPixelsTarget;
+    o.IP_pxCoverage = widthData.thicknessPixelsTarget;
     float radius = widthData.thicknessMeters * 0.5;
 	
-	float3 localOffset = v.vertex - float3( 0, 0, saturate( v.uv0.y ) ); //  if uv >= 1 then subtract height (z) by 1 to make it a spherical offset
+	half3 localOffset = v.vertex - half3( 0, 0, saturate( v.vertex.z ) ); //  if z >= 1 then subtract height (z) by 1 to make it a spherical offset
 	localOffset *= radius;
-	float3 vertPos = vertOrigin + localOffset.x * right + localOffset.y * normal;
+	half3 vertPos = vertOrigin + localOffset.x * right + localOffset.y * normal;
 	
 	#ifdef CAP_ROUND
 	    vertPos += localOffset.z * forward;
@@ -92,29 +94,27 @@ VertexOutput vert(VertexInput v) {
 	#endif
 	
 	#if defined(CAP_SQUARE)
-	    float k = 2 * radius / lineLength + 1;
-        float m = -radius / lineLength;
+	    half k = 2 * radius / lineLength + 1;
+        half m = -radius / lineLength;
         o.colorBlend = k * side + m;
 	#else
-        float4 colorStart = UNITY_ACCESS_INSTANCED_PROP(Props, _Color);
-        float4 colorEnd = UNITY_ACCESS_INSTANCED_PROP(Props, _ColorEnd); // todo: make the gradient thing be a thing
+        half4 colorStart = PROP(_Color);
+        half4 colorEnd = PROP(_ColorEnd); // todo: make the gradient thing be a thing
 	    o.color = lerp( colorStart, colorEnd, side );
 	#endif
 	
 	// dashes
-	half dashSizeInput = UNITY_ACCESS_INSTANCED_PROP(Props, _DashSize);
-	if( dashSizeInput > 0 ){
-		float dashOffset = UNITY_ACCESS_INSTANCED_PROP(Props, _DashOffset);
-		int dashSpace = UNITY_ACCESS_INSTANCED_PROP(Props, _DashSpace);
-		half size = dashSizeInput * scaleDashes;
-		half spacing = UNITY_ACCESS_INSTANCED_PROP(Props, _DashSpacing) * scaleSpacing;
-		bool snap = UNITY_ACCESS_INSTANCED_PROP(Props, _DashSnap) > 0;
-		half projDist = dot( forward, vertPos - a ); // distance along line
-		o.dashData = GetDashCoordinates( size, spacing, projDist, lineLength, widthData.thicknessMeters, thicknessSpace, widthData.pxPerMeter, dashOffset, dashSpace, snap );
+	if( IsDashed() ) {
+		float projDist = dot( forward, vertPos - a ); // distance along line
+		DashConfig dash = GetDashConfig(uniformScale);
+		DashCoordinates dashCoords = GetDashCoordinates( dash, projDist, lineLength, widthData.thicknessMeters, widthData.pxPerMeter );
+		o.IP_dash_coord = dashCoords.coord;
+		o.IP_dash_spacePerPeriod = dashCoords.spacePerPeriod;
+		o.IP_dash_thicknessPerPeriod = dashCoords.thicknessPerPeriod;
 	}
 
-	o.wPos = vertPos.xyz;
 	o.pos = WorldToClipPos( vertPos.xyz );
+	UNITY_TRANSFER_FOG(o,o.pos);
 	return o;
 }
 
@@ -125,16 +125,20 @@ FRAG_OUTPUT_V4 frag( VertexOutput i ) : SV_Target {
         // interpolation of colors is done here because we need to clamp the color blend value in the frag shader
         // due to that being calculated in the vert shader, but the 0 and 1 crossings are offset from the vert
         // todo: use a proper cylinder mesh with extra verts for 0 and 1 crossings
-        float4 colorStart = UNITY_ACCESS_INSTANCED_PROP(Props, _Color);
-        float4 colorEnd = UNITY_ACCESS_INSTANCED_PROP(Props, _ColorEnd); // todo: make the gradient thing be a thing
-	    float4 shape_color = lerp( colorStart, colorEnd, saturate(i.colorBlend) );
+        half4 colorStart = PROP(_Color);
+        half4 colorEnd = PROP(_ColorEnd); // todo: make the gradient thing be a thing
+	    half4 shape_color = lerp( colorStart, colorEnd, saturate(i.colorBlend) );
     #else
-	    float4 shape_color = i.color;
+	    half4 shape_color = i.color;
     #endif
     
     half shape_mask = 1;
-	ApplyDashMask( /*inout*/ shape_mask, i.dashData, 0, 0 );
+	DashCoordinates dashCoords;
+	dashCoords.coord = i.IP_dash_coord;
+	dashCoords.spacePerPeriod = i.IP_dash_spacePerPeriod;
+	dashCoords.thicknessPerPeriod = i.IP_dash_thicknessPerPeriod;
+	ApplyDashMask( /*inout*/ shape_mask, dashCoords, 0, DASH_TYPE_BASIC, 0 );
 	    
-    shape_mask *= saturate(i.pxCoverage);
-	return ShapesOutput( shape_color, shape_mask );
+    shape_mask *= saturate(i.IP_pxCoverage);
+	return SHAPES_OUTPUT( shape_color, shape_mask, i );
 }

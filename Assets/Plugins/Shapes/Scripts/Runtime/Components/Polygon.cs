@@ -7,11 +7,13 @@ using UnityEngine.Serialization;
 // Website & Documentation - https://acegikmo.com/shapes/
 namespace Shapes {
 
-	[ExecuteInEditMode]
+	/// <summary>A Polygon shape component</summary>
+	[ExecuteAlways]
 	[AddComponentMenu( "Shapes/Polygon" )]
-	public class Polygon : ShapeRendererFillable {
+	public partial class Polygon : ShapeRenderer, IFillable {
 
 		#if UNITY_EDITOR
+		/// <summary>"Please use points instead of PolyPoints - this one is deprecated"</summary>
 		[Obsolete( "Please use " + nameof(points) + " instead - this one is deprecated", error: true )]
 		public List<Vector2> PolyPoints => points;
 		#endif
@@ -28,10 +30,9 @@ namespace Shapes {
 			new Vector2( 0.5f, -0.86602545f )
 		};
 
-		public bool meshOutOfDate = true; // todo: move this to base class?
-
 		// also called alignment
 		[SerializeField] PolygonTriangulation triangulation = PolygonTriangulation.EarClipping;
+		/// <summary>What triangulation mode to use for this polygon</summary>
 		public PolygonTriangulation Triangulation {
 			get => triangulation;
 			set {
@@ -40,7 +41,10 @@ namespace Shapes {
 			}
 		}
 
+		/// <summary>The number of points in this polygon</summary>
 		public int Count => points.Count;
+
+		/// <summary>Get or set a polygon point by index</summary>
 		public Vector2 this[ int i ] {
 			get => points[i];
 			set {
@@ -49,45 +53,68 @@ namespace Shapes {
 			}
 		}
 
+		/// <summary>Set a polygon point position by index</summary>
 		public void SetPointPosition( int index, Vector2 position ) {
 			if( index < 0 || index >= Count ) throw new IndexOutOfRangeException();
 			points[index] = position;
 			meshOutOfDate = true;
 		}
 
+		/// <summary>Sets all points of this polygon to the input points</summary>
 		public void SetPoints( IEnumerable<Vector2> points ) {
 			this.points.Clear();
 			AddPoints( points );
 		}
 
+		/// <summary>Sets all points of this polygon to the input points</summary>
 		public void AddPoints( IEnumerable<Vector2> points ) {
 			this.points.AddRange( points );
 			meshOutOfDate = true;
 		}
 
+		/// <summary>Adds a point to this polygon</summary>
 		public void AddPoint( Vector2 point ) {
 			points.Add( point );
 			meshOutOfDate = true;
 		}
 
-		protected override bool UseCamOnPreCull => true;
+		private protected override bool UseCamOnPreCull => true;
 
-		protected override void CamOnPreCull() {
+		internal override void CamOnPreCull() {
 			if( meshOutOfDate ) {
 				meshOutOfDate = false;
 				UpdateMesh( force: true );
 			}
 		}
 
-		protected override void SetAllMaterialProperties() => SetFillProperties();
+		#if UNITY_EDITOR
+		[ContextMenu( "Reverse Points [DEBUG ONLY]" )]
+		void ReversePoints() {
+			points.Reverse();
+			meshOutOfDate = true;
+		}
 
-		public override bool HasScaleModes => false;
-		protected override Material[] GetMaterials() => new[] { ShapesMaterialUtils.matPolygon[BlendMode] };
-		protected override MeshUpdateMode MeshUpdateMode => MeshUpdateMode.SelfGenerated;
+		[ContextMenu( "Shift Points Forward [DEBUG ONLY]" )]
+		void ShiftForward() {
+			List<Vector2> newPts = new List<Vector2>();
+			newPts.Add( points[points.Count - 1] );
+			for( int i = 0; i < points.Count - 1; i++ )
+				newPts.Add( points[i] );
+			points = newPts;
+			meshOutOfDate = true;
+		}
+		#endif
 
-		protected override void GenerateMesh() => ShapesMeshGen.GenPolygonMesh( Mesh, points, triangulation );
+		private protected override void SetAllMaterialProperties() => SetFillProperties();
 
-		protected override Bounds GetBounds() {
+		internal override bool HasScaleModes => false;
+		internal override bool HasDetailLevels => false;
+		private protected override Material[] GetMaterials() => new[] { ShapesMaterialUtils.matPolygon[BlendMode] };
+		private protected override MeshUpdateMode MeshUpdateMode => MeshUpdateMode.SelfGenerated;
+
+		private protected override void GenerateMesh() => ShapesMeshGen.GenPolygonMesh( Mesh, points, triangulation );
+
+		private protected override Bounds GetBounds_Internal() {
 			if( points.Count < 2 )
 				return default;
 			Vector3 min = Vector3.one * float.MaxValue;

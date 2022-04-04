@@ -1,86 +1,64 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 // Shapes © Freya Holmér - https://twitter.com/FreyaHolmer/
 // Website & Documentation - https://acegikmo.com/shapes/
 namespace Shapes {
 
+
+	[Obsolete( OBSOLETE, true )]
 	public abstract class ShapeRendererFillable : ShapeRenderer {
-		
+
+		const string OBSOLETE = "Shapes now use the IFillable interface instead of inheriting from ShapeRendererFillable";
+
 		// global color fill gradient shenanigans
-		#if UNITY_EDITOR
-		public ShapeFill Fill => fill;
-		#endif
-		[SerializeField] protected ShapeFill fill = new ShapeFill();
-		[SerializeField] protected bool useFill = false;
-		protected int FillTypeShaderInt => useFill ? fill.GetShaderFillModeInt() : ShapeFill.FILL_NONE;
-		public bool UseFill {
+		[Obsolete( OBSOLETE, true )] private protected GradientFill fill = new GradientFill();
+		[Obsolete( OBSOLETE, true )] private protected bool useFill;
+		[Obsolete( OBSOLETE, true )] int FillTypeShaderInt => useFill ? (int)fill.type : GradientFill.FILL_NONE;
+		[Obsolete( OBSOLETE, true )] public bool UseFill {
 			get => useFill;
 			set {
 				useFill = value;
 				SetIntNow( ShapesMaterialUtils.propFillType, FillTypeShaderInt );
 			}
 		}
-		public FillType FillType {
-			get => fill.type;
-			set {
-				fill.type = value;
-				SetIntNow( ShapesMaterialUtils.propFillType, FillTypeShaderInt );
-			}
+		[Obsolete( OBSOLETE, true )] public FillType FillType {
+			get => default;
+			set => _ = value;
 		}
-		public FillSpace FillSpace {
-			get => fill.space;
-			set => SetIntNow( ShapesMaterialUtils.propFillSpace, (int)( fill.space = value ) );
-		}
-		public Vector3 FillRadialOrigin {
-			get => fill.radialOrigin;
-			set {
-				fill.radialOrigin = value;
-				SetVector4Now( ShapesMaterialUtils.propFillStart, fill.GetShaderStartVector() );
-			}
-		}
-		public float FillRadialRadius {
-			get => fill.radialRadius;
-			set {
-				fill.radialRadius = value;
-				SetVector4Now( ShapesMaterialUtils.propFillStart, fill.GetShaderStartVector() );
-			}
-		}
-		public Vector3 FillLinearStart {
-			get => fill.linearStart;
-			set {
-				fill.linearStart = value;
-				SetVector4Now( ShapesMaterialUtils.propFillStart, fill.GetShaderStartVector() );
-			}
-		}
-		public Vector3 FillLinearEnd {
-			get => fill.linearEnd;
-			set => SetVector3Now( ShapesMaterialUtils.propFillEnd, fill.linearEnd = value );
-		}
-		public Color FillColorStart {
-			get => fill.colorStart;
-			set => SetColorNow( ShapesMaterialUtils.propColor, fill.colorStart = value );
-		}
-		public Color FillColorEnd {
-			get => fill.colorEnd;
-			set => SetColorNow( ShapesMaterialUtils.propColorEnd, fill.colorEnd = value );
+		[Obsolete( OBSOLETE, true )] public FillSpace FillSpace {
+			get => default;
+			set => _ = value;
 		}
 
-		protected void SetFillProperties() {
-			if( useFill ) {
-				SetInt( ShapesMaterialUtils.propFillSpace, (int)fill.space );
-				SetVector4( ShapesMaterialUtils.propFillStart, fill.GetShaderStartVector() );
-				SetVector3( ShapesMaterialUtils.propFillEnd, fill.linearEnd );
-				SetColor( ShapesMaterialUtils.propColor, fill.colorStart );
-				SetColor( ShapesMaterialUtils.propColorEnd, fill.colorEnd );
-			}
-
-			SetInt( ShapesMaterialUtils.propFillType, FillTypeShaderInt );
+		[Obsolete( OBSOLETE, true )] public Vector3 FillRadialOrigin {
+			get => default;
+			set => _ = value;
 		}
-		
-		
-		
+		[Obsolete( OBSOLETE, true )] public float FillRadialRadius {
+			get => default;
+			set => _ = value;
+		}
+		[Obsolete( OBSOLETE, true )] public Vector3 FillLinearStart {
+			get => default;
+			set => _ = value;
+		}
+		[Obsolete( OBSOLETE, true )] public Vector3 FillLinearEnd {
+			get => default;
+			set => _ = value;
+		}
+		[Obsolete( OBSOLETE, true )] public Color FillColorStart {
+			get => default;
+			set => _ = value;
+		}
+		[Obsolete( OBSOLETE, true )] public Color FillColorEnd {
+			get => default;
+			set => _ = value;
+		}
+
+		[Obsolete( OBSOLETE, true )] private protected void SetFillProperties() => _ = 0;
+
+
 	}
 
 }

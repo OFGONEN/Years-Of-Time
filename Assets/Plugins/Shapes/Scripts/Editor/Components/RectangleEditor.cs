@@ -17,17 +17,30 @@ namespace Shapes {
 		SerializedProperty propHeight = null;
 		SerializedProperty propPivot = null;
 		SerializedProperty propThickness = null;
+		SerializedProperty propThicknessSpace = null;
+		SerializedProperty propFill = null;
+		SerializedProperty propUseFill = null;
+		SerializedProperty propDashStyle = null;
+		SerializedProperty propDashed = null;
+		SerializedProperty propMatchDashSpacingToSize = null;
 
+		DashStyleEditor dashEditor;
+		SceneFillEditor fillEditor;
 		SceneRectEditor rectEditor;
 
 		public override void OnEnable() {
 			base.OnEnable();
+			dashEditor = DashStyleEditor.GetDashEditor( propDashStyle, propMatchDashSpacingToSize, propDashed );
 			rectEditor = new SceneRectEditor( this );
+			fillEditor = new SceneFillEditor( this, propFill, propUseFill );
 		}
 
 		void OnSceneGUI() {
 			Rectangle rect = target as Rectangle;
 			bool changed = rectEditor.DoSceneHandles( rect );
+			changed |= fillEditor.DoSceneHandles( rect.UseFill, rect, rect.Fill, rect.transform );
+			if( changed )
+				rect.UpdateAllMaterialProperties();
 		}
 
 		public override void OnInspectorGUI() {
@@ -37,7 +50,7 @@ namespace Shapes {
 
 			using( new EditorGUILayout.HorizontalScope() ) {
 				EditorGUILayout.PrefixLabel( "Type" );
-				ShapesUI.DrawTypeSwitchButtons( propType, ShapesAssets.RectTypeButtonContents );
+				ShapesUI.DrawTypeSwitchButtons( propType, UIAssets.RectTypeButtonContents );
 			}
 
 			EditorGUILayout.PropertyField( propPivot );
@@ -49,10 +62,9 @@ namespace Shapes {
 				}
 			}
 
-			bool isHollow = ( (Rectangle)target ).IsHollow;
-			using( new EditorGUI.DisabledScope( !multiEditing && isHollow == false ) ) {
-				EditorGUILayout.PropertyField( propThickness );
-			}
+			bool isBorder = ( (Rectangle)target ).IsBorder;
+			using( new EditorGUI.DisabledScope( !multiEditing && isBorder == false ) )
+				ShapesUI.FloatInSpaceField( propThickness, propThicknessSpace );
 
 			bool hasRadius = ( (Rectangle)target ).IsRounded;
 
@@ -62,6 +74,13 @@ namespace Shapes {
 			}
 
 			rectEditor.GUIEditButton();
+			
+			bool hasDashablesInSelection = targets.Any( x => ( x as Rectangle ).IsBorder );
+			using( new ShapesUI.GroupScope() )
+				using( new EditorGUI.DisabledScope( hasDashablesInSelection == false ) )
+					dashEditor.DrawProperties();
+
+			fillEditor.DrawProperties( this );
 
 			base.EndProperties();
 		}

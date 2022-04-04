@@ -33,7 +33,7 @@ namespace Shapes {
 
 		public override void OnEnable() {
 			base.OnEnable();
-			dashEditor = DashStyleEditor.GetRingDashEditor( propDashStyle, propMatchDashSpacingToSize, propDashed );
+			dashEditor = DashStyleEditor.GetDashEditor( propDashStyle, propMatchDashSpacingToSize, propDashed );
 			discEditor = new SceneDiscEditor( this );
 		}
 
@@ -71,7 +71,7 @@ namespace Shapes {
 
 			using( new EditorGUILayout.HorizontalScope() ) {
 				EditorGUILayout.PrefixLabel( "Type" );
-				ShapesUI.DrawTypeSwitchButtons( propType, ShapesAssets.DiscTypeButtonContents );
+				ShapesUI.DrawTypeSwitchButtons( propType, UIAssets.DiscTypeButtonContents );
 			}
 
 			DiscType selectedType = (DiscType)propType.enumValueIndex;
@@ -88,16 +88,15 @@ namespace Shapes {
 				discEditor.GUIEditButton();
 
 			bool hasDashablesInSelection = targets.Any( x => ( x as Disc ).HasThickness );
-			ShapesUI.BeginGroup();
-			using( new EditorGUI.DisabledScope( hasDashablesInSelection == false ) )
-				dashEditor.DrawProperties();
-			ShapesUI.EndGroup();
+			using( new ShapesUI.GroupScope() )
+				using( new EditorGUI.DisabledScope( hasDashablesInSelection == false ) )
+					dashEditor.DrawProperties();
 
 			base.EndProperties();
 		}
 
 
-		static GUILayoutOption[] angLabelLayout = { GUILayout.Width( 50 ) };
+		public static GUILayoutOption[] angLabelLayout = { GUILayout.Width( 50 ) };
 
 		void DrawAngleProperties( DiscType selectedType ) {
 			using( new EditorGUI.DisabledScope( selectedType.HasSector() == false && serializedObject.isEditingMultipleObjects == false ) ) {

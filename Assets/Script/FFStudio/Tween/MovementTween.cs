@@ -78,7 +78,11 @@ namespace FFStudio
 				startPos = transform.position;
 
 			Color color = new Color( 1.0f, 0.75f, 0.0f );
-			Draw.LineDashed( startPos, startPos + deltaPosition, new DashStyle( 1 ), 0.125f, LineEndCap.None, color );
+
+			Draw.UseDashes = true;
+			Draw.DashStyle = DashStyle.RelativeDashes( DashType.Basic, 1, 1 );
+
+			Draw.Line( startPos, startPos + deltaPosition, 0.125f, LineEndCap.None, color );
 			var direction = deltaPosition.normalized;
 			var deltaMagnitude = deltaPosition.magnitude;
 			var coneLength = 0.2f;

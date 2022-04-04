@@ -13,7 +13,7 @@ namespace Shapes {
 		public override string ToString() => $"\"{key}\" = \"{value}\"";
 	}
 
-	public class ShaderBuilder {
+	internal class ShaderBuilder {
 
 		public string shader;
 
@@ -57,7 +57,16 @@ namespace Shapes {
 					AppendLine( "[Enum(UnityEngine.Rendering.CompareFunction)] _ZTest (\"Z Test\", int) = 4" );
 					AppendLine( "_ZOffsetFactor (\"Z Offset Factor\", Float ) = 0" );
 					AppendLine( "_ZOffsetUnits (\"Z Offset Units\", int ) = 0" );
+
+					AppendLine( "[Enum(UnityEngine.Rendering.CompareFunction)] _StencilComp (\"Stencil Comparison\", int) = 8" );
+					AppendLine( "[Enum(UnityEngine.Rendering.StencilOp)] _StencilOpPass (\"Stencil Operation Pass\", int) = 0" );
+					AppendLine( "_StencilID (\"Stencil ID\", int) = 0" );
+					AppendLine( "_StencilReadMask (\"Stencil Read Mask\", int) = 255" );
+					AppendLine( "_StencilWriteMask (\"Stencil Write Mask\", int) = 255" );
+					if( name == "Texture" )
+						AppendLine( "_MainTex (\"Texture\", 2D) = \"white\" {}" );
 				}
+
 				using( Scope( "SubShader" ) ) {
 					using( Scope( "Tags" ) ) { // subshader tags
 						AppendLines( rp.GetSubshaderTags() );
@@ -83,6 +92,14 @@ namespace Shapes {
 					AppendLine( "Tags { " + (ShaderTag)( "LightMode", lightMode ) + " }" );
 				}
 
+				using( Scope( "Stencil" ) ) {
+					AppendLine( "Comp [_StencilComp]" );
+					AppendLine( "Pass [_StencilOpPass]" );
+					AppendLine( "Ref [_StencilID]" );
+					AppendLine( "ReadMask [_StencilReadMask]" );
+					AppendLine( "WriteMask [_StencilWriteMask]" );
+				}
+
 				// culling/blend mode
 				if( pass == ShaderPassType.Render )
 					AppendLines( blendMode.GetPassRenderStates() );
@@ -100,6 +117,7 @@ namespace Shapes {
 			indentLevel++;
 			AppendLine( "#pragma vertex vert" );
 			AppendLine( "#pragma fragment frag" );
+			AppendLine( "#pragma multi_compile_fog" );
 			AppendLine( "#pragma multi_compile_instancing" );
 			if( rp != RenderPipeline.Legacy ) {
 				AppendLine( "#pragma prefer_hlslcc gles" );

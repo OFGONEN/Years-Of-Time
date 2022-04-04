@@ -111,7 +111,7 @@ public class ProtoTexture : ScriptableObject
             }
 
             if ((_texture != null) && ((_texture.width != size.x) || (_texture.height != size.y)))
-                _texture.Resize(size.x, size.y, TextureFormat.ARGB32, true);
+                _texture.Reinitialize(size.x, size.y, TextureFormat.ARGB32, true);
 
             RenderTexture rt = RenderTexture.GetTemporary(size.x, size.y, 32, RenderTextureFormat.ARGB32);
             rt.Create();

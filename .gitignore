@@ -75,3 +75,4 @@ desktop.ini
 
 Assets/Editor/PlayModeUtilitySettings.asset
 Assets/Editor/PlayModeUtilitySettings.asset.meta
+*.dwlt

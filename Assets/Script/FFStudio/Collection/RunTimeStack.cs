@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
-	public abstract class RunTimeStack< T > : ScriptableObject
+	public abstract class RuntimeStack< T > : ScriptableObject
 	{
 #region Fields
 		public int stackSize;

@@ -6,7 +6,7 @@ using FFStudio;
 
 namespace FFStudio
 {
-	public abstract class RunTimePool< T > : RunTimeStack< T >
+	public abstract class RuntimePool< T > : RuntimeStack< T >
 	{
 #region Fields
         public T poolEntity;

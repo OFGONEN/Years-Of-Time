@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
-	public abstract class ComponentPool< T > : RunTimeStack< T > where T: Component
+	public abstract class ComponentPool< T > : RuntimeStack< T > where T: Component
 	{
 #region Fields
 		[ AssetSelector ] public T pool_entity;

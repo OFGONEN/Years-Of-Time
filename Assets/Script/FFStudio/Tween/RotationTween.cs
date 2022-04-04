@@ -1,7 +1,6 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
-using UnityEngine.Events;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -9,7 +8,7 @@ using Shapes;
 
 namespace FFStudio
 {
-    public class RotationTween : MonoBehaviour
+    public class RotationTween : BaseTween
     {
         public enum RotationMode { Local, World }
         
@@ -19,25 +18,9 @@ namespace FFStudio
         [ SuffixLabel( "Degrees/Seconds (°/s)" ), Min( 0 ) ] public float angularSpeedInDegrees;
         public RotationMode rotationMode;
         [ ValueDropdown( "VectorValues" ), LabelText( "Rotate Around" ) ] public Vector3 rotationAxisMaskVector = Vector3.right;
-        
-    [ Title( "Start Options" ) ]
-        public bool playOnStart;
-		public bool hasDelay;
-        [ ShowIf( "hasDelay" ) ] public float delayAmount;
-        
-    [ Title( "Tween" ) ]
-        [ DisableIf( "IsPlaying" ) ] public bool loop;
-        [ ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
-        public Ease easing = Ease.Linear;
-        
-    [ Title( "Event Flow" ) ]
-        [ SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
-        [ SerializeField ] private GameEvent[] events_fireOnComplete;
-        [ SerializeField ] private UnityEvent unityEvents_FireOnComplete;
 #endregion
 
 #region Fields (Private)
-		private RecycledTween recycledTween = new RecycledTween();
         private float Duration => Mathf.Abs( deltaAngle / angularSpeedInDegrees );
 
         private IEnumerable VectorValues = new ValueDropdownList< Vector3 >()
@@ -49,105 +32,24 @@ namespace FFStudio
 #endregion
 
 #region Properties
-        [ field: SerializeField, ReadOnly ]
-        public bool IsPlaying { get; private set; }
-        
-        public Tween Tween => recycledTween.Tween;
 #endregion
 
 #region Unity API
-        private void OnEnable()
+        protected override void Awake()
         {
-            triggeringEvents.OnEnable();
-        }
-        
-        private void OnDisable()
-        {
-            triggeringEvents.OnDisable();
-        }
-        
-        private void Awake()
-        {
-            triggeringEvents.response = EventResponse;
+			base.Awake();
 
-			IsPlaying = false;
+#if UNITY_EDITOR
+			SetGizmoStartAndEndValues();
+#endif
 		}
-
-        private void Start()
-        {
-            if( !enabled )
-                return;
-
-            if( playOnStart )
-            {
-                if( hasDelay )
-					DOVirtual.DelayedCall( delayAmount, Play );
-                else
-					Play();
-			}
-        }
-        
-        private void OnDestroy()
-        {
-            KillTween();
-        }
 #endregion
 
 #region API
-        [ Button() ]
-        public void Play()
-        {
-            if( recycledTween.Tween == null )
-                CreateAndStartTween();
-            else
-                recycledTween.Tween.Play();
-
-            IsPlaying = true;
-        }
-        
-        [ Button(), EnableIf( "IsPlaying" ) ]
-        public void Pause()
-        {
-            if( recycledTween.Tween == null )
-                return;
-
-            recycledTween.Tween.Pause();
-
-            IsPlaying = false;
-        }
-        
-        [ Button(), EnableIf( "IsPlaying" ) ]
-        public void Stop()
-        {
-            if( recycledTween.Tween == null )
-                return;
-                
-            recycledTween.Tween.Rewind();
-
-            IsPlaying = false;
-        }
-        
-        [ Button(), EnableIf( "IsPlaying" ) ]
-        public void Restart()
-        {
-            if( recycledTween.Tween == null )
-                Play();
-            else
-            {
-                recycledTween.Tween.Restart();
-
-                IsPlaying = true;
-            }
-        }
 #endregion
 
 #region Implementation
-        private void EventResponse()
-		{
-			DOVirtual.DelayedCall( delayAmount, Play );
-		}
-
-        private void CreateAndStartTween()
+        protected override void CreateAndStartTween( bool isReversed = false )
         {
 			if( rotationMode == RotationMode.Local )
 				recycledTween.Recycle( transform.DOLocalRotate( rotationAxisMaskVector * deltaAngle, Duration, RotateMode.LocalAxisAdd ), OnTweenComplete );
@@ -162,23 +64,6 @@ namespace FFStudio
 			recycledTween.Tween.SetId( name + "_ff_rotation_tween" );
 #endif
 		}
-
-        private void OnTweenComplete()
-        {
-			IsPlaying = false;
-
-            for( var i = 0; i < events_fireOnComplete.Length; i++ )
-				events_fireOnComplete[ i ].Raise();
-
-			unityEvents_FireOnComplete.Invoke();
-		}
-
-        private void KillTween()
-        {
-            IsPlaying = false;
-
-			recycledTween.Kill();
-		}
 #endregion
 
 #region EditorOnly
@@ -192,38 +77,42 @@ namespace FFStudio
         {
 			renderer_editor = GetComponentInChildren< Renderer >();
         }
+        
+        private void SetGizmoStartAndEndValues()
+        {
+			var deltaAngle_radians = Mathf.Deg2Rad * deltaAngle;
+
+			currentStartAngle_editor = Vector3.Dot( transform.rotation.eulerAngles, rotationAxisMaskVector ) * Mathf.Deg2Rad;
+			currentEndAngle_editor = currentStartAngle_editor + deltaAngle_radians;
+
+			var startToEndRotation = Quaternion.AngleAxis( deltaAngle, rotationAxisMaskVector );
+
+			if( rotationAxisMaskVector == Vector3.right )
+				currentStartVector_editor = -transform.forward;
+			else if( rotationAxisMaskVector == Vector3.up )
+				currentStartVector_editor = transform.right;
+			else if( rotationAxisMaskVector == Vector3.forward )
+				currentStartVector_editor = transform.right;
+			else
+				return;
+
+			currentEndVector_editor = startToEndRotation * currentStartVector_editor;
+        }
 
 		private void OnDrawGizmos()
 		{
-			var deltaAngle_radians = Mathf.Deg2Rad * deltaAngle;
 			var radius = 1.0f;
 
-			if( renderer_editor )
-			{
-				Vector3 rotationPlaneExtents = Vector3.Scale( renderer_editor.bounds.extents, Vector3.one - rotationAxisMaskVector );
-				radius = rotationPlaneExtents.magnitude * 1.5f;
-			}
+			// if( renderer_editor )
+			// {
+			// 	Vector3 rotationPlaneExtents = Vector3.Scale( renderer_editor.bounds.extents, Vector3.one - rotationAxisMaskVector );
+			// 	radius = rotationPlaneExtents.magnitude * 1.5f;
+			// }
 
 			if( Application.isPlaying == false || IsPlaying == false )
-            {
-				currentStartAngle_editor = Vector3.Dot( transform.rotation.eulerAngles, rotationAxisMaskVector ) * Mathf.Deg2Rad;
-				currentEndAngle_editor   = currentStartAngle_editor + deltaAngle_radians;
-
-				var startToEndRotation = Quaternion.AngleAxis( deltaAngle, rotationAxisMaskVector );
-
-				if( rotationAxisMaskVector == Vector3.right )
-					currentStartVector_editor = -transform.forward;
-				else if( rotationAxisMaskVector == Vector3.up )
-					currentStartVector_editor = transform.right;
-				else if( rotationAxisMaskVector == Vector3.forward )
-					currentStartVector_editor = transform.right;
-				else
-					return;
-
-				currentEndVector_editor = startToEndRotation * currentStartVector_editor;
-			}
-            else
-            {
+				SetGizmoStartAndEndValues();
+			else
+			{
 				if( rotationAxisMaskVector == Vector3.right )
 					Draw.Sphere( transform.position - transform.forward * radius, 0.1f, Color.green );
 				else if( rotationAxisMaskVector == Vector3.up )

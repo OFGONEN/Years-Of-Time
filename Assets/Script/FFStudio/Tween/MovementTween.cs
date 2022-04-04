@@ -8,161 +8,44 @@ using Shapes;
 
 namespace FFStudio
 {
-	public class MovementTween : MonoBehaviour
+	public class MovementTween : BaseTween
 	{
 		public enum MovementMode { Local, World }
-		
-#region Fields (Inspector Interface)
 
+#region Fields (Inspector Interface)
 	[ Title( "Parameters" ) ]
 		public Vector3 deltaPosition;
 		public float velocity;
 		public MovementMode movementMode;
-
-	[ Title( "Start Options" ) ]
-		public bool playOnStart;
-		public bool hasDelay;
-        [ ShowIf( "hasDelay" ) ] public float delayAmount;
-		
-	[ Title( "Tween" ) ]
-		[ DisableIf( "IsPlaying" ) ] public bool loop;
-        [ ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
-		public Ease easing = Ease.Linear;
-		
-	[ Title( "Event Flow" ) ]
-		[ SerializeField ] private MultipleEventListenerDelegateResponse triggeringEvents;
-		public GameEvent[] events_firedOnComplete;
-		public UnityEvent unityEvents_firedOnComplete;
-		public bool hasDelay_beforeEvents;
-		[ ShowIf( "hasDelay_beforeEvents" ) ] public float delayAmount_beforeEvents;
 #endregion
 
 #region Fields (Private)
-		private RecycledTween recycledTween = new RecycledTween();
 		private float Duration => Mathf.Abs( deltaPosition.magnitude / velocity );
 		
 		private Vector3 startPosition;
 		private Vector3 targetPosition;
 #endregion
 
-#region Properties (Public)
-        [ field: SerializeField, ReadOnly ]
-        public bool IsPlaying { get; private set; }
-		
-		public Tween Tween => recycledTween.Tween;
+#region Properties
 #endregion
 
 #region Unity API
-		private void OnEnable()
+		protected override void Awake()
 		{
-			triggeringEvents.OnEnable();
-		}
-		
-		private void OnDisable()
-		{
-			triggeringEvents.OnDisable();
-		}
-
-		private void Awake()
-		{
-			triggeringEvents.response = EventResponse;
+			base.Awake();
 
 			if( movementMode == MovementMode.Local )
 				startPosition = transform.localPosition;
 			else
 				startPosition = transform.position;
 		}
-		
-        private void Start()
-        {
-            if( !enabled )
-                return;
-
-            if( playOnStart )
-            {
-                if( hasDelay )
-					DOVirtual.DelayedCall( delayAmount, Play );
-                else
-					Play();
-			}
-        }
-        
-        private void OnDestroy()
-        {
-            KillTween();
-        }
-
 #endregion
 
 #region API
-		[ Button() ]
-		public void Play()
-		{
-			if( recycledTween.Tween == null )
-				CreateAndStartTween();
-			else
-				recycledTween.Tween.Play();
-
-			IsPlaying = true;
-		}
-		
-		[ Button() ]
-		public void PlayBackwards()
-		{
-			if( recycledTween.Tween == null )
-				CreateAndStartTween( true /* reversed. */ );
-			else
-				recycledTween.Tween.Play();
-
-			IsPlaying = true;
-		}
-
-		[ Button(), EnableIf( "IsPlaying" ) ]
-		public void Pause()
-		{
-			if( recycledTween.Tween == null )
-				return;
-
-			recycledTween.Tween.Pause();
-
-			IsPlaying = false;
-		}
-
-		[ Button(), EnableIf( "IsPlaying" ) ]
-		public void Stop()
-		{
-			if( recycledTween.Tween == null )
-				return;
-
-			recycledTween.Tween.Rewind();
-
-			IsPlaying = false;
-		}
-
-		[ Button(), EnableIf( "IsPlaying" ) ]
-		public void Restart()
-		{
-			if( recycledTween.Tween == null )
-				Play();
-			else
-			{
-				recycledTween.Tween.Restart();
-
-				IsPlaying = true;
-			}
-		}
 #endregion
 
 #region Implementation
-		private void EventResponse()
-		{
-			if( hasDelay_beforeEvents )
-				DOVirtual.DelayedCall( delayAmount, Play );
-			else
-				Play();
-		}
-
-		private void CreateAndStartTween( bool isReversed = false )
+		protected override void CreateAndStartTween( bool isReversed = false )
 		{
 			if( movementMode == MovementMode.Local )
 				recycledTween.Recycle( transform.DOLocalMove( isReversed ? -deltaPosition : deltaPosition, Duration ), OnTweenComplete );
@@ -177,23 +60,6 @@ namespace FFStudio
 #if UNITY_EDITOR
 			recycledTween.Tween.SetId( name + "_ff_movement_tween" );
 #endif
-		}
-		
-        private void OnTweenComplete()
-        {
-			IsPlaying = false;
-
-            for( var i = 0; i < events_firedOnComplete.Length; i++ )
-				events_firedOnComplete[ i ].Raise();
-
-			unityEvents_firedOnComplete.Invoke();
-		}
-
-		private void KillTween()
-		{
-			IsPlaying = false;
-
-			recycledTween.Kill();
 		}
 #endregion
 

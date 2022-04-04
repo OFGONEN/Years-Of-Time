@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
@@ -9,6 +10,8 @@ namespace FFStudio
 	{
 #region Fields
 		public int stackSize;
+		
+		[ ShowInInspector ]
 		protected Stack< T > stack;
 
         public Stack< T > Stack

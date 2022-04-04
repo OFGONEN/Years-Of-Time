@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	[ CreateAssetMenu( fileName = "notifier_", menuName = "FF/Data/Shared/Notifier/Vector3" ) ]
+	[ CreateAssetMenu( fileName = "notif_", menuName = "FF/Data/Shared/Notifier/Vector3" ) ]
 	public class SharedVector3Notifier : SharedDataNotifier< Vector3 >
 	{
 	}

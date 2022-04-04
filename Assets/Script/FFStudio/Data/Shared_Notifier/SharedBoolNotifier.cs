@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	[ CreateAssetMenu( fileName = "notifier_", menuName = "FF/Data/Shared/Notifier/Boolean" ) ]
+	[ CreateAssetMenu( fileName = "notif_", menuName = "FF/Data/Shared/Notifier/Boolean" ) ]
 	public class SharedBoolNotifier : SharedDataNotifier< bool >
 	{
 	}

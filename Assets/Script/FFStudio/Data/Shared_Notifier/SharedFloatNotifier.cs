@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	[ CreateAssetMenu( fileName = "notifier_", menuName = "FF/Data/Shared/Notifier/Float" ) ]
+	[ CreateAssetMenu( fileName = "notif_", menuName = "FF/Data/Shared/Notifier/Float" ) ]
 	public class SharedFloatNotifier : SharedDataNotifier< float >
 	{
 	}

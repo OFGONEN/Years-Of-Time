@@ -14,22 +14,28 @@ namespace FFEditor
 		static readonly string prefix_envr = "envr";
 		static readonly string prefix_gnrc = "gnrc";
 		static readonly string prefix_char = "char";
-		static readonly string prefix_anim = "anim";
+		static readonly string suffix_skey = "skey";
+		static readonly string infix_skey  = "_skey_";
 
 		void OnPreprocessModel()
 		{
-			var modelPrefix = GetModelPrefix();
-			
+			var  modelPrefix  = GetModelPrefix();
+			var  modelSuffix  = GetModelSuffix();
+			bool hasShapeKey  = HasInfix( infix_skey ) || modelSuffix == suffix_skey;
+
 			if( ShouldProcess( modelPrefix ) == false )
 				return;
 
 			var modelImporter = assetImporter as ModelImporter;
 
 			/* Model Tab. */
-			modelImporter.importBlendShapes = false;
-			modelImporter.importVisibility = false;
-			modelImporter.importCameras = false;
-			modelImporter.importLights = false;
+			modelImporter.importVisibility  = false;
+			modelImporter.importCameras     = false;
+			modelImporter.importLights      = false;
+			modelImporter.importBlendShapes = hasShapeKey;
+			
+			if( hasShapeKey ) // Recalculation of the normals causes the lighting to be wrong.
+				modelImporter.importBlendShapeNormals = ModelImporterNormals.None;
 
 			/* Rig Tab. */
 			if( modelPrefix == prefix_prop || modelPrefix == prefix_envr )
@@ -40,7 +46,7 @@ namespace FFEditor
 				modelImporter.animationType = ModelImporterAnimationType.Generic;
 
 			/* Animation Tab. */
-            modelImporter.importAnimation = modelPrefix == prefix_char || modelPrefix == prefix_anim ;
+			modelImporter.importAnimation = modelPrefix == prefix_char || modelPrefix == prefix_gnrc;
 
 			AssetDatabase.ImportAsset( assetPath );
 		}
@@ -92,6 +98,19 @@ namespace FFEditor
 			var modelNameOnly = assetPath.Split( '/' ).Last();
 			var modelPrefix = modelNameOnly.Split( '_' ).First();
 			return modelPrefix;
+		}
+
+		string GetModelSuffix()
+		{
+			var modelNameOnly = assetPath.Split( '/' ).Last();
+			var modelSuffix = modelNameOnly.Split( '_' ).Last().Split( '.' ).First(); // Also remove extension.
+			return modelSuffix;
+		}
+		
+		bool HasInfix( string infix )
+		{
+			var modelNameOnly = assetPath.Split( '/' ).Last();
+			return modelNameOnly.Contains( infix );
 		}
 	}
 }

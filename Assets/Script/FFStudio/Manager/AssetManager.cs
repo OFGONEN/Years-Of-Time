@@ -1,5 +1,6 @@
 /* Created by and for usage of FF Studios (2021). */
 using UnityEngine;
+using UnityEngine.Events;
 using Sirenix.OdinInspector;
 
 namespace FFStudio
@@ -9,18 +10,35 @@ namespace FFStudio
 	public class AssetManager : MonoBehaviour
 	{
 #region Fields
+	[ Title( "UnityEvent" ) ]
+	[ SerializeField ] UnityEvent onAwakeEvent;
+	[ SerializeField ] UnityEvent onEnableEvent;
+	[ SerializeField ] UnityEvent onStartEvent;
+
 	[ Title( "Setup" ) ]
-		public GameSettings gameSettings;
-		public CurrentLevelData currentLevelData;
+		[ SerializeField ] GameSettings gameSettings;
+		[ SerializeField ] CurrentLevelData currentLevelData;
 
 	[ Title( "Pool" ) ]
-		public Pool_UIPopUpText pool_UIPopUpText;
+		[SerializeField ] Pool_UIPopUpText pool_UIPopUpText;
 #endregion
 
 #region Implementation
+		private void OnEnable()
+		{
+			onEnableEvent.Invoke();
+		}
+
 		private void Awake()
 		{
 			pool_UIPopUpText.InitPool( transform, false );
+
+			onAwakeEvent.Invoke();
+		}
+
+		private void Start()
+		{
+			onStartEvent.Invoke();
 		}
 #endregion
 	}

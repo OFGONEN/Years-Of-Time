@@ -374,6 +374,48 @@ namespace FFStudio
 		{
 			return array[ Random.Range( 0, array.Length ) ];
 		}
+
+				public static float ReturnRandom( this Vector2 vector )
+		{
+			return Random.Range( vector.x, vector.y );
+		}
+
+		public static float ReturnProgress( this Vector2 vector, float progress )
+		{
+			return Mathf.Lerp( vector.x, vector.y, progress );
+		}
+
+		public static float ReturnProgressInverse( this Vector2 vector, float progress )
+		{
+			return Mathf.Lerp( vector.y, vector.x, progress );
+		}
+
+		public static void DestoryAllChildren( this Transform transform )
+		{
+			var childCount = transform.childCount;
+			var childs = new List< Transform >( transform.childCount );
+
+			for( var i = 0; i < childCount; i++ )
+			{
+				childs.Add( transform.GetChild( i ) );
+			}
+			
+			for( var i = 0; i < childCount; i++ )
+			{
+				GameObject.DestroyImmediate( childs[ i ].gameObject );
+			}
+		}
+
+		public static void ToggleKinematic( this Rigidbody rb, bool value )
+		{
+			rb.isKinematic = value;
+			rb.useGravity  = !value;
+		}
+
+		public static float ReturnClamped( this Vector2 vector, float value )
+		{
+			return Mathf.Clamp( value, vector.x, vector.y );
+		}
 	}
 }
 

@@ -73,6 +73,26 @@ namespace FFStudio
             levelLoadedResponse.response = NewLevelLoaded;
         }
 
+        private void NewLevelLoaded()
+        {
+			level_count_text.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
+
+			level_information_text.text = "Tap to Start";
+
+			var sequence = DOTween.Sequence();
+
+			// Tween tween = null;
+
+			sequence.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
+					// .Append( tween ) // TODO: UIElements tween.
+					.Append( level_information_text_Scale.DoScale_Start( GameSettings.Instance.ui_Entity_Scale_TweenDuration ) )
+					.AppendCallback( () => tapInputListener.response = StartLevel );
+
+            // elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
+            // elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
+            // elephantLevelEvent.Raise();
+        }
+
         private void LevelCompleteResponse()
         {
             var sequence = DOTween.Sequence();
@@ -108,25 +128,7 @@ namespace FFStudio
             elephantLevelEvent.Raise();
         }
 
-        private void NewLevelLoaded()
-        {
-			level_count_text.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
 
-			level_information_text.text = "Tap to Start";
-
-			var sequence = DOTween.Sequence();
-
-			// Tween tween = null;
-
-			sequence.Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
-					// .Append( tween ) // TODO: UIElements tween.
-					.Append( level_information_text_Scale.DoScale_Start( GameSettings.Instance.ui_Entity_Scale_TweenDuration ) )
-					.AppendCallback( () => tapInputListener.response = StartLevel );
-
-            // elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
-            // elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
-            // elephantLevelEvent.Raise();
-        }
 
 		private void StartLevel()
 		{
@@ -164,10 +166,6 @@ namespace FFStudio
 			sequence.Append( foreGroundImage.DOFade( 1f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
 			        .Join( level_information_text_Scale.DoScale_Target( Vector3.zero, GameSettings.Instance.ui_Entity_Scale_TweenDuration ) )
 			        .AppendCallback( resetLevelEvent.Raise );
-
-			elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
-			elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
-			elephantLevelEvent.Raise();
 		}
 #endregion
     }

@@ -10,52 +10,46 @@ namespace FFStudio
 	public class AppManager : MonoBehaviour
 	{
 #region Fields
-	[ Title( "Event Listeners" ) ]
-		public EventListenerDelegateResponse loadNewLevelListener;
-		public EventListenerDelegateResponse resetLevelListener;
-
 	[ Title( "Fired Events" ) ]
-		public GameEvent levelLoaded;
+		public GameEvent event_level_loaded;
+		public GameEvent event_level_unload_start;
+		public GameEvent event_level_unload_end;
 		public SharedFloatNotifier levelProgress;
 #endregion
 
 #region Unity API
-		private void OnEnable()
-		{
-			loadNewLevelListener.OnEnable();
-			resetLevelListener.OnEnable();
-		}
-		
-		private void OnDisable()
-		{
-			loadNewLevelListener.OnDisable();
-			resetLevelListener.OnDisable();
-		}
-		
-		private void Awake()
-		{
-			loadNewLevelListener.response = LoadNewLevel;
-			resetLevelListener.response   = ResetLevel;
-		}
-
 		private void Start()
 		{
-			StartCoroutine( LoadLevel() );
+			StartCoroutine( LoadLevel( null ) );
 		}
 #endregion
 
 #region API
+		public void ResetLevel()
+		{
+			event_level_unload_start.Raise();
+			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.scene_index );
+			operation.completed += ( AsyncOperation operation ) => StartCoroutine( LoadLevel( event_level_unload_end.Raise ) );
+		}
+
+		public void LoadNewLevel()
+		{
+			CurrentLevelData.Instance.currentLevel_Real++;
+			CurrentLevelData.Instance.currentLevel_Shown++;
+			PlayerPrefs.SetInt( "Level", CurrentLevelData.Instance.currentLevel_Real );
+			PlayerPrefs.SetInt( "Consecutive Level", CurrentLevelData.Instance.currentLevel_Shown );
+
+			event_level_unload_start.Raise();
+			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.scene_index );
+			operation.completed += ( AsyncOperation operation ) => StartCoroutine( LoadLevel( event_level_unload_end.Raise ) );
+		}
 #endregion
 
 #region Implementation
-		private void ResetLevel()
+		private IEnumerator LoadLevel( UnityMessage onLevelUnload )
 		{
-			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.scene_index );
-			operation.completed += ( AsyncOperation operation ) => StartCoroutine( LoadLevel() );
-		}
-		
-		private IEnumerator LoadLevel()
-		{
+			onLevelUnload?.Invoke();
+
 			CurrentLevelData.Instance.currentLevel_Real = PlayerPrefs.GetInt( "Level", 1 );
 			CurrentLevelData.Instance.currentLevel_Shown = PlayerPrefs.GetInt( "Consecutive Level", 1 );
 
@@ -73,18 +67,7 @@ namespace FFStudio
 				levelProgress.SharedValue = operation.progress;
 			}
 
-			levelLoaded.Raise();
-		}
-		
-		private void LoadNewLevel()
-		{
-			CurrentLevelData.Instance.currentLevel_Real++;
-			CurrentLevelData.Instance.currentLevel_Shown++;
-			PlayerPrefs.SetInt( "Level", CurrentLevelData.Instance.currentLevel_Real );
-			PlayerPrefs.SetInt( "Consecutive Level", CurrentLevelData.Instance.currentLevel_Shown );
-
-			var operation = SceneManager.UnloadSceneAsync( CurrentLevelData.Instance.levelData.scene_index );
-			operation.completed += ( AsyncOperation operation ) => StartCoroutine( LoadLevel() );
+			event_level_loaded.Raise();
 		}
 #endregion
 	}

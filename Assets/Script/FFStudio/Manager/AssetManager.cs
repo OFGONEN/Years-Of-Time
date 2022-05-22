@@ -20,10 +20,10 @@ namespace FFStudio
 		[ SerializeField ] CurrentLevelData currentLevelData;
 
 	[ Title( "Pool" ) ]
-		[SerializeField ] Pool_UIPopUpText pool_UIPopUpText;
+		[ SerializeField ] Pool_UIPopUpText pool_UIPopUpText;
 #endregion
 
-#region Implementation
+#region UnityAPI
 		private void OnEnable()
 		{
 			onEnableEvent.Invoke();
@@ -31,8 +31,9 @@ namespace FFStudio
 
 		private void Awake()
 		{
-			pool_UIPopUpText.InitPool( transform, false );
+			Vibration.Init();
 
+			pool_UIPopUpText.InitPool( transform, false );
 			onAwakeEvent.Invoke();
 		}
 
@@ -40,6 +41,32 @@ namespace FFStudio
 		{
 			onStartEvent.Invoke();
 		}
+#endregion
+
+
+
+#region API
+		public void VibrateAPI( IntGameEvent vibrateEvent )
+		{
+			switch ( vibrateEvent.eventValue )
+			{
+				case 0:
+					Vibration.VibratePeek();
+					break;
+				case 1:
+					Vibration.VibratePop();
+					break;
+				case 2:
+					Vibration.VibrateNope();
+					break;
+				default:
+					Vibration.Vibrate();
+					break;
+			}
+		}
+#endregion
+
+#region Implementation
 #endregion
 	}
 }

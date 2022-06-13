@@ -32,12 +32,27 @@ namespace FFEditor
 			Debug.Log( "ScreenShot Taken: " + "ScreenShot_" + counter + ".png" );
 		}
 		
-		[ MenuItem( "FFShortcut/Select PlayerPrefsTracker _F8" ) ]
+		[ MenuItem( "FFShortcut/Select PlayerPrefsTracker _F7" ) ]
 		static private void SelectPlayerPrefsTracker()
 		{
 			var tracker = AssetDatabase.LoadAssetAtPath( path_playerPrefsTracker, typeof( ScriptableObject ) );
 			( tracker as PlayerPrefsTracker ).Refresh();
 			Selection.SetActiveObjectWithContext( tracker, tracker );
+		}
+
+		[MenuItem( "FFShortcut/Delete Save File _F8" )]
+		static void DeleteSaveFile()
+		{
+			if( File.Exists( ExtensionMethods.SAVE_PATH + "save.txt" ) )
+			{
+				FFStudio.FFLogger.Log( "SaveSystem: Found save file. Deleting it." );
+				File.Delete( ExtensionMethods.SAVE_PATH + "save.txt" );
+			}
+
+			if( File.Exists( ExtensionMethods.SAVE_PATH + "save.txt" ) )
+				FFStudio.FFLogger.LogError( "SaveSystem: Failed to delete save file." );
+			else
+				FFStudio.FFLogger.Log( "SaveSystem: Successfully deleted save file." );
 		}
 
 		[ MenuItem( "FFShortcut/Delete PlayerPrefs _F9" ) ]

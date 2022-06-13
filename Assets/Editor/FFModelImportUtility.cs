@@ -6,6 +6,32 @@ using UnityEditor;
 
 namespace FFEditor
 {
+	/*
+	
+	[ Example File Name ]		[ Has Model ] [ Rigged ? ] [ Has Animation ] [ Has Shape Key(s) ]
+	envr_tree.fbx 						✔			✖				✖				✖
+	prop_ball.fbx 						✔			✖				✖				✖
+	prop_ball_skey.fbx 					✔			✖				✖				✔(1)			(This is just for information, do not use it.)
+	gnrc_ball.fbx						✔			✔(2)			✖				✖
+	gnrc_ball_skey.fbx					✔			❔(3)			✖				✔	
+	gnrc_ball_skey_anim.fbx 			✔			✔				✔				✔	
+	char_martha.fbx 					✔			✔			T-Pose				✖	
+	char_martha_skey.fbx 				✔			✔			T-Pose				✔	
+	char_walking.fbx 					✖			✔				✔				✖
+	
+	✔(1) (prop_ball_skey.fbx):
+	Because prefix is not gnrc or char, shape keys can not be used, as the rig will be set to None, thus the model will be rendered by a Mesh Renderer.
+	Shape keys can still be utilized though, if the mesh is placed on a Skinned Mesh Renderer manually.
+
+	✔(2) (gnrc_ball.fbx):
+	Has rig but no animation, this may be due to the fact that the animation will come from outside the model file,
+	For example, the animation may be recorded in Unity.
+
+	❔(3) (gnrc_ball_skey.fbx):
+	May or may not have rig; We still NEED to set rig to Generic in order to utilize shape keys.
+
+	*/
+
 	public class FFModelImportUtility : AssetPostprocessor
 	{
 		public Material defaultMaterial;
@@ -14,6 +40,7 @@ namespace FFEditor
 		static readonly string prefix_envr = "envr";
 		static readonly string prefix_gnrc = "gnrc";
 		static readonly string prefix_char = "char";
+		static readonly string suffix_anim = "anim";
 		static readonly string suffix_skey = "skey";
 		static readonly string infix_skey  = "_skey_";
 
@@ -46,7 +73,8 @@ namespace FFEditor
 				modelImporter.animationType = ModelImporterAnimationType.Generic;
 
 			/* Animation Tab. */
-			modelImporter.importAnimation = modelPrefix == prefix_char || modelPrefix == prefix_gnrc;
+			modelImporter.importAnimation = modelPrefix == prefix_char || 
+											( modelPrefix == prefix_gnrc && modelSuffix == suffix_anim );
 
 			AssetDatabase.ImportAsset( assetPath );
 		}

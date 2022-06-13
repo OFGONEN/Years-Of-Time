@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	[ CreateAssetMenu( fileName = "notif_", menuName = "FF/Data/Shared/Notifier/StringNotifier" ) ]
+	[ CreateAssetMenu( fileName = "notif_", menuName = "FF/Data/Shared/Notifier/String" ) ]
 	public class SharedStringNotifier : SharedDataNotifier< string >
 	{
 	}

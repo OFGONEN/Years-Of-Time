@@ -25,16 +25,16 @@ namespace FFStudio
 #endregion
 
 #region API
-		public void Initiliaze()
+		public void Initialize()
 		{
-			instance  = this;
+			instance = this;
 
-			// Create folder
+			// Create folder.
 			if( Directory.Exists( ExtensionMethods.SAVE_PATH ) == false )
 				Directory.CreateDirectory( ExtensionMethods.SAVE_PATH );
 		}
 
-		public void SaveOverrideWithSharedString()
+		public void SaveOverride_WithSharedString()
 		{
 			File.WriteAllText( ExtensionMethods.SAVE_PATH + "save.txt", save_string.sharedValue );
 			FFStudio.FFLogger.Log( "Savemanager: Saved Succesfully. Data saved: " + save_string.sharedValue );
@@ -57,7 +57,7 @@ namespace FFStudio
 			return json;
 		}
 
-		public void LoadSaveToSharedString()
+		public void LoadSave_ToSharedString()
 		{
 			if( File.Exists( ExtensionMethods.SAVE_PATH + "save.txt" ) == false )
 				return;

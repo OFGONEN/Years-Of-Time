@@ -47,7 +47,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onAwakeEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 07c56239588814c1996e673febff6634, type: 2}
+        m_TargetAssemblyTypeName: FFStudio.SaveSystem, Assembly-CSharp
+        m_MethodName: Initiliaze
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onEnableEvent:
     m_PersistentCalls:
       m_Calls: []

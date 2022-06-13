@@ -78,7 +78,7 @@ namespace FFEditor
 			AssetDatabase.SaveAssets();
 		}
 
-		[ MenuItem( "FFStudios/Sort Folder _F7" ) ]
+		[ MenuItem( "FFStudios/Sort Folder _F5" ) ]
 		private static void SortFolder()
 		{
 			var undefinedTypes = new HashSet< string >();

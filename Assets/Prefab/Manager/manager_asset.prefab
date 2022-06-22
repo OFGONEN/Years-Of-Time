@@ -50,7 +50,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 07c56239588814c1996e673febff6634, type: 2}
         m_TargetAssemblyTypeName: FFStudio.SaveSystem, Assembly-CSharp
-        m_MethodName: Initiliaze
+        m_MethodName: Initialize
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

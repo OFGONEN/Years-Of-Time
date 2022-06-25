@@ -155,6 +155,16 @@ namespace FFStudio
 		{
 			/* Intentionally empty, by definition. */
 		}
+		
+		public static void EmptyMethod( Vector2 vector2 )
+		{
+			/* Intentionally empty, by definition. */
+		}
+		
+		public static void EmptyMethod( Lean.Touch.LeanFinger leanFinger )
+		{
+			/* Intentionally empty, by definition. */
+		}
 
 		public static Vector2 Clamp( this Vector2 value, Vector2 min, Vector2 max )
 		{

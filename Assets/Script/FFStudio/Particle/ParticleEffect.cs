@@ -71,6 +71,20 @@ namespace FFStudio
 
 			particles.Play();
 		}
+
+
+		public void PlayParticle( Vector3 position, float scale, Transform parent = null )
+		{
+			gameObject.SetActive( true );
+
+			transform.position = position;
+			transform.localScale = particle_start_size * scale;
+
+			if( parent != null )
+				transform.SetParent( parent );
+
+			particles.Play();
+		}
 #endregion
 
 	}

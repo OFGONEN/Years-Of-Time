@@ -189,4 +189,11 @@ namespace FFStudio
         
         public float value;
     }
+	
+	[ Serializable ]
+	public struct ColorPerThreshold
+	{
+		public Color color;
+		[ SuffixLabel( "%" ) ] public NormalizedValue threshold;
+	}
 }

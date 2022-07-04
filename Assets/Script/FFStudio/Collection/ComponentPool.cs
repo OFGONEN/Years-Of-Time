@@ -13,6 +13,9 @@ namespace FFStudio
 
 		Transform pool_parent;
 		bool pool_active;
+#if UNITY_EDITOR
+		int count_spawned;
+#endif
 #endregion
 
 #region Properties
@@ -26,7 +29,9 @@ namespace FFStudio
 		{
 			pool_parent = parent;
 			pool_active = active;
-
+#if UNITY_EDITOR
+			count_spawned = 0;
+#endif
 			stack = new Stack< T >( stackSize );
 
             for( var i = 0; i < stackSize; i++ )
@@ -62,7 +67,9 @@ namespace FFStudio
             var entity = GameObject.Instantiate( pool_entity );
 			entity.gameObject.SetActive( pool_active );
 			entity.transform.SetParent( pool_parent );
-
+#if UNITY_EDITOR
+			entity.name += "_" + ++count_spawned;
+#endif
 			return entity;
 		}
 #endregion

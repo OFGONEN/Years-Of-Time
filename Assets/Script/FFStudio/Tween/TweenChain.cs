@@ -102,6 +102,12 @@ namespace FFStudio
         {
 			tweenDatas[ index_playing ].Stop();
 		}
+		
+		[ Button() ]
+        public void Kill()
+        {
+			tweenDatas[ index_playing ].Kill();
+		}
 #endregion
 
 #region Implementation

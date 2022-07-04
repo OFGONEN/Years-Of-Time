@@ -27,7 +27,7 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-		private void Awake()
+		void Awake()
 		{
 			onDrawShape = ExtensionMethods.EmptyMethod;
 		}
@@ -45,14 +45,14 @@ namespace FFStudio
 		{
 			onDrawShape = ExtensionMethods.EmptyMethod;
 		}
-#endregion
-
-#region Implementation
+        
 		public override void DrawShapes( Camera cam )
 		{
 			onDrawShape( cam );
 		}
+#endregion
 
+#region Implementation
 		void DrawLine( Camera cam )
 		{
 			using( Draw.Command( cam ) )

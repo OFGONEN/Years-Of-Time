@@ -250,6 +250,24 @@ namespace FFStudio
 			return theVector;
 		}
 
+		public static Vector3 NegateX( this Vector3 theVector )
+		{
+			theVector.x *= -1;
+			return theVector;
+		}
+
+		public static Vector3 NegateY( this Vector3 theVector )
+		{
+			theVector.y *= -1;
+			return theVector;
+		}
+
+		public static Vector3 NegateZ( this Vector3 theVector )
+		{
+			theVector.z *= -1;
+			return theVector;
+		}
+
 		public static float ComponentSum( this Vector3 theVector )
 		{
 			return theVector.x + theVector.y + theVector.z;

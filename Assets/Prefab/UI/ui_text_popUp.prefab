@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 488342309780055255}
   - component: {fileID: -99139330017461304}
   - component: {fileID: 6316872551600914418}
+  - component: {fileID: 2666090466674648790}
   m_Layer: 5
   m_Name: ui_text_popUp
   m_TagString: Untagged
@@ -156,6 +157,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee1e05304f6540e68c1a7b6a173e2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2666090466674648790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225131146726298141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245dc21cc9428744fa28ad2d6ce7d327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventPairs:
+  - eventListener:
+      gameEvents:
+      - {fileID: 11400000, guid: 28d976b368abc004a924d98b1751a17d, type: 2}
+      - {fileID: 11400000, guid: ec850936269bc2e47b26cfebd8bdad97, type: 2}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5545418623886406342}
+          m_TargetAssemblyTypeName: FFStudio.UI_LookAt, Assembly-CSharp
+          m_MethodName: ManualDisable
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6316872551600914418}
+          m_TargetAssemblyTypeName: FFStudio.UIPopUpText, Assembly-CSharp
+          m_MethodName: CompleteTweens
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &7993411041295938755
 GameObject:
   m_ObjectHideFlags: 0

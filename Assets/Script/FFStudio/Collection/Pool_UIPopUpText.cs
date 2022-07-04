@@ -5,7 +5,7 @@ using UnityEngine;
 namespace FFStudio
 {
 	[ CreateAssetMenu( fileName = "pool_ui_popUp_text", menuName = "FF/Data/Pool/UI PopUp Text" ) ]
-	public class Pool_UIPopUpText : ComponentPool<UIPopUpText>
+	public class Pool_UIPopUpText : ComponentPool< UIPopUpText >
 	{
 	}
 }

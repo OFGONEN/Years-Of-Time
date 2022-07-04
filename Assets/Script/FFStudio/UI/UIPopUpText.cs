@@ -42,6 +42,18 @@ namespace FFStudio
 			ui_text.UI_Text.text = text;
 			ui_text.UI_Text.color = color;
 		}
+
+		public void KillTweens()
+		{
+			ui_float.KillTween();
+			ui_text.KillTween();
+		}
+
+		public void CompleteTweens()
+		{
+			ui_float.CompleteTween();
+			ui_text.CompleteTween();
+		}
 #endregion
 
 #region Implementation

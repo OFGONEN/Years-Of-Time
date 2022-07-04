@@ -37,6 +37,16 @@ namespace FFStudio
 
 			return recycledTween.Tween;
 		}
+
+		public void KillTween()
+		{
+			recycledTween.Kill();
+		}
+
+		public void CompleteTween()
+		{
+			recycledTween.Tween.Complete();
+		}
 #endregion
 
 #region Implementation

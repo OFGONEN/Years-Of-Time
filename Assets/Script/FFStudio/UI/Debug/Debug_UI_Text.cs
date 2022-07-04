@@ -41,6 +41,18 @@ namespace FFStudio
 
 			ui_float.ui_OnComplete.AddListener( OnFloatComplete );
 		}
+
+		public void KillTweens()
+		{
+			ui_float.KillTween();
+			ui_text.KillTween();
+		}
+
+		public void CompleteTweens()
+		{
+			ui_float.CompleteTween();
+			ui_text.CompleteTween();
+		}
 #endregion
 
 #region Implementation

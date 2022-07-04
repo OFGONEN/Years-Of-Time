@@ -43,6 +43,10 @@ namespace FFStudio
 #endregion
 
 #region API
+		public void ManualDisable()
+		{
+			OnDisable();
+		}
 #endregion
 
 #region Implementation

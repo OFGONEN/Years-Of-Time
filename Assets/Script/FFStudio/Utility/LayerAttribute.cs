@@ -3,5 +3,11 @@
 using System;
 using UnityEngine;
 
-[ AttributeUsage( AttributeTargets.Field ) ]
-public class LayerAttribute : PropertyAttribute { }
+namespace FFStudio
+{
+	[ AttributeUsage( AttributeTargets.Field ) ]
+	public class LayerAttribute : PropertyAttribute
+	{
+        
+    }
+}

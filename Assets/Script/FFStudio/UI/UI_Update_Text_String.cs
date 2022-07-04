@@ -2,7 +2,7 @@
 
 namespace FFStudio
 {
-	public class UI_Update_Text_String : UI_Update_Text<SharedStringNotifier, string>
+	public class UI_Update_Text_String : UI_Update_Text< SharedStringNotifier, string >
 	{
 	}
 }

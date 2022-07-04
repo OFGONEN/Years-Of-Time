@@ -17,17 +17,17 @@ public class UI_Input_Joystick : UIEntity
 #endregion
 
 #region Unity API
-    private void OnEnable()
+    void OnEnable()
     {
 		input_JoyStick.input_toggle.Subscribe( InputToggle );
 	}
 
-    private void OnDisable()
+    void OnDisable()
     {
 		input_JoyStick.input_toggle.Unsubscribe( InputToggle );
 	}
 
-	private void Awake()
+	void Awake()
 	{
 		image_base.gameObject.SetActive( false );
 	}
@@ -37,7 +37,7 @@ public class UI_Input_Joystick : UIEntity
 #endregion
 
 #region Implementation
-    private void InputToggle()
+    void InputToggle()
     {
 		var enabled = input_JoyStick.Input_Enabled;
 		image_base.gameObject.SetActive( input_JoyStick.Input_Enabled );
@@ -54,7 +54,7 @@ public class UI_Input_Joystick : UIEntity
 			input_JoyStick.Unsubscribe( InputChange );
 	}
 
-    private void InputChange()
+    void InputChange()
     {
 		image_stick.anchoredPosition = image_base.anchoredPosition + input_JoyStick.SharedValue * GameSettings.Instance.ui_Entity_JoyStick_Gap;
 	}

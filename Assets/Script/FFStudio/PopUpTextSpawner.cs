@@ -38,7 +38,7 @@ namespace FFStudio
 
 #region Editor Only
 #if UNITY_EDITOR
-		private void OnDrawGizmosSelected()
+		void OnDrawGizmosSelected()
 		{
 			for( var i = 0; i < popUpTextDatas.Length; i++ )
 			{

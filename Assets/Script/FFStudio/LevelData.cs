@@ -16,7 +16,7 @@ namespace FFStudio
         [ LabelText( "Override As Active Scene" ) ] public bool scene_overrideAsActiveScene;
 
 #if UNITY_EDITOR
-		private static IEnumerable SceneList()
+		static IEnumerable SceneList()
         {
 			var list = new ValueDropdownList< int >();
 

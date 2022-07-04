@@ -10,20 +10,18 @@ namespace FFStudio
 	{
 #region Fields (Inspector Interface)
 	[ Title( "Setup" ) ]
-		[ SerializeField ] private Component attachedComponent;
+		[ SerializeField ] Component attachedComponent;
 
 		public Component AttachedComponent => attachedComponent;
 		public Collider AttachedCollider => attachedCollider;
 		
 		public UnityEvent< CallbackArgumentType > unityEvent;
-#endregion
 
-#region  Fields (Private)
-		private Collider attachedCollider;
+		Collider attachedCollider;
 #endregion
 
 #region UnityAPI
-		private void Awake()
+		void Awake()
 		{
 			attachedCollider = GetComponent< Collider >();
 		}

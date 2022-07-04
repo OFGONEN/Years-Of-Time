@@ -1,6 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ namespace FFStudio
 	public class Cluster : ScriptableObject
 	{
 		public int cluster_count;
-		private Dictionary< int, IClusterEntity > cluster_entities;
+		Dictionary< int, IClusterEntity > cluster_entities;
 
 		public void Init()
 		{
@@ -40,9 +39,7 @@ namespace FFStudio
 		public void UpdateCluster()
 		{
 			foreach( var entity in cluster_entities.Values )
-			{
 				entity.OnUpdate_Cluster();
-			}
 		}
 	}
 }

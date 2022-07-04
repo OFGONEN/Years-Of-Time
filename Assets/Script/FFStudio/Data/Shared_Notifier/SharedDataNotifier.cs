@@ -2,18 +2,14 @@
 
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using UnityEngine;
 
 namespace FFStudio
 {
 	[ InlineEditor ]
     public abstract class SharedDataNotifier< SharedDataType > : SharedData< SharedDataType >
     {
-#region Fields (Public)
-#endregion
-
-#region Fields (Private)
-        private ChangeEvent changeEvent;
+#region Fields
+        ChangeEvent changeEvent;
 #endregion
 
 #region Properties
@@ -33,7 +29,7 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-		private void OnValidate()
+		void OnValidate()
 		{
 			changeEvent?.Invoke();
 		}

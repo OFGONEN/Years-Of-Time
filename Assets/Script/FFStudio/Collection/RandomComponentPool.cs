@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FFStudio
@@ -16,10 +14,9 @@ namespace FFStudio
         public void InitPool( Transform parent, bool active )
         {
             for( var i = 0; i < pool_component.Length; i++ )
-            {
 				pool_component[ i ].InitPool( parent, active );
-			}
         }
+		
         public ComponentPool< T > GetRandomPool()
         {
 			return pool_component.ReturnRandom();

@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
@@ -13,7 +11,7 @@ namespace FFStudio
 #region Fields
 	[ Title( "Setup" ) ]
         [ Tooltip( "Renderer With Target Skin" ) ] public SkinnedMeshRenderer skinRenderer_target; 
-        [ SerializeField ] private SkinnedMeshRenderer skinRenderer_current; 
+        [ SerializeField ] SkinnedMeshRenderer skinRenderer_current; 
 #endregion
 
 #region Properties

@@ -14,28 +14,28 @@ namespace FFStudio
 		public EventListenerDelegateResponse listener_pfx_spawn_random;
 
 	[ Title( "Setup" ) ]
-		[ SerializeField ] private ParticleEffectPool[] pools_pfx;
-		[ SerializeField ] private RandomParticlePool[] pools_pfx_random; //Info: All pools needs to be in particleEffectPools aswell.
+		[ SerializeField ] ParticleEffectPool[] pools_pfx;
+		[ SerializeField ] RandomParticlePool[] pools_pfx_random; //Info: All pools needs to be in particleEffectPools aswell.
 
-		private Dictionary< string, ParticleEffectPool > dictionary_pool_pfx;
-		private Dictionary< string, RandomParticlePool > dictionary_pool_pfx_random;
+		Dictionary< string, ParticleEffectPool > dictionary_pool_pfx;
+		Dictionary< string, RandomParticlePool > dictionary_pool_pfx_random;
 #endregion
 
 #region UnityAPI
 
-		private void OnEnable()
+		void OnEnable()
 		{
 			listener_pfx_spawn.OnEnable();
 			listener_pfx_spawn_random.OnEnable();
 		}
 
-		private void OnDisable()
+		void OnDisable()
 		{
 			listener_pfx_spawn.OnDisable();
 			listener_pfx_spawn_random.OnDisable();
 		}
 
-		private void Awake()
+		void Awake()
 		{
 			listener_pfx_spawn.response        = SpawnParticle;
 			listener_pfx_spawn_random.response = SpawnParticleRandom;
@@ -51,14 +51,12 @@ namespace FFStudio
 			dictionary_pool_pfx_random = new Dictionary< string, RandomParticlePool >( pools_pfx_random.Length );
 
 			for( var i = 0; i < pools_pfx_random.Length; i++ )
-			{
 				dictionary_pool_pfx_random.Add( pools_pfx_random[ i ].alias, pools_pfx_random[ i ] );
-			}
 		}
 #endregion
 
 #region Implementation
-		private void SpawnParticle()
+		void SpawnParticle()
 		{
 			var spawnEvent = listener_pfx_spawn.gameEvent as ParticleSpawnEvent;
 
@@ -74,7 +72,7 @@ namespace FFStudio
 			effect.PlayParticle( spawnEvent );
 		}
 
-		private void SpawnParticleRandom()
+		void SpawnParticleRandom()
 		{
 			var spawnEvent = listener_pfx_spawn_random.gameEvent as ParticleSpawnEvent;
 
@@ -90,7 +88,7 @@ namespace FFStudio
 			effect.PlayParticle( spawnEvent );
 		}
 
-		private void ParticleEffectStopped( ParticleEffect particleEffect )
+		void ParticleEffectStopped( ParticleEffect particleEffect )
 		{
 			ParticleEffectPool pool;
 

@@ -1,9 +1,6 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using FFStudio;
 using Sirenix.OdinInspector;
 
 namespace FFStudio
@@ -12,8 +9,8 @@ namespace FFStudio
 	{
 #region Fields
 	[ Title( "Setup" ) ]
-		[ SerializeField ] private Animator animator;
-		[ SerializeField ] private AnimationParameterData[] parameterDatas;
+		[ SerializeField ] Animator animator;
+		[ SerializeField ] AnimationParameterData[] parameterDatas;
 #endregion
 
 #region Properties

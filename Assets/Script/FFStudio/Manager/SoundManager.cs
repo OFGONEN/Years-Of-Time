@@ -13,7 +13,7 @@ namespace FFStudio
         Dictionary< int, AudioSource > audioSources;
         
 #region Unity API
-        private void Awake()
+        void Awake()
 		{
 			soundEventListeners = new List< EventListenerDelegateResponse >( soundEvents.Length );
 			audioSources = new Dictionary< int, AudioSource >( soundEvents.Length );
@@ -35,19 +35,19 @@ namespace FFStudio
 			}
 		}
 
-		private void OnEnable()
+		void OnEnable()
 		{
 			for( int i = 0; i < soundEvents.Length; i++ )
 				soundEventListeners[ i ].OnEnable();
 		}
 
-		private void OnDisable()
+		void OnDisable()
 		{
 			for( int i = 0; i < soundEvents.Length; i++ )
 				soundEventListeners[ i ].OnDisable();
 		}
 
-		private void Start()
+		void Start()
 		{
 			foreach( var soundEventListener in soundEventListeners )
 				soundEventListener.response = ( () => PlaySound( soundEventListener.gameEvent.GetInstanceID() ) );
@@ -55,7 +55,7 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-        private void PlaySound( int instanceId )
+        void PlaySound( int instanceId )
         {
             AudioSource source;
 			audioSources.TryGetValue( instanceId, out source );

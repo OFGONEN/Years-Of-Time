@@ -14,19 +14,19 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-		private void OnEnable()
+		void OnEnable()
 		{
 			for( var i = 0; i < eventPairs.Length; i++ )
 				eventPairs[ i ].eventListener.OnEnable();
 		}
 
-		private void OnDisable()
+		void OnDisable()
 		{
 			for( var i = 0; i < eventPairs.Length; i++ )
 				eventPairs[ i ].eventListener.OnDisable();
 		}
 
-		private void Awake()
+		void Awake()
 		{
 			for( var i = 0; i < eventPairs.Length; i++ )
 				eventPairs[ i ].Pair();

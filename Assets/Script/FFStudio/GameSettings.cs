@@ -8,13 +8,15 @@ namespace FFStudio
 	public class GameSettings : ScriptableObject
     {
 #region Fields (Settings)
-    // Info: Use Title() attribute ONCE for every game-specific group of settings.
-
-    // Info: 3 groups below (coming from template project) are foldout by design: They should remain hidden.
+    // Info: You can use Title() attribute ONCE for every game-specific group of settings.
+    
+    [ Title( "Project Setup", "These settings should not be edited by Level Designer(s).", TitleAlignments.Centered ) ]
+        public int maxLevelCount;
+        
+        // Info: 3 groups below (coming from template project) are foldout by design: They should remain hidden.
 		[ FoldoutGroup( "Remote Config" ) ] public bool useRemoteConfig_GameSettings;
         [ FoldoutGroup( "Remote Config" ) ] public bool useRemoteConfig_Components;
 
-        public int maxLevelCount;
         [ FoldoutGroup( "UI Settings" ), Tooltip( "Duration of the movement for ui element"          ) ] public float ui_Entity_Move_TweenDuration;
         [ FoldoutGroup( "UI Settings" ), Tooltip( "Duration of the fading for ui element"            ) ] public float ui_Entity_Fade_TweenDuration;
 		[ FoldoutGroup( "UI Settings" ), Tooltip( "Duration of the scaling for ui element"           ) ] public float ui_Entity_Scale_TweenDuration;
@@ -29,16 +31,16 @@ namespace FFStudio
 #endregion
 
 #region Fields (Singleton Related)
-        private static GameSettings instance;
+        static GameSettings instance;
 
-        private delegate GameSettings ReturnGameSettings();
-        private static ReturnGameSettings returnInstance = LoadInstance;
+        delegate GameSettings ReturnGameSettings();
+        static ReturnGameSettings returnInstance = LoadInstance;
 
 		public static GameSettings Instance => returnInstance();
 #endregion
 
 #region Implementation
-        private static GameSettings LoadInstance()
+        static GameSettings LoadInstance()
 		{
 			if( instance == null )
 				instance = Resources.Load< GameSettings >( "game_settings" );
@@ -48,7 +50,7 @@ namespace FFStudio
 			return instance;
 		}
 
-		private static GameSettings ReturnInstance()
+		static GameSettings ReturnInstance()
         {
             return instance;
         }

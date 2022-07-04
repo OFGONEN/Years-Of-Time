@@ -13,7 +13,7 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-        private void OnTriggerStay( Collider other )
+        void OnTriggerStay( Collider other )
         {
 			InvokeEvent( other );
 		}

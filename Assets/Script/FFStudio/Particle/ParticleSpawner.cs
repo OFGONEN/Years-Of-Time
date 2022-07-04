@@ -1,9 +1,6 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 using UnityEditor;
 
 namespace FFStudio
@@ -35,7 +32,7 @@ namespace FFStudio
 
 #region Editor Only
 #if UNITY_EDITOR
-		private void OnDrawGizmosSelected()
+		void OnDrawGizmosSelected()
 		{
 			for( var i = 0; i < particleDatas.Length; i++ )
 			{

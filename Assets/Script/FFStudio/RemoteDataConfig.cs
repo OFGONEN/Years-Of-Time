@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FFStudio
@@ -18,15 +16,13 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-        private void Awake()
+        void Awake()
         {
 			if( !GameSettings.Instance.useRemoteConfig_Components )
 				return;
 
             for( var i = 0; i < remoteDatas.Length; i++ )
-            {
 				elephantConfigEvent.Raise( targetComponent, remoteDatas[ i ].targetFieldName, remoteDatas[ i ].configKeyName );
-			}
         }
 #endregion
 

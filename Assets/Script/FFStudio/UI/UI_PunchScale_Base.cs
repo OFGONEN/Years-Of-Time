@@ -1,7 +1,6 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
-using FFStudio;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 
@@ -9,37 +8,35 @@ namespace FFStudio
 {
     public class UI_PunchScale_Base< NotifierType > : UIEntity
     {
-#region Fields (Inspector Interface)
+#region Fields
     [ Title( "Parameters" ) ]
-        [ SerializeField ] private float punchScale;
+        [ SerializeField ] float punchScale;
 
     [ Title( "Observed Shared Data" ) ]
-        [ SerializeField ] private SharedDataNotifier< NotifierType > notifier_count;
-#endregion
+        [ SerializeField ] SharedDataNotifier< NotifierType > notifier_count;
 
-#region Fields (Private)
-        private Vector3 originalScale;
-        private RecycledTween punchScaleTween;
-        private float duration;
+        Vector3 originalScale;
+        RecycledTween punchScaleTween;
+        float duration;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
-        private void OnEnable()
+        void OnEnable()
         {
             if( notifier_count )
                 notifier_count.Subscribe( OnCountChange );
         }
         
-        private void OnDisable()
+        void OnDisable()
         {
             if( notifier_count )
     			notifier_count.Unsubscribe( OnCountChange );
         }
         
-        private void Awake()
+        void Awake()
         {
             originalScale = uiTransform.localScale;
 

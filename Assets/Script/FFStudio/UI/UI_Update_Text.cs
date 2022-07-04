@@ -17,17 +17,17 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-        private void OnEnable()
+        void OnEnable()
         {
             sharedDataNotifier.Subscribe( OnSharedDataChange );
         }
         
-        private void OnDisable()
+        void OnDisable()
         {
             sharedDataNotifier.Unsubscribe( OnSharedDataChange );
         }
 
-        private void Awake()
+        void Awake()
         {
             ui_Text = GetComponentInChildren< TextMeshProUGUI >();
             OnSharedDataChange();

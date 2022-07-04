@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
@@ -14,19 +12,17 @@ namespace FFStudio
 #region Fields
 		public UnityEvent ui_OnComplete;
 
-		private TextMeshProUGUI ui_Text;
-		private RecycledTween recycledTween = new RecycledTween();
-
-		public Tween Tween => recycledTween.Tween;
-
+		TextMeshProUGUI ui_Text;
+		RecycledTween recycledTween = new RecycledTween();
 #endregion
 
 #region Properties
+		public Tween Tween => recycledTween.Tween;
 		public TextMeshProUGUI UI_Text => ui_Text;
 #endregion
 
 #region Unity API
-		private void Awake()
+		void Awake()
 		{
 			ui_Text = GetComponentInChildren< TextMeshProUGUI >();
 		}
@@ -44,7 +40,7 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-		private void OnTweenComplete()
+		void OnTweenComplete()
 		{
 			ui_OnComplete.Invoke();
 		}

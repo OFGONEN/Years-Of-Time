@@ -20,13 +20,13 @@ namespace FFStudio
 		public bool showMedian = false;
 		public float medianLearnrate = 0.05f;
 
-		private float accumulated  = 0;
-		private int   frames = 0;
-		private float timeleft;
-		private float currentFPS = 0;
+		float accumulated  = 0;
+		int   frames = 0;
+		float timeleft;
+		float currentFPS = 0;
 
-		private float median  = 0;
-		private float average = 0;
+		float median  = 0;
+		float average = 0;
 
 		public float CurrentFPS => currentFPS; 
 		public float FPSMedian  => median;

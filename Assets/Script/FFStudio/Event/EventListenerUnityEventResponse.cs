@@ -7,9 +7,12 @@ namespace FFStudio
     [ System.Serializable ]
     public class EventListenerUnityEventResponse : EventListener
     {
-		public GameEvent gameEvent;
+#region Fields
+        public GameEvent gameEvent;
 		public UnityEvent response;
-        
+#endregion
+    
+#region API
         public override void OnEnable()
         {
             gameEvent.RegisterListener( this );
@@ -24,5 +27,6 @@ namespace FFStudio
         {
             response.Invoke();
         }
+#endregion    
     }
 }

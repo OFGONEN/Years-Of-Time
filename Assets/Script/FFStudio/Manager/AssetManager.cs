@@ -1,4 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
+
 using UnityEngine;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
@@ -24,12 +25,12 @@ namespace FFStudio
 #endregion
 
 #region UnityAPI
-		private void OnEnable()
+		void OnEnable()
 		{
 			onEnableEvent.Invoke();
 		}
 
-		private void Awake()
+		void Awake()
 		{
 			Vibration.Init();
 
@@ -37,7 +38,7 @@ namespace FFStudio
 			onAwakeEvent.Invoke();
 		}
 
-		private void Start()
+		void Start()
 		{
 			onStartEvent.Invoke();
 		}

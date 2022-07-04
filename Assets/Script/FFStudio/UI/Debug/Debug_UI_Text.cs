@@ -1,10 +1,6 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 namespace FFStudio
 {
@@ -13,15 +9,15 @@ namespace FFStudio
 #region Fields
 		public Pool_Debug_UI_Text pool;
 
-        private UI_Float ui_float; 
-        private UI_Fade_Text ui_text; 
+        UI_Float ui_float; 
+        UI_Fade_Text ui_text; 
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
-        private void Awake()
+        void Awake()
         {
             ui_float = GetComponentInChildren< UI_Float >();
             ui_text  = GetComponentInChildren< UI_Fade_Text >();
@@ -48,7 +44,7 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-		private void OnFloatComplete()
+		void OnFloatComplete()
 		{
 			ui_float.ui_OnComplete.RemoveListener( OnFloatComplete );
 			pool.ReturnEntity( this );

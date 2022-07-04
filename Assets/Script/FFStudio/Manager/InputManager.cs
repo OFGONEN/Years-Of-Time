@@ -16,28 +16,26 @@ namespace FFStudio
 
 	[ Title( "Shared Variables" ) ]
 		public SharedReferenceNotifier notifier_reference_camera_main;
-#endregion
 
-#region Fields (Private)
-		private int swipeThreshold;
+		int swipeThreshold;
 
-		private Transform transform_camera_main;
-		private Camera camera_main;
-		private LeanTouch leanTouch;
+		Transform transform_camera_main;
+		Camera camera_main;
+		LeanTouch leanTouch;
 #endregion
 
 #region Unity API
-		private void OnEnable()
+		void OnEnable()
 		{
 			notifier_reference_camera_main.Subscribe( OnCameraReferenceChange );
 		}
 
-		private void OnDisable()
+		void OnDisable()
 		{
 			notifier_reference_camera_main.Unsubscribe( OnCameraReferenceChange );
 		}
 
-		private void Awake()
+		void Awake()
 		{
 			swipeThreshold = Screen.width * GameSettings.Instance.swipeThreshold / 100;
 
@@ -61,7 +59,7 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-		private void OnCameraReferenceChange()
+		void OnCameraReferenceChange()
 		{
 			var value = notifier_reference_camera_main.SharedValue;
 

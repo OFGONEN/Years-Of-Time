@@ -11,8 +11,8 @@ namespace FFStudio
 #region Fields
 		[ AssetSelector ] public T pool_entity;
 
-		private Transform pool_parent;
-		private bool pool_active;
+		Transform pool_parent;
+		bool pool_active;
 #endregion
 
 #region Properties

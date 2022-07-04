@@ -4,19 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
     public class UIManager : MonoBehaviour
     {
 #region Fields
-        [ Header( "Event Listeners" ) ]
+    [ Title( "Event Listeners" ) ]
         public EventListenerDelegateResponse levelLoadedResponse;
         public EventListenerDelegateResponse levelCompleteResponse;
         public EventListenerDelegateResponse levelFailResponse;
         public EventListenerDelegateResponse tapInputListener;
 
-        [ Header( "UI Elements" ) ]
+    [ Title( "UI Elements" ) ]
         public UI_Patrol_Scale level_loadingBar_Scale;
         public TextMeshProUGUI level_count_text;
         public TextMeshProUGUI level_information_text;
@@ -25,7 +26,7 @@ namespace FFStudio
         public Image foreGroundImage;
         public RectTransform tutorialObjects;
 
-        [ Header( "Fired Events" ) ]
+    [ Title( "Fired Events" ) ]
         public GameEvent levelRevealedEvent;
         public GameEvent loadNewLevelEvent;
         public GameEvent resetLevelEvent;

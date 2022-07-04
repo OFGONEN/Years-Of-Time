@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
@@ -13,21 +11,20 @@ namespace FFStudio
 #region Fields
 		public UnityEvent ui_OnComplete;
 
-		private Vector3 ui_StartScale;
-		private RectTransform ui_rectTransform;
-		private RecycledTween recycledTween = new RecycledTween();
+		Vector3 ui_StartScale;
+		RectTransform ui_rectTransform;
+		RecycledTween recycledTween = new RecycledTween();
 
-		private SafeEvent onComplete = new SafeEvent();
-
-		public Tween Tween => recycledTween.Tween;
+		SafeEvent onComplete = new SafeEvent();
 #endregion
 
 #region Properties
+		public Tween Tween => recycledTween.Tween;
         public RectTransform UI_RectTransform => ui_rectTransform;
 #endregion
 
 #region Unity API
-        private void Awake()
+        void Awake()
         {
 			ui_rectTransform = GetComponent<RectTransform>();
 			ui_StartScale = ui_rectTransform.localScale;
@@ -60,7 +57,7 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-        private void OnTweenComplete()
+        void OnTweenComplete()
         {
 			onComplete.Invoke();
 			ui_OnComplete.Invoke();

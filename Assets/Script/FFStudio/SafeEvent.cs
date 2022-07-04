@@ -4,17 +4,17 @@ namespace FFStudio
 {
     public class SafeEvent
     {
-    #region Fields (Private)
-        private event UnityMessage safeEvent;
-    #endregion
+#region Fields
+        event UnityMessage safeEvent;
+#endregion
 
-    #region Properties
-    #endregion
+#region Properties
+#endregion
 
-    #region Unity API
-    #endregion
+#region Unity API
+#endregion
 
-    #region API
+#region API
         public void Invoke()
         {
             safeEvent?.Invoke();
@@ -27,7 +27,7 @@ namespace FFStudio
 
         public void Subscribe( UnityMessage methodToSubscribe )
         {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
             if( safeEvent != null )
             {
                 var subscribedMethods = safeEvent.GetInvocationList();
@@ -43,13 +43,13 @@ namespace FFStudio
                     }
                 }
             }
-    #endif
+#endif
             safeEvent += methodToSubscribe;
         }
 
         public void Unsubscribe( UnityMessage methodToUnsubscribe )
         {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
             if( safeEvent != null )
             {
                 bool foundMethod = false;
@@ -68,11 +68,11 @@ namespace FFStudio
                     return; // Info: Prevent unsubscribing from null event. User should take care of not subscribing before release.
                 }
             }
-    #endif
+#endif
             safeEvent -= methodToUnsubscribe;
         }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
         public bool IsMethodSubscribed( UnityMessage method )
         {
             if( safeEvent != null )
@@ -89,15 +89,15 @@ namespace FFStudio
 
             return false;
         }
-    #endif
-    #endregion
+#endif
+#endregion
 
-    #region Implementation
-    #endregion
+#region Implementation
+#endregion
 
-    #region Editor Only
-    #if UNITY_EDITOR
-    #endif
-    #endregion
+#region Editor Only
+#if UNITY_EDITOR
+#endif
+#endregion
     }
 }

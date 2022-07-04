@@ -11,14 +11,13 @@ namespace FFStudio
 		public Vector3 parallaxRatio;
 		public float parallaxSpeed;
 
-		/* Private Fields */
-		private Transform targetTransform;
-		private Vector3 startPosition;
-		private Vector3 target_StartPosition;
+		Transform targetTransform;
+		Vector3 startPosition;
+		Vector3 target_StartPosition;
 #endregion
 
 #region Unity API
-		private void Start()
+		void Start()
 		{
 			targetTransform = ( targetReference.SharedValue as Rigidbody ).transform;
 
@@ -26,7 +25,7 @@ namespace FFStudio
 			target_StartPosition = targetTransform.position;
 		}
 
-private void Update()
+		void Update()
 		{
 			var diff = targetTransform.position - target_StartPosition;
 			diff.Scale( parallaxRatio );

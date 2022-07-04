@@ -1,7 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FFStudio
@@ -9,20 +7,20 @@ namespace FFStudio
 	public class UIPopUpText : MonoBehaviour
 	{
 #region Fields
-		private UI_Float ui_float;
-		private UI_Fade_Text ui_text;
+		UI_Float ui_float;
+		UI_Fade_Text ui_text;
 
-		private Vector3 ui_start_scale;
+		Vector3 ui_start_scale;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
-		private void Awake()
+		void Awake()
 		{
-			ui_float = GetComponentInChildren<UI_Float>();
-			ui_text = GetComponentInChildren<UI_Fade_Text>();
+			ui_float = GetComponentInChildren< UI_Float >();
+			ui_text  = GetComponentInChildren< UI_Fade_Text >();
 
 			ui_start_scale = ui_float.UI_RectTransform.localScale;
 		}

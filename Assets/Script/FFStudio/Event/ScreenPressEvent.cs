@@ -6,8 +6,8 @@ using FFStudio;
 [ CreateAssetMenu( fileName = "event_", menuName = "FF/Event/Input/ScreenPressEvent" ) ]
 public class ScreenPressEvent : GameEvent
 {
-	#region Fields
+#region Fields
 	public bool isPressedDown = false;
 	public Vector2 screenPosition = Vector2.zero;
-	#endregion
+#endregion
 }

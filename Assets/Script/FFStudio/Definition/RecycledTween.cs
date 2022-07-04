@@ -1,11 +1,13 @@
+/* Created by and for usage of FF Studios (2021). */
+
 using DG.Tweening;
 
 namespace FFStudio
 {
 	public class RecycledTween
 	{
-		private UnityMessage onComplete;
-		private Tween tween;
+		UnityMessage onComplete;
+		Tween tween;
 
 		public Tween Tween => tween;
 
@@ -45,7 +47,7 @@ namespace FFStudio
 			tween = tween.KillProper();
 		}
 
-		private void OnComplete_Safe()
+		void OnComplete_Safe()
 		{
 			tween = null;
 			onComplete?.Invoke();

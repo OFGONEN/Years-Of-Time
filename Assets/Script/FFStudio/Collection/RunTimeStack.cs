@@ -10,17 +10,9 @@ namespace FFStudio
 	{
 #region Fields
 		public int stackSize;
+        public Stack< T > Stack => stack;
 		
-		[ ShowInInspector ]
-		protected Stack< T > stack;
-
-        public Stack< T > Stack
-		{
-			get
-			{
-                return stack;
-            }
-		}
+		[ ShowInInspector ] protected Stack< T > stack;
 #endregion
 	}
 }

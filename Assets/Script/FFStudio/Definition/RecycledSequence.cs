@@ -1,11 +1,13 @@
+/* Created by and for usage of FF Studios (2021). */
+
 using DG.Tweening;
 
 namespace FFStudio
 {
 	public class RecycledSequence
 	{
-		private UnityMessage onComplete;
-		private Sequence sequence;
+		UnityMessage onComplete;
+		Sequence sequence;
 
 		public Sequence Sequence => sequence;
 
@@ -44,7 +46,7 @@ namespace FFStudio
 			sequence = sequence.KillProper();
 		}
 
-		private void OnComplete_Safe()
+		void OnComplete_Safe()
 		{
 			sequence = null;
 			onComplete?.Invoke();

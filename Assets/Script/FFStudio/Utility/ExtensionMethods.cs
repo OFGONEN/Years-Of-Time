@@ -11,11 +11,10 @@ namespace FFStudio
 {
 	public static class ExtensionMethods
 	{
-		//Static Variables
 		public static readonly string SAVE_PATH = Application.persistentDataPath + "/Saves/";
 
-		private static List< Transform > baseModelBones = new List< Transform >( 96 );
-		private static List< Transform > targetModelBones = new List< Transform >( 96 );
+		static List< Transform > baseModelBones   = new List< Transform >( 96 );
+		static List< Transform > targetModelBones = new List< Transform >( 96 );
 
 		public static Vector2 ReturnV2FromUnSignedAngle( this float angle )
 		{
@@ -91,7 +90,7 @@ namespace FFStudio
 		public static void LookAtOverTime( this Transform baseTransform, Vector3 targetPosition, float speed )
 		{
 			var directionVector = targetPosition - baseTransform.position;
-			var step = speed * Time.deltaTime;
+			var step            = speed * Time.deltaTime;
 
 			Vector3 newDirection = Vector3.RotateTowards( baseTransform.forward, directionVector, step, 0.0f );
 
@@ -100,8 +99,8 @@ namespace FFStudio
 
 		public static void LookAtAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis )
 		{
-			var newDirection = targetPosition - baseTransform.position;
-			var eulerAngles = baseTransform.eulerAngles;
+			var newDirection     = targetPosition - baseTransform.position;
+			var eulerAngles      = baseTransform.eulerAngles;
 			var newRotationEuler = Quaternion.LookRotation( newDirection ).eulerAngles;
 
 			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
@@ -113,8 +112,8 @@ namespace FFStudio
 
 		public static void LookAtAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis, float directionCofactor )
 		{
-			var newDirection = targetPosition - baseTransform.position;
-			var eulerAngles = baseTransform.eulerAngles;
+			var newDirection     = targetPosition - baseTransform.position;
+			var eulerAngles      = baseTransform.eulerAngles;
 			var newRotationEuler = Quaternion.LookRotation( newDirection * directionCofactor ).eulerAngles;
 
 			newRotationEuler.x = eulerAngles.x + ( newRotationEuler.x - eulerAngles.x ) * axis.x;
@@ -128,10 +127,10 @@ namespace FFStudio
 		public static void LookAtOverTimeAxis( this Transform baseTransform, Vector3 targetPosition, Vector3 axis, float speed )
 		{
 
-			var _directionVector = targetPosition - baseTransform.position;
-			var step = speed * Time.deltaTime;
+			var directionVector = targetPosition - baseTransform.position;
+			var step             = speed * Time.deltaTime;
 
-			Vector3 newDirection = Vector3.RotateTowards( baseTransform.forward, _directionVector, step, 0.0f );
+			Vector3 newDirection = Vector3.RotateTowards( baseTransform.forward, directionVector, step, 0.0f );
 
 			var eulerAngles = baseTransform.eulerAngles;
 
@@ -256,7 +255,7 @@ namespace FFStudio
 			return theVector.x + theVector.y + theVector.z;
 		}
 
-		public static TransformData GetTransformData( this Transform transform ) // Global values
+		public static TransformData GetTransformData( this Transform transform )
 		{
 			TransformData data;
 			data.position = transform.position;
@@ -266,14 +265,14 @@ namespace FFStudio
 			return data;
 		}
 
-		public static void SetTransformData( this Transform transform, TransformData data ) // Global values
+		public static void SetTransformData( this Transform transform, TransformData data )
 		{
 			transform.position    = data.position;
 			transform.eulerAngles = data.rotation;
 			transform.localScale  = data.scale;
 		}
 
-		// Takes root boes as parameters that are child of a humanoid model 
+		// Takes root bones as parameters that are children of a humanoid model.
 		public static void ReplaceHumanoidModel( this Transform baseBone, Transform targetBone )
 		{
 			baseModelBones.Clear();
@@ -291,7 +290,7 @@ namespace FFStudio
 			}
 		}
 
-        public static void UpdateSkinnedMeshRenderer(this GameObject gameObject, SkinnedMeshRenderer currentRender, SkinnedMeshRenderer newRenderer)
+		public static void UpdateSkinnedMeshRenderer( this GameObject gameObject, SkinnedMeshRenderer currentRender, SkinnedMeshRenderer newRenderer )
         {
             currentRender.sharedMesh      = newRenderer.sharedMesh;
             currentRender.sharedMaterials = newRenderer.sharedMaterials;
@@ -302,45 +301,37 @@ namespace FFStudio
 
             gameObject.GetComponentsInChildren< Transform >( true, baseModelBones );
 
-            for (int boneOrder = 0; boneOrder < newRenderer.bones.Length; boneOrder++)
-            {
+			for( int boneOrder = 0; boneOrder < newRenderer.bones.Length; boneOrder++ )
                 targetModelBones.Add( baseModelBones.Find( c => c.name == newRenderer.bones[ boneOrder ].name ) );
-            }
 
             currentRender.bones = targetModelBones.ToArray();
         }
 
 		public static void SetFieldValue( this object source, string fieldName, string value )
 		{
-				var fieldInfo = source.GetType().GetField( fieldName );
+			var fieldInfo = source.GetType().GetField( fieldName );
 
-				if( fieldInfo == null )
-					return;
+			if( fieldInfo == null )
+				return;
 
-				var fieldType = fieldInfo.FieldType;
+			var fieldType = fieldInfo.FieldType;
 
-                if( fieldType == typeof( int ) )
-                {
-				    fieldInfo.SetValue( source, int.Parse( value ) );
-                }
-                else if( fieldType == typeof( float ) )
-                {
-				    fieldInfo.SetValue( source, float.Parse( value, CultureInfo.InvariantCulture ) );
-                }
-                else if( fieldType == typeof( string ) )
-                {
-				    fieldInfo.SetValue( source, value );
-                }
-				else if( fieldType == typeof( bool ) )
-                {
-				    fieldInfo.SetValue( source, bool.Parse( value ) );
-					FFLogger.Log( "Setting Bool: " + fieldName + " Value: " + value );
-                }
-				else
-				{
-					fieldInfo.SetValue( source, JsonUtility.FromJson( value, fieldType ));
-					FFLogger.Log( "Setting Json: " + fieldName + " Value: " + value );
-				}
+			if( fieldType == typeof( int ) )
+				fieldInfo.SetValue( source, int.Parse( value ) );
+			else if( fieldType == typeof( float ) )
+				fieldInfo.SetValue( source, float.Parse( value, CultureInfo.InvariantCulture ) );
+			else if( fieldType == typeof( string ) )
+				fieldInfo.SetValue( source, value );
+			else if( fieldType == typeof( bool ) )
+			{
+				fieldInfo.SetValue( source, bool.Parse( value ) );
+				FFLogger.Log( "Setting Bool: " + fieldName + " Value: " + value );
+			}
+			else
+			{
+				fieldInfo.SetValue( source, JsonUtility.FromJson( value, fieldType ));
+				FFLogger.Log( "Setting Json: " + fieldName + " Value: " + value );
+			}
 		}
 
 		public static DG.Tweening.Sequence KillProper( this DG.Tweening.Sequence sequence )
@@ -391,9 +382,9 @@ namespace FFStudio
 
 		public static float RoundTo( this float number, float step )
 		{
-			int quotient = Mathf.FloorToInt( number / step );
-			var reminder = number % step;
-			float rounded = quotient * step;
+			int   quotient = Mathf.FloorToInt( number / step );
+			var   reminder = number % step;
+			float rounded  = quotient * step;
 
 			if( reminder >= step / 2f )
 				rounded += step;
@@ -406,7 +397,7 @@ namespace FFStudio
 			return array[ Random.Range( 0, array.Length ) ];
 		}
 
-				public static float ReturnRandom( this Vector2 vector )
+		public static float ReturnRandom( this Vector2 vector )
 		{
 			return Random.Range( vector.x, vector.y );
 		}
@@ -427,20 +418,16 @@ namespace FFStudio
 			var childs = new List< Transform >( transform.childCount );
 
 			for( var i = 0; i < childCount; i++ )
-			{
 				childs.Add( transform.GetChild( i ) );
-			}
 			
 			for( var i = 0; i < childCount; i++ )
-			{
 				GameObject.DestroyImmediate( childs[ i ].gameObject );
-			}
 		}
 
-		public static void ToggleKinematic( this Rigidbody rb, bool value )
+		public static void ToggleKinematic( this Rigidbody rigidbody, bool value )
 		{
-			rb.isKinematic = value;
-			rb.useGravity  = !value;
+			rigidbody.isKinematic = value;
+			rigidbody.useGravity  = !value;
 		}
 
 		public static float ReturnClamped( this Vector2 vector, float value )

@@ -1,9 +1,6 @@
 /* Created by and for usage of FF Studios (2021). */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using FFStudio;
 
 namespace FFStudio
 {
@@ -17,20 +14,16 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-		private void Awake()
+		void Awake()
 		{
 			for( var i = 0; i < clusters.Length; i++ )
-			{
 				clusters[ i ].Init();
-			}
 		}
 
-		private void Update()
+		void Update()
 		{
 			for( var i = 0; i < clusters.Length; i++ )
-			{
 				clusters[ i ].UpdateCluster();
-			}
 		}
 #endregion
 

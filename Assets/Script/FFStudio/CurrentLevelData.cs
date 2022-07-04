@@ -11,10 +11,10 @@ namespace FFStudio
 		public int currentLevel_Shown;
 		public LevelData levelData;
 
-        private static CurrentLevelData instance;
+        static CurrentLevelData instance;
 
-        private delegate CurrentLevelData ReturnCurrentLevel();
-        private static ReturnCurrentLevel returnInstance = LoadInstance;
+        delegate CurrentLevelData ReturnCurrentLevel();
+        static ReturnCurrentLevel returnInstance = LoadInstance;
 
         public static CurrentLevelData Instance => returnInstance();
 #endregion

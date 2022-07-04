@@ -4,9 +4,10 @@ namespace FFStudio
 {
     public abstract class EventListener
     {
-
+#region API
         public abstract void OnEnable();
         public abstract void OnDisable();
         public abstract void OnEventRaised();
+#endregion
     }
 }

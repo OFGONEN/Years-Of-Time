@@ -7,11 +7,11 @@ namespace FFStudio
 	public class UISafeAreaFixerTop : MonoBehaviour
 	{
 #region Fields
-		private RectTransform uiRectTransform;
+		RectTransform uiRectTransform;
 #endregion
 
 #region Unity API
-		private void Awake()
+		void Awake()
 		{
 			uiRectTransform = GetComponent< RectTransform >();
 

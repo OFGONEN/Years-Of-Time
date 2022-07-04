@@ -71,16 +71,16 @@ namespace FFStudio
 #endregion
 
 #region Fields (Singleton Related)
-        private static PlayerPrefsUtility instance;
+        static PlayerPrefsUtility instance;
 
-        private delegate PlayerPrefsUtility ReturnPlayerPrefsUtility();
-        private static ReturnPlayerPrefsUtility returnInstance = LoadInstance;
+        delegate PlayerPrefsUtility ReturnPlayerPrefsUtility();
+        static ReturnPlayerPrefsUtility returnInstance = LoadInstance;
 
 		public static PlayerPrefsUtility Instance => returnInstance();
 #endregion
 
 #region Implementation
-        private static PlayerPrefsUtility LoadInstance()
+        static PlayerPrefsUtility LoadInstance()
 		{
 			if( instance == null )
 				instance = Resources.Load< PlayerPrefsUtility >( "utility_playerPrefs" );
@@ -90,7 +90,7 @@ namespace FFStudio
 			return instance;
 		}
 
-		private static PlayerPrefsUtility ReturnInstance()
+		static PlayerPrefsUtility ReturnInstance()
         {
             return instance;
         }

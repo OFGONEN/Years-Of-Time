@@ -6,8 +6,8 @@ namespace FFStudio
 {
 	public abstract class TriggerListener : ColliderListener< TriggerMessage, Collider >
 	{
-#region Fields (Private)
-		private event TriggerMessage triggerEvent;
+#region Fields
+		event TriggerMessage triggerEvent;
 #endregion
 
 #region Properties
@@ -81,21 +81,21 @@ namespace FFStudio
 
 #region Editor Only
 #if UNITY_EDITOR
-	public bool IsMethodSubscribed( UnityMessage method )
-	{
-		if( triggerEvent != null )
+		public bool IsMethodSubscribed( UnityMessage method )
 		{
-			var subscribedMethods = triggerEvent.GetInvocationList();
-			for( int i = 0; i < subscribedMethods.Length; i++ )
+			if( triggerEvent != null )
 			{
-				var subscribedMethod = subscribedMethods[ i ];
-				if( subscribedMethod.Method.Name == method.Method.Name && subscribedMethod.Target == method.Target )
-					return true;
+				var subscribedMethods = triggerEvent.GetInvocationList();
+				for( int i = 0; i < subscribedMethods.Length; i++ )
+				{
+					var subscribedMethod = subscribedMethods[ i ];
+					if( subscribedMethod.Method.Name == method.Method.Name && subscribedMethod.Target == method.Target )
+						return true;
+				}
 			}
-		}
 
-		return false;
-	}
+			return false;
+		}
 #endif
 #endregion
 	}

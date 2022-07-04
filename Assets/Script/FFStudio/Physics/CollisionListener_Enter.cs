@@ -13,7 +13,7 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-        private void OnCollisionEnter( Collision collision )
+        void OnCollisionEnter( Collision collision )
         {
 			InvokeEvent( collision );
 		}

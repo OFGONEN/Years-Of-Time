@@ -14,7 +14,7 @@ namespace FFStudio
 		[ ShowIf( "canRaiseOtherEvents" ) ]
 		public List< GameEvent > eventsThatWillAlsoBeRaised;
 		
-        private readonly List< EventListener > eventListeners = new List< EventListener >();
+        readonly List< EventListener > eventListeners = new List< EventListener >();
 #endregion
 
 #region API

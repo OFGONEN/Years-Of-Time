@@ -6,29 +6,25 @@ namespace FFStudio
 {
 	public abstract class UIProgressIndicator : UIEntity
 	{
-#region Fields (Inspector Interface)
+#region Fields
 		public SharedFloatNotifier indicatorProgress;
 
 		public float offsetPercentage;
-#endregion
 
-#region Fields (Protected)
 		protected Vector3[] indicatingParentWorldPos = new Vector3[ 4 ];
 		protected Vector3 indicator_BasePosition;
 		protected Vector3 indicator_EndPosition;
-#endregion
 
-#region Fields (Private)
-		private RectTransform indicatingParent;
+		RectTransform indicatingParent;
 #endregion
 
 #region Unity API
-        private void OnEnable()
+        void OnEnable()
         {
 			indicatorProgress.Subscribe( OnProgressChange );
 		}
 
-        private void OnDisable()
+        void OnDisable()
         {
 			indicatorProgress.Unsubscribe( OnProgressChange );
         }

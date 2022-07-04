@@ -7,7 +7,10 @@ namespace FFStudio
 	[ CreateAssetMenu( fileName = "pool_pfx_", menuName = "FF/Data/Pool/ParticlePool" ) ]
 	public class ParticleEffectPool : ComponentPool< ParticleEffect >
 	{
-		private ParticleEffectStopped initial_delegate;
+#region Fields
+		ParticleEffectStopped initial_delegate;
+#endregion
+		
 #region API
 		public void InitPool( Transform parent, bool active, ParticleEffectStopped effectStoppedDelegate )
 		{

@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+/* Created by and for usage of FF Studios (2021). */
+
 using UnityEngine;
 
 namespace FFStudio

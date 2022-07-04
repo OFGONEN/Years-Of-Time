@@ -3,7 +3,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[ CustomPropertyDrawer( typeof( LayerAttribute ) ) ]
+[ CustomPropertyDrawer( typeof( FFStudio.LayerAttribute ) ) ]
 public class LayerAttributeDrawer : PropertyDrawer
 {
 	public override void OnGUI( Rect position, SerializedProperty property, GUIContent label )

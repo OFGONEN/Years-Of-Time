@@ -8,24 +8,22 @@ namespace FFStudio
 {
     public class ToggleRagdoll : MonoBehaviour
     {
-#region Fields (Inspector Interface)
-        [ SerializeField ] private bool includeRigidbodyOnThisGameObject;
-        [ SerializeField ] private bool deactivateOnStart = true;
-        [ SerializeField ] private Rigidbody[] excludeTheseRigidbodies;
-#endregion
-        
-#region Fields (Private, Auto-acquired)
-        [ SerializeField ] private Rigidbody[] ragdollRigidbodies;
-        [ SerializeField ] private Collider[] ragdollRigidbody_Colliders;
+#region Fields
+        [ SerializeField ] bool includeRigidbodyOnThisGameObject;
+        [ SerializeField ] bool deactivateOnStart = true;
+        [ SerializeField ] Rigidbody[] excludeTheseRigidbodies;
 
-        private Rigidbody ragdollRigidbody_Main;
+        [ SerializeField ] Rigidbody[] ragdollRigidbodies;
+        [ SerializeField ] Collider[] ragdollRigidbody_Colliders;
+
+        Rigidbody ragdollRigidbody_Main;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
-        private void Awake()
+        void Awake()
         {
             if( includeRigidbodyOnThisGameObject )
                 ragdollRigidbodies = GetComponentsInChildren< Rigidbody >();
@@ -41,9 +39,7 @@ namespace FFStudio
 			ragdollRigidbody_Colliders = new Collider[ ragdollRigidbodies.Length ];
 
 			for( var i = 0; i < ragdollRigidbodies.Length; i++ )
-			{
 				ragdollRigidbody_Colliders[ i ] = ragdollRigidbodies[ i ].GetComponent<Collider>();
-			}
 
             if( deactivateOnStart )
                 Deactivate();

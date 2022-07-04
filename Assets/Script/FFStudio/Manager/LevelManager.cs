@@ -20,7 +20,7 @@ namespace FFStudio
 #endregion
 
 #region API
-        //Info: Editor Call
+        // Info: Called from Editor.
         public void LevelLoadedResponse()
         {
 			levelProgress.SetValue_NotifyAlways( 0 );
@@ -33,13 +33,13 @@ namespace FFStudio
 				SceneManager.SetActiveScene( SceneManager.GetSceneAt( 0 ) );
 		}
 
-        //Info: Editor Call
+        // Info: Called from Editor.
         public void LevelRevealedResponse()
         {
 
         }
 
-        //Info: Editor Call
+        // Info: Called from Editor.
         public void LevelStartedResponse()
         {
 

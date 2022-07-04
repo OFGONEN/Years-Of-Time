@@ -12,12 +12,12 @@ namespace FFStudio
 #endregion
 
 #region UnityAPI
-		private void OnEnable()
+		void OnEnable()
 		{
 			sharedReferenceProperty.SharedValue = referenceComponent;
 		}
 
-		private void OnDisable()
+		void OnDisable()
 		{
 			sharedReferenceProperty.SharedValue = null;
 		}

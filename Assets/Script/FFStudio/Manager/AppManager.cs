@@ -18,7 +18,7 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-		private void Start()
+		void Start()
 		{
 			StartCoroutine( LoadLevel( null ) );
 		}
@@ -46,7 +46,7 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-		private IEnumerator LoadLevel( UnityMessage onLevelUnload )
+		IEnumerator LoadLevel( UnityMessage onLevelUnload )
 		{
 			onLevelUnload?.Invoke();
 

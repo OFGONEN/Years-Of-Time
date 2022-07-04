@@ -6,8 +6,8 @@ namespace FFStudio
 {
 	public abstract class CollisionListener : ColliderListener< CollisionMessage, Collision >
 	{
-#region Fields (Private)
-		private event CollisionMessage collisionEvent;
+#region Fields
+		event CollisionMessage collisionEvent;
 #endregion
 
 #region Properties

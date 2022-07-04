@@ -10,11 +10,11 @@ namespace FFStudio
 #region Fields
 		public Image imageRenderer;
 		
-		private Vector2 imageSizeDelta;
+		Vector2 imageSizeDelta;
 #endregion
 
 #region Unity API
-		private void Awake()
+		void Awake()
 		{
 			imageSizeDelta = uiTransform.sizeDelta;
 		}

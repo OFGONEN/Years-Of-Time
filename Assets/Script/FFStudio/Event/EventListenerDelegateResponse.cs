@@ -5,24 +5,28 @@ namespace FFStudio
     [ System.Serializable ]
     public class EventListenerDelegateResponse : EventListener
     {
+#region Fields
         public GameEvent gameEvent;
 
         public delegate void Response();
         public Response response;
-        
-        public override void OnEnable()
-        {
+#endregion
+
+#region API
+		public override void OnEnable()
+		{
 			gameEvent.RegisterListener( this );
 		}
-        
-        public override void OnDisable()
-        {
+
+		public override void OnDisable()
+		{
 			gameEvent.UnregisterListener( this );
 		}
 
-        public override void OnEventRaised()
-        {
-            response();
-        }
+		public override void OnEventRaised()
+		{
+			response();
+		}
+#endregion
     }
 }

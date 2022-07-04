@@ -1,31 +1,28 @@
 /* Created by and for usage of FF Studios (2021). */
 
 using UnityEngine;
-using FFStudio;
 using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
 	public class ColorSetter : MonoBehaviour
 	{
-#region Fields (Inspector Interface)
-		[ TitleGroup( "Setup" ), SerializeField ] private Color color;
-#endregion
+#region Fields
+		[ TitleGroup( "Setup" ), SerializeField ] Color color;
 
-#region Fields (Private)
-		private static int SHADER_ID_COLOR = Shader.PropertyToID( "_BaseColor" );
+		static int SHADER_ID_COLOR = Shader.PropertyToID( "_BaseColor" );
 
-		private Renderer _renderer;
-		private MaterialPropertyBlock propertyBlock;
+		Renderer theRenderer;
+		MaterialPropertyBlock propertyBlock;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
-		private void Awake()
+		void Awake()
 		{
-			_renderer = GetComponent<Renderer>();
+			theRenderer = GetComponent< Renderer >();
 
 			propertyBlock = new MaterialPropertyBlock();
 		}
@@ -39,12 +36,12 @@ namespace FFStudio
 			SetColor();
 		}
 
-		[Button]
+		[ Button ]
 		public void SetColor() // Info: This may be more "Unity-Event-friendly".
 		{
-			_renderer.GetPropertyBlock( propertyBlock );
+			theRenderer.GetPropertyBlock( propertyBlock );
 			propertyBlock.SetColor( SHADER_ID_COLOR, color );
-			_renderer.SetPropertyBlock( propertyBlock );
+			theRenderer.SetPropertyBlock( propertyBlock );
 		}
 #endregion
 

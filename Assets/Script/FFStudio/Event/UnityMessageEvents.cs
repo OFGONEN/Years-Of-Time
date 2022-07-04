@@ -20,22 +20,22 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-        private void OnEnable()
+        void OnEnable()
         {
 			onEnableEvent.Invoke();
 		}
 
-        private void OnDisable()
+        void OnDisable()
         {
 			onDisableEvent.Invoke();
 		}
 
-        private void Awake()
+        void Awake()
         {
 			onAwakeEvent.Invoke();
 		}
 
-        private void Start()
+        void Start()
         {
 			onStartEvent.Invoke();
 		}

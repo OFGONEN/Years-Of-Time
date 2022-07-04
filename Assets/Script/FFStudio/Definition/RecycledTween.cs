@@ -6,11 +6,16 @@ namespace FFStudio
 {
 	public class RecycledTween
 	{
+#region Fields
 		UnityMessage onComplete;
 		Tween tween;
+#endregion
 
+#region Properties
 		public Tween Tween => tween;
+#endregion
 
+#region API
 		public void Recycle( Tween tween_unsafe, UnityMessage onComplete )
 		{
 			tween = tween.KillProper();
@@ -41,16 +46,27 @@ namespace FFStudio
 		{
 			this.onComplete = onComplete;
 		}
+		
+		public bool IsPlaying()
+		{
+			if( tween != null )
+				return tween.IsPlaying();
+			else
+				return false;
+		}
 
 		public void Kill()
 		{
 			tween = tween.KillProper();
 		}
+#endregion
 
+#region Implementation
 		void OnComplete_Safe()
 		{
 			tween = null;
 			onComplete?.Invoke();
 		}
+#endregion
 	}
 }

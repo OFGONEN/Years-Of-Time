@@ -6,10 +6,11 @@ using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
-	public class UnityMessageEvents : MonoBehaviour
+    [ TypeInfoBox( "This component simply relays calls to Unity's known callbacks to other desired Systems-as-Assets or Monobehaviours, by use of Unity Events." ) ]
+	public class RelayCallbackMessages : MonoBehaviour
 	{
 #region Fields
-    [ Title( "Setup" ) ]
+    [ Title( "Relayed Unity Events" ) ]
         public UnityEvent onEnableEvent;
         public UnityEvent onDisableEvent;
         public UnityEvent onAwakeEvent;

@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class Fire_UnityEvent : MonoBehaviour
+	public class Respond : MonoBehaviour
 	{
 #region Fields
-        public EventPair[] eventPairs;
+        public EventAndResponse[] eventPairs;
 #endregion
 
 #region Properties

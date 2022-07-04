@@ -9,7 +9,6 @@ namespace FFStudio
 	public class Debug_AssetManager : MonoBehaviour
 	{
 #region Fields
-		[ Layer ]
 		public Pool_Debug_UI_Text pool_UI_Debug_Text;
 
 		void Awake()

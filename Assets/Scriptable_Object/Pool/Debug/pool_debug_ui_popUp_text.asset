@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d373e748fb5cc42329e38a71d5781d1c, type: 3}
-  m_Name: pool_debug_ui_text
+  m_Script: {fileID: 11500000, guid: 5713738b17ccf4c1cbe104f5e65de5ab, type: 3}
+  m_Name: pool_debug_ui_popUp_text
   m_EditorClassIdentifier: 
-  stackSize: 10
-  pool_entity: {fileID: -8009138592093246269, guid: a79cd824db0ee5240be15b949386a2e4, type: 3}
+  stackSize: 32
+  pool_entity: {fileID: 6316872551600914418, guid: 233f78e1646d442b384b55821e3b3fb6, type: 3}

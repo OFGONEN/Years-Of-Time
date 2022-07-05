@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a385bd3b4416492409284c9a366cb52a, type: 3}
   m_Name: game_settings
   m_EditorClassIdentifier: 
+  camera_follow_speed_depth: 2.8
   maxLevelCount: 1
   useRemoteConfig_GameSettings: 0
   useRemoteConfig_Components: 0
@@ -22,6 +23,12 @@ MonoBehaviour:
   ui_Entity_JoyStick_Gap: 50
   ui_PopUp_height: 1
   ui_PopUp_duration: 0.75
+  ui_particle_spawn_width: 10
+  ui_particle_spawn_duration: 0.1
+  ui_particle_spawn_ease: 1
+  ui_particle_target_waitTime: 0.16
+  ui_particle_target_duration: 0.4
+  ui_particle_target_ease: 1
   swipeThreshold: 2
   debug_ui_text_float_height: 1
   debug_ui_text_float_duration: 1

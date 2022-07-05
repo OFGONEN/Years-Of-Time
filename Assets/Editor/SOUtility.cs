@@ -121,6 +121,7 @@ namespace FFEditor
 		[ MenuItem( "FFStudios/SO/Load All Default SO" ) ]
 		public static void LoadAllDefaultSO()
 		{
+			SOLibrary.DeleteEmptyIndexes();
 			var trackedScriptableObjects = SOLibrary.trackedScriptableObjects;
 
 			for( int i = 0; i < trackedScriptableObjects.Count; i++ )
@@ -130,6 +131,7 @@ namespace FFEditor
 		[ MenuItem( "FFStudios/SO/Create All Default SO" ) ]
 		public static void CreateAllDefaultSO()
 		{
+			SOLibrary.DeleteEmptyIndexes();
 			var trackedScriptableObjects = SOLibrary.trackedScriptableObjects;
 
 			for( int i = 0; i < trackedScriptableObjects.Count; i++ )

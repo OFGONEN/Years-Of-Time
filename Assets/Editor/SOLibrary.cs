@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 using UnityEditor;
 
 namespace FFEditor
@@ -9,9 +10,9 @@ namespace FFEditor
 	[ CreateAssetMenu( fileName = "TrackedSOLibrary", menuName = "FFEditor/TrackedSOLibrary" ) ]
     public class SOLibrary : ScriptableObject
     {
-        public List< ScriptableObject > trackedScriptableObjects = null;
+        [ ReadOnly ] public List< ScriptableObject > trackedScriptableObjects = null;
 
-        [ HideInInspector ] public int trackedScriptablesObjectCount = 0;
+        [ ReadOnly ] public int trackedScriptablesObjectCount = 0;
 
 		private void Awake()
 		{
@@ -36,18 +37,22 @@ namespace FFEditor
 			trackedScriptablesObjectCount = trackedScriptableObjects.Count;
 		}
 
-		// Removes manually added scriptable objects
-		private void OnValidate()
+		public void DeleteEmptyIndexes()
 		{
-			if( trackedScriptableObjects == null || trackedScriptableObjects.Count == 0 || trackedScriptableObjects.Count == trackedScriptablesObjectCount )
-				return;
-
-			Debug.LogError( "Do not add items to SOLibrary manually" );
-
-			trackedScriptableObjects.RemoveRange( trackedScriptablesObjectCount, trackedScriptableObjects.Count - trackedScriptablesObjectCount );
-			trackedScriptablesObjectCount = trackedScriptableObjects.Count;
-
 			EditorUtility.SetDirty( this );
+
+			Debug.Log( "Deleting Empty Indexes" );
+
+			for( var i = 0; i < trackedScriptableObjects.Count; i++ )
+			{
+				if( trackedScriptableObjects[ i ] == null )
+				{
+					trackedScriptableObjects.RemoveAt( i );
+					i = 0;
+				}
+			}
+
+			trackedScriptablesObjectCount = trackedScriptableObjects.Count;
 			AssetDatabase.SaveAssets();
 		}
     }

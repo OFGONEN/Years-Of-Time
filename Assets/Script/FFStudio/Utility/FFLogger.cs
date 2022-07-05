@@ -102,14 +102,14 @@ namespace FFStudio
 		public static void PopUpText( Vector3 position, string message )
 		{
 			var entity = Pool_Debug_UI_Text.Instance.GetEntity();
-			entity.Spawn( position, message );
+			entity.Spawn( position, message, 1, Color.grey );
 		}
 
 		[ System.Diagnostics.Conditional( LOGGER_SYMBOL ) ]
 		public static void PopUpText( Vector3 position, string message, Object context = null )
 		{
 			var entity = Pool_Debug_UI_Text.Instance.GetEntity();
-			entity.Spawn( position, message );
+			entity.Spawn( position, message, 1, Color.grey );
 
 			Debug.Log( message, context );
 		}

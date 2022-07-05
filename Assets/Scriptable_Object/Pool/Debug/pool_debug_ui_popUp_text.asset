@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5713738b17ccf4c1cbe104f5e65de5ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 8df5d93ec237cf14785bd26702bb21a1, type: 3}
   m_Name: pool_debug_ui_popUp_text
   m_EditorClassIdentifier: 
   stackSize: 32

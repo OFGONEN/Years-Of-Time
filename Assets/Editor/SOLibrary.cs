@@ -41,8 +41,6 @@ namespace FFEditor
 		{
 			EditorUtility.SetDirty( this );
 
-			Debug.Log( "Deleting Empty Indexes" );
-
 			for( var i = 0; i < trackedScriptableObjects.Count; i++ )
 			{
 				if( trackedScriptableObjects[ i ] == null )

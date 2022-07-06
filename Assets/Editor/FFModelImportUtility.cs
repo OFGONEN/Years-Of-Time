@@ -47,6 +47,10 @@ namespace FFEditor
 		void OnPreprocessModel()
 		{
 			var  modelPrefix  = GetModelPrefix();
+
+			if( modelPrefix == string.Empty )
+				return;
+
 			var  modelSuffix  = GetModelSuffix();
 			bool hasShapeKey  = HasInfix( infix_skey ) || modelSuffix == suffix_skey;
 
@@ -124,8 +128,11 @@ namespace FFEditor
 		string GetModelPrefix()
 		{
 			var modelNameOnly = assetPath.Split( '/' ).Last();
-			var modelPrefix = modelNameOnly.Split( '_' ).First();
-			return modelPrefix;
+
+			if( modelNameOnly.Contains( '_') )
+				return modelNameOnly.Split( '_' ).First();
+			else
+				return string.Empty;
 		}
 
 		string GetModelSuffix()

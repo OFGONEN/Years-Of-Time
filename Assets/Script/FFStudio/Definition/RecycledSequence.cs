@@ -31,7 +31,8 @@ namespace FFStudio
 		{
 			sequence = sequence.KillProper();
 
-			sequence = DOTween.Sequence();
+			sequence   = DOTween.Sequence();
+			onComplete = null;
 			sequence.OnComplete( OnComplete_Safe );
 
 #if UNITY_EDITOR

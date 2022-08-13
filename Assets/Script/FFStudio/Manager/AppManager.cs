@@ -21,6 +21,7 @@ namespace FFStudio
 		void Start()
 		{
 			StartCoroutine( LoadLevel( null ) );
+			Application.targetFrameRate = Screen.currentResolution.refreshRate;
 		}
 #endregion
 

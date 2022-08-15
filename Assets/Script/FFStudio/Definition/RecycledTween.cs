@@ -34,6 +34,8 @@ namespace FFStudio
 		{
 			tween = tween.KillProper();
 			tween = tween_unsafe;
+			
+			this.onComplete = null;
 
 			tween.OnComplete( OnComplete_Safe );
 

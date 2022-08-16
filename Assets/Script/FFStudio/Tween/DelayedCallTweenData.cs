@@ -11,7 +11,6 @@ namespace FFStudio
 #region Fields
 	[ Title( "Delayed Call Tween" ) ]
         [ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ), SuffixLabel( "Seconds" ) ] public float duration;
-        [ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ) ] public UnityEvent onDelayComplete;
 #endregion
 
 #region Properties
@@ -26,7 +25,7 @@ namespace FFStudio
 #region Implementation
 		protected override void CreateAndStartTween( UnityMessage onComplete = null, bool isReversed = false )
 		{
-			recycledTween.Recycle( DOVirtual.DelayedCall( duration, onDelayComplete.Invoke ), onComplete );
+			recycledTween.Recycle( DOVirtual.DelayedCall( duration, ExtensionMethods.EmptyMethod ), onComplete );
 
 #if UNITY_EDITOR
 			recycledTween.Tween.SetId( "_ff_delayedCall_tween___" + description );

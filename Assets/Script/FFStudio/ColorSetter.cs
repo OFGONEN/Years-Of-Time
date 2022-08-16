@@ -43,6 +43,14 @@ namespace FFStudio
 			propertyBlock.SetColor( SHADER_ID_COLOR, color );
 			theRenderer.SetPropertyBlock( propertyBlock );
 		}
+		
+		public void SetAlpha( float alpha )
+		{
+			theRenderer.GetPropertyBlock( propertyBlock );
+			var currentColor = theRenderer.sharedMaterial.GetColor( SHADER_ID_COLOR );
+			propertyBlock.SetColor( SHADER_ID_COLOR, currentColor.SetAlpha( alpha ) );
+			theRenderer.SetPropertyBlock( propertyBlock );
+		}
 #endregion
 
 #region Implementation

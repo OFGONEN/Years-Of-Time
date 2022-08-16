@@ -47,6 +47,18 @@ namespace FFStudio
 			sequence = sequence.KillProper();
 		}
 
+		public void KillAndRewind()
+		{
+			sequence?.Rewind();
+			sequence = sequence.KillProper();
+		}
+
+		public void KillAndComplete()
+		{
+			sequence?.Complete();
+			sequence = sequence.KillProper();
+		}
+
 		void OnComplete_Safe()
 		{
 			sequence = null;

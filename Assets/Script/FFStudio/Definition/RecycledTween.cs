@@ -61,6 +61,18 @@ namespace FFStudio
 		{
 			tween = tween.KillProper();
 		}
+
+		public void KillAndRewind()
+		{
+			tween?.Rewind();
+			tween = tween.KillProper();
+		}
+
+		public void KillAndComplete()
+		{
+			tween?.Complete();
+			tween = tween.KillProper();
+		}
 #endregion
 
 #region Implementation

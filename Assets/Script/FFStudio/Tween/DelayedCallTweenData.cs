@@ -35,6 +35,7 @@ namespace FFStudio
 
 #region EditorOnly
 #if UNITY_EDITOR
+		public override bool HideBaseClassLoopCheckBox() => true;
 #endif
 #endregion
 	}

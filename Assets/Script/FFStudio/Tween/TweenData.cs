@@ -24,6 +24,9 @@ namespace FFStudio
 	[ Title( "Events" ), SerializeReference ]
 		[ BoxGroup( "Other", false ) ] public TweenEventData[] tweenEventDatas;
 		
+#if UNITY_EDITOR
+		[ HideIf( "HideBaseClassLoopCheckBox" ) ]
+#endif
 		[ BoxGroup( "Tween", false ), DisableIf( "IsPlaying" ) ] public bool loop;
 		[ BoxGroup( "Tween", false ), ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
 		[ BoxGroup( "Tween", false ) ] public Ease easing = Ease.Linear;
@@ -36,7 +39,6 @@ namespace FFStudio
 		protected Transform transform;
 
 		UnityMessage onComplete;
-		
 #endregion
 
 #region Properties
@@ -120,6 +122,12 @@ namespace FFStudio
 			onCompleteEvent.Invoke();
 			onComplete?.Invoke();
 		}
+#endregion
+
+#region Editor Only
+#if UNITY_EDITOR
+		public virtual bool HideBaseClassLoopCheckBox() => false;
+#endif
 #endregion
 	}
 }

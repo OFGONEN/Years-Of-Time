@@ -20,7 +20,6 @@ namespace FFStudio
         [ SerializeField, LabelText( "End Color" ) ] Color color_end = new Color( 0, 0, 0, 0 );
 
 		DrawShape onDrawShape;
-		float length_auto;
 #endregion
 
 #region Properties

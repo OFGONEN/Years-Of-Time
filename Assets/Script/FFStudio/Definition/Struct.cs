@@ -134,66 +134,10 @@ namespace FFStudio
 		}
 	}
 	
-	[ System.Serializable ]
-    public struct NormalizedValue
-    {
-        public NormalizedValue( float val )
-        {
-			value = val;
-		}
-
-		public static implicit operator NormalizedValue( float value )
-		{
-			return new NormalizedValue( value );
-		}
-
-		public static bool operator <( NormalizedValue lhs, NormalizedValue rhs )
-		{
-			return lhs.value < rhs.value;
-		}
-
-		public static bool operator >( NormalizedValue lhs, NormalizedValue rhs )
-		{
-			return lhs.value > rhs.value;
-		}
-
-		public static bool operator <=( NormalizedValue lhs, NormalizedValue rhs )
-		{
-			return Mathf.Approximately( lhs.value, rhs.value ) || lhs < rhs;
-		}
-
-		public static bool operator >=( NormalizedValue lhs, NormalizedValue rhs )
-		{
-			return Mathf.Approximately( lhs.value, rhs.value ) || lhs > rhs;
-		}
-
-		public static bool operator <( NormalizedValue lhs, float rhs )
-		{
-			return lhs.value < rhs;
-		}
-
-		public static bool operator >( NormalizedValue lhs, float rhs )
-		{
-			return lhs.value > rhs;
-		}
-
-		public static bool operator <=( NormalizedValue lhs, float rhs )
-		{
-			return Mathf.Approximately( lhs.value, rhs ) || lhs < rhs;
-		}
-
-		public static bool operator >=( NormalizedValue lhs, float rhs )
-		{
-			return Mathf.Approximately( lhs.value, rhs ) || lhs > rhs;
-		}
-        
-        public float value;
-    }
-	
 	[ Serializable ]
 	public struct ColorPerThreshold
 	{
 		public Color color;
-		[ SuffixLabel( "%" ) ] public NormalizedValue threshold;
+		[ MappedFloat ] public float threshold;
 	}
 }

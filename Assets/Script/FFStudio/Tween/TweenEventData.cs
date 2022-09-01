@@ -40,7 +40,7 @@ namespace FFStudio
 	[ System.Serializable ]
 	public class TweenEventData_TweenPercentage : TweenEventData
 	{
-		[ SuffixLabel( "%" ) ] public NormalizedValue threshold;
+		[ MappedFloat ] public float threshold;
         
 		public override void InvokeEventIfThresholdIsPassed( Tween tween, Ease ease )
         {
@@ -55,7 +55,7 @@ namespace FFStudio
     [ System.Serializable ]
 	public class TweenEventData_ValuePercentage : TweenEventData
 	{
-		[ SuffixLabel( "%" ) ] public NormalizedValue threshold;
+		[ MappedFloat ] public float threshold;
         
 		public override void InvokeEventIfThresholdIsPassed( Tween tween, Ease ease )
         {

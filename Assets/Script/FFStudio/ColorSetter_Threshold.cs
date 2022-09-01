@@ -69,7 +69,7 @@ namespace FFStudio
 				{
 					if( i < colors.Length - 1 )
 					{
-						var lerpBy = Mathf.InverseLerp( colors[ i ].threshold.value, colors[ i + 1 ].threshold.value, normalizedValue );
+						var lerpBy = Mathf.InverseLerp( colors[ i ].threshold, colors[ i + 1 ].threshold, normalizedValue );
 						SetColor( Color.Lerp( colors[ i ].color, colors[ i + 1 ].color, lerpBy ) );
 					}
 					else

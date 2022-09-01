@@ -8,5 +8,11 @@ namespace FFStudio
     public class BoolGameEvent : GameEvent
     {
         public bool eventValue;
+        
+        public void Raise( bool value )
+        {
+			eventValue = value;
+			Raise();
+		}
     }
 }

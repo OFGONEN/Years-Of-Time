@@ -8,5 +8,11 @@ namespace FFStudio
 	public class ColorGameEvent : GameEvent
 	{
 		public Color eventValue;
+		
+		public void Raise( Color value )
+		{
+			eventValue = value;
+			Raise();
+		}
 	}
 }

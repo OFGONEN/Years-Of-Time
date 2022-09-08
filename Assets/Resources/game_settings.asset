@@ -30,5 +30,6 @@ MonoBehaviour:
   ui_particle_target_duration: 0.4
   ui_particle_target_ease: 1
   swipeThreshold: 2
+  ui_safeArea_offset_top: 88
   debug_ui_text_float_height: 1
   debug_ui_text_float_duration: 1

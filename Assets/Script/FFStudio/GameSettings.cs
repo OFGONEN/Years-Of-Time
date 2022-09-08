@@ -35,6 +35,7 @@ namespace FFStudio
 		[ FoldoutGroup( "UI Settings" ), Tooltip( "UI Particle Target Travel Time" ) ] public float ui_particle_target_duration;
 		[ FoldoutGroup( "UI Settings" ), Tooltip( "UI Particle Target Travel Ease" ) ] public Ease ui_particle_target_ease;
         [ FoldoutGroup( "UI Settings" ), Tooltip( "Percentage of the screen to register a swipe"     ) ] public int swipeThreshold;
+        [ FoldoutGroup( "UI Settings" ), Tooltip( "Safe Area Base Top Offset" ) ] public int ui_safeArea_offset_top = 88;
 
         [ FoldoutGroup( "Debug" ) ] public float debug_ui_text_float_height;
         [ FoldoutGroup( "Debug" ) ] public float debug_ui_text_float_duration;

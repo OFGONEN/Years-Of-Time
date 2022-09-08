@@ -15,10 +15,15 @@ namespace FFStudio
 		{
 			uiRectTransform = GetComponent< RectTransform >();
 
-			var position = uiRectTransform.anchoredPosition;
-			position.y += Mathf.Sign( position.y ) * ( Screen.height - Screen.safeArea.height - Screen.safeArea.position.y );
+			var dangerArea = Screen.height - Screen.safeArea.height - Screen.safeArea.position.y;
+			var offset = GameSettings.Instance.ui_safeArea_offset_top - dangerArea;
 
-			uiRectTransform.anchoredPosition = position;
+			var position = uiRectTransform.position;
+			FFLogger.Log( "Position: " + position );
+			position.y += offset;
+			FFLogger.Log( "Position With Offset: " + position );
+
+			uiRectTransform.position = position;
 		}
 #endregion
 	}

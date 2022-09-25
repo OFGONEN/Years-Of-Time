@@ -7,9 +7,9 @@ using Sirenix.OdinInspector;
 [ CreateAssetMenu( fileName = "pool_ui_particle", menuName = "FF/Data/Pool/UI Particle Pool" ) ]
 public class UIParticlePool : ComponentPool< UIParticle > 
 {
-    [ Button() ]
-    public void Spawn( Vector3 screenStartPosition, Vector3 screenWorldPosition )
-    {
-		GetEntity().Spawn( screenStartPosition, screenWorldPosition );
+	[ Button() ]
+	public void Spawn( string value, Vector3 worldPosition, OnCompleteMessage onComplete = null )
+	{
+		GetEntity().Spawn( value, worldPosition, onComplete );
 	}
 }

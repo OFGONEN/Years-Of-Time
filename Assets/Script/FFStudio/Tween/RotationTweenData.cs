@@ -14,14 +14,15 @@ namespace FFStudio
 #region Fields
     [ Title( "Rotation Tween" ) ]
 		[ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ) ] public bool useDelta = true;
+		[ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ) ] public bool speedBased = false;
 #if UNITY_EDITOR
 		[ InfoBox( "End Value is RELATIVE.", "useDelta" ) ]
 		[ InfoBox( "End Value is ABSOLUTE.", "EndValueIsAbsolute" ) ]
 #endif
         [ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ), SuffixLabel( "Degrees (°)" ) ] public float endValue;
 #if UNITY_EDITOR
-		[ InfoBox( "Duration is DURATION (seconds).", "useDelta" ) ]
-		[ InfoBox( "Duration is ANGULAR VELOCITY (degrees/seconds).", "EndValueIsAbsolute" ) ]
+		[ InfoBox( "Duration is DURATION (seconds).", "DurationIsDuration" ) ]
+		[ InfoBox( "Duration is ANGULAR VELOCITY (degrees/seconds).", "speedBased" ) ]
 #endif
         [ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ), Min( 0 ) ] public float duration;
         [ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ) ] public RotationMode rotationMode;
@@ -40,6 +41,7 @@ namespace FFStudio
 #region Properties
 #if UNITY_EDITOR
 		bool EndValueIsAbsolute => !useDelta;
+		bool DurationIsDuration => !speedBased;
 #endif
 #endregion
 
@@ -52,8 +54,6 @@ namespace FFStudio
 #region Implementation
         protected override void CreateAndStartTween( UnityMessage onComplete, bool isReversed = false )
         {
-			float duration = useDelta ? Mathf.Abs( endValue / this.duration ) : this.duration;
-
 			if( rotationMode == RotationMode.Local )
 				recycledTween.Recycle( transform.DOLocalRotate( rotationAxisMaskVector * endValue, duration, useDelta ? RotateMode.LocalAxisAdd : RotateMode.Fast ),
                                        onComplete );
@@ -64,6 +64,12 @@ namespace FFStudio
 			recycledTween.Tween // Don't need to set SetRelative() as RotateMode.XXXAxisAdd automatically means relative end value.
 				 .SetEase( easing )
 				 .SetLoops( loop ? -1 : 0, loopType );
+
+			if( useDelta )
+				recycledTween.Tween.SetRelative();
+
+			if( speedBased )
+				recycledTween.Tween.SetSpeedBased();
 
 #if UNITY_EDITOR
 			recycledTween.Tween.SetId( "_ff_rotation_tween___" + description );

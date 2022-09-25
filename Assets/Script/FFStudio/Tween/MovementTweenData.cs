@@ -11,14 +11,15 @@ namespace FFStudio
 #region Fields
 	[ Title( "Movement Tween" ) ]
 		[ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ) ] public bool useDelta = true;
+		[ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ) ] public bool speedBased = false;
 #if UNITY_EDITOR
 		[ InfoBox( "End Value is RELATIVE.", "useDelta" ) ]
 		[ InfoBox( "End Value is ABSOLUTE.", "EndValueIsAbsolute" ) ]
 #endif
 		[ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ) ] public Vector3 endValue;
 #if UNITY_EDITOR
-		[ InfoBox( "Duration is DURATION.", "useDelta" ) ]
-		[ InfoBox( "Duration is VELOCITY.", "EndValueIsAbsolute" ) ]
+		[ InfoBox( "Duration is DURATION (seconds).", "DurationIsDuration" ) ]
+		[ InfoBox( "Duration is VELOCITY (units/seconds).", "speedBased" ) ]
 #endif
 		[ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ) ] public float duration;
 		[ BoxGroup( "Tween" ), PropertyOrder( int.MinValue ) ] public MovementMode movementMode;
@@ -27,6 +28,7 @@ namespace FFStudio
 #region Properties
 #if UNITY_EDITOR
 		bool EndValueIsAbsolute => !useDelta;
+		bool DurationIsDuration => !speedBased;
 #endif
 #endregion
 
@@ -39,8 +41,6 @@ namespace FFStudio
 #region Implementation
 		protected override void CreateAndStartTween( UnityMessage onComplete, bool isReversed = false )
 		{
-			var duration = useDelta ? Mathf.Abs( endValue.magnitude / this.duration ) : this.duration;
-
 			if( movementMode == MovementMode.Local )
 				recycledTween.Recycle( transform.DOLocalMove( isReversed ? -endValue : endValue, duration ), onComplete );
 			else
@@ -52,6 +52,9 @@ namespace FFStudio
 				
 			if( useDelta )
 				recycledTween.Tween.SetRelative();
+				
+			if( speedBased )
+				recycledTween.Tween.SetSpeedBased();
 
 #if UNITY_EDITOR
 			recycledTween.Tween.SetId( "_ff_movement_tween___" + description );

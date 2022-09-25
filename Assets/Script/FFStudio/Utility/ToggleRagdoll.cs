@@ -15,8 +15,10 @@ namespace FFStudio
 
         [ SerializeField ] Rigidbody[] ragdollRigidbodies;
         [ SerializeField ] Collider[] ragdollRigidbody_Colliders;
+        
+        [ SerializeField ] Animator animator_toDisable;
 
-        Rigidbody ragdollRigidbody_Main;
+        Rigidbody ragdollRigidbody_main;
 #endregion
 
 #region Properties
@@ -34,7 +36,7 @@ namespace FFStudio
             }
 
             ragdollRigidbodies    = ragdollRigidbodies.Except( excludeTheseRigidbodies ).ToArray();
-            ragdollRigidbody_Main = ragdollRigidbodies[ 0 ];
+            ragdollRigidbody_main = ragdollRigidbodies[ 0 ];
 
 			ragdollRigidbody_Colliders = new Collider[ ragdollRigidbodies.Length ];
 
@@ -50,6 +52,9 @@ namespace FFStudio
         [ Button() ]
         public void Activate()
         {
+			if( animator_toDisable != null )
+				animator_toDisable.enabled = false;
+                
 			for( var i = 0; i < ragdollRigidbodies.Length; i++ )
 			{
 				ragdollRigidbodies        [ i ].isKinematic = false;
@@ -66,13 +71,16 @@ namespace FFStudio
 				ragdollRigidbodies        [ i ].isKinematic = true;
 				ragdollRigidbodies        [ i ].useGravity  = false;
 				ragdollRigidbody_Colliders[ i ].enabled     = false;
-			}        
+			}
+
+			if( animator_toDisable != null )
+				animator_toDisable.enabled = true;     
         }
 
         [ Button() ]
-		public void GiveForce( Vector3 force, ForceMode mode )
+		public void ApplyForce( Vector3 force, ForceMode mode )
 		{
-			ragdollRigidbody_Main.AddForce( force, mode );
+			ragdollRigidbody_main.AddForce( force, mode );
 		}
 #endregion
 

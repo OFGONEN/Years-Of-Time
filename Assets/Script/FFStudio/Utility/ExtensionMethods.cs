@@ -273,6 +273,24 @@ namespace FFStudio
 			return theVector;
 		}
 
+		public static Vector3 MakeXAbsolute( this Vector3 theVector )
+		{
+			theVector.x *= Mathf.Sign( theVector.x );
+			return theVector;
+		}
+
+		public static Vector3 MakeYAbsolute( this Vector3 theVector )
+		{
+			theVector.y *= Mathf.Sign( theVector.y );
+			return theVector;
+		}
+
+		public static Vector3 MakeZAbsolute( this Vector3 theVector )
+		{
+			theVector.z *= Mathf.Sign( theVector.z );
+			return theVector;
+		}
+
 		public static float ComponentSum( this Vector3 theVector )
 		{
 			return theVector.x + theVector.y + theVector.z;
@@ -435,7 +453,7 @@ namespace FFStudio
 			return Mathf.Lerp( vector.y, vector.x, progress );
 		}
 
-		public static void DestoryAllChildren( this Transform transform )
+		public static void DestroyAllChildren( this Transform transform )
 		{
 			var childCount = transform.childCount;
 			var childs = new List< Transform >( transform.childCount );
@@ -459,4 +477,3 @@ namespace FFStudio
 		}
 	}
 }
-

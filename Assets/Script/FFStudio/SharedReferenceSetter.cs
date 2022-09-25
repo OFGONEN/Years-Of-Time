@@ -7,8 +7,8 @@ namespace FFStudio
 	public class SharedReferenceSetter : MonoBehaviour
 	{
 #region Fields
-		public SharedReferenceNotifier sharedReferenceProperty;
-		public Component referenceComponent;
+		[ SerializeField ] SharedReferenceNotifier sharedReferenceProperty;
+		[ SerializeField ] Component referenceComponent;
 #endregion
 
 #region UnityAPI

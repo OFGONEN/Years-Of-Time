@@ -31,5 +31,12 @@ MonoBehaviour:
   ui_particle_target_ease: 1
   swipeThreshold: 2
   ui_safeArea_offset_top: 88
+  uiParticle_spawn_width_percentage: 10
+  uiParticle_spawn_duration: 0.1
+  uiParticle_spawn_ease: 1
+  uiParticle_target_waitDuration: 0.16
+  uiParticle_target_duration: 0.4
+  uiParticle_target_duration_reward: 0.85
+  uiParticle_target_ease: 1
   debug_ui_text_float_height: 1
   debug_ui_text_float_duration: 1

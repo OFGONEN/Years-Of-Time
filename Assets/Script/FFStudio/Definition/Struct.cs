@@ -140,4 +140,11 @@ namespace FFStudio
 		public Color color;
 		[ MappedFloat ] public float threshold;
 	}
+
+	[ Serializable ]
+	public struct CollisionRespondData
+	{
+		[ Layer() ] public int collision_layer;
+		public UnityEvent<Collider> collision_event;
+	}
 }

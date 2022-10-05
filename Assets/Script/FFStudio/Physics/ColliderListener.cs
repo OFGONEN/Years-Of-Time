@@ -35,6 +35,11 @@ namespace FFStudio
 			attachedCollider.enabled = active;
 		}
 
+		public void SetAttachedComponent( Component component )
+		{
+			attachedComponent = component;
+		}
+
 		public abstract void Subscribe( DelegateType method );
 		public abstract void Unsubscribe( DelegateType method );
 #endregion

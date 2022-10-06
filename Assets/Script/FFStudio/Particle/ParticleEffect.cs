@@ -5,11 +5,11 @@ using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
+	[ RequireComponent( typeof( Respond ) ) ]
 	public class ParticleEffect : MonoBehaviour
 	{
 #region Fields
 	[ Title( "Setup" ) ]
-		public MultipleEventListenerDelegateResponse level_finish_listener;
 		public string alias;
 
 		ParticleEffectPool particle_pool;
@@ -20,16 +20,6 @@ namespace FFStudio
 #endregion
 
 #region UnityAPI
-		void OnEnable()
-		{
-			level_finish_listener.OnEnable();
-		}
-
-		void OnDisable()
-		{
-			level_finish_listener.OnDisable();
-		}
-
 		void Awake()
 		{
 			particles = GetComponentInChildren< ParticleSystem >();
@@ -37,8 +27,6 @@ namespace FFStudio
 			var mainParticle             = particles.main;
 			    mainParticle.stopAction  = ParticleSystemStopAction.Callback;
 			    mainParticle.playOnAwake = false;
-
-			level_finish_listener.response = OnParticleSystemStopped;
 
 			particle_start_size = transform.localScale;
 		}
@@ -52,6 +40,11 @@ namespace FFStudio
 #endregion
 
 #region API
+		public void OnLevelUnloadStart()
+		{
+			OnParticleSystemStopped();
+		}
+
 		public virtual void InitIntoPool( ParticleEffectPool pool, ParticleEffectStopped effectStoppedDelegate )
 		{
 			particle_pool         = pool;

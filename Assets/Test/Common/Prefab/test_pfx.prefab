@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5472615123784948464}
   - component: {fileID: 1496167065795533650}
   m_Layer: 0
-  m_Name: test_vfx
+  m_Name: test_pfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

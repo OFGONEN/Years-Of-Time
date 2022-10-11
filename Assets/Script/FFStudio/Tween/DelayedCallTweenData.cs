@@ -30,6 +30,8 @@ namespace FFStudio
 #if UNITY_EDITOR
 			recycledTween.Tween.SetId( "_ff_delayedCall_tween___" + description );
 #endif
+
+			base.CreateAndStartTween( onComplete, isReversed );
 		}
 #endregion
 

@@ -30,18 +30,13 @@ namespace FFStudio
 
 			particle_start_size = transform.localScale;
 		}
-
-		void OnParticleSystemStopped()
-		{
-			particleEffectStopped( this ); // Returns this back to pool
-			transform.localScale = Vector3.one;
-		}
 #endregion
 
 #region API
-		public void OnLevelUnloadStart()
+		public void OnParticleStopped()
 		{
-			OnParticleSystemStopped();
+			particleEffectStopped( this ); // Returns this back to pool
+			transform.localScale = Vector3.one;
 		}
 
 		public virtual void InitIntoPool( ParticleEffectPool pool, ParticleEffectStopped effectStoppedDelegate )

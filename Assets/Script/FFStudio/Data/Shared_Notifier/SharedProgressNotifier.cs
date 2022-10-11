@@ -25,6 +25,11 @@ public class SharedProgressNotifier : SharedFloatNotifier
 
 		SharedValue = numerator / denominator;
 	}
+
+	public void Complete()
+	{
+		SetNumerator( denominator );
+	}
 #endregion
 
 #region Implementation

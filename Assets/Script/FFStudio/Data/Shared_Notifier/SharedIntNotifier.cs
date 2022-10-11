@@ -16,5 +16,10 @@ namespace FFStudio
 		{
 			SharedValue--;
 		}
+
+		public void OffsetValue( int amount )
+		{
+			SharedValue += amount;
+		}
 	}
 }

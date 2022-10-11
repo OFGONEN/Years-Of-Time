@@ -39,6 +39,12 @@ public class Cooldown
 
 		Start( duration, onCompleteDelegate );
 	}
+
+	public void Kill()
+	{
+		recycledTween_cooldown.Kill();
+		isOngoing = false;
+	}
 #endregion
 
 #region Implementation

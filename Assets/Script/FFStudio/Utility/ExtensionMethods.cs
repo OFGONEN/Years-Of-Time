@@ -475,5 +475,21 @@ namespace FFStudio
 		{
 			return Mathf.Clamp( value, vector.x, vector.y );
 		}
+
+#if FF_OBI_IMPORTED
+		public static void MergeParticles( this Obi.ObiRope obiRope, int indexOfElementBefore, int indexOfElementOfInterest )
+		{
+			var solver = obiRope.solver;
+
+			var previousElement = obiRope.elements[ indexOfElementBefore ];
+			var elementOfInterest = obiRope.elements[ indexOfElementOfInterest ];
+
+			solver.invMasses[ previousElement.particle2 ] /= 2; // Revert previous halving of the particle mass.
+
+			obiRope.DeactivateParticle( solver.particleToActor[ elementOfInterest.particle1 ].indexInActor );
+
+			elementOfInterest.particle1 = previousElement.particle2;
+		}
+#endif
 	}
 }

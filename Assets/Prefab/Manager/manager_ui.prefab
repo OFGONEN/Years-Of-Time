@@ -1014,6 +1014,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ui_loading_bar_level_progress
       objectReference: {fileID: 0}
+    - target: {fileID: 5748037130343501427, guid: 1caa7843707589a4496bb5c848924651, type: 3}
+      propertyPath: sharedDataNotifier
+      value: 
+      objectReference: {fileID: 11400000, guid: 43438d720c16f2e4aa5a19d520e1e15f, type: 2}
     - target: {fileID: 7322588622830620200, guid: 1caa7843707589a4496bb5c848924651, type: 3}
       propertyPath: sharedDataNotifier
       value: 

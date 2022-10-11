@@ -13,7 +13,7 @@ namespace FFStudio
         public GameEvent levelCompleted;
 
         [ Header( "Level Releated" ) ]
-        public SharedFloatNotifier levelProgress;
+        public SharedProgressNotifier notifier_progress;
 #endregion
 
 #region UnityAPI
@@ -23,7 +23,8 @@ namespace FFStudio
         // Info: Called from Editor.
         public void LevelLoadedResponse()
         {
-			levelProgress.SetValue_NotifyAlways( 0 );
+			notifier_progress.SetNumerator( 0 );
+			notifier_progress.SetDenominator( 1 );
 
 			var levelData = CurrentLevelData.Instance.levelData;
             // Set Active Scene.

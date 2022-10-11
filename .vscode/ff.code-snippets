@@ -1,0 +1,614 @@
+{
+/* Flow & Loop Structures */
+	
+	"C# If Clause": {
+		"prefix": "if",
+		"body": [
+			"if( ${1:condition} )",
+			"{",
+			"\t$0",
+			"}"
+		],
+		"description": "An if clause."
+	},
+	"C# If Clause (Single Line)": {
+		"prefix": "ifs",
+		"body": [
+			"if( ${1:condition} )",
+			"\t$0",
+		],
+		"description": "An if clause (single line)."
+	},
+	"C# Else Clause": {
+		"prefix": "else",
+		"body": [
+			"else",
+			"{",
+			"\t$0",
+			"}"
+		],
+		"description": "An else clause."
+	},
+	"C# Else Clause (Single Line)": {
+		"prefix": "elss",
+		"body": [
+			"else",
+			"\t$0"
+		],
+		"description": "An else clause (single line)."
+	},
+	"C# For Loop": {
+		"prefix": "for",
+		"body": [
+			"for( var ${1:i} = ${2:0}; ${1:i} < ${3:length}; ${1:i}++ )",
+			"{",
+			"\t$0",
+			"}"
+		],
+		"description": "A for loop."
+	},
+	"C# For Loop (Single Line)": {
+		"prefix": "fors",
+		"body": [
+			"for( var ${1:i} = ${2:0}; ${1:i} < ${3:length}; ${1:i}++ )",
+			"\t$0",
+		],
+		"description": "A for loop (single line)."
+	},
+	"C# Reverse For Loop": {
+		"prefix": "forr",
+		"body": [
+			"for( var ${1:i} = ${2:length}; ${1:i} >= ${3:0}; ${1:i}-- )",
+			"{",
+			"\t$0",
+			"}"
+		],
+		"description": "A for loop."
+	},
+	"C# Reverse For Loop (Single Line)": {
+		"prefix": "forrs",
+		"body": [
+			"for( var ${1:i} = ${2:length}; ${1:i} >= ${3:0}; ${1:i}-- )",
+			"\t$0",
+		],
+		"description": "A for loop (single line)."
+	},
+	"C# For-Each Loop": {
+		"prefix": "foreach",
+		"body": [
+			"foreach( var ${1:element} in ${2:collection} )",
+			"{",
+			"\t$0",
+			"}"
+		],
+		"description": "A for-each loop."
+	},
+	"C# For-Each Loop (Single Line)": {
+		"prefix": "foreachs",
+		"body": [
+			"foreach( var ${1:element} in ${2:collection} )",
+			"\t$0",
+		],
+		"description": "A for-each loop (single line)."
+	},
+	"C# While Loop": {
+		"prefix": "while",
+		"body": [
+			"while( ${1:condition} )",
+			"{",
+			"\t$0",
+			"}"
+		],
+		"description": "A while loop."
+	},
+	"C# While Loop (Single Line)": {
+		"prefix": "whils",
+		"body": [
+			"while( ${1:condition} )",
+			"\t$0",
+		],
+		"description": "A while loop (single line)."
+	},
+	"C# Do-While Loop": {
+		"prefix": "do",
+		"body": [
+			"do",
+			"{",
+			"\t$0",
+			"}",
+			"while( ${1:condition} );"
+		],
+		"description": "A do-while loop."
+	},
+	"C# Do-While Loop (Single Line)": {
+		"prefix": "dos",
+		"body": [
+			"do",
+			"\t$0",
+			"while( ${1:condition} );"
+		],
+		"description": "A do-while loop (single line)."
+	},
+    
+    
+	
+/* Methods: */
+	"C# Public Void Method": {
+		"prefix": "puvm",
+		"body": [
+			"public void ${1:Method}()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Shortcut for public void Method()."
+	},
+	"C# Private Void Method": {
+		"prefix": "pvm",
+		"body": [
+			"void ${1:Method}()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Shortcut for private void Method()."
+	},
+	"Public Void Method (Called by Unity Event)": {
+		"prefix": "uvm",
+		"body": [
+			"//// CALLED BY A UNITY EVENT ////",
+			"public void ${1:Method}()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Shortcut for public void Method() (called by a Unity Event)."
+	},
+    "CALLED BY A UNITY EVENT": {
+		"prefix": "cbun",
+		"body": [
+			"//// CALLED BY A UNITY EVENT ////"
+		],
+		"description": "A comment to signal a method is being called by a Unity Event (on the editor)"
+	},
+    
+    
+    
+/* Field Definitions */
+    "Region": {
+		"prefix": "region",
+		"body": [
+			"#region ${1|Fields,Properties,Unity API,API,Implementation,Editor Only|}",
+			"\t$0",
+			"#endregion"
+		],
+		"description": "Shortcut for Header attribute."
+	},
+	"Private Field With Serialized Attribute": {
+		"prefix": "ps",
+		"body": "[ SerializeField ] $0",
+		"description": "Shortcut for a private field with SerializeField attribute."
+	},
+    "UnityEvent": {
+		"prefix": "unev",
+		"body": "[ SerializeField ] UnityEvent on$0",
+		"description": "Shortcut for a SerializedField UnityEvent field."
+	},
+    "SharedFloatNotifier": {
+		"prefix": "sfn",
+		"body": [
+			"[ SerializeField ] SharedFloatNotifier notifier_${1};"
+		],
+		"description": "Snippet for creating a SharedFloatNotifier field."
+	},
+	"SharedReferenceNotifier": {
+		"prefix": "srn",
+		"body": [
+			"[ SerializeField ] SharedReferenceNotifier notifier_${1};"
+		],
+		"description": "Snippet for creating a SharedReferenceNotifier field."
+	},
+    
+    
+
+/* Odin Inspector */
+    "Title Attribute": {
+		"prefix": "title",
+		"body": [
+			"[ Title( \"$1\" ) ]",
+			"\t$0"
+		],
+		"description": "Creates an OdinInspector.Title() attribute to group/organize fields."
+	},
+    "Header Attribute": {
+		"prefix": "header",
+		"body": [
+			"[ Header( \"${1}\" ) ]",
+			"$0"
+		],
+		"description": "Shortcut for OdinInspector.Header() attribute."
+	},
+    "Odin Inspector Button": {
+		"prefix": "but",
+		"body": [
+			"[ Button ]$0"
+		],
+		"description": "A Button attribute."
+	},
+	"Odin Inspector Button (Custom Title)": {
+		"prefix": "buts",
+		"body": [
+			"[ Button( \"${1}\" ) ]$0"
+		],
+		"description": "A Button attribute with a custom title string."
+	},
+    
+    
+    
+/* Unity Callbacks */
+	"Unity Holy Trio": {
+		"prefix": "trio",
+		"body": [
+			"void OnEnable()",
+			"{",
+			"\t$1",
+			"}",
+			"",
+			"void OnDisable()",
+			"{",
+			"\t$2",
+			"}",
+			"",
+			"void Awake()",
+			"{",
+			"\t$3",
+			"}",
+		],
+		"description": "Unity's OnEnable(), OnDisable() & Awake() callbacks."
+	},
+	"Unity OnEnable": {
+		"prefix": "onenable",
+		"body": [
+			"void OnEnable()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnEnable() callback."
+	},
+	"Unity OnDisable": {
+		"prefix": "ondisable",
+		"body": [
+			"void OnDisable()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnDisable() callback."
+	},
+	"Unity Awake": {
+		"prefix": "awake",
+		"body": [
+			"void Awake()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's Awake() callback."
+	},
+	"Unity Start": {
+		"prefix": "start",
+		"body": [
+			"void Start()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's Start() callback."
+	},
+	"Unity Update": {
+		"prefix": "update",
+		"body": [
+			"void Update()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's Update() callback."
+	},
+	"Unity Fixed Update": {
+		"prefix": "fixedupdate",
+		"body": [
+			"void FixedUpdate()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's FixedUpdate() callback."
+	},
+	"Unity Reset": {
+		"prefix": "reset",
+		"body": [
+			"void Reset()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's Reset() callback."
+	},
+	"Unity OnValidate": {
+		"prefix": "onvalidate",
+		"body": [
+			"void OnValidate()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnValidate() callback."
+	},
+	"Unity OnTriggerEnter": {
+		"prefix": "ontriggerenter",
+		"body": [
+			"void OnTriggerEnter( Collider other )",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnTriggerEnter() callback."
+	},
+	"Unity OnTriggerStay": {
+		"prefix": "ontriggerstay",
+		"body": [
+			"void OnTriggerStay( Collider other )",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnTriggerStay() callback."
+	},
+	"Unity OnTriggerExit": {
+		"prefix": "ontriggerexit",
+		"body": [
+			"void OnTriggerExit( Collider other )",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnTriggerExit() callback."
+	},
+	"Unity OnCollisionEnter": {
+		"prefix": "oncollisionenter",
+		"body": [
+			"void OnCollisionEnter( Collision collision )",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnCollisionEnter() callback."
+	},
+	"Unity OnCollisionStay": {
+		"prefix": "oncollisionstay",
+		"body": [
+			"void OnCollisionStay( Collision collision )",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnCollisionStay() callback."
+	},
+	"Unity OnCollisionExit": {
+		"prefix": "oncollisionexit",
+		"body": [
+			"void OnCollisionExit( Collision collision )",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnCollisionExit() callback."
+	},
+	"Unity OnDrawGizmos": {
+		"prefix": "ondrawgizmos",
+		"body": [
+			"void OnDrawGizmos()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnDrawGizmos() callback."
+	},
+	"Unity OnDrawGizmosSelected": {
+		"prefix": "ondrawgizmosselected",
+		"body": [
+			"void OnDrawGizmosSelected()",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnDrawGizmosSelected() callback."
+	},
+	"Unity OnAnimatorIK": {
+		"prefix": "onanimatorik",
+		"body": [
+			"void OnAnimatorIK( int layerIndex )",
+			"{",
+			"\t$0",
+			"}",
+		],
+		"description": "Unity's OnAnimatorIK() callback."
+	},
+    
+    
+    
+/* Unity (Other) */
+    "Unity GetComponent": {
+		"prefix": "getcmp",
+		"body": [
+			"${1:varName} = GetComponent< ${2:ComponentType} >();"
+		],
+		"description": "GetComponent<>()"
+	},
+	"Unity GetComponentInChildren": {
+		"prefix": "getcmpchild",
+		"body": [
+			"${1:varName} = GetComponentInChildren< ${2:ComponentType} >();"
+		],
+		"description": "GetComponentInChildren<>()"
+	},
+	"Unity GetComponentsInChildren": {
+		"prefix": "getcmpschild",
+		"body": [
+			"${1:varName} = GetComponentsInChildren< ${2:ComponentType} >();"
+		],
+		"description": "GetComponentsInChildren<>()"
+	},
+    "Unity Toggle GameObject": {
+		"prefix": "togg",
+		"body": [
+			"${1:gameObject}.SetActive( ${2|true,false|} );$0"
+		],
+		"description": "Shortcut for toggling the active state of a GameObject."
+	},
+    "Unity Modify Transform.Position": {
+		"prefix": "trp",
+		"body": [
+			"${1:transform}.position = ${1:transform}.position.$0;"
+		],
+		"description": "Shortcut for modifying the position of a Transform."
+	},
+    "Unity Modify Vector3": {
+		"prefix": "mov3",
+		"body": [
+			"${1:vectorName} = ${1:vectorName}.$0;"
+		],
+		"description": "Shortcut for modifying a Vector3."
+	},
+    
+    
+    
+/* Logging */
+	"Log": {
+		"prefix": "log",
+		"body": [
+			"FFLogger.Log( ${1:}, this );$0"
+		],
+		"description": "FF's own FFLogger.Log() method."
+	},
+	"Log (Warning)": {
+		"prefix": "logwarning",
+		"body": [
+			"FFLogger.LogWarning( ${1:}, this );$0"
+		],
+		"description": "FF's own FFLogger.LogWarning() method."
+	},
+	"Log (Error)": {
+		"prefix": "logerror",
+		"body": [
+			"FFLogger.LogError( ${1:}, this );$0"
+		],
+		"description": "FF's own FFLogger.LogError() method."
+	},
+	"Log( name ) ": {
+		"prefix": "logn",
+		"body": [
+			"FFLogger.Log( name + \": ${1:}.\", this );$0"
+		],
+		"description": "FF's own FFLogger.Log( name + prompt ) method."
+	},
+	"Log( name ) (fully qualified)": {
+		"prefix": "fflogn",
+		"body": [
+			"FFStudio.FFLogger.Log( name + \": ${1:}.\", this );$0"
+		],
+		"description": "FFStudio.FFLogger.Log( name + prompt ) method."
+	},
+	"Log( name) (Warning)": {
+		"prefix": "lognwarning",
+		"body": [
+			"FFLogger.LogWarning( name + \": ${1:}.\", this );$0"
+		],
+		"description": "FF's own FFLogger.LogWarning( name + prompt ) method."
+	},
+	"Log( name ) (Error)": {
+		"prefix": "lognerror",
+		"body": [
+			"FFLogger.LogError( name + \": ${1:}.\", this );$0"
+		],
+		"description": "FF's own FFLogger.LogError( name + prompt ) method."
+	},
+    
+    
+    
+/* Other */
+    "Editor Only Block": {
+		"prefix": "edo",
+		"body": [
+			"#if UNITY_EDITOR",
+			"\t\t$0",
+			"#endif"
+		],
+		"description": "Creates a #if UNITY_EDITOR block that will only work in the editor."
+	},
+	"GameSettings.Instance.xxx": {
+		"prefix": "gmst",
+		"body": [
+			"GameSettings.Instance.$0",
+		],
+		"description": "Shortcut for accessing fields from GameSettings.Instance."
+	},
+	"CurrentLevelData.Instance.levelData.xxx": {
+		"prefix": "cld",
+		"body": [
+			"CurrentLevelData.Instance.levelData.$0",
+		],
+		"description": "Shortcut for accessing fields from CurrentLevelData.Instance.levelData."
+	},
+	"PlayerPrefsUtility.Instance": {
+		"prefix": "prefs",
+		"body": [
+			"PlayerPrefsUtility.Instance.$0"
+		],
+		"description": "Shortcut for PlayerPrefsUtility.Instance."
+	},
+	"Player Prefs Utility Set Int": {
+		"prefix": "prefsint",
+		"body": [
+			"PlayerPrefsUtility.Instance.SetInt( $0 )"
+		],
+		"description": "Shortcut for PlayerPrefsUtility.Instance.SetInt()"
+	},
+	"Player Prefs Utility Set Float": {
+		"prefix": "prefsfloat",
+		"body": [
+			"PlayerPrefsUtility.Instance.SetFloat( $0 )"
+		],
+		"description": "Shortcut for PlayerPrefsUtility.Instance.SetFloat()"
+	},
+	"Player Prefs Utility Set String": {
+		"prefix": "prefsstring",
+		"body": [
+			"PlayerPrefsUtility.Instance.SetString( $0 )"
+		],
+		"description": "Shortcut for PlayerPrefsUtility.Instance.SetString()"
+	},
+	"Player Prefs Utility Get Int": {
+		"prefix": "prefgint",
+		"body": [
+			"PlayerPrefsUtility.Instance.GetInt( $0 )"
+		],
+		"description": "Shortcut for PlayerPrefsUtility.Instance.GetInt()"
+	},
+	"Player Prefs Utility Get Float": {
+		"prefix": "prefgfloat",
+		"body": [
+			"PlayerPrefsUtility.Instance.GetFloat( $0 )"
+		],
+		"description": "Shortcut for PlayerPrefsUtility.Instance.GetFloat()"
+	},
+	"Player Prefs Utility Get String": {
+		"prefix": "prefgstring",
+		"body": [
+			"PlayerPrefsUtility.Instance.GetString( $0 )"
+		],
+		"description": "Shortcut for PlayerPrefsUtility.Instance.GetString()"
+	}
+}

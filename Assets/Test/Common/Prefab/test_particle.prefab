@@ -55,7 +55,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: -1743273988188005668}
           m_TargetAssemblyTypeName: FFStudio.ParticleEffect, Assembly-CSharp
-          m_MethodName: OnLevelUnloadStart
+          m_MethodName: OnParticleStopped
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -144,3 +144,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6511750631643978484, guid: f694afb56709a8644bff2129b3d5e5d9, type: 3}
   m_PrefabInstance: {fileID: 1641942799429542407}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7540096741987753656 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9109256265275587775, guid: f694afb56709a8644bff2129b3d5e5d9, type: 3}
+  m_PrefabInstance: {fileID: 1641942799429542407}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &477763990967904876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7540096741987753656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c2f92ebf525940729531c6d64948931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

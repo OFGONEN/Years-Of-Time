@@ -25,6 +25,7 @@ public class Cooldown
 	public void Start( float duration, TweenCallback onCompleteDelegate = null )
     {
 		isOngoing = true;
+		onComplete = onCompleteDelegate;
 		recycledTween_cooldown.Recycle( DOVirtual.DelayedCall( duration, OnComplete ) );
 	}
 

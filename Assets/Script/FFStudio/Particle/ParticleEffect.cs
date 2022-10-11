@@ -33,8 +33,7 @@ namespace FFStudio
 
 		void OnParticleSystemStopped()
 		{
-			particleEffectStopped( this );
-			particle_pool.ReturnEntity( this );
+			particleEffectStopped( this ); // Returns this back to pool
 			transform.localScale = Vector3.one;
 		}
 #endregion

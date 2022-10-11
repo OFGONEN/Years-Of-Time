@@ -16,7 +16,7 @@ namespace FFStudio
 			uiRectTransform = GetComponent< RectTransform >();
 
 			var dangerArea = Screen.height - Screen.safeArea.height - Screen.safeArea.position.y;
-			var offset = Mathf.Max( 0, GameSettings.Instance.ui_safeArea_offset_top - dangerArea );
+			var offset = Mathf.Min( 0, GameSettings.Instance.ui_safeArea_offset_top - dangerArea );
 
 			var position = uiRectTransform.position;
 			position.y += offset;

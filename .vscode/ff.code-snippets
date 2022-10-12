@@ -191,7 +191,7 @@
 	},
     "UnityEvent": {
 		"prefix": "unev",
-		"body": "[ SerializeField ] UnityEvent on$0",
+		"body": "[ SerializeField ] UnityEvent unityEvent_$0;",
 		"description": "Shortcut for a SerializedField UnityEvent field."
 	},
     "SharedFloatNotifier": {

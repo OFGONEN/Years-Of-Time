@@ -89,7 +89,7 @@ namespace FFStudio /* Project-specific code does not have to be placed inside a 
 			const float PiOverTwo = 3.14f / 2.0f; // Info: Local constants use PascalCase (all words begin with uppercase, followed by lowercase letters).
 
 			// Info: Local var usage: Local variables are not named like fields; they are ALL camelCase (no underscores) and they are NOT sorted by categories.
-			var thisIsALocalVariable = 5 * PiOverTwo;
+			var thisIsALocalVariable = 5 * PiOverTwo * hitPoints;
 			if( thisIsALocalVariable == 5f )
 				FFStudio.FFLogger.Log( name + ": Local variable is 5!" );
                 

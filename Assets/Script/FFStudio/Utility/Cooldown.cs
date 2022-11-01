@@ -19,6 +19,7 @@ public class Cooldown
 
 #region Properties
     public bool IsOver => !isOngoing;
+	public float ElapsedPercentage => recycledTween_cooldown.Tween.ElapsedPercentage();
 #endregion
 
 #region API

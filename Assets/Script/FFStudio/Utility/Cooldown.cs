@@ -22,14 +22,14 @@ public class Cooldown
 #endregion
 
 #region API
-	public void Start( float duration, TweenCallback onCompleteDelegate = null )
+	public void Start( float duration, bool loop = false, TweenCallback onCompleteDelegate = null )
     {
 		isOngoing = true;
 		onComplete = onCompleteDelegate;
-		recycledTween_cooldown.Recycle( DOVirtual.DelayedCall( duration, OnComplete ) );
+		recycledTween_cooldown.Recycle( DOVirtual.DelayedCall( duration, OnComplete ).SetLoops( loop ? -1 : 1 ) );
 	}
 
-	public void Start( float duration, string description, bool popupTextOnComplete, TweenCallback onCompleteDelegate = null )
+	public void Start( float duration, string description, bool popupTextOnComplete, bool loop = false, TweenCallback onCompleteDelegate = null )
 	{
 		this.description = description;
 		this.popupTextOnComplete = popupTextOnComplete;
@@ -37,7 +37,7 @@ public class Cooldown
 		FFStudio.FFLogger.Log( "Cooldown duration for " + description + " started." );
 		FFLogger.PopUpText( Vector3.zero, "Cooldown duration for " + description + " started." );
 
-		Start( duration, onCompleteDelegate );
+		Start( duration, loop, onCompleteDelegate );
 	}
 
 	public void Kill()

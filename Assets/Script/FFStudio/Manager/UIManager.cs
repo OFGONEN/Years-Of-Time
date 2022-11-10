@@ -57,7 +57,7 @@ namespace FFStudio
             levelCompleteResponse.response = LevelCompleteResponse;
             tapInputListener.response      = ExtensionMethods.EmptyMethod;
 
-			level_information_text.text = "Tap to Start";
+			level_information_text.text = "TAP TO START";
         }
 #endregion
 
@@ -69,16 +69,16 @@ namespace FFStudio
 								.Append( loadingScreenImage.DOFade( 0, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
 								.AppendCallback( () => tapInputListener.response = StartLevel );
 
-			level_count_text.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
+			level_count_text.text = "LEVEL " + CurrentLevelData.Instance.currentLevel_Shown;
 
             levelLoadedResponse.response = NewLevelLoaded;
         }
 
         private void NewLevelLoaded()
         {
-			level_count_text.text = "Level " + CurrentLevelData.Instance.currentLevel_Shown;
+			level_count_text.text = "LEVEL " + CurrentLevelData.Instance.currentLevel_Shown;
 
-			level_information_text.text = "Tap to Start";
+			level_information_text.text = "TAP TO START";
 
 			var sequence = DOTween.Sequence();
 
@@ -100,7 +100,7 @@ namespace FFStudio
 
 			// Tween tween = null;
 
-			level_information_text.text = "Tap to Continue";
+			level_information_text.text = "TAP TO CONTINUE";
 
 			sequence/* .Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) ) */
 					// .Append( tween ) // TODO: UIElements tween.
@@ -117,7 +117,7 @@ namespace FFStudio
             var sequence = DOTween.Sequence();
 
 			// Tween tween = null;
-			level_information_text.text = "Tap to Continue";
+			level_information_text.text = "TAP TO CONTINUE";
 
 			sequence/* .Append( foreGroundImage.DOFade( 0.5f, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) ) */
                     // .Append( tween ) // TODO: UIElements tween.

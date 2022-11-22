@@ -17,7 +17,7 @@ namespace FFStudio
 	}
 
 	[ Serializable ]
-	public struct EventAndResponse
+	public struct EventResponseData
 	{
 		public MultipleEventListenerDelegateResponse eventListener;
 		public UnityEvent unityEvent;

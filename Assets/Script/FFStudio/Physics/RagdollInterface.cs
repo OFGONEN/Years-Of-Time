@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace FFStudio
 {
-    public class ToggleRagdoll : MonoBehaviour
+    public class RagdollInterface : MonoBehaviour
     {
 #region Fields
         [ SerializeField ] Rigidbody[] ragdoll_rigidbody_array;

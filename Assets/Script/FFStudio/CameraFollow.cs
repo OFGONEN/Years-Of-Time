@@ -8,10 +8,6 @@ namespace FFStudio
     public class CameraFollow : MonoBehaviour
     {
 #region Fields
-    [ Title( "Event Listeners" ) ]
-        [ SerializeField ] EventListenerDelegateResponse levelRevealEventListener;
-        [ SerializeField ] MultipleEventListenerDelegateResponse levelEndEventListener;
-        
     [ Title( "Setup" ) ]
         [ SerializeField ] SharedReferenceNotifier notifier_reference_transform_target;
 
@@ -25,23 +21,13 @@ namespace FFStudio
 #endregion
 
 #region Unity API
-        void OnEnable()
-        {
-            levelRevealEventListener.OnEnable();
-            levelEndEventListener.OnEnable();
-        }
-
         void OnDisable()
         {
-            levelRevealEventListener.OnDisable();
-            levelEndEventListener.OnDisable();
-        }
+			updateMethod = ExtensionMethods.EmptyMethod;
+		}
 
         void Awake()
         {
-            levelRevealEventListener.response = LevelRevealedResponse;
-            levelEndEventListener.response    = LevelCompleteResponse;
-
             updateMethod = ExtensionMethods.EmptyMethod;
         }
 
@@ -52,10 +38,7 @@ namespace FFStudio
 #endregion
 
 #region API
-#endregion
-
-#region Implementation
-        void LevelRevealedResponse()
+        public void LevelRevealedResponse()
         {
             transform_target = notifier_reference_transform_target.SharedValue as Transform;
 
@@ -64,11 +47,13 @@ namespace FFStudio
             updateMethod = FollowTarget;
         }
 
-        void LevelCompleteResponse()
+        public void LevelFinishedResponse()
         {
             updateMethod = ExtensionMethods.EmptyMethod;
         }
+#endregion
 
+#region Implementation
         void FollowTarget()
         {
             // Info: Simple follow logic.

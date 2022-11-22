@@ -1,0 +1,16 @@
+{
+    "name": "FFEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:77973d523623c9f40b2362fa184a6cfe"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

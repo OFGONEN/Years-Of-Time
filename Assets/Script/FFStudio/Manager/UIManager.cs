@@ -52,7 +52,7 @@ namespace FFStudio
 
         private void Awake()
         {
-            levelLoadedResponse.response   = LevelLoadedResponse;
+            levelLoadedResponse.response   = InitialLevelLoad;
             levelFailResponse.response     = LevelFailResponse;
             levelCompleteResponse.response = LevelCompleteResponse;
             tapInputListener.response      = ExtensionMethods.EmptyMethod;
@@ -62,7 +62,7 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-        private void LevelLoadedResponse()
+        private void InitialLevelLoad()
         {
 			var sequence = DOTween.Sequence()
 								.Append( level_loadingBar_Scale.DoScale_Target( Vector3.zero, GameSettings.Instance.ui_Entity_Scale_TweenDuration ) )

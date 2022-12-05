@@ -35,18 +35,13 @@ namespace FFStudio
 #endregion
 
 #region API
-#endregion
-
-#region Implementation
-		protected override void CreateAndStartTween( UnityMessage onComplete, bool isReversed = false )
+		public override Tween CreateTween( bool isReversed = false )
 		{
             var theRigidbody = transform.GetComponent< Rigidbody >();
 
-            recycledTween.Recycle( theRigidbody.DOMove( isReversed ? -endValue : endValue, duration ), onComplete );
+            recycledTween.Recycle( theRigidbody.DOMove( isReversed ? -endValue : endValue, duration ), unityEvent_onCompleteEvent.Invoke );
 
 			recycledTween.Tween
-				.SetLoops( loop ? -1 : 0, loopType )
-				.SetEase( easing )
 				.SetUpdate( UpdateType.Fixed ); // Info: This is the main differing line of code between this & the MovementTweenData.
 
 			if( useDelta )
@@ -59,8 +54,11 @@ namespace FFStudio
 			recycledTween.Tween.SetId( "_ff_movement_tween_physics_rigidbody___" + description );
 #endif
 
-			base.CreateAndStartTween( onComplete, isReversed );
+			return base.CreateTween();
 		}
+#endregion
+
+#region Implementation
 #endregion
 
 #region EditorOnly

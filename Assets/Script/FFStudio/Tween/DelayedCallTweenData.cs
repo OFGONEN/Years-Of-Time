@@ -20,19 +20,19 @@ namespace FFStudio
 #endregion
 
 #region API
-#endregion
-
-#region Implementation
-		protected override void CreateAndStartTween( UnityMessage onComplete = null, bool isReversed = false )
+		public override Tween CreateTween( bool isReversed = false )
 		{
-			recycledTween.Recycle( DOVirtual.DelayedCall( duration, ExtensionMethods.EmptyMethod ), onComplete );
+			recycledTween.Recycle( DOVirtual.DelayedCall( duration, ExtensionMethods.EmptyMethod ), unityEvent_onCompleteEvent.Invoke );
 
 #if UNITY_EDITOR
 			recycledTween.Tween.SetId( "_ff_delayedCall_tween___" + description );
 #endif
 
-			base.CreateAndStartTween( onComplete, isReversed );
+			return base.CreateTween();
 		}
+#endregion
+
+#region Implementation
 #endregion
 
 #region EditorOnly

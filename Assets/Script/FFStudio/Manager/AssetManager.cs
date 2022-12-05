@@ -44,8 +44,6 @@ namespace FFStudio
 		}
 #endregion
 
-
-
 #region API
 		public void VibrateAPI( IntGameEvent vibrateEvent )
 		{

@@ -36,19 +36,14 @@ namespace FFStudio
 #endregion
 
 #region API
-#endregion
-
-#region Implementation
-		protected override void CreateAndStartTween( UnityMessage onComplete, bool isReversed = false )
+		public override Tween CreateTween( bool isReversed = false )
 		{
 			if( movementMode == MovementMode.Local )
-				recycledTween.Recycle( transform.DOLocalMove( isReversed ? -endValue : endValue, duration ), onComplete );
+				recycledTween.Recycle( transform.DOLocalMove( isReversed ? -endValue : endValue, duration ),
+									   unityEvent_onCompleteEvent.Invoke );
 			else
-				recycledTween.Recycle( transform.DOMove( isReversed ? -endValue : endValue, duration ), onComplete );
-
-			recycledTween.Tween
-				.SetLoops( loop ? -1 : 0, loopType )
-				.SetEase( easing );
+				recycledTween.Recycle( transform.DOMove( isReversed ? -endValue : endValue, duration ),
+									   unityEvent_onCompleteEvent.Invoke );
 				
 			if( useDelta )
 				recycledTween.Tween.SetRelative();
@@ -60,8 +55,11 @@ namespace FFStudio
 			recycledTween.Tween.SetId( "_ff_movement_tween___" + description );
 #endif
 
-			base.CreateAndStartTween( onComplete, isReversed );
+			return base.CreateTween();
 		}
+#endregion
+
+#region Implementation
 #endregion
 
 #region EditorOnly

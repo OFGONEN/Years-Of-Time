@@ -16,12 +16,6 @@ namespace FFStudio
 		public abstract void InvokeEventIfThresholdIsPassed( Tween tween, Ease ease );
     }
 
-	/*
-    case TweenEventData_TweenPercentage when Tween.ElapsedPercentage() > threshold:
-    case TweenEventData_ValuePercentage when DOVirtual.EasedValue( 0.0f, 1.0f, Tween.ElapsedPercentage(), easing ) > threshold:
-    case TweenEventData_Duration 		when Tween.Elapsed() > threshold:
-    */
-
 	[ System.Serializable ]
 	public class TweenEventData_Duration : TweenEventData
 	{

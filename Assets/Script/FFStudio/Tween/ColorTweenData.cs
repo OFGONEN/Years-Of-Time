@@ -30,10 +30,8 @@ namespace FFStudio
             
 			base.Initialize( transform );
 		}
-#endregion
-
-#region Implementation
-		protected override void CreateAndStartTween( UnityMessage onComplete, bool isReversed = false )
+		
+		public override Tween CreateTween( bool isReversed = false )
 		{
 			shader_ID_color = Shader.PropertyToID( name_colorParameter );
 
@@ -47,16 +45,14 @@ namespace FFStudio
 				color_tweened = color_start;
 			}
 
-			recycledTween.Recycle( DOTween.To( GetColor, SetColor, color_end, duration ).OnUpdate( OnColorUpdate ), onComplete );
-
-			recycledTween.Tween.SetEase( easing )
-				 .SetLoops( loop ? -1 : 0, loopType );
+			recycledTween.Recycle( DOTween.To( GetColor, SetColor, color_end, duration ).OnUpdate( OnColorUpdate ),
+								   unityEvent_onCompleteEvent.Invoke );
 
 #if UNITY_EDITOR
 			recycledTween.Tween.SetId( "_ff_color_tween___" + description );
 #endif
 
-			base.CreateAndStartTween( onComplete, isReversed );
+			return base.CreateTween();
 		}
         
         void OnColorUpdate()
@@ -68,6 +64,9 @@ namespace FFStudio
         
         Color GetColor() => color_tweened;
         void SetColor( Color newColor ) => color_tweened = newColor;
+#endregion
+
+#region Implementation
 #endregion
 
 #region EditorOnly

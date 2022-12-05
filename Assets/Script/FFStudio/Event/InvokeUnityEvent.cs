@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using UnityEngine.Events;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
@@ -16,6 +17,7 @@ namespace FFStudio
 #endregion
 
 #region API
+        [ Button ]
         public void Invoke()
         {
             onEvent.Invoke();

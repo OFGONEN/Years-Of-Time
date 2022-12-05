@@ -49,21 +49,19 @@ namespace FFStudio
 #endregion
 
 #region API
-#endregion
-
-#region Implementation
-        protected override void CreateAndStartTween( UnityMessage onComplete, bool isReversed = false )
+        public override Tween CreateTween( bool isReversed = false )
         {
 			if( rotationMode == RotationMode.Local )
 				recycledTween.Recycle( transform.DOLocalRotate( rotationAxisMaskVector * endValue, duration, useDelta ? RotateMode.LocalAxisAdd : RotateMode.Fast ),
-                                       onComplete );
+                                       unityEvent_onCompleteEvent.Invoke );
 			else
 				recycledTween.Recycle( transform.DORotate( rotationAxisMaskVector * endValue, duration, useDelta ? RotateMode.WorldAxisAdd : RotateMode.Fast ),
-                                       onComplete );
+                                       unityEvent_onCompleteEvent.Invoke );
 
-			recycledTween.Tween // Don't need to set SetRelative() as RotateMode.XXXAxisAdd automatically means relative end value.
-				 .SetEase( easing )
-				 .SetLoops( loop ? -1 : 0, loopType );
+			InitializeTweenEventDatasAndSetOnUpdate();
+			SetEasingAndLoops();
+
+			// Info: Don't need to set SetRelative() as RotateMode.XXXAxisAdd automatically means relative end value.
 
 			if( useDelta )
 				recycledTween.Tween.SetRelative();
@@ -75,8 +73,11 @@ namespace FFStudio
 			recycledTween.Tween.SetId( "_ff_rotation_tween___" + description );
 #endif
 
-			base.CreateAndStartTween( onComplete, isReversed );
+			return Tween;
 		}
+#endregion
+
+#region Implementation
 #endregion
 
 #region EditorOnly

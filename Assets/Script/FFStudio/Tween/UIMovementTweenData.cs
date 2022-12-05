@@ -26,27 +26,24 @@ namespace FFStudio
 #endregion
 
 #region API
-#endregion
-
-#region Implementation
-		protected override void CreateAndStartTween( UnityMessage onComplete, bool isReversed = false )
+		public override Tween CreateTween( bool isReversed = false )
 		{
 			var camera = ( notifier_transform_camera.sharedValue as Transform ).GetComponent< Camera >();
 
 			var targetScreenPosition = camera.WorldToScreenPoint( Target.position + offset_world );
 
-			recycledTween.Recycle( transform.DOMove( isReversed ? -targetScreenPosition : targetScreenPosition, duration ), onComplete );
-
-			recycledTween.Tween
-				.SetLoops( loop ? -1 : 0, loopType )
-				.SetEase( easing );
+			recycledTween.Recycle( transform.DOMove( isReversed ? -targetScreenPosition : targetScreenPosition, duration ),
+								   unityEvent_onCompleteEvent.Invoke );
 
 #if UNITY_EDITOR
 			recycledTween.Tween.SetId( "_ff_ui_movement_tween___" + description );
 #endif
 
-			base.CreateAndStartTween( onComplete, isReversed );
+			return base.CreateTween();
 		}
+#endregion
+		
+#region Implementation
 #endregion
 
 #region EditorOnly

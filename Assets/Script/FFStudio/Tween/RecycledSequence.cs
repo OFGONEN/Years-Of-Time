@@ -6,11 +6,18 @@ namespace FFStudio
 {
 	public class RecycledSequence
 	{
+#region Fields
 		UnityMessage onComplete;
 		Sequence sequence;
+#endregion
 
+#region Properties
 		public Sequence Sequence => sequence;
+		
+		public bool IsPlaying => sequence != null && sequence.IsPlaying();
+#endregion
 
+#region API
 		public Sequence Recycle( UnityMessage onComplete )
 		{
 			sequence = sequence.KillProper();
@@ -58,11 +65,14 @@ namespace FFStudio
 			sequence?.Complete();
 			sequence = sequence.KillProper();
 		}
+#endregion
 
+#region Implementation
 		void OnComplete_Safe()
 		{
 			sequence = null;
 			onComplete?.Invoke();
 		}
+#endregion
 	}
 }

@@ -2,7 +2,9 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Sirenix.OdinInspector;
+using DG.Tweening;
 
 #if UNITY_EDITOR
 using Shapes;
@@ -20,31 +22,41 @@ namespace FFStudio
 
     [ Title( "Start Options" ) ]
         public bool playOnStart = false;
-        [ LabelText( "Index to Play on Start" ), ShowIf( "playOnStart" ) ] public int index_toPlayOnStart;
         
-    [ Title( "Tween Data" ) ]
+	[ Title( "Sequence" ) ]
+		public Ease easing = Ease.Linear;
+		public bool loop;
+		[ ShowIf( "loop" ), LabelText( "Loop Type" ) ] public LoopType loop_type = LoopType.Restart;
+		[ ShowIf( "loop" ), LabelText( "Infinite Loop" ) ] public bool loop_isInfinite = true;
+		[ HideIf( "loop_isInfinite" ), LabelText( "Loop Count" ), Min( 1 ) ] public int loop_count = 1;
+		
+	[ Title( "Tween Data" ) ]
 #if UNITY_EDITOR
 	[ TableList( ShowIndexLabels = true ) ]
 #endif
 	[ SerializeReference ]
         public List< TweenData > tweenDatas = new List< TweenData >();
+
+	[ Title( "Fired Unity Events" ) ]
+		[ SerializeField, LabelText( "On Sequence Completion" ) ] UnityEvent unityEvent_onChainComplete;
 		
 		Transform transform_ToTween;
+		
+		RecycledSequence recycledSequence = new RecycledSequence();
 #endregion
 
 #region Properties
         [ ShowInInspector, ReadOnly ]
-		public bool IsPlaying => index_playing >= 0;
-		public bool IsPaused { get; private set; }
-
-		int index_playing;
+		public bool IsPlaying => recycledSequence.Sequence != null && recycledSequence.IsPlaying;
+		
+		public Sequence Sequence => recycledSequence.Sequence;
 #endregion
 
 #region Unity API
         void Awake()
         {
-			index_playing = -1;
-
+			recycledSequence = new RecycledSequence();
+			
 			transform_ToTween = transform_target == null ? transform : transform_target;
 
 			foreach( var tweenData in tweenDatas )
@@ -57,81 +69,100 @@ namespace FFStudio
                 return;
 
             if( playOnStart )
-                Play( index_toPlayOnStart );
+                Play();
         }
 #endregion
 
 #region API
         [ Button() ]
-        public void Play( int index )
+        public void Play()
         {
 #if UNITY_EDITOR
             if( tweenDatas == null || tweenDatas.Count == 0 )
                 FFLogger.LogError( name + ": Tween data array is null or has no elements! Fix this before build!", this );
-            else if( index < 0 || index > tweenDatas.Count - 1 )
-				FFLogger.LogError( name + ": Given index {index} is outside tween data array's range! Fix this before build!", this );
 #endif
 			if( IsPlaying )
-				tweenDatas[ index ].Kill();
+				Sequence.KillProper();
 
-			index_playing = index;
-			var tweenData = tweenDatas[ index ];
-            
-            if( tweenData.chain )
-			    tweenData.Play( () => ChainNext( index ) );
-            else
-			    tweenData.Play( OnComplete );
+			StartNewChain();
+
+			for( var i = 0; i < tweenDatas.Count; i++ )
+			{
+				var tweenData = tweenDatas[ i ];
+				
+				if( tweenData.sequenceElementType == SequenceElementType.Append )
+					Sequence.Append( tweenData.CreateTween() );
+				else if( tweenData.sequenceElementType == SequenceElementType.Join )
+					Sequence.Join( tweenData.CreateTween() );
+				else /* if( tweenData.sequenceElementType == SequenceElementType.Insert ) */
+					Sequence.Insert( tweenData.insertion_time, tweenData.CreateTween() );
+			}
+
+			Sequence.SetEase( easing );
+
+			if( loop )
+				Sequence.SetLoops( loop_isInfinite ? -1 : loop_count, loop_type );
 		}
 		
-		[ Button(), EnableIf( "IsPaused" ) ]
-        public void Play()
-        {
-			tweenDatas[ index_playing ].Play();
-			IsPaused = false;
+		// Info: Call this before calling AppendTween() or JoinTween() on this Tween Chain.
+		public void StartNewChain()
+		{
+			recycledSequence.Recycle( unityEvent_onChainComplete.Invoke );
 		}
-        
+		
+		public void PlayTween( int index )
+		{
+			Sequence.KillProper();
+
+			tweenDatas[ index ].CreateTween();
+		}
+		
+		public void JoinTween( int index )
+		{
+#if UNITY_EDITOR
+			if( Sequence != null && Sequence.IsPlaying() )
+				FFLogger.LogWarning( name + ": Sequence is already playing.\n" +
+									 "Tween will not be joined but played IMMEDIATELY (along with what is already been playing).", this );
+#endif
+			Sequence.Join( tweenDatas[ index ].CreateTween() );
+		}
+		
         [ Button(), EnableIf( "IsPlaying" ) ]
         public void Pause()
         {
-			tweenDatas[ index_playing ].Pause();
-			IsPaused = true;
+			Sequence.Pause();
 		}
 		
         [ Button(), EnableIf( "IsPlaying" ) ]
         public void Stop()
         {
-			tweenDatas[ index_playing ].Stop();
+			Sequence.Rewind();
+		}
+		
+        [ Button(), EnableIf( "IsPlaying" ) ]
+		public void Complete()
+		{
+			Sequence.Complete();
 		}
 		
 		[ Button() ]
         public void Kill()
         {
-			tweenDatas[ index_playing ].Kill();
+			Sequence.Kill();
+		}
+		
+		[ Button() ]
+		public void KillProper()
+		{
+			Sequence.KillProper();
 		}
 #endregion
 
 #region Implementation
-        void ChainNext( int indexOfPlayingTweenData )
-        {
-#if UNITY_EDITOR
-			if( IsPlaying )
-				inPlayMode_currentStartPos = transform_ToTween.position;
-#endif
-			var tweenData = tweenDatas[ indexOfPlayingTweenData ];
-			if( IsPlaying && tweenData.chain )
-				Play( tweenData.index_nextUp );
-		}
-		
-		void OnComplete()
-		{
-			index_playing = -1;
-		}
 #endregion
 
 #region EditorOnly
 #if UNITY_EDITOR
-		bool TransformIsNull => transform_target == null;
-
 		Vector3 inPlayMode_currentStartPos;
 		GUIStyle style;
 
@@ -172,10 +203,7 @@ namespace FFStudio
 				if( IsPlaying == false )
 					return;
 
-				var tweenData = tweenDatas[ index_playing ];
-
-				if( tweenData is MovementTweenData )
-					DrawMovementTweenGizmo( tweenData as MovementTweenData, ref lastPos, Vector3.zero, index_playing + 1 );
+				// TODO: Only call DrawXXXTweenGizmo() for the current Tween of the Sequence. Hint: May utilize OnUpdate of TweenDatas.
 			}
 			else
 				for( var i = 0; i < tweenDatas.Count; i++ )

@@ -13,13 +13,12 @@ namespace FFStudio
 #region Fields (Inspector Interface)
 		[ BoxGroup( "Other", false ) ] public string description;
 		
-	[ Title( "Chain" ) ]
-		[ BoxGroup( "Other", false ) ] public bool chain;
-		[ BoxGroup( "Other", false ), ShowIf( "chain" ), LabelText( "Next To Play" ) ] public int index_nextUp;
-
-	[ Title( "Start" ) ]
-		[ BoxGroup( "Other", false ), LabelText( "Delay" ) ] public bool hasDelay;
-		[ BoxGroup( "Other", false ), ShowIf( "hasDelay" ) ] public float delayAmount;
+	[ Title( "Sequencing" ) ]
+		[ BoxGroup( "Other", false ), LabelText( "Mode" ) ] public SequenceElementType sequenceElementType;
+#if UNITY_EDITOR
+		[ ShowIf( "IsOfInsertType" ) ]
+#endif
+		[ BoxGroup( "Other", false ), LabelText( "Insert At" ), SuffixLabel( "seconds" ) ] public float insertion_time;
 	
 	[ Title( "Events" ), SerializeReference ]
 		[ BoxGroup( "Other", false ) ] public TweenEventData[] tweenEventDatas;
@@ -27,25 +26,20 @@ namespace FFStudio
 #if UNITY_EDITOR
 		[ HideIf( "HideBaseClassLoopCheckBox" ) ]
 #endif
-		[ BoxGroup( "Tween", false ), DisableIf( "IsPlaying" ) ] public bool loop;
-		[ BoxGroup( "Tween", false ), ShowIf( "loop" ) ] public LoopType loopType = LoopType.Restart;
 		[ BoxGroup( "Tween", false ) ] public Ease easing = Ease.Linear;
-		[ BoxGroup( "Tween", false ) ] public UnityEvent onCompleteEvent;
+		[ BoxGroup( "Tween", false ) ] public bool loop;
+		[ BoxGroup( "Tween", false ), ShowIf( "loop" ), LabelText( "Loop Type" ) ] public LoopType loop_type = LoopType.Restart;
+		[ BoxGroup( "Tween", false ), ShowIf( "loop" ), LabelText( "Infinite Loop" ) ] public bool loop_isInfinite = true;
+		[ BoxGroup( "Tween", false ), HideIf( "loop_isInfinite" ), LabelText( "Loop Count" ), Min( 1 ) ] public int loop_count = 1;
+		[ BoxGroup( "Tween", false ), LabelText( "On Tween Completion" ) ] public UnityEvent unityEvent_onCompleteEvent;
 
-		public Tween Tween => recycledTween.Tween;
+		protected Transform transform;
 		
 		protected RecycledTween recycledTween = new RecycledTween();
-		protected RecycledTween recycledTween_Delay = new RecycledTween();
-		protected Transform transform;
-
-		UnityMessage onComplete;
 #endregion
 
 #region Properties
-		public bool IsDelayPaused => recycledTween_Delay.Tween != null && recycledTween_Delay.Tween.IsPlaying() == false;
-		public bool IsPaused => recycledTween.Tween != null && recycledTween.Tween.IsPlaying() == false;
-		public bool IsDelayPlaying => recycledTween_Delay.Tween != null && recycledTween_Delay.Tween.IsPlaying();
-		public bool IsPlaying => recycledTween.Tween != null && recycledTween.Tween.IsPlaying();
+		public Tween Tween => recycledTween.Tween;
 #endregion
 
 #region API
@@ -53,59 +47,19 @@ namespace FFStudio
 		{
 			this.transform = transform;
 		}
-
-		public void Play( UnityMessage onComplete = null )
-		{
-			if( IsDelayPaused )
-				recycledTween_Delay.Tween.Play();
-			else if( IsPaused )
-				recycledTween.Tween.Play();
-			else
-			{
-				if( hasDelay )
-					recycledTween_Delay.Recycle( DOVirtual.DelayedCall( delayAmount, () => CreateAndStartTween( onComplete ) ) );
-				else
-					CreateAndStartTween( onComplete );
-			}
-		}
-
-		public void Pause()
-		{
-			if( IsDelayPlaying )
-				recycledTween_Delay.Tween.Pause();
-			else if( IsPlaying )
-				recycledTween.Tween.Pause();
-		}
 		
-		public void Stop()
+		public virtual Tween CreateTween( bool isReversed = false )
 		{
-			recycledTween_Delay.Kill();
+			// Info: This base method does not actually create the Tween. So derived classes should handle that part and call this one.
+			
+			InitializeTweenEventDatasAndSetOnUpdate();
+			SetEasingAndLoops();
 
-			if( IsPlaying )
-				Tween.Rewind();
-		}
-		
-		public void Kill()
-		{
-			recycledTween.Kill();
-			recycledTween_Delay.Kill();
+			return Tween;
 		}
 #endregion
 
 #region Implementation
-		protected virtual void CreateAndStartTween( UnityMessage onComplete, bool isReversed = false )
-		{
-			this.onComplete = onComplete;
-			recycledTween.OnComplete( OnComplete );
-
-			if( tweenEventDatas != null && tweenEventDatas.Length > 0 )
-			{
-				for( int i = 0; i < tweenEventDatas.Length; i++ )
-					tweenEventDatas[ i ].isConsumed = false;
-				Tween.OnUpdate( OnUpdate );
-			}
-		}
-		
 		void OnUpdate()
 		{
 			for( int i = 0; i < tweenEventDatas.Length; i++ )
@@ -117,16 +71,34 @@ namespace FFStudio
 			}
 		}
 
-		void OnComplete()
+		protected void InitializeTweenEventDatasAndSetOnUpdate()
 		{
-			onCompleteEvent.Invoke();
-			onComplete?.Invoke();
+			if( tweenEventDatas != null && tweenEventDatas.Length > 0 )
+			{
+				for( int i = 0; i < tweenEventDatas.Length; i++ )
+					tweenEventDatas[ i ].isConsumed = false;
+					
+				Tween.OnUpdate( OnUpdate );
+			}
+		}
+		
+		protected void SetEasingAndLoops()
+		{
+			recycledTween.Tween.SetEase( easing )
+				 .SetLoops( loop
+								? loop_isInfinite
+								   	? -1
+									: loop_count
+								: 0,
+							loop_type );
 		}
 #endregion
 
 #region Editor Only
 #if UNITY_EDITOR
 		public virtual bool HideBaseClassLoopCheckBox() => false;
+		
+		bool IsOfInsertType => sequenceElementType == SequenceElementType.Insert;
 #endif
 #endregion
 	}

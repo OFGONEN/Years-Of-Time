@@ -21,22 +21,19 @@ namespace FFStudio
 #endregion
 
 #region API
-#endregion
-
-#region Implementation
-		protected override void CreateAndStartTween( UnityMessage onComplete, bool isReversed = false )
+		public override Tween CreateTween( bool isReversed = false )
 		{
-			recycledTween.Recycle( transform.DOScale( targetScale, duration ), onComplete );
-
-			recycledTween.Tween.SetEase( easing )
-				 .SetLoops( loop ? -1 : 0, loopType );
-
+			recycledTween.Recycle( transform.DOScale( targetScale, duration ), unityEvent_onCompleteEvent.Invoke );
+			
 #if UNITY_EDITOR
 			recycledTween.Tween.SetId( "_ff_scale_tween___" + description );
 #endif
 
-			base.CreateAndStartTween( onComplete, isReversed );
+			return base.CreateTween();
 		}
+#endregion
+
+#region Implementation
 #endregion
 
 #region EditorOnly

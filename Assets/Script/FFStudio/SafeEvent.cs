@@ -89,6 +89,25 @@ namespace FFStudio
 
             return false;
         }
+
+		public void LogMethods()
+		{
+			if( safeEvent != null )
+			{
+				var invocationList = safeEvent.GetInvocationList();
+				if( invocationList.Length > 0 )
+					FFLogger.Log( "Subscribed methods are:" );
+
+				for( int i = 0; i < invocationList.Length; i++ )
+				{
+					var invocation = invocationList[ i ];
+					FFLogger.Log( "Method \"" + invocation.Method.Name + " with the target " + invocation.Target + ".",
+								  invocation.Target as UnityEngine.GameObject );
+					var go = invocation.Target as UnityEngine.GameObject;
+					FFStudio.FFLogger.Log( "Its Instance ID is " + go.GetInstanceID() + "." );
+				}
+			}
+		}
 #endif
 #endregion
 

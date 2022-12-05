@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using Sirenix.OdinInspector;
+using DG.Tweening;
 
 namespace FFStudio
 {
@@ -37,11 +38,17 @@ namespace FFStudio
 		}
 
 		[ Button ]
-		public void SetColor() // Info: This may be more "Unity-Event-friendly".
+		public void SetColor()
 		{
 			theRenderer.GetPropertyBlock( propertyBlock );
 			propertyBlock.SetColor( SHADER_ID_COLOR, color );
 			theRenderer.SetPropertyBlock( propertyBlock );
+		}
+
+		public Color GetColor()
+		{
+			theRenderer.GetPropertyBlock( propertyBlock );
+			return propertyBlock.GetColor( SHADER_ID_COLOR );
 		}
 		
 		public void SetAlpha( float alpha )
@@ -50,6 +57,18 @@ namespace FFStudio
 			var currentColor = theRenderer.sharedMaterial.GetColor( SHADER_ID_COLOR );
 			propertyBlock.SetColor( SHADER_ID_COLOR, currentColor.SetAlpha( alpha ) );
 			theRenderer.SetPropertyBlock( propertyBlock );
+		}
+
+		public Tweener TweenColor( Color from, Color to, float duration )
+		{
+			return DOVirtual.Float( 0, 1, duration,
+							 		( float lerpBy ) => SetColor( Color.Lerp( from, to, lerpBy ) ) );
+		}
+
+		public Tweener TweenAlpha( float from, float to, float duration )
+		{
+			return DOVirtual.Float( from, to, duration,
+							 		( float val ) => SetAlpha( val ) );
 		}
 #endregion
 

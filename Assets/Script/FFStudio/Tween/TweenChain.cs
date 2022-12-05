@@ -62,6 +62,11 @@ namespace FFStudio
 			foreach( var tweenData in tweenDatas )
 				tweenData.Initialize( transform_ToTween );
 		}
+		
+		void OnDisable()
+		{
+			KillProper();
+		}
 
         void Start()
         {
@@ -84,7 +89,7 @@ namespace FFStudio
 			if( IsPlaying )
 				Sequence.KillProper();
 
-			StartNewChain();
+			recycledSequence.Recycle( unityEvent_onChainComplete.Invoke );
 
 			for( var i = 0; i < tweenDatas.Count; i++ )
 			{
@@ -102,12 +107,6 @@ namespace FFStudio
 
 			if( loop )
 				Sequence.SetLoops( loop_isInfinite ? -1 : loop_count, loop_type );
-		}
-		
-		// Info: Call this before calling AppendTween() or JoinTween() on this Tween Chain.
-		public void StartNewChain()
-		{
-			recycledSequence.Recycle( unityEvent_onChainComplete.Invoke );
 		}
 		
 		public void PlayTween( int index )

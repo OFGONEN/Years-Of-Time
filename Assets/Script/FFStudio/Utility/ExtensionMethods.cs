@@ -452,6 +452,16 @@ namespace FFStudio
 			return rounded;
 		}
 
+		public static float Hypotenuse( float edge1, float edge2 )
+		{
+			return Mathf.Sqrt( edge1 * edge1 + edge2 * edge2 );
+		}
+
+		public static float NonHypothenuseEdge( float hypotenuseEdge, float edge1 )
+		{
+			return Mathf.Sqrt( hypotenuseEdge * hypotenuseEdge - edge1 * edge1 );
+		}
+
 		public static T ReturnRandom< T >( this T[] array )
 		{
 			return array[ Random.Range( 0, array.Length ) ];

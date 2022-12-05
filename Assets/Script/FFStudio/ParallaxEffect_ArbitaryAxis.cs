@@ -7,37 +7,37 @@ namespace FFStudio
 	public class ParallaxEffect_ArbitaryAxis : MonoBehaviour
 	{
 #region Fields
-		public SharedReferenceNotifier targetReference;
-		public float parallaxSpeed;
-		public Vector3 parallaxRatio_X_Axis;
-		public Vector3 parallaxRatio_Y_Axis;
-		public Vector3 parallaxRatio_Z_Axis;
+		public SharedReferenceNotifier notif_target_reference;
+		public float parallax_speed;
+		public Vector3 parallax_ratio_axis_X;
+		public Vector3 parallax_ratio_axis_Y;
+		public Vector3 parallax_ratio_axis_Z;
 
-		Transform targetTransform;
-		Vector3 startPosition;
-		Vector3 target_StartPosition;
+		Transform target_transform;
+		Vector3 position_start;
+		Vector3 target_position_start;
 #endregion
 
 #region Unity API
 		void Start()
 		{
-			targetTransform = ( targetReference.SharedValue as Rigidbody ).transform;
+			target_transform = notif_target_reference.SharedValue as Transform;
 
-			startPosition = transform.position;
-			target_StartPosition = targetTransform.position;
+			position_start        = transform.position;
+			target_position_start = target_transform.position;
 		}
 
 		void Update()
 		{
-			var diff = targetTransform.position - target_StartPosition;
+			var diff = target_transform.position - target_position_start;
 
-			var final = startPosition;
+			var final = position_start;
 
-			final.x += Vector3.Scale( diff, parallaxRatio_X_Axis ).ComponentSum();
-			final.y += Vector3.Scale( diff, parallaxRatio_Y_Axis ).ComponentSum();
-			final.z += Vector3.Scale( diff, parallaxRatio_Z_Axis ).ComponentSum();
+			final.x += Vector3.Scale( diff, parallax_ratio_axis_X ).ComponentSum();
+			final.y += Vector3.Scale( diff, parallax_ratio_axis_Y ).ComponentSum();
+			final.z += Vector3.Scale( diff, parallax_ratio_axis_Z ).ComponentSum();
 
-			transform.position = Vector3.MoveTowards( transform.position, final, Time.deltaTime * parallaxSpeed);
+			transform.position = Vector3.MoveTowards( transform.position, final, Time.deltaTime * parallax_speed);
 		}
 #endregion
 

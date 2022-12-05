@@ -8,8 +8,7 @@ namespace FFStudio
 #region Fields
         public GameEvent gameEvent;
 
-        public delegate void Response();
-        public Response response;
+        public UnityEngine.Events.UnityAction response;
 #endregion
 
 #region API

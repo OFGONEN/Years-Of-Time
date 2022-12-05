@@ -92,7 +92,7 @@ namespace FFStudio
 		{
 			for( var i = 0; i < ragdoll_rigidbody_array.Length; i++ )
 			{
-				ragdoll_rigidbody_array[ i ].transform.SetTransformDataLocal( ragdoll_rigidbody_transformData_array[ i ] );
+				ragdoll_rigidbody_array[ i ].transform.SetLocalTransformData( ragdoll_rigidbody_transformData_array[ i ] );
 			}
 		}
         

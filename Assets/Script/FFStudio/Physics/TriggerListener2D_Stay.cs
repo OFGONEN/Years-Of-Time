@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public abstract class CollisionListener : ColliderListener< CollisionMessage, Collision >
+	public class TriggerListener2D_Stay : TriggerListener2D
 	{
 #region Fields
 #endregion
@@ -13,18 +13,21 @@ namespace FFStudio
 #endregion
 
 #region Unity API
+        void OnTriggerStay2D( Collider2D other )
+        {
+			InvokeEvent( other );
+		}
 #endregion
 
 #region API
 #endregion
 
 #region Implementation
-        /* protected override void InvokeEvent( Collision collision )
-		{
-			// Insert custom derived class logic.
+#endregion
 
-			base.InvokeEvent( collision );
-		} */
+#region Editor Only
+#if UNITY_EDITOR
+#endif
 #endregion
 	}
 }

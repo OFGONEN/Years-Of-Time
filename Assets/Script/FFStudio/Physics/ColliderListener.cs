@@ -42,7 +42,13 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-        protected abstract void InvokeEvent( CallbackArgumentType physicsCallbackArgument );
+        protected virtual void InvokeEvent( CallbackArgumentType physicsCallbackArgument )
+		{
+			if( isEnabled == false )
+				return;
+
+			unityEvent.Invoke( physicsCallbackArgument );
+		}
 #endregion
 	}
 }

@@ -19,13 +19,12 @@ namespace FFStudio
 #endregion
 
 #region Implementation
-        protected override void InvokeEvent( Collider other )
+        /* protected override void InvokeEvent( Collider other )
 		{
-			if( isEnabled == false )
-				return;
-				
-			unityEvent.Invoke( other );
-		}
+			// Insert custom derived class logic.
+
+			base.InvokeEvent( other );
+		} */
 #endregion
 	}
 }

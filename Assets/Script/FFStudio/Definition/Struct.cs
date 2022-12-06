@@ -170,4 +170,18 @@ namespace FFStudio
 		[ Layer() ] public int collision_layer;
 		public UnityEvent< Collision > collision_event;
 	}
+	
+	[ Serializable ]
+	public struct Trigger2DRespondData
+	{
+		[ Layer() ] public int collision_layer;
+		public UnityEvent< Collider2D > trigger_event;
+	}
+
+	[ Serializable ]
+	public struct Collision2DRespondData
+	{
+		[ Layer() ] public int collision_layer;
+		public UnityEvent< Collision2D > collision_event;
+	}
 }

@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class ColliderInterface : MonoBehaviour
+	public class ColliderInterface2D : MonoBehaviour
 	{
 #region Fields
-		[ SerializeField ] CollisionRespondData[] collision_respond_data_array;
-		[ SerializeField ] TriggerRespondData[] trigger_respond_data_array;
+		[ SerializeField ] Collision2DRespondData[] collision_respond_data_array;
+		[ SerializeField ] Trigger2DRespondData[] trigger_respond_data_array;
 
 		Dictionary< int, int > collision_respond_data_dictionary;
 		Dictionary< int, int > trigger_respond_data_dictionary;
@@ -34,7 +34,7 @@ namespace FFStudio
 #endregion
 
 #region API
-		public void OnCollision( Collision collision )
+		public void OnCollision2D( Collision2D collision )
 		{
 			int index;
 
@@ -42,7 +42,7 @@ namespace FFStudio
 				collision_respond_data_array[ index ].collision_event.Invoke( collision );
 		}
 
-		public void OnTrigger( Collider collider )
+		public void OnTrigger2D( Collider2D collider )
 		{
 			int index;
 

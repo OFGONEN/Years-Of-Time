@@ -10,6 +10,8 @@ namespace FFStudio
 	{
 #region Fields (Inspector Interface)
 	[ Title( "Setup" ) ]
+		// Info: We can't use Component.enabled because it does not show on Inspector without Update() etc.
+		[ SerializeField ] protected bool isEnabled;
 		[ SerializeField ] Component attachedComponent;
 
 		public Component AttachedComponent => attachedComponent;
@@ -28,8 +30,6 @@ namespace FFStudio
 #endregion
 
 #region API
-		public abstract void ClearEventList();
-
 		public void SetColliderActive( bool active )
 		{
 			attachedCollider.enabled = active;
@@ -39,9 +39,6 @@ namespace FFStudio
 		{
 			attachedComponent = component;
 		}
-
-		public abstract void Subscribe( DelegateType method );
-		public abstract void Unsubscribe( DelegateType method );
 #endregion
 
 #region Implementation

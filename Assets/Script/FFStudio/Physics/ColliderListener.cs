@@ -11,7 +11,7 @@ namespace FFStudio
 #region Fields (Inspector Interface)
 	[ Title( "Setup" ) ]
 		// Info: We can't use Component.enabled because it does not show on Inspector without Update() etc.
-		[ SerializeField ] protected bool isEnabled;
+		[ SerializeField ] protected bool isEnabled = true;
 		[ SerializeField ] Component attachedComponent;
 
 		public Component AttachedComponent => attachedComponent;

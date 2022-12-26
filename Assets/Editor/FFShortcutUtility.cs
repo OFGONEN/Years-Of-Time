@@ -94,11 +94,7 @@ namespace FFEditor
 			Debug.Log( "AssetDatabase Saved" );
 		}
 
-#if UNITY_EDITOR_WIN
 		[ MenuItem( "FFShortcut/Select Game Settings &1" ) ]
-#elif UNITY_EDITOR_OSX
-		[ MenuItem( "FFShortcut/Select Game Settings %1" ) ]
-#endif
 		static private void SelectGameSettings()
 		{
 			var gameSettings = Resources.Load( "game_settings" );
@@ -106,11 +102,7 @@ namespace FFEditor
 			Selection.SetActiveObjectWithContext( gameSettings, gameSettings );
 		}
 
-#if UNITY_EDITOR_WIN
 		[ MenuItem( "FFShortcut/Select Level Data &2" ) ]
-#elif UNITY_EDITOR_OSX
-		[ MenuItem( "FFShortcut/Select Level Data %2" ) ]
-#endif
 		static private void SelectLevelData()
 		{
 			var levelData = Resources.Load( "level_data_1" );
@@ -118,11 +110,7 @@ namespace FFEditor
 			Selection.SetActiveObjectWithContext( levelData, levelData );
 		}
 
-#if UNITY_EDITOR_WIN
 		[ MenuItem( "FFShortcut/Select App Scene &3" ) ]
-#elif UNITY_EDITOR_OSX
-		[ MenuItem( "FFShortcut/Select App Scene %3" ) ]
-#endif
 		static private void SelectAppScene()
 		{
 			var appScene = AssetDatabase.LoadAssetAtPath( "Assets/Scenes/app.unity", typeof( SceneAsset ) );
@@ -130,11 +118,7 @@ namespace FFEditor
 			Selection.SetActiveObjectWithContext( appScene, appScene );
 		}
 
-#if UNITY_EDITOR_WIN
 		[ MenuItem( "FFShortcut/Select Play Mode Settings &4" ) ]
-#elif UNITY_EDITOR_OSX
-		[ MenuItem( "FFShortcut/Select Play Mode Settings %4" ) ]
-#endif
 		static private void SelectPlayModeSettings()
 		{
 			var playModeSettings = AssetDatabase.LoadAssetAtPath( "Assets/Editor/PlayModeUtilitySettings.asset", typeof( ScriptableObject ) );
@@ -142,43 +126,27 @@ namespace FFEditor
 			Selection.SetActiveObjectWithContext( playModeSettings, playModeSettings );
 		}
 
-#if UNITY_EDITOR_WIN
 		[ MenuItem( "FFShortcut/Copy Global Transform &c" ) ]
-#elif UNITY_EDITOR_OSX
-		[ MenuItem( "FFShortcut/Copy Global Transform %c" ) ]
-#endif
 		static private void CopyTransform()
 		{
 			currentTransformData = Selection.activeGameObject.transform.GetTransformData();
 		}
 
-#if UNITY_EDITOR_WIN
 		[ MenuItem( "FFShortcut/Paste Global Transform &v" ) ]
-#elif UNITY_EDITOR_OSX
-		[ MenuItem( "FFShortcut/Paste Global Transform %v" ) ]
-#endif
 		static private void PasteTransform()
 		{
 			var gameObject = Selection.activeGameObject.transform;
 			gameObject.SetTransformData( currentTransformData );
 		}
 
-#if UNITY_EDITOR_WIN
 		[ MenuItem( "FFShortcut/Kill All Tweens %#t" ) ]
-#elif UNITY_EDITOR_OSX
-		[ MenuItem( "FFShortcut/Kill All Tweens ^#t" ) ]
-#endif
 		private static void KillAllTweens()
 		{
 			DOTween.KillAll();
 			FFLogger.Log( "[FF] DOTween: Kill All" );
 		}
 
-#if UNITY_EDITOR_WIN
 		[ MenuItem( "FFShortcut/Clear Console %#x" ) ]
-#elif UNITY_EDITOR_OSX
-		[ MenuItem( "FFShortcut/Clear Console ^#x" ) ]
-#endif
 		private static void ClearLog()
 		{
 			var assembly = Assembly.GetAssembly( typeof( UnityEditor.Editor ) );

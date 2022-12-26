@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
+	[ System.Serializable ]
 	public abstract class EventListenerGenericUnityEventResponseBase : EventListener
 	{
 	}

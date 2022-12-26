@@ -6,6 +6,7 @@ using UnityEngine;
 using FFStudio;
 using DG.Tweening;
 using System.Reflection;
+using UnityEditor.SceneManagement;
 
 namespace FFEditor
 {
@@ -136,6 +137,7 @@ namespace FFEditor
 		static private void PasteTransform()
 		{
 			var gameObject = Selection.activeGameObject.transform;
+			EditorUtility.SetDirty( gameObject );
 			gameObject.SetTransformData( currentTransformData );
 		}
 

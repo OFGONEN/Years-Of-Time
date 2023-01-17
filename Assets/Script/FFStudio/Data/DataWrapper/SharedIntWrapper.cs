@@ -7,7 +7,7 @@ using UnityEngine;
 namespace FFStudio
 {
 	[ System.Serializable ]
-	public class SharedIntWrapper : IntDataWrapper
+	public class SharedIntWrapper : IntWrapper
 	{
 #region Fields
         [ SerializeField ] SharedIntNotifier sharedIntNotifier;

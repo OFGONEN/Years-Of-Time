@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class RunTimeIntWrapper : IntDataWrapper
+	public class RunTimeIntWrapper : IntWrapper
 	{
 #region Fields
         [ SerializeField ] RunTimeInt runTimeInt;

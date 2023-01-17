@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class ConstantIntWrapper : IntDataWrapper
+	public class ConstantIntWrapper : IntWrapper
 	{
 #region Fields
 		[ SerializeField ] int intValue;

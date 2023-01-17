@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public abstract class IntDataWrapper : DataWrapper< int >
+	public abstract class IntWrapper : DataWrapper< int >
 	{
 	}
 }

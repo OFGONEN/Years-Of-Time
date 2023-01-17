@@ -1,0 +1,34 @@
+/* Created by and for usage of FF Studios (2021). */
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace FFStudio
+{
+	[ System.Serializable ]
+	public class SharedFloatWrapper : FloatWrapper
+	{
+#region Fields
+        [ SerializeField ] SharedFloatNotifier sharedFloatNotifier;
+#endregion
+
+#region Properties
+		public override float Data => sharedFloatNotifier.sharedValue;
+#endregion
+
+#region Unity API
+#endregion
+
+#region API
+#endregion
+
+#region Implementation
+#endregion
+
+#region Editor Only
+#if UNITY_EDITOR
+#endif
+#endregion
+	}
+}

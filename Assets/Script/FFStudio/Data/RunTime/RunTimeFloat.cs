@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class RunTimeBoolData : RunTimeData< bool >
+	public class RunTimeFloat : RunTimeData< float >
 	{
 #region Fields
 #endregion
@@ -18,15 +18,15 @@ namespace FFStudio
 #endregion
 
 #region API
-        public override void OffsetData( bool value )
+        public override void OffsetData( float value )
         {
-            runTimeData &= value;
+            runTimeData += value;
 			onUpdateEvent.Invoke( runTimeData );
 		}
 
-        public override void CompareData( bool value )
+        public override void CompareData( float value )
         {
-            if( runTimeData == value )
+            if( Mathf.Approximately( runTimeData, value ) )
 				onComparisonEvent.Invoke( runTimeData );
 		}
 #endregion

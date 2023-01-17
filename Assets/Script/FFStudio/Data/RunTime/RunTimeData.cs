@@ -7,12 +7,12 @@ using UnityEngine.Events;
 
 namespace FFStudio
 {
-	public abstract class RunTimeData<DataType> : MonoBehaviour
+	public abstract class RunTimeData< DataType > : MonoBehaviour
 	{
 #region Fields
 		public DataType runTimeData;
-		public UnityEvent<DataType> onUpdateEvent;
-		public UnityEvent<DataType> onComparisonEvent;
+		public UnityEvent< DataType > onUpdateEvent;
+		public UnityEvent< DataType > onComparisonEvent;
 #endregion
 
 #region Properties

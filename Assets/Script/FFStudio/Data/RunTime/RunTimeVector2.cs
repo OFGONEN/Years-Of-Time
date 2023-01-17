@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FFStudio
 {
-	public class RunTimeVector3Data : RunTimeData<Vector3>
+	public class RunTimeVector2 : RunTimeData<Vector2>
 	{
 #region Fields
 #endregion
@@ -18,13 +18,13 @@ namespace FFStudio
 #endregion
 
 #region API
-		public override void OffsetData( Vector3 value )
+		public override void OffsetData( Vector2 value )
 		{
 			runTimeData += value;
 			onUpdateEvent.Invoke( runTimeData );
 		}
 
-		public override void CompareData( Vector3 value )
+		public override void CompareData( Vector2 value )
 		{
 			if( runTimeData == value )
 				onComparisonEvent.Invoke( runTimeData );

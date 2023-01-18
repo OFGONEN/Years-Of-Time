@@ -9,7 +9,7 @@ namespace FFStudio
 	public class RespondAdvanced : MonoBehaviour
 	{
 #region Fields
-        [ SerializeReference ] EventListenerGenericUnityEventResponseBase[] respond_data_array = new EventListenerGenericUnityEventResponseBase[ 0 ];
+        [ SerializeReference ] List< EventListenerGenericUnityEventResponseBase >  respond_data_array = new List< EventListenerGenericUnityEventResponseBase >();
 #endregion
 
 #region Properties
@@ -18,13 +18,13 @@ namespace FFStudio
 #region Unity API
         void OnEnable()
 		{
-			for( var i = 0; i < respond_data_array.Length; i++ )
+			for( var i = 0; i < respond_data_array.Count; i++ )
 				respond_data_array[ i ].OnEnable();
 		}
 
 		void OnDisable()
 		{
-			for( var i = 0; i < respond_data_array.Length; i++ )
+			for( var i = 0; i < respond_data_array.Count; i++ )
 				respond_data_array[ i ].OnDisable();
 		}
 #endregion

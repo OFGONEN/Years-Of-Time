@@ -6,11 +6,11 @@ using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
-    public class InvokeUnityEvent : MonoBehaviour
+    public class InvokeUnityEventGeneric< Type > : MonoBehaviour
     {
 #region Fields
         public string description;
-        public UnityEvent onEvent;
+        public UnityEvent< Type > onEvent;
 #endregion
 
 #region Unity API
@@ -18,9 +18,9 @@ namespace FFStudio
 
 #region API
         [ Button ]
-        public void Invoke()
+        public void Invoke( Type value )
         {
-            onEvent.Invoke();
+            onEvent.Invoke( value );
         }
 #endregion
 

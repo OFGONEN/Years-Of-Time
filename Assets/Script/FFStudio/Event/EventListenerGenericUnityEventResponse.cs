@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FFStudio
 {
@@ -14,7 +15,7 @@ namespace FFStudio
 	public abstract class EventListenerGenericUnityEventResponse< GameEventType, ArgumentType > : EventListenerGenericUnityEventResponseBase where GameEventType: GameEvent
 	{
 		public GameEventType gameEvent;
-        public UnityEngine.Events.UnityEvent< ArgumentType > unityEvent;
+        public UnityEvent< ArgumentType > unityEvent;
 
 		public override void OnEnable()
 		{

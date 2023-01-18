@@ -7,14 +7,13 @@ using UnityEngine.Events;
 
 namespace FFStudio
 {
-	public abstract class EventListenerGenericUnityEventResponseBase : EventListener
+	public abstract class EventListenerUnityEventResponseBase : EventListener
 	{
 	}
 
-	public abstract class EventListenerGenericUnityEventResponse< GameEventType, ArgumentType > : EventListenerGenericUnityEventResponseBase where GameEventType: GameEvent
+	public abstract class GenericEventListenerUnityEventResponse< GameEventType > : EventListenerUnityEventResponseBase where GameEventType: GameEvent
 	{
 		public GameEventType gameEvent;
-        public UnityEvent< ArgumentType > unityEvent;
 
 		public override void OnEnable()
 		{
@@ -27,31 +26,22 @@ namespace FFStudio
 		}
 	}
 
-	public class BasicGameEventResponse : EventListenerGenericUnityEventResponse< GameEvent, int >
+	public class BasicGameEventResponse : GenericEventListenerUnityEventResponse< GameEvent >
 	{
+		public UnityEvent unityEvent;
+
 		public override void OnEventRaised()
 		{
-			unityEvent.Invoke( 0 );
+			unityEvent.Invoke();
 		}
 	}
 
-	public class BoolGameEventResponse : EventListenerGenericUnityEventResponse< BoolGameEvent, bool >
+	public abstract class GenericEventListenerGenericUnityEventResponse< GameEventType, ArgumentType  > : GenericEventListenerUnityEventResponse< GameEventType > where GameEventType : GameEvent 
 	{
-		public override void OnEventRaised()
-		{
-			unityEvent.Invoke( gameEvent.eventValue );
-		}
+		public UnityEvent< ArgumentType > unityEvent;
 	}
 
-	public class IntGameEventResponse : EventListenerGenericUnityEventResponse< IntGameEvent, int >
-	{
-		public override void OnEventRaised()
-		{
-			unityEvent.Invoke( gameEvent.eventValue );
-		}
-	}
-
-	public class FloatGameEventResponse : EventListenerGenericUnityEventResponse< FloatGameEvent, float >
+	public class BoolGameEventResponse : GenericEventListenerGenericUnityEventResponse< BoolGameEvent, bool >
 	{
 		public override void OnEventRaised()
 		{
@@ -59,7 +49,23 @@ namespace FFStudio
 		}
 	}
 
-	public class ReferenceGameEventResponse : EventListenerGenericUnityEventResponse< ReferenceGameEvent, object >
+	public class IntGameEventResponse : GenericEventListenerGenericUnityEventResponse< IntGameEvent, int >
+	{
+		public override void OnEventRaised()
+		{
+			unityEvent.Invoke( gameEvent.eventValue );
+		}
+	}
+
+	public class FloatGameEventResponse : GenericEventListenerGenericUnityEventResponse< FloatGameEvent, float >
+	{
+		public override void OnEventRaised()
+		{
+			unityEvent.Invoke( gameEvent.eventValue );
+		}
+	}
+
+	public class ReferenceGameEventResponse : GenericEventListenerGenericUnityEventResponse< ReferenceGameEvent, object >
 	{
 		public override void OnEventRaised()
 		{

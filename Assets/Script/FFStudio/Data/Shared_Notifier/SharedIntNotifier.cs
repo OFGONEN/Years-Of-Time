@@ -21,5 +21,26 @@ namespace FFStudio
 		{
 			SharedValue += amount;
 		}
+
+		public void LoadFromPlayerPrefs()
+		{
+			SharedValue = PlayerPrefsUtility.Instance.GetInt( name, 0 );
+		}
+
+		public void LoadFromPlayerPrefs_DefaultCustom( int customDefaultValue )
+		{
+			SharedValue = PlayerPrefsUtility.Instance.GetInt( name, customDefaultValue );
+		}
+
+		public void SaveToPlayerPrefs()
+		{
+			PlayerPrefsUtility.Instance.SetInt( name, sharedValue );
+		}
+
+		public void SaveToPlayerPrefs( string key )
+		{
+			PlayerPrefsUtility.Instance.SetInt( key, sharedValue );
+		}
+
 	}
 }

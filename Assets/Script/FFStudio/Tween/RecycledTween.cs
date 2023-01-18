@@ -13,6 +13,7 @@ namespace FFStudio
 
 #region Properties
 		public Tween Tween => tween;
+		public bool IsPlaying => tween != null && tween.IsPlaying();
 #endregion
 
 #region API
@@ -47,14 +48,6 @@ namespace FFStudio
 		public void OnComplete( UnityMessage onComplete )
 		{
 			this.onComplete = onComplete;
-		}
-		
-		public bool IsPlaying()
-		{
-			if( tween != null )
-				return tween.IsPlaying();
-			else
-				return false;
 		}
 
 		public void Kill()

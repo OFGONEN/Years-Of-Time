@@ -19,7 +19,7 @@ namespace FFStudio
 #endregion
 
 #region Properties
-		public bool IsPlaying => recycledTween_cooldown.IsPlaying();
+		public bool IsPlaying => recycledTween_cooldown.IsPlaying;
 		public float ElapsedPercentage => recycledTween_cooldown.Tween.ElapsedPercentage();
 #endregion
 

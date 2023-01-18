@@ -50,6 +50,9 @@ namespace FFStudio
 
 		public override void ReturnEntity( T entity )
         {
+			entity.gameObject.SetActive( pool_active );
+			entity.transform.SetParent( pool_parent );
+
 			activeEntities.Remove( entity );
 			stack.Push( entity );
 		}

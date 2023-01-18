@@ -41,14 +41,12 @@ namespace FFStudio
 		[ SerializeField, LabelText( "On Sequence Completion" ) ] UnityEvent unityEvent_onChainComplete;
 		
 		Transform transform_ToTween;
-		
 		RecycledSequence recycledSequence = new RecycledSequence();
 #endregion
 
 #region Properties
         [ ShowInInspector, ReadOnly ]
-		public bool IsPlaying => recycledSequence.Sequence != null && recycledSequence.IsPlaying;
-		
+		public bool IsPlaying    => recycledSequence.IsPlaying;
 		public Sequence Sequence => recycledSequence.Sequence;
 #endregion
 
@@ -65,17 +63,14 @@ namespace FFStudio
 		
 		void OnDisable()
 		{
-			KillProper();
+			Kill();
 		}
 
         void Start()
         {
-            if( !enabled )
-                return;
-
-            if( playOnStart )
-                Play();
-        }
+            if( playOnStart ) 
+				Play();
+		}
 #endregion
 
 #region API
@@ -86,9 +81,6 @@ namespace FFStudio
             if( tweenDatas == null || tweenDatas.Count == 0 )
                 FFLogger.LogError( name + ": Tween data array is null or has no elements! Fix this before build!", this );
 #endif
-			if( IsPlaying )
-				Sequence.KillProper();
-
 			recycledSequence.Recycle( unityEvent_onChainComplete.Invoke );
 
 			for( var i = 0; i < tweenDatas.Count; i++ )
@@ -109,23 +101,6 @@ namespace FFStudio
 				Sequence.SetLoops( loop_isInfinite ? -1 : loop_count, loop_type );
 		}
 		
-		public void PlayTween( int index )
-		{
-			Sequence.KillProper();
-
-			tweenDatas[ index ].CreateTween();
-		}
-		
-		public void JoinTween( int index )
-		{
-#if UNITY_EDITOR
-			if( Sequence != null && Sequence.IsPlaying() )
-				FFLogger.LogWarning( name + ": Sequence is already playing.\n" +
-									 "Tween will not be joined but played IMMEDIATELY (along with what is already been playing).", this );
-#endif
-			Sequence.Join( tweenDatas[ index ].CreateTween() );
-		}
-		
         [ Button(), EnableIf( "IsPlaying" ) ]
         public void Pause()
         {
@@ -141,19 +116,13 @@ namespace FFStudio
         [ Button(), EnableIf( "IsPlaying" ) ]
 		public void Complete()
 		{
-			Sequence.Complete();
+			recycledSequence.CompleteAndKill();
 		}
 		
 		[ Button() ]
         public void Kill()
         {
-			Sequence.Kill();
-		}
-		
-		[ Button() ]
-		public void KillProper()
-		{
-			Sequence.KillProper();
+			recycledSequence.Kill();
 		}
 #endregion
 
@@ -162,53 +131,54 @@ namespace FFStudio
 
 #region EditorOnly
 #if UNITY_EDITOR
-		Vector3 inPlayMode_currentStartPos;
-		GUIStyle style;
 
-		void DrawMovementTweenGizmo( MovementTweenData tweenData, ref Vector3 lastPos, Vector3 verticalOffset, int tweenNo )
-		{
-			Vector3 startPos = lastPos;
+		// TODO: Only call DrawXXXTweenGizmo() for the current Tween of the Sequence. Hint: May utilize OnUpdate of TweenDatas.
+		// Vector3 inPlayMode_currentStartPos;
+		// GUIStyle style;
 
-			if( Application.isPlaying )
-				startPos = inPlayMode_currentStartPos;
+		// void DrawMovementTweenGizmo( MovementTweenData tweenData, ref Vector3 lastPos, Vector3 verticalOffset, int tweenNo )
+		// {
+		// 	Vector3 startPos = lastPos;
 
-			Color color = new Color( 1.0f, 0.75f, 0.0f );
+		// 	if( Application.isPlaying )
+		// 		startPos = inPlayMode_currentStartPos;
 
-			Draw.UseDashes = true;
-			Draw.DashStyle = DashStyle.RelativeDashes( DashType.Basic, 1, 1 );
+		// 	Color color = new Color( 1.0f, 0.75f, 0.0f );
 
-			var deltaPosition = tweenData.endValue;
+		// 	Draw.UseDashes = true;
+		// 	Draw.DashStyle = DashStyle.RelativeDashes( DashType.Basic, 1, 1 );
 
-			lastPos = startPos + deltaPosition;
+		// 	var deltaPosition = tweenData.endValue;
 
-			Draw.Line( startPos + verticalOffset, lastPos + verticalOffset, 0.1f, LineEndCap.None, color );
-			var direction = deltaPosition.normalized;
-			var deltaMagnitude = deltaPosition.magnitude;
-			var coneLength = 0.2f;
-			var conePos = Vector3.Lerp( startPos, lastPos, 1.0f - coneLength / deltaMagnitude );
-			Draw.Cone( conePos + verticalOffset, deltaPosition.normalized, 0.1f, 0.2f, color );
-			Handles.Label( ( lastPos + startPos ) / 2 + verticalOffset, tweenNo.ToString() + ": " + tweenData.description, style );
-		}
+		// 	lastPos = startPos + deltaPosition;
 
-		void OnDrawGizmosSelected()
-		{
-			var theTransform = transform_target == null ? transform : transform_target;
+		// 	Draw.Line( startPos + verticalOffset, lastPos + verticalOffset, 0.1f, LineEndCap.None, color );
+		// 	var direction = deltaPosition.normalized;
+		// 	var deltaMagnitude = deltaPosition.magnitude;
+		// 	var coneLength = 0.2f;
+		// 	var conePos = Vector3.Lerp( startPos, lastPos, 1.0f - coneLength / deltaMagnitude );
+		// 	Draw.Cone( conePos + verticalOffset, deltaPosition.normalized, 0.1f, 0.2f, color );
+		// 	Handles.Label( ( lastPos + startPos ) / 2 + verticalOffset, tweenNo.ToString() + ": " + tweenData.description, style );
+		// }
 
-			style = new GUIStyle { normal = new GUIStyleState { textColor = Color.red }, fontSize = 20 };
+		// void OnDrawGizmosSelected()
+		// {
+		// 	var theTransform = transform_target == null ? transform : transform_target;
 
-			Vector3 lastPos = theTransform.position;
-			if( Application.isPlaying )
-			{
-				if( IsPlaying == false )
-					return;
+		// 	style = new GUIStyle { normal = new GUIStyleState { textColor = Color.red }, fontSize = 20 };
 
-				// TODO: Only call DrawXXXTweenGizmo() for the current Tween of the Sequence. Hint: May utilize OnUpdate of TweenDatas.
-			}
-			else
-				for( var i = 0; i < tweenDatas.Count; i++ )
-					if( tweenDatas[ i ] is MovementTweenData )
-						DrawMovementTweenGizmo( tweenDatas[ i ] as MovementTweenData, ref lastPos, Vector3.up * i * 0.3f, i + 1 );
-		}
+		// 	Vector3 lastPos = theTransform.position;
+		// 	if( Application.isPlaying )
+		// 	{
+		// 		if( IsPlaying == false )
+		// 			return;
+
+		// 	}
+		// 	else
+		// 		for( var i = 0; i < tweenDatas.Count; i++ )
+		// 			if( tweenDatas[ i ] is MovementTweenData )
+		// 				DrawMovementTweenGizmo( tweenDatas[ i ] as MovementTweenData, ref lastPos, Vector3.up * i * 0.3f, i + 1 );
+		// }
 #endif
 #endregion
 	}

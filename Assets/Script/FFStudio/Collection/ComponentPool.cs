@@ -11,8 +11,8 @@ namespace FFStudio
 #region Fields
 		[ AssetSelector ] public T pool_entity;
 
-		Transform pool_parent;
-		bool pool_active;
+		protected Transform pool_parent;
+		protected bool pool_active;
 #if UNITY_EDITOR
 		int count_spawned;
 #endif

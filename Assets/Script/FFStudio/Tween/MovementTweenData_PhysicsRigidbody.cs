@@ -37,12 +37,12 @@ namespace FFStudio
 #region API
 		public override Tween CreateTween( bool isReversed = false )
 		{
-            var theRigidbody = transform.GetComponent< Rigidbody >();
+            var theRigidbody = transform.GetComponent< Rigidbody >(); // Tween Target
 
             recycledTween.Recycle( theRigidbody.DOMove( isReversed ? -endValue : endValue, duration ), unityEvent_onCompleteEvent.Invoke );
 
 			recycledTween.Tween
-				.SetUpdate( UpdateType.Fixed ); // Info: This is the main differing line of code between this & the MovementTweenData.
+				.SetUpdate( UpdateType.Fixed ); // Update Time mode
 
 			if( useDelta )
 				recycledTween.Tween.SetRelative();

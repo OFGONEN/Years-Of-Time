@@ -61,7 +61,7 @@ namespace FFStudio
 			tween = tween.KillProper();
 		}
 
-		public void KillAndComplete()
+		public void CompleteAndKill()
 		{
 			tween?.Complete();
 			tween = tween.KillProper();

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
@@ -11,6 +12,11 @@ namespace FFStudio
 	public abstract class EventListenerUnityEventResponseBase : EventListener
 	{
 		public bool isEnabled = true;
+		public bool isDelayed = false;
+		[ ShowIf( "isDelayed" ) ] public float delayDuration = 0;
+
+		protected Cooldown cooldown = new Cooldown();
+		protected UnityMessage onEventRaised;
 	}
 
 	public abstract class GenericEventListenerUnityEventResponse< GameEventType > : EventListenerUnityEventResponseBase where GameEventType: GameEvent
@@ -21,19 +27,36 @@ namespace FFStudio
 		{
 			if( isEnabled )
 				gameEvent.RegisterListener( this );
+			
+			if( isDelayed )
+				onEventRaised = OnEventResponseDelayed;
+			else
+				onEventRaised = OnEventResponse;
 		}
 
 		public override void OnDisable()
 		{
 			gameEvent.UnregisterListener( this );
 		}
+
+		public override void OnEventRaised()
+		{
+			onEventRaised();
+		}
+
+		protected void OnEventResponseDelayed()
+		{
+			cooldown.Start( delayDuration, OnEventResponse );
+		}
+
+		protected abstract void OnEventResponse();
 	}
 
 	public class BasicGameEventResponse : GenericEventListenerUnityEventResponse< GameEvent >
 	{
 		public UnityEvent unityEvent;
 
-		public override void OnEventRaised()
+		protected override void OnEventResponse()
 		{
 			unityEvent.Invoke();
 		}
@@ -46,7 +69,7 @@ namespace FFStudio
 
 	public class BoolGameEventResponse : GenericEventListenerGenericUnityEventResponse< BoolGameEvent, bool >
 	{
-		public override void OnEventRaised()
+		protected override void OnEventResponse()
 		{
 			unityEvent.Invoke( gameEvent.eventValue );
 		}
@@ -54,7 +77,7 @@ namespace FFStudio
 
 	public class IntGameEventResponse : GenericEventListenerGenericUnityEventResponse< IntGameEvent, int >
 	{
-		public override void OnEventRaised()
+		protected override void OnEventResponse()
 		{
 			unityEvent.Invoke( gameEvent.eventValue );
 		}
@@ -62,7 +85,7 @@ namespace FFStudio
 
 	public class FloatGameEventResponse : GenericEventListenerGenericUnityEventResponse< FloatGameEvent, float >
 	{
-		public override void OnEventRaised()
+		protected override void OnEventResponse()
 		{
 			unityEvent.Invoke( gameEvent.eventValue );
 		}
@@ -70,7 +93,7 @@ namespace FFStudio
 
 	public class ReferenceGameEventResponse : GenericEventListenerGenericUnityEventResponse< ReferenceGameEvent, object >
 	{
-		public override void OnEventRaised()
+		protected override void OnEventResponse()
 		{
 			unityEvent.Invoke( gameEvent.eventValue );
 		}

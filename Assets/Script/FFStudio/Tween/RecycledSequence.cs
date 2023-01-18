@@ -60,7 +60,7 @@ namespace FFStudio
 			sequence = sequence.KillProper();
 		}
 
-		public void KillAndComplete()
+		public void CompleteAndKill()
 		{
 			sequence?.Complete();
 			sequence = sequence.KillProper();

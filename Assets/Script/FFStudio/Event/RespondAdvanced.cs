@@ -30,6 +30,17 @@ namespace FFStudio
 #endregion
 
 #region API
+		public void EnableRespond( int index )
+		{
+			respond_data_array[ index ].isEnabled = true;
+			respond_data_array[ index ].OnEnable();
+		}
+
+		public void DisableRespond( int index )
+		{
+			respond_data_array[ index ].isEnabled = false;
+			respond_data_array[ index ].OnDisable();
+		}
 #endregion
 
 #region Implementation

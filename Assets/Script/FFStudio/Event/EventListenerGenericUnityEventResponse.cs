@@ -7,8 +7,10 @@ using UnityEngine.Events;
 
 namespace FFStudio
 {
+	[ System.Serializable ]
 	public abstract class EventListenerUnityEventResponseBase : EventListener
 	{
+		public bool isEnabled = true;
 	}
 
 	public abstract class GenericEventListenerUnityEventResponse< GameEventType > : EventListenerUnityEventResponseBase where GameEventType: GameEvent
@@ -17,7 +19,8 @@ namespace FFStudio
 
 		public override void OnEnable()
 		{
-			gameEvent.RegisterListener( this );
+			if( isEnabled )
+				gameEvent.RegisterListener( this );
 		}
 
 		public override void OnDisable()

@@ -2,6 +2,7 @@
 
 namespace FFStudio
 {
+	[ System.Serializable ]
     public abstract class EventListener
     {
 #region API

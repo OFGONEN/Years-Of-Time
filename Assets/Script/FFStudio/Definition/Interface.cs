@@ -9,4 +9,10 @@ namespace FFStudio
 		void OnUpdate_Cluster();
 		int GetID();
 	}
+
+	public interface IJSONEntity
+	{
+		string ConvertToJSON();
+		void OverriteFromJSON( string json );
+	}
 }

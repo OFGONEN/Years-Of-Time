@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: mat_clock_bloom
-    second: {fileID: 2100000, guid: 3839f9c9e3c886242af5bc2e68103e73, type: 2}
+    second: {fileID: 2100000, guid: b1549c260a5611f40ac62747a92b41d2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

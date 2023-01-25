@@ -27,7 +27,7 @@ public class TestWaveAnimation : MonoBehaviour
 #endregion
 
 #region Unity API
-	void Start()
+	void Awake()
     {
 		position_start = transform.position;
 	}
@@ -39,7 +39,7 @@ public class TestWaveAnimation : MonoBehaviour
     {
         FFLogger.Log( "DoWaveAnimation One", this );
 		recycledTween.Recycle( transform.DOMove(
-			position_start + Random.insideUnitCircle.ConvertV3_Z() * animation_one_radius,
+			position_start + Random.insideUnitCircle.ConvertV3() * animation_one_radius,
 			animation_one_speed )
             .SetSpeedBased(), DoWaveAnimationTypeOne );
 	}
@@ -47,9 +47,12 @@ public class TestWaveAnimation : MonoBehaviour
 	[ Button() ]
 	public void DoWaveAnimationTypeTwo()
 	{
-		FFLogger.Log( "DoWaveAnimation Two", this );
+		var targetPosition = position_start + Random.insideUnitCircle.ConvertV3() * animation_two_radius + Vector3.right * animation_two_radius * animation_two_cofactor;
+
+		FFLogger.Log( "DoWaveAnimation Two: " + targetPosition, this );
+
 		recycledTween.Recycle( transform.DOMove(
-			position_start + Random.insideUnitCircle.ConvertV3_Z() * animation_two_radius + Vector3.right * animation_two_radius * animation_two_cofactor,
+			targetPosition,
 			animation_two_speed )
 			.SetSpeedBased(), DoWaveAnimationTypeTwo );
 

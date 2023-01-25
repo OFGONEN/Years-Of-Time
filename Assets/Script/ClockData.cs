@@ -9,25 +9,19 @@ using Sirenix.OdinInspector;
 public class ClockData : ScriptableObject
 {
 #region Fields
+  [ Title( "Attributes" ) ]
     [ Tooltip( "Reduces the Duration of an Item" ), SerializeField ] float clock_speed;
     [ SerializeField ] float clock_hand_speed_second;
     [ SerializeField ] float clock_hand_speed_minute;
     [ SerializeField ] float clock_hand_speed_hour;
+
+  [ Title( "Visual" ) ]
     [ SerializeField ] Material clock_material;
     [ SerializeField ] Mesh clock_circle;
     [ SerializeField ] Mesh clock_hand_second;
 #endregion
 
 #region Properties
-#endregion
-
-#region Unity API
-#endregion
-
-#region API
-#endregion
-
-#region Implementation
 #endregion
 
 #region Editor Only

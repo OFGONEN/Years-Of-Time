@@ -13,10 +13,15 @@ public class Clock : MonoBehaviour
     [ SerializeField ] ClockData clock_data;
 
   [ Title( "Components" ) ]
+	[ SerializeField ] Transform transform_gfx;
+
+  [ Title( "Visual Components" ) ]
     [ SerializeField ] MeshFilter clock_circle_meshFilter;
     [ SerializeField ] Renderer clock_circle_renderer;
     [ SerializeField ] MeshFilter clock_hand_second_meshFilter;
     [ SerializeField ] Renderer clock_hand_second_renderer;
+
+	RecycledTween recycledTween = new RecycledTween();
 #endregion
 
 #region Properties
@@ -42,6 +47,12 @@ public class Clock : MonoBehaviour
 		clock_hand_second_meshFilter.mesh         = clock_data.ClockSecondHandMesh;
 		clock_circle_renderer.sharedMaterials     = circleSharedMaterials;
 		clock_hand_second_renderer.sharedMaterial = clock_data.ClockMaterial;
+	}
+
+	[ Button() ]
+	public void DOPunchScale()
+	{
+		recycledTween.Recycle( GameSettings.Instance.clock_spawn_punchScale.CreateTween( transform_gfx ) ) ;
 	}
 #endregion
 

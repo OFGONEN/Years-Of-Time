@@ -11,6 +11,8 @@ public class Clock : MonoBehaviour
 #region Fields
   [ Title( "Shared Data" ) ]
     [ SerializeField ] ClockData clock_data;
+    [ SerializeField ] InputFingerPosition shared_input_finger_position;
+    [ SerializeField ] SharedReferenceNotifier notif_camera_reference;
 
   [ Title( "Components" ) ]
 	[ SerializeField ] Transform transform_gfx;
@@ -21,6 +23,9 @@ public class Clock : MonoBehaviour
     [ SerializeField ] Renderer clock_circle_renderer;
     [ SerializeField ] MeshFilter clock_hand_second_meshFilter;
     [ SerializeField ] Renderer clock_hand_second_renderer;
+
+	Transform camera_transform;
+	Camera camera_main;
 
 	RecycledTween recycledTween = new RecycledTween();
 

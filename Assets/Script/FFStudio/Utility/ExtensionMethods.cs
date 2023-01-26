@@ -525,6 +525,16 @@ namespace FFStudio
 			return Mathf.Clamp( value, vector.x, vector.y );
 		}
 
+		public static Vector3 ScreenToWorldPoint_NearClipPlane( this Camera camera, Vector2 screenPosition )
+		{
+			return camera.ScreenToWorldPoint( screenPosition.ConvertV3( camera.nearClipPlane ) );
+		}
+
+		public static Vector3 ScreenToWorldPoint_FarClipPlane( this Camera camera, Vector2 screenPosition )
+		{
+			return camera.ScreenToWorldPoint( screenPosition.ConvertV3( camera.farClipPlane ) );
+		}
+
 #if FF_OBI_IMPORTED
 		public static void MergeParticles( this Obi.ObiRope obiRope, int indexOfElementBefore, int indexOfElementOfInterest )
 		{

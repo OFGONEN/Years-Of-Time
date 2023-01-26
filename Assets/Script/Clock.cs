@@ -22,22 +22,27 @@ public class Clock : MonoBehaviour
     [ SerializeField ] Renderer clock_hand_second_renderer;
 
 	RecycledTween recycledTween = new RecycledTween();
+
+	UnityMessage onSelected;
+	UnityMessage onDeSelected;
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
+	void Awake()
+	{
+		EmptyDelegates();
+	}
 #endregion
 
 #region API
-	[ Button() ]
     public void SetIdlePosition( Vector3 position )
     {
 		transform.position = position.SetY( GameSettings.Instance.clock_height_idle );
 	}
 
-    [ Button() ]
     public void UpdateVisuals()
     {
 		var circleSharedMaterials  = clock_circle_renderer.sharedMaterials;
@@ -49,14 +54,28 @@ public class Clock : MonoBehaviour
 		clock_hand_second_renderer.sharedMaterial = clock_data.ClockMaterial;
 	}
 
-	[ Button() ]
 	public void DOPunchScale()
 	{
 		recycledTween.Recycle( GameSettings.Instance.clock_spawn_punchScale.CreateTween( transform_gfx ) ) ;
 	}
+
+	public void OnSelected()
+	{
+		onSelected();
+	}
+
+	public void OnDeSelected()
+	{
+		onDeSelected();
+	}
 #endregion
 
 #region Implementation
+	void EmptyDelegates()
+	{
+		onSelected   = ExtensionMethods.EmptyMethod;
+		onDeSelected = ExtensionMethods.EmptyMethod;
+	}
 #endregion
 
 #region Editor Only

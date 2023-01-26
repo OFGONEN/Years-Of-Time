@@ -8,4 +8,9 @@ using UnityEngine;
 public class ClockDataLibrary : ScriptableObject
 {
     [ SerializeField ] ClockData[] clock_data_library;
+
+    public ClockData ReturnClockData( int level )
+    {
+		return clock_data_library[ Mathf.Clamp( level - 1, 0, clock_data_library.Length - 1 ) ];
+	}
 }

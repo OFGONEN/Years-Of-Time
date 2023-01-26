@@ -22,6 +22,13 @@ public class ClockData : ScriptableObject
 #endregion
 
 #region Properties
+	public float ClockSpeed           => clock_speed;
+	public float ClockHandSecondSpeed => clock_speed;
+	public float ClockHandMinuteSpeed => clock_speed;
+	public float ClockHandHourSpeed   => clock_speed;
+	public Material ClockMaterial     => clock_material;
+	public Mesh ClockCircleMesh       => clock_circle;
+	public Mesh ClockSecondHandMesh   => clock_hand_second;
 #endregion
 
 #region Editor Only

@@ -31,6 +31,7 @@ public class Clock : MonoBehaviour
 
 	UnityMessage onSelected;
 	UnityMessage onDeSelected;
+	UnityMessage onUpdate;
 #endregion
 
 #region Properties
@@ -40,6 +41,11 @@ public class Clock : MonoBehaviour
 	void Awake()
 	{
 		EmptyDelegates();
+	}
+
+	void Update()
+	{
+		onUpdate();
 	}
 #endregion
 
@@ -81,6 +87,7 @@ public class Clock : MonoBehaviour
 	{
 		onSelected   = ExtensionMethods.EmptyMethod;
 		onDeSelected = ExtensionMethods.EmptyMethod;
+		onUpdate     = ExtensionMethods.EmptyMethod;
 	}
 #endregion
 

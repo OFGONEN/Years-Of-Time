@@ -10,6 +10,7 @@ public class ClockData : ScriptableObject
 {
 #region Fields
   [ Title( "Attributes" ) ]
+    [ Tooltip( "Level" ), SerializeField ] int clock_level;
     [ Tooltip( "Reduces the Duration of an Item" ), SerializeField ] float clock_speed;
     [ SerializeField ] float clock_hand_speed_second;
     [ SerializeField ] float clock_hand_speed_minute;

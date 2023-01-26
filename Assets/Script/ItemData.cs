@@ -10,6 +10,7 @@ public class ItemData : ScriptableObject
 {
 #region Fields
   [ Title( "Attributes" ) ]
+    [ LabelText( "Level" ), SerializeField ] int item_level;
     [ Tooltip( "Once Duration Reduced to 1, Item will grant Currency" ), SerializeField ] 
     float item_duration;
     [ SerializeField ] float item_currency;

@@ -10,6 +10,7 @@ public class ClockData : ScriptableObject
 {
 #region Fields
   [ Title( "Attributes" ) ]
+    [ Tooltip( "Level" ), SerializeField ] int clock_level;
     [ Tooltip( "Reduces the Duration of an Item" ), SerializeField ] float clock_speed;
     [ SerializeField ] float clock_hand_speed_second;
     [ SerializeField ] float clock_hand_speed_minute;
@@ -22,6 +23,13 @@ public class ClockData : ScriptableObject
 #endregion
 
 #region Properties
+	public float ClockSpeed           => clock_speed;
+	public float ClockHandSecondSpeed => clock_speed;
+	public float ClockHandMinuteSpeed => clock_speed;
+	public float ClockHandHourSpeed   => clock_speed;
+	public Material ClockMaterial     => clock_material;
+	public Mesh ClockCircleMesh       => clock_circle;
+	public Mesh ClockSecondHandMesh   => clock_hand_second;
 #endregion
 
 #region Editor Only

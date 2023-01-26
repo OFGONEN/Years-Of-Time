@@ -14,6 +14,7 @@ public class Clock : MonoBehaviour
 
   [ Title( "Components" ) ]
 	[ SerializeField ] Transform transform_gfx;
+	[ SerializeField ] Collider collider_selection;
 
   [ Title( "Visual Components" ) ]
     [ SerializeField ] MeshFilter clock_circle_meshFilter;

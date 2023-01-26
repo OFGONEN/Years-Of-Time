@@ -172,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clock_data: {fileID: 11400000, guid: 3569e4bc37ae7d6478561ce9f2aba6b0, type: 2}
   transform_gfx: {fileID: 3473131557580954200}
+  collider_selection: {fileID: 8414447166023306716}
   clock_circle_meshFilter: {fileID: 7990678390388580664}
   clock_circle_renderer: {fileID: 5260310885184869874}
   clock_hand_second_meshFilter: {fileID: 7990678389208134740}

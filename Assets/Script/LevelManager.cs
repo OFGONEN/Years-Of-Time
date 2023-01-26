@@ -1,5 +1,6 @@
 /* Created by and for usage of FF Studios (2021). */
 
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,12 +9,16 @@ namespace FFStudio
     public class LevelManager : MonoBehaviour
     {
 #region Fields
-        [ Header( "Fired Events" ) ]
+      [ Title( "Shared" ) ]
+        [ SerializeField ] ClockDataLibrary clock_data_library;
+        [ SerializeField ] PoolClock pool_clock;
+        
+      [ Header( "Level Releated" ) ]
+        public SharedProgressNotifier notifier_progress;
+
+      [ Header( "Fired Events" ) ]
         public GameEvent levelFailedEvent;
         public GameEvent levelCompleted;
-
-        [ Header( "Level Releated" ) ]
-        public SharedProgressNotifier notifier_progress;
 #endregion
 
 #region UnityAPI
@@ -39,6 +44,11 @@ namespace FFStudio
 
         // Info: Called from Editor.
         public void LevelStartedResponse()
+        {
+
+        }
+
+        public void OnClockSpawn( int level )
         {
 
         }

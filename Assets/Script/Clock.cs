@@ -136,7 +136,9 @@ public class Clock : MonoBehaviour
 			out hitInfo, 
 			GameSettings.Instance.game_selection_distance, selection_layer_mask );
 
-		Debug.DrawRay( worldPosition_Start, ( worldPosition_End - worldPosition_Start ).normalized * GameSettings.Instance.game_selection_distance, Color.red, 1 );
+#if UNITY_EDITOR
+		Debug.DrawRay( worldPosition_Start, hitInfo.point - worldPosition_Start, Color.red, 1 );
+#endif
 
 		return hitInfo.point;
 	}

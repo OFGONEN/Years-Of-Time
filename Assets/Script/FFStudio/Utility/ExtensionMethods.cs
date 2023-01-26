@@ -535,6 +535,11 @@ namespace FFStudio
 			return camera.ScreenToWorldPoint( screenPosition.ConvertV3( camera.farClipPlane ) );
 		}
 
+		public static float Lerp( this float value, float target, float delta )
+		{
+			return Mathf.Lerp( value, target, delta );
+		}
+
 #if FF_OBI_IMPORTED
 		public static void MergeParticles( this Obi.ObiRope obiRope, int indexOfElementBefore, int indexOfElementOfInterest )
 		{

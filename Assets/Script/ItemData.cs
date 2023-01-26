@@ -13,6 +13,7 @@ public class ItemData : ScriptableObject
     [ Tooltip( "Once Duration Reduced to 1, Item will grant Currency" ), SerializeField ] 
     float item_duration;
     [ SerializeField ] float item_currency;
+    [ SerializeField ] float item_cost;
 
   [ Title( "Visual" ) ]
     [ SerializeField ] Texture item_texture_background;

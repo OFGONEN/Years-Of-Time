@@ -21,6 +21,8 @@ MonoBehaviour:
     ease: 12
   camera_follow_speed_depth: 2.8
   maxLevelCount: 1
+  game_selection_layer: 30
+  game_selection_distance: 100
   useRemoteConfig_GameSettings: 0
   useRemoteConfig_Components: 0
   ui_Entity_Move_TweenDuration: 0.5

@@ -12,6 +12,7 @@ namespace FFStudio
     // Info: You can use Title() attribute ONCE for every game-specific group of settings.
     [ Title( "Clock" ) ]
 		[ LabelText( "Clock Height While Sitting Idle" ) ] public float clock_height_idle;
+		[ LabelText( "Clock Spawn Punch Scale" ) ] public PunchScaleTween clock_spawn_punchScale;
     
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;

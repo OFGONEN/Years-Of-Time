@@ -16,7 +16,7 @@ namespace FFStudio
 		[ LabelText( "Clock Movement Speed Vertical" ) ] public float clock_movement_speed_vertical;
 		[ LabelText( "Clock Movement Speed Horizontal" ) ] public float clock_movement_speed_horizontal;
 		[ LabelText( "Clock Movement Rotate Speed" ) ] public float clock_movement_speed_rotate;
-		[ LabelText( "Clock Movement Rotate Clamp" ) ] public float clock_movement_speed_clamp;
+		[ LabelText( "Clock Movement Rotate Clamp" ) ] public float clock_movement_rotate_clamp;
 		[ LabelText( "Clock Spawn Punch Scale" ) ] public PunchScaleTween clock_spawn_punchScale;
     
     [ Title( "Camera" ) ]

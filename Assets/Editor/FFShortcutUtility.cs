@@ -115,8 +115,14 @@ namespace FFEditor
 		static private void SelectAppScene()
 		{
 			var appScene = AssetDatabase.LoadAssetAtPath( "Assets/Scenes/app.unity", typeof( SceneAsset ) );
-
 			Selection.SetActiveObjectWithContext( appScene, appScene );
+		}
+
+		[ MenuItem( "FFShortcut/Open App Scene &#3" ) ]
+		static private void OpenAppScene()
+		{
+			var appScene = AssetDatabase.LoadAssetAtPath( "Assets/Scenes/app.unity", typeof( SceneAsset ) );
+			EditorSceneManager.OpenScene( "Assets/Scenes/app.unity", OpenSceneMode.Single );
 		}
 
 		[ MenuItem( "FFShortcut/Select Play Mode Settings &4" ) ]

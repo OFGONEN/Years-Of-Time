@@ -83,6 +83,25 @@ public class Clock : MonoBehaviour
 #endregion
 
 #region Implementation
+	Vector3 FindMovementPosition()
+	{
+		var fingerPosition = shared_input_finger_position.sharedValue;
+
+		var worldPosition_Start = camera_main.ScreenToWorldPoint_NearClipPlane( fingerPosition );
+		var worldPosition_End   = camera_main.ScreenToWorldPoint_FarClipPlane( fingerPosition );
+
+		RaycastHit hitInfo;
+
+		var hit = Physics.Raycast( 
+			worldPosition_Start, 
+			( worldPosition_End - worldPosition_Start ).normalized, 
+			out hitInfo, 
+			GameSettings.Instance.game_selection_distance, selection_layer_mask );
+
+		Debug.DrawRay( worldPosition_Start, ( worldPosition_End - worldPosition_Start ).normalized * GameSettings.Instance.game_selection_distance, Color.red, 1 );
+
+		return hitInfo.point;
+	}
 	void EmptyDelegates()
 	{
 		onSelected   = ExtensionMethods.EmptyMethod;

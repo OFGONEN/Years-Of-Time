@@ -26,6 +26,7 @@ public class Clock : MonoBehaviour
 
 	Transform camera_transform;
 	Camera camera_main;
+	int selection_layer_mask;
 
 	RecycledTween recycledTween = new RecycledTween();
 
@@ -73,16 +74,53 @@ public class Clock : MonoBehaviour
 
 	public void OnSelected()
 	{
-		onSelected();
+		FFLogger.Log( "Clock Selected", this );
+		Selected();
+		// onSelected(); //todo un-comment this line
 	}
 
 	public void OnDeSelected()
 	{
-		onDeSelected();
+		FFLogger.Log( "Clock DeSelected", this );
+		SetIdlePosition( Vector3.zero );
+		onUpdate = ExtensionMethods.EmptyMethod;
+		collider_selection.enabled = true;
+		// onDeSelected(); //todo un-comment this line 
 	}
 #endregion
 
 #region Implementation
+	void Selected()
+	{
+		CacheCamera(); //todo remove this
+		//todo start scale tween
+		selection_layer_mask = 1 << GameSettings.Instance.game_selection_layer; //todo remove this
+
+		collider_selection.enabled = false;
+		onUpdate                   = Movement;
+	}
+
+	void Movement()
+	{
+		var position       = transform.position;
+		var movementTarget = FindMovementPosition().SetY( GameSettings.Instance.clock_movement_height );
+		var movementDelta  = movementTarget - position;
+
+		//todo Use movementDelta and calculate rotation
+
+		position.x = position.x.Lerp( movementTarget.x, Time.deltaTime * GameSettings.Instance.clock_movement_speed_horizontal );
+		position.y = position.y.Lerp( movementTarget.y, Time.deltaTime * GameSettings.Instance.clock_movement_speed_vertical );
+		position.z = position.z.Lerp( movementTarget.z, Time.deltaTime * GameSettings.Instance.clock_movement_speed_horizontal );
+
+		transform.position = position;
+	}
+
+	void CacheCamera()
+	{
+		camera_transform = notif_camera_reference.sharedValue as Transform;
+		camera_main      = camera_transform.GetComponent< Camera >();
+	}
+
 	Vector3 FindMovementPosition()
 	{
 		var fingerPosition = shared_input_finger_position.sharedValue;
@@ -102,6 +140,7 @@ public class Clock : MonoBehaviour
 
 		return hitInfo.point;
 	}
+
 	void EmptyDelegates()
 	{
 		onSelected   = ExtensionMethods.EmptyMethod;

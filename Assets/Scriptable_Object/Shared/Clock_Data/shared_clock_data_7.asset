@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: shared_clock_data_7
   m_EditorClassIdentifier: 
   clock_level: 7
+  clock_next: {fileID: 11400000, guid: f7968b6aa26b79444b090b25cd1dbcd1, type: 2}
   clock_speed: 152
   clock_hand_speed_second: 480
   clock_hand_speed_minute: 285

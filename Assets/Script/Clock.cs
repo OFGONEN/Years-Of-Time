@@ -59,7 +59,9 @@ public class Clock : MonoBehaviour
 		gameObject.SetActive( true );
 		position = transform.position;
 		DOPunchScale( DoWaveAnimation );
-		//todo wave animation
+		CacheCamera();
+
+		onSelected = SelectedOnSpawnSlot;
 	}
 
     public void SetIdlePosition( Vector3 position )
@@ -90,30 +92,40 @@ public class Clock : MonoBehaviour
 
 	public void OnSelected()
 	{
-		FFLogger.Log( "Clock Selected", this );
-		Selected();
-		// onSelected(); //todo un-comment this line
+		onSelected(); 
 	}
 
 	public void OnDeSelected()
 	{
-		FFLogger.Log( "Clock DeSelected", this );
-		SetIdlePosition( Vector3.zero );
-		onUpdate = ExtensionMethods.EmptyMethod;
-		collider_selection.enabled = true;
-		// onDeSelected(); //todo un-comment this line 
+		onDeSelected();
 	}
 #endregion
 
 #region Implementation
-	void Selected()
+	void SelectedOnSpawnSlot()
 	{
-		CacheCamera(); //todo remove this
 		//todo start scale tween
+		onSelected   = ExtensionMethods.EmptyMethod;
+		onDeSelected = DeSelectedOnSpawnSlot;
+
+		recycledTween.Kill();
+
 		selection_layer_mask = 1 << GameSettings.Instance.game_selection_layer; //todo remove this
 
 		collider_selection.enabled = false;
 		onUpdate                   = Movement;
+	}
+
+	void DeSelectedOnSpawnSlot()
+	{
+		SetIdlePosition( position ); //todo move back with tween
+		DoWaveAnimation();
+
+		onUpdate = ExtensionMethods.EmptyMethod;
+		collider_selection.enabled = true;
+
+		onSelected   = SelectedOnSpawnSlot;
+		onDeSelected = ExtensionMethods.EmptyMethod;
 	}
 
 	void Movement()

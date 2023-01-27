@@ -523,6 +523,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3342289953499669473, guid: 348b83dc7eba1774f8571c04e40f00c8, type: 3}
+      propertyPath: slot_index
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5292408126372225166, guid: 348b83dc7eba1774f8571c04e40f00c8, type: 3}
       propertyPath: m_Name
       value: slot_spawn_2

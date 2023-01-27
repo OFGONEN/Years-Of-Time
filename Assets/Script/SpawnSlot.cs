@@ -11,6 +11,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 #region Fields
   [ Title( "Shared" ) ]
 	[ SerializeField ] ListSpawnSlot list_slot_spawn_empty;
+	[ SerializeField ] ListSlot list_slot;
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ClockDataLibrary clock_data_library;
 #endregion
@@ -22,11 +23,13 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	private void OnEnable()
 	{
 		list_slot_spawn_empty.AddList( this );
+		list_slot.AddList( this );
 	}
 
 	private void OnDisable()
 	{
 		list_slot_spawn_empty.RemoveList( this );
+		list_slot.RemoveList( this );
 	}
 #endregion
 

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   list_slot_spawn_empty: {fileID: 11400000, guid: 75be421a8fc80b24b8ec8a95eaf51e2b, type: 2}
+  list_slot: {fileID: 11400000, guid: 8bbbf5a431ff41c4bad8c5f8d5381de0, type: 2}
   pool_clock: {fileID: 11400000, guid: 1436a799764a7d043a4bd009ef3d321c, type: 2}
   clock_data_library: {fileID: 11400000, guid: 40039483da29b41f7b32b07ba371c16e, type: 2}
 --- !u!1001 &8029905887269115632

@@ -54,6 +54,10 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 
 	public void HandleIncomingClock( Clock incoming )
 	{
+		if( clock_current == null )
+			CacheInComingClock( incoming );
+		else
+			MergeCurrentClock( incoming );
 
 	}
 
@@ -78,6 +82,16 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 #endregion
 
 #region Implementation
+	void CacheInComingClock( Clock incoming )
+	{
+		clock_current = incoming;
+		incoming.OccupySpawnSlot();
+	}
+
+	void MergeCurrentClock( Clock incoming )
+	{
+
+	}
 #endregion
 
 #region Editor Only

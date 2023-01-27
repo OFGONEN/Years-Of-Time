@@ -101,6 +101,14 @@ public class Clock : MonoBehaviour
 	{
 		onDeSelected();
 	}
+
+	public void OccupySpawnSlot()
+	{
+		collider_selection.enabled = true;
+		onSelected   = SelectedOnSpawnSlot;
+
+		DoWaveAnimation();
+	}
 #endregion
 
 #region Implementation
@@ -143,7 +151,7 @@ public class Clock : MonoBehaviour
 			SlotPositionCurrent,
 			GameSettings.Instance.clock_slot_return_duration )
 			.SetEase( GameSettings.Instance.clock_slot_return_ease ),
-			OnReturnToCurrentSlotComplete
+			OccupySpawnSlot
 		);
 
 		EmptyDelegates();
@@ -152,14 +160,6 @@ public class Clock : MonoBehaviour
 	void OnGoToTargetSlotComplete()
 	{
 		slot_target.HandleIncomingClock( this );
-	}
-
-	void OnReturnToCurrentSlotComplete()
-	{
-		collider_selection.enabled = true;
-		onSelected   = SelectedOnSpawnSlot;
-
-		DoWaveAnimation();
 	}
 
 	void OnMovement()

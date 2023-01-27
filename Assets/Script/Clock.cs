@@ -6,6 +6,7 @@ using UnityEngine;
 using FFStudio;
 using Sirenix.OdinInspector;
 using DG.Tweening;
+using UnityEditor;
 
 public class Clock : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Clock : MonoBehaviour
     [ SerializeField ] ClockData clock_data;
     [ SerializeField ] InputFingerPosition shared_input_finger_position;
     [ SerializeField ] SharedReferenceNotifier notif_camera_reference;
+    [ SerializeField ] ListSlot list_slot;
 
   [ Title( "Components" ) ]
 	[ SerializeField ] Transform transform_gfx;
@@ -28,6 +30,7 @@ public class Clock : MonoBehaviour
 	Transform camera_transform;
 	Camera camera_main;
 	ISlotEntity slot_current;
+	ISlotEntity slot_target;
 	float animation_wave_cofactor;
 
 	RecycledTween recycledTween = new RecycledTween();
@@ -103,15 +106,15 @@ public class Clock : MonoBehaviour
 	{
 		//todo start scale tween
 		onSelected   = ExtensionMethods.EmptyMethod;
-		onDeSelected = DeSelectedOnSpawnSlot;
+		onDeSelected = DeSelectedOnSpawnSlotReturnToCurrentSlot;
 
 		recycledTween.Kill();
 
 		collider_selection.enabled = false;
-		onUpdate                   = Movement;
+		onUpdate                   = OnMovement;
 	}
 
-	void DeSelectedOnSpawnSlot()
+	void DeSelectedOnSpawnSlotReturnToCurrentSlot()
 	{
 		recycledTween.Recycle( transform.DOMove(
 			SlotPosition,
@@ -127,7 +130,33 @@ public class Clock : MonoBehaviour
 		onDeSelected = ExtensionMethods.EmptyMethod;
 	}
 
-	void Movement()
+	void OnMovement()
+	{
+		var position = Movement(); // move on this frame
+		SearchTargetSlot();
+	}
+
+	void SearchTargetSlot()
+	{
+		    slot_target     = null;
+		var closestDistance = float.MaxValue;
+		var position        = transform.position;
+
+		foreach( var slot in list_slot.itemList )
+		{
+			var slotPosition = slot.GetPosition();
+			var distance = Vector3.Distance( slotPosition, position );
+			if( distance < closestDistance && distance <= GameSettings.Instance.clock_slot_search_distance  )
+				slot_target = slot;
+		}
+
+		if( slot_target == null || slot_target == slot_current )
+			onDeSelected = DeSelectedOnSpawnSlotReturnToCurrentSlot;
+		else
+			onDeSelected = ExtensionMethods.EmptyMethod; //todo
+	}
+
+	Vector3 Movement()
 	{
 		var position       = transform.position;
 		var movementTarget = FindMovementPosition().SetY( GameSettings.Instance.clock_movement_height );
@@ -140,6 +169,7 @@ public class Clock : MonoBehaviour
 		position.z = position.z.Lerp( movementTarget.z, Time.deltaTime * GameSettings.Instance.clock_movement_speed_horizontal );
 
 		transform.position = position;
+		return position;
 	}
 
 	void DoWaveAnimation()
@@ -162,8 +192,7 @@ public class Clock : MonoBehaviour
 
 	Vector3 FindMovementPosition()
 	{
-		var fingerPosition = shared_input_finger_position.sharedValue;
-
+		var fingerPosition      = shared_input_finger_position.sharedValue;
 		var worldPosition_Start = camera_main.ScreenToWorldPoint_NearClipPlane( fingerPosition );
 		var worldPosition_End   = camera_main.ScreenToWorldPoint_FarClipPlane( fingerPosition );
 
@@ -176,7 +205,7 @@ public class Clock : MonoBehaviour
 			GameSettings.Instance.game_selection_distance, GameSettings.Instance.game_selection_layer_mask );
 
 #if UNITY_EDITOR
-		Debug.DrawRay( worldPosition_Start, hitInfo.point - worldPosition_Start, Color.red, 1 );
+		// Debug.DrawRay( worldPosition_Start, hitInfo.point - worldPosition_Start, Color.red, 1 );
 #endif
 
 		return hitInfo.point;
@@ -192,6 +221,12 @@ public class Clock : MonoBehaviour
 
 #region Editor Only
 #if UNITY_EDITOR
+	private void OnDrawGizmos() 
+	{
+		if( slot_target == null ) return;
+
+		Handles.DrawLine( transform.position, slot_target.GetPosition(), 1f );
+	}
 #endif
 #endregion
 }

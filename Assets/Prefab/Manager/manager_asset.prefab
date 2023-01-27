@@ -165,12 +165,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: c30c7f2b780b24e448465656c212877f, type: 2}
+        m_TargetAssemblyTypeName: ClockPurchase, Assembly-CSharp
+        m_MethodName: LoadPurchaseCount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onEnableEvent:
     m_PersistentCalls:
       m_Calls: []
   onStartEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: c30c7f2b780b24e448465656c212877f, type: 2}
+        m_TargetAssemblyTypeName: ClockPurchase, Assembly-CSharp
+        m_MethodName: CheckClockPurchase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   gameSettings: {fileID: 11400000, guid: 109113abc7450a64db67bb41e0cc2dc0, type: 2}
   currentLevelData: {fileID: 11400000, guid: d35c98ef4c868d94f85bf38a98066033, type: 2}
   pool_UIPopUpText: {fileID: 11400000, guid: eaaacbd90b1464ad2b2a3a962a8a84b2, type: 2}

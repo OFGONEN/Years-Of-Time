@@ -61,7 +61,10 @@ namespace FFStudio
 		public void LoadSave_ToSharedString()
 		{
 			if( File.Exists( ExtensionMethods.SAVE_PATH + "save.txt" ) == false )
+			{
+				save_string.SharedValue = null;
 				return;
+			}
 
 			save_string.SharedValue = File.ReadAllText( ExtensionMethods.SAVE_PATH + "save.txt" );
 			FFStudio.FFLogger.Log( "SaveSystem: Loaded Succesfully. Data read: " + save_string.sharedValue );

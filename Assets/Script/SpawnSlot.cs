@@ -23,7 +23,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 #endregion
 
 #region Properties
-	public int SpawnSlotIndex => slot_index;
+	public int SlotIndex => slot_index;
 #endregion
 
 #region Unity API

@@ -122,6 +122,8 @@ public class Clock : MonoBehaviour
 			DeSelectedOnSpawnSlotReturnToCurrentSlot();
 		else
 		{
+			slot_current.OnCurrentClockDeparted();
+			
 			recycledTween.Recycle( transform.DOMove(
 				SlotPositionTarget,
 				GameSettings.Instance.clock_slot_go_duration )

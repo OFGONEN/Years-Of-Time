@@ -23,6 +23,8 @@ namespace FFStudio
 		[ LabelText( "Clock Wave Animation Speed" ) ] public float clock_animation_wave_speed;
 		[ LabelText( "Clock Slot Return Duration" ) ] public float clock_slot_return_duration;
 		[ LabelText( "Clock Slot Return Ease" ) ] public Ease clock_slot_return_ease;
+		[LabelText( "Clock Slot Target Slot Move Duration" )] public float clock_slot_go_duration;
+		[LabelText( "Clock Slot Target Slot Move Ease" )] public Ease clock_slot_go_ease;
 		[ LabelText( "Clock Slot Search Distance" ) ] public float clock_slot_search_distance;
     
     [ Title( "Camera" ) ]

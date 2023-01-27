@@ -12,6 +12,7 @@ namespace FFStudio
       [ Title( "Shared" ) ]
         [ SerializeField ] ClockDataLibrary clock_data_library;
         [ SerializeField ] PoolClock pool_clock;
+        [ SerializeField ] ListSpawnSlot list_slot_spawn;
         
       [ Header( "Level Releated" ) ]
         public SharedProgressNotifier notifier_progress;
@@ -51,12 +52,13 @@ namespace FFStudio
         [ Button() ]
         public void OnClockSpawn( int level )
         {
+			var spawnSlot = list_slot_spawn.itemList.ReturnRandom();
 			var clock     = pool_clock.GetEntity();
 			var clockData = clock_data_library.GetClockData( level );
 
 			clock.UpdateClockData( clockData );
 			clock.UpdateVisuals();
-			clock.SetIdlePosition( Vector3.zero );
+			clock.SetIdlePosition( spawnSlot.GetPosition() );
 			clock.gameObject.SetActive( true );
 			// clock.SpawnIntoSpawnSlot(); // todo punch scale, cache the spawn slot, update scale?
 		}

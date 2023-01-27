@@ -29,7 +29,8 @@ namespace FFStudio
     
     [ Title( "Project Setup", "These settings should not be edited by Level Designer(s).", TitleAlignments.Centered ) ]
         public int maxLevelCount;
-		[ Layer() ] public int game_selection_layer;
+		[ Layer(), SerializeField ] int game_selection_layer;
+		[ System.NonSerialized ] public int game_selection_layer_mask;
 		public float game_selection_distance;
         
         // Info: 3 groups below (coming from template project) are foldout by design: They should remain hidden.
@@ -73,6 +74,13 @@ namespace FFStudio
         static ReturnGameSettings returnInstance = LoadInstance;
 
 		public static GameSettings Instance => returnInstance();
+#endregion
+
+#region API
+		public void OnAwake()
+		{
+			game_selection_layer_mask = 1 << game_selection_layer;
+		}
 #endregion
 
 #region Implementation

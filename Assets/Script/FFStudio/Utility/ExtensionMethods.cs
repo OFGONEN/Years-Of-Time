@@ -82,6 +82,11 @@ namespace FFStudio
 			return new Vector3( v2.x, v2.y, 0 );
 		}
 
+		public static Vector3 ConvertV3( this Vector2 v2, float z )
+		{
+			return new Vector3( v2.x, v2.y, z );
+		}
+
 		public static Vector3 ConvertV3_Z( this Vector2 v2 )
 		{
 			return new Vector3( v2.x, 0, v2.y );
@@ -482,6 +487,11 @@ namespace FFStudio
 			return array[ Random.Range( 0, array.Length ) ];
 		}
 
+		public static T ReturnRandom< T >( this List< T > list )
+		{
+			return list[ Random.Range( 0, list.Count ) ];
+		}
+
 		public static float ReturnRandom( this Vector2 vector )
 		{
 			return Random.Range( vector.x, vector.y );
@@ -518,6 +528,21 @@ namespace FFStudio
 		public static float ReturnClamped( this Vector2 vector, float value )
 		{
 			return Mathf.Clamp( value, vector.x, vector.y );
+		}
+
+		public static Vector3 ScreenToWorldPoint_NearClipPlane( this Camera camera, Vector2 screenPosition )
+		{
+			return camera.ScreenToWorldPoint( screenPosition.ConvertV3( camera.nearClipPlane ) );
+		}
+
+		public static Vector3 ScreenToWorldPoint_FarClipPlane( this Camera camera, Vector2 screenPosition )
+		{
+			return camera.ScreenToWorldPoint( screenPosition.ConvertV3( camera.farClipPlane ) );
+		}
+
+		public static float Lerp( this float value, float target, float delta )
+		{
+			return Mathf.Lerp( value, target, delta );
 		}
 
 #if FF_OBI_IMPORTED

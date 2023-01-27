@@ -48,7 +48,10 @@ namespace FFStudio
 			if( stack.Count > 0 )
 				entity = stack.Pop();
 			else
+			{
+				FFLogger.Log( "New Entity Created", this );
 				entity = InitEntity();
+			}
 
 			return entity;
 		}

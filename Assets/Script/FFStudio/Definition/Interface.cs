@@ -1,4 +1,5 @@
 /* Created by and for usage of FF Studios (2022). */
+using UnityEngine;
 
 namespace FFStudio
 {

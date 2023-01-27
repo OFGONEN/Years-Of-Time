@@ -487,6 +487,11 @@ namespace FFStudio
 			return array[ Random.Range( 0, array.Length ) ];
 		}
 
+		public static T ReturnRandom< T >( this List< T > list )
+		{
+			return list[ Random.Range( 0, list.Count ) ];
+		}
+
 		public static float ReturnRandom( this Vector2 vector )
 		{
 			return Random.Range( vector.x, vector.y );

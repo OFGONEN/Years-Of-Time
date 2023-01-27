@@ -26,6 +26,11 @@ namespace FFStudio
 		[LabelText( "Clock Slot Target Slot Move Duration" )] public float clock_slot_go_duration;
 		[LabelText( "Clock Slot Target Slot Move Ease" )] public Ease clock_slot_go_ease;
 		[ LabelText( "Clock Slot Search Distance" ) ] public float clock_slot_search_distance;
+
+    [ Title( "Spawn Slot" ) ]
+		[ LabelText( "Highlight Positive Color" ) ] public Color slot_spawn_highlight_color_positive;
+		[ LabelText( "Highlight Negative Color" ) ] public Color slot_spawn_highlight_color_negative;
+		[ LabelText( "Highlight Default Color" ) ] public Color slot_spawn_highlight_color_default;
     
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;

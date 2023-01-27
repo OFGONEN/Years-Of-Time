@@ -151,7 +151,7 @@ public class Clock : MonoBehaviour
 
 	void OnGoToTargetSlotComplete()
 	{
-		FFLogger.Log( "GoTo Target Slot Complete" );
+		slot_target.HandleIncomingClock( this );
 	}
 
 	void OnReturnToCurrentSlotComplete()

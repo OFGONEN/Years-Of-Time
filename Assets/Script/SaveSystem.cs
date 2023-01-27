@@ -11,14 +11,17 @@ namespace FFStudio
 	{
 #region Fields
 	  [ Title( "Save Targets" ) ]
+	  	[ SerializeField ] ListSpawnSlot list_slot_spawn_all;
 
 	  [ Title( "Setup" ) ]
 		[ SerializeField ] SharedStringNotifier save_string;
 
+		[ ShowInInspector, ReadOnly ] SaveData save_data;
 		static SaveSystem instance;
 #endregion
 
 #region Properties
+		public SaveData SaveData => save_data;
 		public static SaveSystem Instance => instance;
 #endregion
 
@@ -76,6 +79,18 @@ namespace FFStudio
 			{
 				FFStudio.FFLogger.Log( "SaveSystem: Found save file. Deleting it." );
 				File.Delete( ExtensionMethods.SAVE_PATH + "save.txt" );
+			}
+		}
+
+		[ Button() ]
+		public void CreateSaveDataAndSave()
+		{
+			save_data = new SaveData();
+			save_data.slot_spawn_clock_level_array = new int[ list_slot_spawn_all.itemDictionary.Count ];
+
+			foreach( var slot in list_slot_spawn_all.itemDictionary.Values )
+			{
+				save_data.slot_spawn_clock_level_array[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() : 0;
 			}
 		}
 #endregion

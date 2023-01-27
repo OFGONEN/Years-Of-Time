@@ -67,9 +67,14 @@ namespace FFStudio
 			var sequence = DOTween.Sequence()
 								.Append( level_loadingBar_Scale.DoScale_Target( Vector3.zero, GameSettings.Instance.ui_Entity_Scale_TweenDuration ) )
 								.Append( loadingScreenImage.DOFade( 0, GameSettings.Instance.ui_Entity_Fade_TweenDuration ) )
-								.AppendCallback( () => tapInputListener.response = StartLevel );
+								.AppendCallback( levelRevealedEvent.Raise );
 
-			level_count_text.text = "LEVEL " + CurrentLevelData.Instance.currentLevel_Shown;
+			// level_count_text.text = "LEVEL " + CurrentLevelData.Instance.currentLevel_Shown;
+
+			tapInputListener.response = ExtensionMethods.EmptyMethod;
+			elephantLevelEvent.level             = CurrentLevelData.Instance.currentLevel_Shown;
+			elephantLevelEvent.elephantEventType = ElephantEvent.LevelStarted;
+			elephantLevelEvent.Raise();
 
             levelLoadedResponse.response = NewLevelLoaded;
         }

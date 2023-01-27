@@ -46,7 +46,7 @@ public class ClockPurchase : SharedBoolNotifier
 		SetValue_NotifyAlways( currency.sharedValue >= GetClockPurchaseCost() );
 	}
 
-	public void ClockPurchased()
+	public void ClockPurchasedRespond()
 	{
 		currency.SharedValue -= GetClockPurchaseCost();
 

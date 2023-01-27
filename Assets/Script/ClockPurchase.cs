@@ -16,7 +16,6 @@ public class ClockPurchase : SharedBoolNotifier
   [ Title( "Shared" ) ]
     [ SerializeField ] Currency currency;
 
-    
     int purchase_count;
 #endregion
 
@@ -39,7 +38,7 @@ public class ClockPurchase : SharedBoolNotifier
 
     public void CheckClockPurchase()
     {
-		SharedValue = currency.sharedValue >= GetClockPurchaseCost();
+		SetValue_NotifyAlways( currency.sharedValue >= GetClockPurchaseCost() );
 	}
 #endregion
 

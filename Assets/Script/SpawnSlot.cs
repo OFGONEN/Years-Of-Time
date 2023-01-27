@@ -3,8 +3,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FFStudio;
 
-public class SpawnSlot : MonoBehaviour
+public class SpawnSlot : MonoBehaviour, ISlotEntity
 {
 #region Fields
 #endregion
@@ -16,6 +17,10 @@ public class SpawnSlot : MonoBehaviour
 #endregion
 
 #region API
+    public Vector3 GetPosition()
+    {
+		return transform.position;
+	}
 #endregion
 
 #region Implementation

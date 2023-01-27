@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
 using Sirenix.OdinInspector;
+using DG.Tweening;
 
 public class Clock : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class Clock : MonoBehaviour
 	Transform camera_transform;
 	Camera camera_main;
 	int selection_layer_mask;
+	float animation_wave_cofactor;
+	Vector3 position;
 
 	RecycledTween recycledTween = new RecycledTween();
 
@@ -54,7 +57,8 @@ public class Clock : MonoBehaviour
 	public void SpawnIntoSpawnSlot()
 	{
 		gameObject.SetActive( true );
-		DOPunchScale();
+		position = transform.position;
+		DOPunchScale( DoWaveAnimation );
 		//todo wave animation
 	}
 
@@ -79,9 +83,9 @@ public class Clock : MonoBehaviour
 		clock_hand_second_renderer.sharedMaterial = clock_data.ClockMaterial;
 	}
 
-	public void DOPunchScale()
+	public void DOPunchScale( UnityMessage onComplete )
 	{
-		recycledTween.Recycle( GameSettings.Instance.clock_spawn_punchScale.CreateTween( transform_gfx ) ) ;
+		recycledTween.Recycle( GameSettings.Instance.clock_spawn_punchScale.CreateTween( transform_gfx ), onComplete ) ;
 	}
 
 	public void OnSelected()
@@ -125,6 +129,18 @@ public class Clock : MonoBehaviour
 		position.z = position.z.Lerp( movementTarget.z, Time.deltaTime * GameSettings.Instance.clock_movement_speed_horizontal );
 
 		transform.position = position;
+	}
+
+	void DoWaveAnimation()
+	{
+		var targetPosition = position + Random.insideUnitCircle.ConvertV3_Z() * GameSettings.Instance.clock_animation_wave_radius + Vector3.right * GameSettings.Instance.clock_animation_wave_radius * animation_wave_cofactor;
+
+		recycledTween.Recycle( transform.DOMove(
+			targetPosition,
+			GameSettings.Instance.clock_animation_wave_speed )
+			.SetSpeedBased(), DoWaveAnimation );
+
+		animation_wave_cofactor *= -1f;
 	}
 
 	void CacheCamera()

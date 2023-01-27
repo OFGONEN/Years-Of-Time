@@ -52,15 +52,11 @@ namespace FFStudio
         [ Button() ]
         public void OnClockSpawn( int level )
         {
-			var spawnSlot = list_slot_spawn.itemList.ReturnRandom();
-			var clock     = pool_clock.GetEntity();
-			var clockData = clock_data_library.GetClockData( level );
-
-			clock.UpdateClockData( clockData );
-			clock.UpdateVisuals();
-			clock.SetIdlePosition( spawnSlot.GetPosition() );
-			clock.gameObject.SetActive( true );
-			// clock.SpawnIntoSpawnSlot(); // todo punch scale, cache the spawn slot, update scale?
+			if( list_slot_spawn.itemList.Count > 0 )
+			{
+				var spawnSlot = list_slot_spawn.itemList.ReturnRandom();
+				spawnSlot.SpawnClock( level );
+			}
 		}
 #endregion
 

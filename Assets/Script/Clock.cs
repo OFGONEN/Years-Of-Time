@@ -51,6 +51,13 @@ public class Clock : MonoBehaviour
 #endregion
 
 #region API
+	public void SpawnIntoSpawnSlot()
+	{
+		gameObject.SetActive( true );
+		DOPunchScale();
+		//todo wave animation
+	}
+
     public void SetIdlePosition( Vector3 position )
     {
 		transform.position = position.SetY( GameSettings.Instance.clock_height_idle );

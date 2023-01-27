@@ -209,22 +209,33 @@ public class Clock : MonoBehaviour
 
 	void SearchTargetSlot()
 	{
-		    slot_target     = null;
-		var closestDistance = float.MaxValue;
-		var position        = transform.position;
+		ISlotEntity slotTarget      = slot_current;
+		var         closestDistance = float.MaxValue;
+		var         position        = transform.position;
 
 		foreach( var slot in list_slot.itemList )
 		{
 			var slotPosition = slot.GetPosition();
 			var distance = Vector3.Distance( slotPosition, position );
 			if( distance < closestDistance && distance <= GameSettings.Instance.clock_slot_search_distance  )
-				slot_target = slot;
+				slotTarget = slot;
 		}
 
-		if( slot_target == null || slot_target == slot_current )
+		if( slotTarget == slot_current )
+		{
+			slot_target?.HighlightDefault();
 			onDeSelected = DeSelectedOnSpawnSlotReturnToCurrentSlot;
+		}
 		else
+		{
+			slot_target  = slotTarget;
 			onDeSelected = DeSelectedOnSpawnSlotGoToTargetSlot;
+
+			if( !slot_target.IsClockPresent() || slot_target.CurrentClockLevel() == ClockData.ClockLevel )
+				slot_target.HighlightPositive();
+			else
+				slot_target.HighlightNegative();
+		}
 	}
 
 	Vector3 Movement()

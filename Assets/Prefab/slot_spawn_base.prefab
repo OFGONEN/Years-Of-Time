@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slot_index: 0
-  _rectangle: {fileID: 0}
+  _rectangle: {fileID: 1717020364420504067}
   list_slot_spawn_all: {fileID: 11400000, guid: beb76a8c093fcfa449654e32c92df782, type: 2}
   list_slot_spawn_empty: {fileID: 11400000, guid: 75be421a8fc80b24b8ec8a95eaf51e2b, type: 2}
   list_slot: {fileID: 11400000, guid: 8bbbf5a431ff41c4bad8c5f8d5381de0, type: 2}
@@ -110,6 +110,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 622225f6192574943bcf90152d3bd8b1, type: 3}
+--- !u!114 &1717020364420504067 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8699793604829973747, guid: 622225f6192574943bcf90152d3bd8b1, type: 3}
+  m_PrefabInstance: {fileID: 8029905887269115632}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f210828086c1a4398856e1ba65627c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4189218292066090920 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6146537229705849176, guid: 622225f6192574943bcf90152d3bd8b1, type: 3}

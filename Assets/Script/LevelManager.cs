@@ -13,6 +13,8 @@ namespace FFStudio
         [ SerializeField ] ClockDataLibrary clock_data_library;
         [ SerializeField ] PoolClock pool_clock;
         [ SerializeField ] ListSpawnSlot list_slot_spawn;
+		[ SerializeField ] SaveSystem system_save;
+		[ SerializeField ] ClockPurchaseCondition notif_clock_purchase_condition;
         
       [ Header( "Level Releated" ) ]
         public SharedProgressNotifier notifier_progress;
@@ -23,6 +25,18 @@ namespace FFStudio
 #endregion
 
 #region UnityAPI
+		private void Start()
+		{
+			var spawnSlotArray = system_save.SaveData.slot_spawn_clock_level_array;
+			var isAvailable = false;
+
+			for( var i = 0; i < spawnSlotArray.Length; i++ )
+			{
+				isAvailable |= spawnSlotArray[ i ] == 0;
+			}
+
+			notif_clock_purchase_condition.SetConditionSlot( isAvailable );
+		}
 #endregion
 
 #region API

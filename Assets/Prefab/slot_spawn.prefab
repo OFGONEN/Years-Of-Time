@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f97289135f3a54fa494287f18267e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  list_slot_spawn: {fileID: 11400000, guid: 75be421a8fc80b24b8ec8a95eaf51e2b, type: 2}
+  list_slot_spawn_empty: {fileID: 11400000, guid: 75be421a8fc80b24b8ec8a95eaf51e2b, type: 2}
   pool_clock: {fileID: 11400000, guid: 1436a799764a7d043a4bd009ef3d321c, type: 2}
   clock_data_library: {fileID: 11400000, guid: 40039483da29b41f7b32b07ba371c16e, type: 2}
 --- !u!1001 &8029905887269115632

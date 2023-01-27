@@ -10,7 +10,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 {
 #region Fields
   [ Title( "Shared" ) ]
-	[ SerializeField ] ListSpawnSlot list_slot_spawn;
+	[ SerializeField ] ListSpawnSlot list_slot_spawn_empty;
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ClockDataLibrary clock_data_library;
 #endregion
@@ -21,12 +21,12 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 #region Unity API
 	private void OnEnable()
 	{
-		list_slot_spawn.AddList( this );
+		list_slot_spawn_empty.AddList( this );
 	}
 
 	private void OnDisable()
 	{
-		list_slot_spawn.RemoveList( this );
+		list_slot_spawn_empty.RemoveList( this );
 	}
 #endregion
 
@@ -46,7 +46,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 		clock.SetIdlePosition( transform.position );
 		clock.SpawnIntoSpawnSlot(); 
 
-		list_slot_spawn.RemoveList( this );
+		list_slot_spawn_empty.RemoveList( this );
 	}
 #endregion
 

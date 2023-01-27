@@ -104,6 +104,11 @@ namespace FFStudio
 			if( json != null )
 				save_data = JsonUtility.FromJson< SaveData >( json ) as SaveData;
 		}
+
+		public void NULLOutSaveData()
+		{
+			save_data = null;
+		}
 #endregion
 
 #region Implementation

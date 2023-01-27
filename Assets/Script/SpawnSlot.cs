@@ -14,6 +14,8 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	[ SerializeField ] ListSlot list_slot;
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ClockDataLibrary clock_data_library;
+
+	Clock clock_current;
 #endregion
 
 #region Properties
@@ -34,10 +36,27 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 #endregion
 
 #region API
+  //ISlotInterface START
     public Vector3 GetPosition()
     {
 		return transform.position;
 	}
+
+	public bool IsClockPresent()
+	{
+		return clock_current != null;
+	}
+
+	public int CurrentClockLevel()
+	{
+		return clock_current.ClockData.ClockLevel;
+	}
+
+	public void HandleIncomingClock( Clock incoming )
+	{
+
+	}
+  //ISlotInterface END
 
 	public void SpawnClock( int level )
 	{
@@ -46,8 +65,9 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 
 		clock.UpdateClockData( clockData );
 		clock.UpdateVisuals();
-		clock.SpawnIntoSpawnSlot( this ); 
+		clock.SpawnIntoSpawnSlot( this );
 
+		clock_current = clock;
 		list_slot_spawn_empty.RemoveList( this );
 	}
 #endregion

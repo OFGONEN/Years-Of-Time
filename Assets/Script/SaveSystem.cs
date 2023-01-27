@@ -85,7 +85,9 @@ namespace FFStudio
 		[ Button() ]
 		public void CreateSaveDataAndSave()
 		{
-			save_data = new SaveData();
+			if( save_data == null )
+				save_data = new SaveData();
+
 			save_data.slot_spawn_clock_level_array = new int[ list_slot_spawn_all.itemDictionary.Count ];
 
 			foreach( var slot in list_slot_spawn_all.itemDictionary.Values )

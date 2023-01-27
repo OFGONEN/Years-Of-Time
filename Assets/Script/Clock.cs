@@ -16,6 +16,7 @@ public class Clock : MonoBehaviour
     [ SerializeField ] InputFingerPosition shared_input_finger_position;
     [ SerializeField ] SharedReferenceNotifier notif_camera_reference;
     [ SerializeField ] ListSlot list_slot;
+	[ SerializeField ] PoolClock pool_clock;
 
   [ Title( "Components" ) ]
 	[ SerializeField ] Transform transform_gfx;
@@ -108,6 +109,14 @@ public class Clock : MonoBehaviour
 		onSelected   = SelectedOnSpawnSlot;
 
 		DoWaveAnimation();
+	}
+
+	public void ReturnToPool()
+	{
+		EmptyDelegates();
+		collider_selection.enabled = false;
+
+		pool_clock.ReturnEntity( this );
 	}
 #endregion
 

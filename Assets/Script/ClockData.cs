@@ -11,6 +11,7 @@ public class ClockData : ScriptableObject
 #region Fields
   [ Title( "Attributes" ) ]
     [ Tooltip( "Level" ), SerializeField ] int clock_level;
+    [ Tooltip( "Next Clock Data" ), SerializeField ] ClockData clock_next;
     [ Tooltip( "Reduces the Duration of an Item" ), SerializeField ] float clock_speed;
     [ SerializeField ] float clock_hand_speed_second;
     [ SerializeField ] float clock_hand_speed_minute;
@@ -24,6 +25,7 @@ public class ClockData : ScriptableObject
 
 #region Properties
 	public int ClockLevel             => clock_level;
+	public ClockData ClockNextData    => clock_next;
 	public float ClockSpeed           => clock_speed;
 	public float ClockHandSecondSpeed => clock_speed;
 	public float ClockHandMinuteSpeed => clock_speed;

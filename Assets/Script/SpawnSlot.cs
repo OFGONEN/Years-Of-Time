@@ -58,7 +58,6 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 			CacheInComingClock( incoming );
 		else
 			MergeCurrentClock( incoming );
-
 	}
 
 	public void OnCurrentClockDeparted()
@@ -72,9 +71,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 		var clock     = pool_clock.GetEntity();
 		var clockData = clock_data_library.GetClockData( level );
 
-		clock.UpdateClockData( clockData );
-		clock.UpdateVisuals();
-		clock.SpawnIntoSpawnSlot( this );
+		clock.SpawnIntoSpawnSlot( this, clockData );
 
 		clock_current = clock;
 		list_slot_spawn_empty.RemoveList( this );
@@ -90,7 +87,8 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 
 	void MergeCurrentClock( Clock incoming )
 	{
-
+		incoming.ReturnToPool();
+		clock_current.UpgradeInSpawnSlot();
 	}
 #endregion
 

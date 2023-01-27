@@ -56,6 +56,11 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	{
 
 	}
+
+	public void OnCurrentClockDeparted()
+	{
+		clock_current = null;
+	}
   //ISlotInterface END
 
 	public void SpawnClock( int level )

@@ -75,6 +75,16 @@ public class Clock : MonoBehaviour
 		DOPunchScale( DoWaveAnimation );
 	}
 
+	public void UpgradeInSpawnSlot()
+	{
+		UpdateClockData( clock_data.ClockNextData );
+		UpdateVisuals();
+
+		transform.position = SlotPositionCurrent;
+		DOPunchScale( DoWaveAnimation );
+		//todo Play PFX
+	}
+
 	public void UpdateClockData( ClockData data )
 	{
 		clock_data = data;

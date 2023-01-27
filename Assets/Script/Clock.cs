@@ -69,10 +69,27 @@ public class Clock : MonoBehaviour
 		slot_current = slotEntity;
 		onSelected   = SelectedOnSpawnSlot;
 
+		collider_selection.enabled = true;
+
 		gameObject.SetActive( true );
 		transform.position = SlotPositionCurrent;
 
-		DOPunchScale( DoWaveAnimation );
+		DoWaveAnimation();
+	}
+
+	public void LoadIntoSpawnSlot( ISlotEntity slotEntity, ClockData data )
+	{
+		CacheCamera();
+		UpdateClockData( data );
+		UpdateVisuals();
+
+		collider_selection.enabled = true;
+
+		slot_current = slotEntity;
+		onSelected   = SelectedOnSpawnSlot;
+
+		gameObject.SetActive( true );
+		transform.position = SlotPositionCurrent;
 	}
 
 	public void UpgradeInSpawnSlot()

@@ -9,7 +9,10 @@ using Sirenix.OdinInspector;
 public class SpawnSlot : MonoBehaviour, ISlotEntity
 {
 #region Fields
+  [ Title( "Shared" ) ]
 	[ SerializeField ] ListSpawnSlot list_slot_spawn;
+	[ SerializeField ] PoolClock pool_clock;
+	[ SerializeField ] ClockDataLibrary clock_data_library;
 #endregion
 
 #region Properties
@@ -31,6 +34,19 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
     public Vector3 GetPosition()
     {
 		return transform.position;
+	}
+
+	public void SpawnClock( int level )
+	{
+		var clock     = pool_clock.GetEntity();
+		var clockData = clock_data_library.GetClockData( level );
+
+		clock.UpdateClockData( clockData );
+		clock.UpdateVisuals();
+		clock.SetIdlePosition( transform.position );
+		clock.SpawnIntoSpawnSlot(); 
+
+		list_slot_spawn.RemoveList( this );
 	}
 #endregion
 

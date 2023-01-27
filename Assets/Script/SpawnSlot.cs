@@ -102,10 +102,10 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	}
   //ISlotInterface END
 
-	public void SpawnClock( int level )
+	public void SpawnClock( int index )
 	{
 		var clock     = pool_clock.GetEntity();
-		var clockData = clock_data_library.GetClockData( level );
+		var clockData = clock_data_library.GetClockData( index );
 
 		clock.SpawnIntoSpawnSlot( this, clockData );
 
@@ -113,10 +113,10 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 		list_slot_spawn_empty.RemoveList( this );
 	}
 
-	public void LoadClock( int level )
+	public void LoadClock( int index )
 	{
 		var clock = pool_clock.GetEntity();
-		var clockData = clock_data_library.GetClockData( level );
+		var clockData = clock_data_library.GetClockData( index );
 
 		clock.SpawnIntoSpawnSlot( this, clockData );
 

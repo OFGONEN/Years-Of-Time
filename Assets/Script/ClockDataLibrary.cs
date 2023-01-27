@@ -9,8 +9,10 @@ public class ClockDataLibrary : ScriptableObject
 {
     [ SerializeField ] ClockData[] clock_data_library;
 
-    public ClockData GetClockData( int level )
+	public int ClockMaxLevel => clock_data_library.Length - 1;
+
+	public ClockData GetClockData( int index )
     {
-		return clock_data_library[ Mathf.Clamp( level - 1, 0, clock_data_library.Length - 1 ) ];
+		return clock_data_library[ Mathf.Clamp( index, 0, ClockMaxLevel ) ];
 	}
 }

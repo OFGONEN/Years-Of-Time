@@ -2,6 +2,7 @@
 
 using System.IO;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace FFStudio
 {
@@ -9,6 +10,9 @@ namespace FFStudio
 	public class SaveSystem : ScriptableObject
 	{
 #region Fields
+	  [ Title( "Save Targets" ) ]
+
+	  [ Title( "Setup" ) ]
 		[ SerializeField ] SharedStringNotifier save_string;
 
 		static SaveSystem instance;
@@ -81,4 +85,10 @@ namespace FFStudio
 #endif
 #endregion
 	}
+}
+
+[ System.Serializable ]
+public class SaveData
+{
+	public int[] slot_spawn_clock_level_array;
 }

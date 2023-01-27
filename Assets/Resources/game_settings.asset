@@ -24,6 +24,8 @@ MonoBehaviour:
     vibrato: 10
     elasticity: 1
     ease: 12
+  clock_animation_wave_radius: 0.1
+  clock_animation_wave_speed: 0.3
   camera_follow_speed_depth: 2.8
   maxLevelCount: 1
   game_selection_layer: 30

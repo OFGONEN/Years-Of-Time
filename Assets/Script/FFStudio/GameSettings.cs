@@ -18,6 +18,8 @@ namespace FFStudio
 		[ LabelText( "Clock Movement Rotate Speed" ) ] public float clock_movement_speed_rotate;
 		[ LabelText( "Clock Movement Rotate Clamp" ) ] public float clock_movement_rotate_clamp;
 		[ LabelText( "Clock Spawn Punch Scale" ) ] public PunchScaleTween clock_spawn_punchScale;
+		[ LabelText( "Clock Wave Animation Radius" ) ] public float clock_animation_wave_radius;
+		[ LabelText( "Clock Wave Animation Speed" ) ] public float clock_animation_wave_speed;
     
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;

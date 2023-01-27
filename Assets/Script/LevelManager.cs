@@ -48,10 +48,18 @@ namespace FFStudio
 
         }
 
+        [ Button() ]
         public void OnClockSpawn( int level )
         {
+			var clock     = pool_clock.GetEntity();
+			var clockData = clock_data_library.GetClockData( level );
 
-        }
+			clock.UpdateClockData( clockData );
+			clock.UpdateVisuals();
+			clock.SetIdlePosition( Vector3.zero );
+			clock.gameObject.SetActive( true );
+			// clock.SpawnIntoSpawnSlot(); // todo punch scale, cache the spawn slot, update scale?
+		}
 #endregion
 
 #region Implementation

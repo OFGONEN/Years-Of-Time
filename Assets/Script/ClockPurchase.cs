@@ -36,6 +36,11 @@ public class ClockPurchase : SharedBoolNotifier
     {
         PlayerPrefsUtility.Instance.SetInt( ExtensionMethods.Key_ClockPurchaseCount, purchase_count );
     }
+
+    public void CheckClockPurchase()
+    {
+		SharedValue = currency.sharedValue >= GetClockPurchaseCost();
+	}
 #endregion
 
 #region Implementation

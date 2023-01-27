@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6335976847400976493}
   - component: {fileID: 3342289953499669473}
   m_Layer: 0
-  m_Name: slot_spawn
+  m_Name: slot_spawn_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slot_index: 0
+  _rectangle: {fileID: 0}
   list_slot_spawn_all: {fileID: 11400000, guid: beb76a8c093fcfa449654e32c92df782, type: 2}
   list_slot_spawn_empty: {fileID: 11400000, guid: 75be421a8fc80b24b8ec8a95eaf51e2b, type: 2}
   list_slot: {fileID: 11400000, guid: 8bbbf5a431ff41c4bad8c5f8d5381de0, type: 2}

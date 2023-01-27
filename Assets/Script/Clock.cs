@@ -41,7 +41,9 @@ public class Clock : MonoBehaviour
 #endregion
 
 #region Properties
-	Vector3 SlotPosition => slot_current.GetPosition().SetY( GameSettings.Instance.clock_height_idle );
+	public  ClockData ClockData => clock_data;
+	Vector3 SlotPositionCurrent => slot_current.GetPosition().SetY( GameSettings.Instance.clock_height_idle );
+	Vector3 SlotPositionTarget  => slot_target.GetPosition().SetY( GameSettings.Instance.clock_height_idle );
 #endregion
 
 #region Unity API
@@ -64,7 +66,7 @@ public class Clock : MonoBehaviour
 		onSelected   = SelectedOnSpawnSlot;
 
 		gameObject.SetActive( true );
-		transform.position = SlotPosition;
+		transform.position = SlotPositionCurrent;
 
 		DOPunchScale( DoWaveAnimation );
 	}
@@ -114,20 +116,48 @@ public class Clock : MonoBehaviour
 		onUpdate                   = OnMovement;
 	}
 
+	void DeSelectedOnSpawnSlotGoToTargetSlot()
+	{
+		if( slot_target.IsClockPresent() && slot_target.CurrentClockLevel() != ClockData.ClockLevel )
+			DeSelectedOnSpawnSlotReturnToCurrentSlot();
+		else
+		{
+			recycledTween.Recycle( transform.DOMove(
+				SlotPositionTarget,
+				GameSettings.Instance.clock_slot_go_duration )
+				.SetEase( GameSettings.Instance.clock_slot_go_ease ),
+				OnGoToTargetSlotComplete
+			);
+
+			EmptyDelegates();
+		}
+	}
+
 	void DeSelectedOnSpawnSlotReturnToCurrentSlot()
 	{
+		slot_target = null;
+
 		recycledTween.Recycle( transform.DOMove(
-			SlotPosition,
+			SlotPositionCurrent,
 			GameSettings.Instance.clock_slot_return_duration )
 			.SetEase( GameSettings.Instance.clock_slot_return_ease ),
-			DoWaveAnimation
+			OnReturnToCurrentSlotComplete
 		);
 
-		onUpdate = ExtensionMethods.EmptyMethod;
-		collider_selection.enabled = true;
+		EmptyDelegates();
+	}
 
+	void OnGoToTargetSlotComplete()
+	{
+		FFLogger.Log( "GoTo Target Slot Complete" );
+	}
+
+	void OnReturnToCurrentSlotComplete()
+	{
+		collider_selection.enabled = true;
 		onSelected   = SelectedOnSpawnSlot;
-		onDeSelected = ExtensionMethods.EmptyMethod;
+
+		DoWaveAnimation();
 	}
 
 	void OnMovement()
@@ -153,7 +183,7 @@ public class Clock : MonoBehaviour
 		if( slot_target == null || slot_target == slot_current )
 			onDeSelected = DeSelectedOnSpawnSlotReturnToCurrentSlot;
 		else
-			onDeSelected = ExtensionMethods.EmptyMethod; //todo
+			onDeSelected = DeSelectedOnSpawnSlotGoToTargetSlot;
 	}
 
 	Vector3 Movement()
@@ -174,7 +204,7 @@ public class Clock : MonoBehaviour
 
 	void DoWaveAnimation()
 	{
-		var targetPosition = SlotPosition + Random.insideUnitCircle.ConvertV3_Z() * GameSettings.Instance.clock_animation_wave_radius + Vector3.right * GameSettings.Instance.clock_animation_wave_radius * animation_wave_cofactor;
+		var targetPosition = SlotPositionCurrent + Random.insideUnitCircle.ConvertV3_Z() * GameSettings.Instance.clock_animation_wave_radius + Vector3.right * GameSettings.Instance.clock_animation_wave_radius * animation_wave_cofactor;
 
 		recycledTween.Recycle( transform.DOMove(
 			targetPosition,

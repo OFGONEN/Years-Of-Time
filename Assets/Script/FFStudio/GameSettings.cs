@@ -10,16 +10,19 @@ namespace FFStudio
     {
 #region Fields (Settings)
     // Info: You can use Title() attribute ONCE for every game-specific group of settings.
-    [ Title( "Clock" ) ]
+    [ Title( "Clock Movement" ) ]
 		[ LabelText( "Clock Height While Sitting Idle" ) ] public float clock_height_idle;
 		[ LabelText( "Clock Movement Height" ) ] public float clock_movement_height;
 		[ LabelText( "Clock Movement Speed Vertical" ) ] public float clock_movement_speed_vertical;
 		[ LabelText( "Clock Movement Speed Horizontal" ) ] public float clock_movement_speed_horizontal;
 		[ LabelText( "Clock Movement Rotate Speed" ) ] public float clock_movement_speed_rotate;
 		[ LabelText( "Clock Movement Rotate Clamp" ) ] public float clock_movement_rotate_clamp;
+    [ Title( "Clock" ) ]
 		[ LabelText( "Clock Spawn Punch Scale" ) ] public PunchScaleTween clock_spawn_punchScale;
 		[ LabelText( "Clock Wave Animation Radius" ) ] public float clock_animation_wave_radius;
 		[ LabelText( "Clock Wave Animation Speed" ) ] public float clock_animation_wave_speed;
+		[ LabelText( "Clock Slot Return Duration" ) ] public float clock_slot_return_duration;
+		[ LabelText( "Clock Slot Return Ease" ) ] public Ease clock_slot_return_ease;
     
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;

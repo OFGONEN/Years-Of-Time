@@ -118,8 +118,12 @@ public class Clock : MonoBehaviour
 
 	void DeSelectedOnSpawnSlot()
 	{
-		SetIdlePosition( position ); //todo move back with tween
-		DoWaveAnimation();
+		recycledTween.Recycle( transform.DOMove(
+			position,
+			GameSettings.Instance.clock_slot_return_duration )
+			.SetEase( GameSettings.Instance.clock_slot_return_ease ),
+			DoWaveAnimation
+		);
 
 		onUpdate = ExtensionMethods.EmptyMethod;
 		collider_selection.enabled = true;

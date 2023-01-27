@@ -27,7 +27,6 @@ public class Clock : MonoBehaviour
 
 	Transform camera_transform;
 	Camera camera_main;
-	int selection_layer_mask;
 	float animation_wave_cofactor;
 	Vector3 position;
 
@@ -110,8 +109,6 @@ public class Clock : MonoBehaviour
 
 		recycledTween.Kill();
 
-		selection_layer_mask = 1 << GameSettings.Instance.game_selection_layer; //todo remove this
-
 		collider_selection.enabled = false;
 		onUpdate                   = Movement;
 	}
@@ -178,7 +175,7 @@ public class Clock : MonoBehaviour
 			worldPosition_Start, 
 			( worldPosition_End - worldPosition_Start ).normalized, 
 			out hitInfo, 
-			GameSettings.Instance.game_selection_distance, selection_layer_mask );
+			GameSettings.Instance.game_selection_distance, GameSettings.Instance.game_selection_layer_mask );
 
 #if UNITY_EDITOR
 		Debug.DrawRay( worldPosition_Start, hitInfo.point - worldPosition_Start, Color.red, 1 );

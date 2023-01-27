@@ -63,6 +63,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	public void OnCurrentClockDeparted()
 	{
 		clock_current = null;
+		list_slot_spawn_empty.AddList( this );
 	}
   //ISlotInterface END
 

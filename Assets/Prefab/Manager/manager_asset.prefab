@@ -165,6 +165,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: c30c7f2b780b24e448465656c212877f, type: 2}
+        m_TargetAssemblyTypeName: FFStudio.SharedFloatNotifier, FFStudio
+        m_MethodName: LoadFromPlayerPrefs_DefaultCustom
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onEnableEvent:
     m_PersistentCalls:
       m_Calls: []

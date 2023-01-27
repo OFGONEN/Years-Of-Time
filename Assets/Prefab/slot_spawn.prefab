@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f97289135f3a54fa494287f18267e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  list_slot_spawn: {fileID: 11400000, guid: 75be421a8fc80b24b8ec8a95eaf51e2b, type: 2}
 --- !u!1001 &8029905887269115632
 PrefabInstance:
   m_ObjectHideFlags: 0

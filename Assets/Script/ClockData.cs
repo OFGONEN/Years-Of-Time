@@ -21,6 +21,7 @@ public class ClockData : ScriptableObject
     [ SerializeField ] Material clock_material;
     [ SerializeField ] Mesh clock_circle;
     [ SerializeField ] Mesh clock_hand_second;
+    [ SerializeField ] Sprite clock_texture;
 #endregion
 
 #region Properties
@@ -33,6 +34,7 @@ public class ClockData : ScriptableObject
 	public Material ClockMaterial     => clock_material;
 	public Mesh ClockCircleMesh       => clock_circle;
 	public Mesh ClockSecondHandMesh   => clock_hand_second;
+	public Sprite ClockTexture        => clock_texture;
 #endregion
 
 #region Editor Only

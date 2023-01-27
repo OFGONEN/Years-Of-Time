@@ -28,6 +28,7 @@ MonoBehaviour:
   clock_animation_wave_speed: 0.1
   clock_slot_return_duration: 0.25
   clock_slot_return_ease: 12
+  clock_slot_search_distance: 1
   camera_follow_speed_depth: 2.8
   maxLevelCount: 1
   game_selection_layer: 30

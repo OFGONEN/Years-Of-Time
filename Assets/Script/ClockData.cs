@@ -23,6 +23,7 @@ public class ClockData : ScriptableObject
 #endregion
 
 #region Properties
+	public int ClockLevel             => clock_level;
 	public float ClockSpeed           => clock_speed;
 	public float ClockHandSecondSpeed => clock_speed;
 	public float ClockHandMinuteSpeed => clock_speed;

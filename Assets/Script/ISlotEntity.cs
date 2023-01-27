@@ -9,4 +9,7 @@ public interface ISlotEntity
 	int CurrentClockLevel(); // Return current clock level
 	void OnCurrentClockDeparted();
 	void HandleIncomingClock( Clock clock );
+	void HighlightPositive();
+	void HighlightNegative();
+	void HighlightDefault();
 }

@@ -5,12 +5,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
 using Sirenix.OdinInspector;
+using Shapes;
 
 public class SpawnSlot : MonoBehaviour, ISlotEntity
 {
 #region Fields
   [ Title( "Setup" ) ]
 	[ SerializeField ] int slot_index;
+
+  [ Title( "Component" ) ]
+	[ SerializeField ] Rectangle _rectangle;
 
   [ Title( "Shared" ) ]
 	[ SerializeField ] ListSpawnSlot list_slot_spawn_all; // This includes all spawn slots
@@ -78,6 +82,21 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	{
 		clock_current = null;
 		list_slot_spawn_empty.AddList( this );
+	}
+
+	public void HighlightPositive()
+	{
+		_rectangle.Color = GameSettings.Instance.slot_spawn_highlight_color_positive;
+	}
+
+	public void HighlightNegative()
+	{
+		_rectangle.Color = GameSettings.Instance.slot_spawn_highlight_color_negative;
+	}
+
+	public void HighlightDefault()
+	{
+		_rectangle.Color = GameSettings.Instance.slot_spawn_highlight_color_default;
 	}
   //ISlotInterface END
 

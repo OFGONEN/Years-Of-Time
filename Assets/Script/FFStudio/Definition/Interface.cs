@@ -16,10 +16,4 @@ namespace FFStudio
 		string ConvertToJSON();
 		void OverriteFromJSON( string json );
 	}
-
-	public interface ISlotEntity
-	{
-		Vector3 GetPosition();
-		int IsClockPresent(); // Returns -1 if no clock is present
-	}
 }

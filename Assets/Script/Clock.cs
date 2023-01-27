@@ -60,9 +60,12 @@ public class Clock : MonoBehaviour
 #endregion
 
 #region API
-	public void SpawnIntoSpawnSlot( ISlotEntity slotEntity )
+	public void SpawnIntoSpawnSlot( ISlotEntity slotEntity, ClockData data  )
 	{
 		CacheCamera();
+		UpdateClockData( data );
+		UpdateVisuals();
+
 		slot_current = slotEntity;
 		onSelected   = SelectedOnSpawnSlot;
 

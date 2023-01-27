@@ -76,6 +76,8 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 			CacheInComingClock( incoming );
 		else
 			MergeCurrentClock( incoming );
+
+		HighlightDefault();
 	}
 
 	public void OnCurrentClockDeparted()

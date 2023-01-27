@@ -56,6 +56,11 @@ public class Clock : MonoBehaviour
 		transform.position = position.SetY( GameSettings.Instance.clock_height_idle );
 	}
 
+	public void UpdateClockData( ClockData data )
+	{
+		clock_data = data;
+	}
+
     public void UpdateVisuals()
     {
 		var circleSharedMaterials  = clock_circle_renderer.sharedMaterials;

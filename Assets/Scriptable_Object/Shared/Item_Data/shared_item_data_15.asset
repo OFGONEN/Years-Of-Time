@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c33709d6b97472d4b8859200e124cb87, type: 3}
-  m_Name: shared_item_data_1
+  m_Name: shared_item_data_15
   m_EditorClassIdentifier: 
-  item_duration: 9
-  item_currency: 9
-  item_cost: 0
-  item_texture_background: {fileID: 2800000, guid: 4049c4ee1f06d284785243fb623b7cda, type: 3}
-  item_texture_foreground: {fileID: 2800000, guid: f729bb88dccbdf14c87843fb6a9a144f, type: 3}
+  item_duration: 209
+  item_currency: 209
+  item_cost: 627
+  item_texture_background: {fileID: 2800000, guid: 3c71ea2c6e1fcf9418ac8f3c2315deb7, type: 3}
+  item_texture_foreground: {fileID: 2800000, guid: 93ced944c8f765147b1b4fd5b2f1a9a2, type: 3}

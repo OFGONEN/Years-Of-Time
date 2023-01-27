@@ -46,8 +46,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 
 		clock.UpdateClockData( clockData );
 		clock.UpdateVisuals();
-		clock.SetIdlePosition( transform.position );
-		clock.SpawnIntoSpawnSlot(); 
+		clock.SpawnIntoSpawnSlot( this ); 
 
 		list_slot_spawn_empty.RemoveList( this );
 	}

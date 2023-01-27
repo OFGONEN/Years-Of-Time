@@ -27,8 +27,8 @@ public class Clock : MonoBehaviour
 
 	Transform camera_transform;
 	Camera camera_main;
+	ISlotEntity slot_current;
 	float animation_wave_cofactor;
-	Vector3 position;
 
 	RecycledTween recycledTween = new RecycledTween();
 
@@ -38,6 +38,7 @@ public class Clock : MonoBehaviour
 #endregion
 
 #region Properties
+	Vector3 SlotPosition => slot_current.GetPosition().SetY( GameSettings.Instance.clock_height_idle );
 #endregion
 
 #region Unity API
@@ -53,19 +54,16 @@ public class Clock : MonoBehaviour
 #endregion
 
 #region API
-	public void SpawnIntoSpawnSlot()
+	public void SpawnIntoSpawnSlot( ISlotEntity slotEntity )
 	{
-		gameObject.SetActive( true );
-		position = transform.position;
-		DOPunchScale( DoWaveAnimation );
 		CacheCamera();
+		slot_current = slotEntity;
+		onSelected   = SelectedOnSpawnSlot;
 
-		onSelected = SelectedOnSpawnSlot;
-	}
+		gameObject.SetActive( true );
+		transform.position = SlotPosition;
 
-    public void SetIdlePosition( Vector3 position )
-    {
-		transform.position = position.SetY( GameSettings.Instance.clock_height_idle );
+		DOPunchScale( DoWaveAnimation );
 	}
 
 	public void UpdateClockData( ClockData data )
@@ -116,7 +114,7 @@ public class Clock : MonoBehaviour
 	void DeSelectedOnSpawnSlot()
 	{
 		recycledTween.Recycle( transform.DOMove(
-			position,
+			SlotPosition,
 			GameSettings.Instance.clock_slot_return_duration )
 			.SetEase( GameSettings.Instance.clock_slot_return_ease ),
 			DoWaveAnimation
@@ -146,7 +144,7 @@ public class Clock : MonoBehaviour
 
 	void DoWaveAnimation()
 	{
-		var targetPosition = position + Random.insideUnitCircle.ConvertV3_Z() * GameSettings.Instance.clock_animation_wave_radius + Vector3.right * GameSettings.Instance.clock_animation_wave_radius * animation_wave_cofactor;
+		var targetPosition = SlotPosition + Random.insideUnitCircle.ConvertV3_Z() * GameSettings.Instance.clock_animation_wave_radius + Vector3.right * GameSettings.Instance.clock_animation_wave_radius * animation_wave_cofactor;
 
 		recycledTween.Recycle( transform.DOMove(
 			targetPosition,

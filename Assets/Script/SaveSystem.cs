@@ -16,7 +16,7 @@ namespace FFStudio
 	  [ Title( "Setup" ) ]
 		[ SerializeField ] SharedStringNotifier save_string;
 
-		[ ShowInInspector, ReadOnly ] SaveData save_data;
+		[ ShowInInspector ] SaveData save_data;
 		static SaveSystem instance;
 #endregion
 
@@ -92,6 +92,17 @@ namespace FFStudio
 			{
 				save_data.slot_spawn_clock_level_array[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() : 0;
 			}
+
+			SaveOverride( JsonUtility.ToJson( save_data ) );
+		}
+
+		[ Button() ]
+		public void LoadSaveData()
+		{
+			var json = LoadSave();
+
+			if( json != null )
+				save_data = JsonUtility.FromJson< SaveData >( json ) as SaveData;
 		}
 #endregion
 

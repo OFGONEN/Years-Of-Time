@@ -18,6 +18,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	[ SerializeField ] ListSlot list_slot; // This includes all slots
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ClockDataLibrary clock_data_library;
+	[ SerializeField ] SaveSystem system_save;
 
 	Clock clock_current;
 #endregion
@@ -39,6 +40,12 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 		list_slot_spawn_all.RemoveDictionary( slot_index );
 		list_slot_spawn_empty.RemoveList( this );
 		list_slot.RemoveList( this );
+	}
+
+	private void Start()
+	{
+		if( system_save.SaveData != null && system_save.SaveData.slot_spawn_clock_level_array[ slot_index ] != 0 )
+			LoadClock( system_save.SaveData.slot_spawn_clock_level_array[ slot_index ] );
 	}
 #endregion
 
@@ -77,6 +84,17 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	public void SpawnClock( int level )
 	{
 		var clock     = pool_clock.GetEntity();
+		var clockData = clock_data_library.GetClockData( level );
+
+		clock.SpawnIntoSpawnSlot( this, clockData );
+
+		clock_current = clock;
+		list_slot_spawn_empty.RemoveList( this );
+	}
+
+	public void LoadClock( int level )
+	{
+		var clock = pool_clock.GetEntity();
 		var clockData = clock_data_library.GetClockData( level );
 
 		clock.SpawnIntoSpawnSlot( this, clockData );

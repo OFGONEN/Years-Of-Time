@@ -16,7 +16,7 @@ namespace FFStudio
 	  [ Title( "Setup" ) ]
 		[ SerializeField ] SharedStringNotifier save_string;
 
-		[ ShowInInspector ] SaveData save_data;
+		[ SerializeField ] SaveData save_data;
 		static SaveSystem instance;
 #endregion
 
@@ -88,11 +88,11 @@ namespace FFStudio
 			if( save_data == null )
 				save_data = new SaveData();
 
-			save_data.slot_spawn_clock_level_array = new int[ list_slot_spawn_all.itemDictionary.Count ];
+			save_data.slot_spawn_array = new int[ list_slot_spawn_all.itemDictionary.Count ];
 
 			foreach( var slot in list_slot_spawn_all.itemDictionary.Values )
 			{
-				save_data.slot_spawn_clock_level_array[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
+				save_data.slot_spawn_array[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
 			}
 
 			SaveOverride( JsonUtility.ToJson( save_data ) );
@@ -115,6 +115,35 @@ namespace FFStudio
 
 #region Editor Only
 #if UNITY_EDITOR
+		[ Button() ]
+		public void CreateDefaultSaveData()
+		{
+			UnityEditor.EditorUtility.SetDirty( this );
+
+			int spawnSlotCount   = 4;
+			int spawnSlotDefault = -1;
+
+			int clockSlotCount   = 2;
+			int clockSlotDefault = -2;
+
+			save_data = new SaveData();
+
+			save_data.slot_spawn_array = new int[ spawnSlotCount ];
+
+			for( var i = 0; i < spawnSlotCount; i++ )
+			{
+				save_data.slot_spawn_array[ i ] = spawnSlotDefault;
+			}
+
+			save_data.slot_clock_array = new int[ clockSlotCount ];
+
+			for( var i = 0; i < clockSlotCount; i++ )
+			{
+				save_data.slot_clock_array[ i ] = clockSlotDefault;
+			}
+
+			UnityEditor.AssetDatabase.SaveAssets();
+		}
 #endif
 #endregion
 	}
@@ -123,5 +152,6 @@ namespace FFStudio
 [ System.Serializable ]
 public class SaveData
 {
-	public int[] slot_spawn_clock_level_array;
+	public int[] slot_spawn_array;
+	public int[] slot_clock_array;
 }

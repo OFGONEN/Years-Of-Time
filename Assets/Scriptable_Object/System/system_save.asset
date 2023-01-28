@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   list_slot_spawn_all: {fileID: 11400000, guid: beb76a8c093fcfa449654e32c92df782, type: 2}
   save_string: {fileID: 11400000, guid: 7a7ff5daa44de4fc3b72d51603cc7641, type: 2}
+  save_data:
+    slot_spawn_array: ffffffffffffffffffffffffffffffff
+    slot_clock_array: fefffffffeffffff

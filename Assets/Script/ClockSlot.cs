@@ -43,7 +43,8 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 
     private void OnDisable()
     {
-		list_slot_all.itemList.Remove( this );
+		list_slot_all.RemoveList( this );
+		list_slot_axis.RemoveDictionary( slot_index );
 	}
 
 	private void Start()

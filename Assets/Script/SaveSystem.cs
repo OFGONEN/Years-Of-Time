@@ -128,11 +128,18 @@ namespace FFStudio
 				save_data.slot_spawn_array[ i ] = spawnSlotDefault;
 			}
 
-			save_data.slot_clock_array = new int[ clockSlotCount ];
+			save_data.slot_clock_array_row = new int[ clockSlotCount ];
 
 			for( var i = 0; i < clockSlotCount; i++ )
 			{
-				save_data.slot_clock_array[ i ] = clockSlotDefault;
+				save_data.slot_clock_array_row[ i ] = clockSlotDefault;
+			}
+
+			save_data.slot_clock_array_column = new int[ clockSlotCount ];
+
+			for( var i = 0; i < clockSlotCount; i++ )
+			{
+				save_data.slot_clock_array_column[ i ] = clockSlotDefault;
 			}
 
 #if UNITY_EDITOR
@@ -155,5 +162,6 @@ namespace FFStudio
 public class SaveData
 {
 	public int[] slot_spawn_array;
-	public int[] slot_clock_array;
+	public int[] slot_clock_array_row;
+	public int[] slot_clock_array_column;
 }

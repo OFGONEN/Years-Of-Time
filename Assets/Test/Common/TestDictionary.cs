@@ -16,18 +16,21 @@ public class TestDictionary : MonoBehaviour
 #region Unity API
     private void Start()
     {
-		Dictionary<Vector2Int, string> dic = new Dictionary<Vector2Int, string>();
+		Dictionary<int, string> dic = new Dictionary<int, string>();
 
-		dic.Add( new Vector2Int( 0, 0 ), "foo" );
 
-		string value;
+        for( var x = 0; x < 100; x++ )
+        {
+            for( var y = 0; y < 100; y++ )
+            {
+				dic.Add( new Vector2Int( x, y ).GetCustomHashCode(), $"foo:{x},{y}" );
+			}
+        }
 
-		var validValue = dic.TryGetValue( new Vector2Int( 0, 0 ), out value );
-
-        if( validValue )
-            FFLogger.Log( "Value: " + value );
-        else
-            FFLogger.Log( "No Valid Value" );
+        foreach( var element in dic.Values )
+        {
+            FFLogger.Log( element );
+        }
 	}
 #endregion
 

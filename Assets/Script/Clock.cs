@@ -119,6 +119,16 @@ public class Clock : MonoBehaviour
 		//todo Play PFX
 	}
 
+	public void UpgradeInClockSlot()
+	{
+		UpdateClockData( clock_data.ClockNextData );
+		UpdateVisuals();
+
+		transform.position = SlotPositionCurrent;
+		DOPunchScale( null );
+		//todo Play PFX
+	}
+
 	public void UpdateClockData( ClockData data )
 	{
 		clock_data = data;

@@ -121,7 +121,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	void MergeCurrentClock( Clock incoming )
 	{
 		incoming.ReturnToPool();
-		clock_current.UpgradeInSpawnSlot();
+		clock_current.UpgradeInClockSlot();
 	}
 #endregion
 

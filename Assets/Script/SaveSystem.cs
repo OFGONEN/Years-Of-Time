@@ -109,6 +109,7 @@ namespace FFStudio
 
 		public void NULLOutSaveData()
 		{
+			UnityEditor.EditorUtility.SetDirty( this );
 			save_data = null;
 		}
 #endregion

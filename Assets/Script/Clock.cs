@@ -38,6 +38,7 @@ public class Clock : MonoBehaviour
 
 	UnityMessage onSelected;
 	UnityMessage onDeSelected;
+	UnityMessage onDeSelectedCache;
 	UnityMessage onUpdate;
 #endregion
 
@@ -187,8 +188,9 @@ public class Clock : MonoBehaviour
 	void SelectedOnSpawnSlot()
 	{
 		//todo start scale tween
-		onSelected   = ExtensionMethods.EmptyMethod;
-		onDeSelected = DeSelectedOnSpawnSlotReturnToCurrentSlot;
+		onSelected        = ExtensionMethods.EmptyMethod;
+		onDeSelected      = DeSelectedOnSpawnSlotReturnToCurrentSlot;
+		onDeSelectedCache = DeSelectedOnSpawnSlotReturnToCurrentSlot;
 
 		recycledTween.Kill();
 
@@ -260,7 +262,7 @@ public class Clock : MonoBehaviour
 		if( slotTarget == slot_current )
 		{
 			slot_target?.HighlightDefault();
-			onDeSelected = DeSelectedOnSpawnSlotReturnToCurrentSlot;
+			onDeSelected = onDeSelectedCache;
 		}
 		else
 		{

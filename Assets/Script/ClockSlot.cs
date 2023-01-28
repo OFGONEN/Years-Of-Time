@@ -32,6 +32,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 #endregion
 
 #region Properties
+	public int SlotIndex => slot_index;
 #endregion
 
 #region Unity API

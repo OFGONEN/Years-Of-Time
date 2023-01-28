@@ -125,6 +125,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	public void OnCurrentClockDeparted()
 	{
 		clock_current = null;
+		RemoveClockFromItems();
 	}
 
 	public void HighlightPositive()
@@ -164,9 +165,9 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	{
 		list_slot_all.AddList( this );
 		_disc.enabled = true;
-		LoadClock( level );
 
-		//todo start production
+		LoadClock( level );
+		AssignClockToItems();
 	}
 
 	void LoadClock( int index )
@@ -182,14 +183,25 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	{
 		clock_current = incoming;
 		incoming.OccupyClockSlot();
-
-		//todo start production
+		AssignClockToItems();
 	}
 
 	void MergeCurrentClock( Clock incoming )
 	{
 		incoming.ReturnToPool();
 		clock_current.UpgradeInClockSlot();
+	}
+
+	void AssignClockToItems()
+	{
+		for( var i = 0; i < item_array.Length; i++ )
+			item_array[ i ].AssignClockSlot( this );
+	}
+
+	void RemoveClockFromItems()
+	{
+		for( var i = 0; i < item_array.Length; i++ )
+			item_array[ i ].RemoveClockSlot( this );
 	}
 #endregion
 

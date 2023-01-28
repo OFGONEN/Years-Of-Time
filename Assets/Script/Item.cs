@@ -10,12 +10,13 @@ public class Item : MonoBehaviour
 {
 #region Fields
   [ Title( "Setup" ) ]
-    [ SerializeField ] Vector2Int[] item_coordinate_array;
+    [ SerializeField ] Vector2Int item_coordinate_array;
     [ SerializeField ] int item_index;
 
   [ Title( "Shared" ) ]
     [ SerializeField ] ListItem list_item;
 
+	List< ClockSlot > clock_slot_list = new List< ClockSlot >( 2 );
     UnityMessage onUpdate;
 #endregion
 
@@ -25,10 +26,8 @@ public class Item : MonoBehaviour
 #region Unity API
     private void OnEnable()
     {
-        for( var i = 0; i < item_coordinate_array.Length; i++ )
-        {
-			list_item.AddDictionary( item_coordinate_array[ i ].GetCustomHashCode(), this );
-		}
+		list_item.AddDictionary( item_coordinate_array.GetCustomHashCode(), this );
+
     }
 
     private void Awake()
@@ -44,10 +43,39 @@ public class Item : MonoBehaviour
 #endregion
 
 #region API
+	public void AssignClockSlot( ClockSlot clockSlot )
+	{
+		clock_slot_list.Add( clockSlot );
+
+		if( clock_slot_list.Count == 2 )
+			StartProduction();
+	}
+
+	public void RemoveClockSlot( ClockSlot clockSlot )
+	{
+#if UNITY_EDITOR
+		var removed = clock_slot_list.Remove( clockSlot );
+		if( !removed )
+			FFLogger.Log( name + " - Clock slot could not removed", clockSlot );
+#else
+		clock_slot_list.Remove( clockSlot );
+#endif
+		StopProduction();
+	}
 #endregion
 
 #region Implementation
-    void EmptyDelegates()
+	void StartProduction()
+	{
+		FFLogger.Log( "Start Production", this );
+	}
+
+	void StopProduction()
+	{
+		FFLogger.Log( "Stop Production", this );
+	}
+
+	void EmptyDelegates()
     {
 		onUpdate = ExtensionMethods.EmptyMethod;
 	}

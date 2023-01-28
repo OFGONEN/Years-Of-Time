@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9287d1768f985648ba0b42f31e1d68e, type: 3}
-  m_Name: list_slot
+  m_Name: list_slot_all
   m_EditorClassIdentifier: 
   setSize: 0

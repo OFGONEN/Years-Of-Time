@@ -22,6 +22,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	// [ SerializeField ] ListSpawnSlot list_slot_spawn_all; // This includes all spawn slots
 	// [ SerializeField ] ListSpawnSlot list_slot_spawn_empty; // This includes only empty spawn slots
 	[ SerializeField ] ListSlot list_slot_all; // This includes all slots
+	[ SerializeField ] ListClockSlot list_slot_axis; // This clock of row or column
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ClockDataLibrary clock_data_library;
 	[ SerializeField ] SaveSystem system_save;

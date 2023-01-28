@@ -28,9 +28,9 @@ public class ClockData : ScriptableObject
 	public int ClockLevel             => clock_level;
 	public ClockData ClockNextData    => clock_next;
 	public float ClockSpeed           => clock_speed;
-	public float ClockHandSecondSpeed => clock_speed;
-	public float ClockHandMinuteSpeed => clock_speed;
-	public float ClockHandHourSpeed   => clock_speed;
+	public float ClockHandSecondSpeed => clock_hand_speed_second;
+	public float ClockHandMinuteSpeed => clock_hand_speed_minute;
+	public float ClockHandHourSpeed   => clock_hand_speed_hour;
 	public Material ClockMaterial     => clock_material;
 	public Mesh ClockCircleMesh       => clock_circle;
 	public Mesh ClockSecondHandMesh   => clock_hand_second;

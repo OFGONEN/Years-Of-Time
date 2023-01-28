@@ -21,6 +21,9 @@ public class Clock : MonoBehaviour
   [ Title( "Components" ) ]
 	[ SerializeField ] Transform transform_gfx;
 	[ SerializeField ] Collider collider_selection;
+	[ SerializeField ] Transform clock_hand_second;
+	[ SerializeField ] Transform clock_hand_minute;
+	[ SerializeField ] Transform clock_hand_hour;
 
   [ Title( "Visual Components" ) ]
     [ SerializeField ] MeshFilter clock_circle_meshFilter;
@@ -92,7 +95,7 @@ public class Clock : MonoBehaviour
 		gameObject.SetActive( true );
 		transform.position = SlotPositionCurrent;
 
-		//todo start item production
+		onUpdate = DoProductionAnimation;
 	}
 
 	public void UpgradeInSpawnSlot()
@@ -112,7 +115,6 @@ public class Clock : MonoBehaviour
 
 		transform.position = SlotPositionCurrent;
 		DOPunchScale( null );
-		//todo implement item production
 		//todo Play PFX
 	}
 
@@ -160,7 +162,7 @@ public class Clock : MonoBehaviour
 		collider_selection.enabled = true;
 		onSelected                 = SelectedOnClockSlot;
 
-		//todo start item production 
+		onUpdate = DoProductionAnimation;
 	}
 
 	public void ReturnToPool()
@@ -196,8 +198,6 @@ public class Clock : MonoBehaviour
 
 		collider_selection.enabled = false;
 		onUpdate                   = OnMovement;
-
-		//todo item stop production
 	}
 
 	void DeSelectedGoToTargetSlot()
@@ -318,6 +318,13 @@ public class Clock : MonoBehaviour
 			.SetSpeedBased(), DoWaveAnimation );
 
 		animation_wave_cofactor *= -1f;
+	}
+
+	void DoProductionAnimation()
+	{
+		clock_hand_second.Rotate( Vector3.forward * -1f * clock_data.ClockHandSecondSpeed * Time.deltaTime, Space.Self );
+		clock_hand_minute.Rotate( Vector3.forward * -1f * clock_data.ClockHandMinuteSpeed * Time.deltaTime, Space.Self );
+		clock_hand_hour.Rotate( Vector3.forward * -1f * clock_data.ClockHandHourSpeed * Time.deltaTime, Space.Self );
 	}
 
 	void CacheCamera()

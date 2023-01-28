@@ -77,6 +77,23 @@ public class Clock : MonoBehaviour
 		DoWaveAnimation();
 	}
 
+	public void SpawnIntoClockSlot( ISlotEntity slotEntity, ClockData data )
+	{
+		CacheCamera();
+		UpdateClockData( data );
+		UpdateVisuals();
+
+		slot_current = slotEntity;
+		// onSelected   = SelectedOnSpawnSlot;
+
+		collider_selection.enabled = true;
+
+		gameObject.SetActive( true );
+		transform.position = SlotPositionCurrent;
+
+		//todo implement item production
+	}
+
 	public void LoadIntoSpawnSlot( ISlotEntity slotEntity, ClockData data )
 	{
 		CacheCamera();
@@ -139,6 +156,11 @@ public class Clock : MonoBehaviour
 		onSelected   = SelectedOnSpawnSlot;
 
 		DoWaveAnimation();
+	}
+
+	public void OccupyClockSlot()
+	{
+		//todo Implement 
 	}
 
 	public void ReturnToPool()

@@ -52,24 +52,26 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 
 	private void Start()
 	{
-		item_array = new Item[ GameSettings.Instance.playArea_size_count ];
-
 		//Cache Item
 		if( slot_row )
 		{
-			for( var i = 0; i < GameSettings.Instance.playArea_size_count; i++ )
+			item_array = new Item[ GameSettings.Instance.playArea_size_count_column ];
+
+			for( var i = 0; i < GameSettings.Instance.playArea_size_count_column; i++ )
 			{
 				Item item;
-				list_item.itemDictionary.TryGetValue( new Vector2Int( slot_index, i ).GetCustomHashCode(), out item );
+				list_item.itemDictionary.TryGetValue( new Vector2Int( i, slot_index ).GetCustomHashCode(), out item );
 				item_array[ i ] = item;
 			}
 		}
 		else
 		{
-			for( var i = 0; i < GameSettings.Instance.playArea_size_count; i++ )
+			item_array = new Item[ GameSettings.Instance.playArea_size_count_row ];
+
+			for( var i = 0; i < GameSettings.Instance.playArea_size_count_row; i++ )
 			{
 				Item item;
-				list_item.itemDictionary.TryGetValue( new Vector2Int( i, slot_index ).GetCustomHashCode(), out item );
+				list_item.itemDictionary.TryGetValue( new Vector2Int( slot_index, i ).GetCustomHashCode(), out item );
 				item_array[ i ] = item;
 			}
 		}

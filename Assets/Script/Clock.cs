@@ -126,6 +126,7 @@ public class Clock : MonoBehaviour
 
 		transform.position = SlotPositionCurrent;
 		DOPunchScale( null );
+		//todo implement item production
 		//todo Play PFX
 	}
 

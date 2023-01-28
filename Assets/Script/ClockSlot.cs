@@ -74,6 +74,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	public void OnCurrentClockDeparted()
 	{
 		clock_current = null;
+		_disc.enabled = true;
 	}
 
 	public void HighlightPositive()
@@ -114,6 +115,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 
 	void CacheInComingClock( Clock incoming )
 	{
+		_disc.enabled = false;
 		clock_current = incoming;
 		incoming.OccupyClockSlot();
 	}

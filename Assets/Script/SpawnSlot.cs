@@ -19,7 +19,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
   [ Title( "Shared" ) ]
 	[ SerializeField ] ListSpawnSlot list_slot_spawn_all; // This includes all spawn slots
 	[ SerializeField ] ListSpawnSlot list_slot_spawn_empty; // This includes only empty spawn slots
-	[ SerializeField ] ListSlot list_slot; // This includes all slots
+	[ SerializeField ] ListSlot list_slot_all; // This includes all slots
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ClockDataLibrary clock_data_library;
 	[ SerializeField ] SaveSystem system_save;
@@ -36,14 +36,14 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	{
 		list_slot_spawn_all.AddDictionary( slot_index, this );
 		list_slot_spawn_empty.AddList( this );
-		list_slot.AddList( this );
+		list_slot_all.AddList( this );
 	}
 
 	private void OnDisable()
 	{
 		list_slot_spawn_all.RemoveDictionary( slot_index );
 		list_slot_spawn_empty.RemoveList( this );
-		list_slot.RemoveList( this );
+		list_slot_all.RemoveList( this );
 	}
 
 	private void Start()

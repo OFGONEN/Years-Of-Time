@@ -105,12 +105,8 @@ namespace FFStudio
 
 			if( json != null )
 				save_data = JsonUtility.FromJson< SaveData >( json ) as SaveData;
-		}
-
-		public void NULLOutSaveData()
-		{
-			UnityEditor.EditorUtility.SetDirty( this );
-			save_data = null;
+			else
+				save_data = null;
 		}
 #endregion
 

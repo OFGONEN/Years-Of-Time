@@ -78,38 +78,6 @@ public class Clock : MonoBehaviour
 		DoWaveAnimation();
 	}
 
-	public void SpawnIntoClockSlot( ISlotEntity slotEntity, ClockData data )
-	{
-		CacheCamera();
-		UpdateClockData( data );
-		UpdateVisuals();
-
-		slot_current = slotEntity;
-		// onSelected   = SelectedOnSpawnSlot;
-
-		collider_selection.enabled = true;
-
-		gameObject.SetActive( true );
-		transform.position = SlotPositionCurrent;
-
-		//todo start item production
-	}
-
-	public void LoadIntoSpawnSlot( ISlotEntity slotEntity, ClockData data )
-	{
-		CacheCamera();
-		UpdateClockData( data );
-		UpdateVisuals();
-
-		collider_selection.enabled = true;
-
-		slot_current = slotEntity;
-		onSelected   = SelectedOnSpawnSlot;
-
-		gameObject.SetActive( true );
-		transform.position = SlotPositionCurrent;
-	}
-
 	public void LoadIntoClockSlot( ISlotEntity slotEntity, ClockData data )
 	{
 		CacheCamera();
@@ -117,7 +85,7 @@ public class Clock : MonoBehaviour
 		UpdateVisuals();
 
 		slot_current = slotEntity;
-		// onSelected   = SelectedOnSpawnSlot;
+		onSelected   = SelectedOnClockSlot;
 
 		collider_selection.enabled = true;
 
@@ -189,6 +157,9 @@ public class Clock : MonoBehaviour
 
 	public void OccupyClockSlot()
 	{
+		collider_selection.enabled = true;
+		onSelected                 = SelectedOnClockSlot;
+
 		//todo start item production 
 	}
 

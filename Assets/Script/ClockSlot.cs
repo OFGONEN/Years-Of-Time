@@ -74,7 +74,6 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	public void OnCurrentClockDeparted()
 	{
 		clock_current = null;
-		_disc.enabled = true;
 	}
 
 	public void HighlightPositive()
@@ -109,13 +108,12 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 		var clock     = pool_clock.GetEntity();
 		var clockData = clock_data_library.GetClockData( index );
 
-		clock.SpawnIntoClockSlot( this, clockData );
+		clock.LoadIntoClockSlot( this, clockData );
 		clock_current = clock;
 	}
 
 	void CacheInComingClock( Clock incoming )
 	{
-		_disc.enabled = false;
 		clock_current = incoming;
 		incoming.OccupyClockSlot();
 	}

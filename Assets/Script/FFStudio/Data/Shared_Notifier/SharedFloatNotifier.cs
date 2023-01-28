@@ -1,5 +1,6 @@
 ﻿/* Created by and for usage of FF Studios (2021). */
 
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace FFStudio
@@ -37,6 +38,7 @@ namespace FFStudio
 			SharedValue = PlayerPrefsUtility.Instance.GetFloat( name, customDefaultValue );
 		}
 
+		[ Button() ]
 		public void SaveToPlayerPrefs()
 		{
 			PlayerPrefsUtility.Instance.SetFloat( name, sharedValue );

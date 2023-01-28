@@ -27,8 +27,10 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ClockDataLibrary clock_data_library;
 	[ SerializeField ] SaveSystem system_save;
+	[ SerializeField ] ListItem list_item;
 
 	[ ShowInInspector, ReadOnly ] Clock clock_current;
+	[ ShowInInspector, ReadOnly ] Item[] item_array;
 #endregion
 
 #region Properties
@@ -50,6 +52,28 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 
 	private void Start()
 	{
+		item_array = new Item[ GameSettings.Instance.playArea_size_count ];
+
+		//Cache Item
+		if( slot_row )
+		{
+			for( var i = 0; i < GameSettings.Instance.playArea_size_count; i++ )
+			{
+				Item item;
+				list_item.itemDictionary.TryGetValue( new Vector2Int( slot_index, i ).GetCustomHashCode(), out item );
+				item_array[ i ] = item;
+			}
+		}
+		else
+		{
+			for( var i = 0; i < GameSettings.Instance.playArea_size_count; i++ )
+			{
+				Item item;
+				list_item.itemDictionary.TryGetValue( new Vector2Int( i, slot_index ).GetCustomHashCode(), out item );
+				item_array[ i ] = item;
+			}
+		}
+
 		if( slot_row )
 		{
 			var saveValue = system_save.SaveData.slot_clock_array_row[ slot_index ];
@@ -141,6 +165,8 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 		list_slot_all.AddList( this );
 		_disc.enabled = true;
 		LoadClock( level );
+
+		//todo start production
 	}
 
 	void LoadClock( int index )
@@ -156,6 +182,8 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	{
 		clock_current = incoming;
 		incoming.OccupyClockSlot();
+
+		//todo start production
 	}
 
 	void MergeCurrentClock( Clock incoming )

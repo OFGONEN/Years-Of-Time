@@ -26,7 +26,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	[ SerializeField ] ClockDataLibrary clock_data_library;
 	[ SerializeField ] SaveSystem system_save;
 
-	Clock clock_current;
+	[ ShowInInspector, ReadOnly ] Clock clock_current;
 #endregion
 
 #region Properties

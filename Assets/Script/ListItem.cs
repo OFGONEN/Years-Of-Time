@@ -6,7 +6,7 @@ using UnityEngine;
 using FFStudio;
 
 [ CreateAssetMenu( fileName = "list_item", menuName = "FF/Game/List Item" ) ]
-public class ListItem : RuntimeSet< Vector2Int, Item >
+public class ListItem : RuntimeSet< int, Item >
 {
 #region Fields
 #endregion

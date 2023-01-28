@@ -92,7 +92,7 @@ namespace FFStudio
 
 			foreach( var slot in list_slot_spawn_all.itemDictionary.Values )
 			{
-				save_data.slot_spawn_clock_level_array[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() : 0;
+				save_data.slot_spawn_clock_level_array[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
 			}
 
 			SaveOverride( JsonUtility.ToJson( save_data ) );

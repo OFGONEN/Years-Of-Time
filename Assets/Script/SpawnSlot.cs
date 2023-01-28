@@ -48,7 +48,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 
 	private void Start()
 	{
-		if( system_save.SaveData != null && system_save.SaveData.slot_spawn_clock_level_array[ slot_index ] != 0 )
+		if( system_save.SaveData != null && system_save.SaveData.slot_spawn_clock_level_array[ slot_index ] != -1 )
 			LoadClock( system_save.SaveData.slot_spawn_clock_level_array[ slot_index ] );
 	}
 #endregion

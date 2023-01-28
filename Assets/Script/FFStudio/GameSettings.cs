@@ -31,6 +31,12 @@ namespace FFStudio
 		[ LabelText( "Highlight Positive Color" ) ] public Color slot_spawn_highlight_color_positive;
 		[ LabelText( "Highlight Negative Color" ) ] public Color slot_spawn_highlight_color_negative;
 		[ LabelText( "Highlight Default Color" ) ] public Color slot_spawn_highlight_color_default;
+
+    [ Title( "Clock Slot" ) ]
+		[ LabelText( "Highlight Positive Color" ) ] public Color slot_clock_highlight_color_positive;
+		[ LabelText( "Highlight Negative Color" ) ] public Color slot_clock_highlight_color_negative;
+		[ LabelText( "Highlight Default Color" ) ] public Color slot_clock_highlight_color_default;
+
     
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;

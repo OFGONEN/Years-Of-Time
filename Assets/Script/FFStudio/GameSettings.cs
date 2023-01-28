@@ -36,6 +36,7 @@ namespace FFStudio
 		[ LabelText( "Highlight Positive Color" ) ] public Color slot_clock_highlight_color_positive;
 		[ LabelText( "Highlight Negative Color" ) ] public Color slot_clock_highlight_color_negative;
 		[ LabelText( "Highlight Default Color" ) ] public Color slot_clock_highlight_color_default;
+		[ LabelText( "Highlight Alpha Cofactor" ) ] public float slot_clock_highlight_alpha_cofactor;
 
     
     [ Title( "Camera" ) ]

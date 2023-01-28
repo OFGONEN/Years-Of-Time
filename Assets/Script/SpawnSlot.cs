@@ -130,6 +130,8 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	{
 		clock_current = incoming;
 		incoming.OccupySpawnSlot();
+
+		list_slot_spawn_empty.RemoveList( this );
 	}
 
 	void MergeCurrentClock( Clock incoming )

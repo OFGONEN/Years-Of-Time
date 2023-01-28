@@ -39,7 +39,8 @@ namespace FFStudio
 		[ LabelText( "Highlight Alpha Cofactor" ) ] public float slot_clock_highlight_alpha_cofactor;
 
     [ Title( "Play Area" ) ]
-		[ LabelText( "Size Count" ) ] public int playArea_size_count;
+		[ LabelText( "Size Count Row" ) ] public int playArea_size_count_row;
+		[ LabelText( "Size Count Column" ) ] public int playArea_size_count_column;
 
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;

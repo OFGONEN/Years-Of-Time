@@ -29,15 +29,18 @@ namespace FFStudio
 #region UnityAPI
 		private void Start()
 		{
-			var spawnSlotArray = system_save.SaveData.slot_spawn_clock_level_array;
-			var isAvailable = false;
+            if( system_save.SaveData == null )
+			    notif_clock_purchase_condition.SetConditionSlot( true );
+            else
+            {
+			    var spawnSlotArray = system_save.SaveData.slot_spawn_clock_level_array;
+			    var isAvailable = false;
 
-			for( var i = 0; i < spawnSlotArray.Length; i++ )
-			{
-				isAvailable |= spawnSlotArray[ i ] == 0;
-			}
-
-			notif_clock_purchase_condition.SetConditionSlot( isAvailable );
+			    for( var i = 0; i < spawnSlotArray.Length; i++ )
+			    {
+				    isAvailable |= spawnSlotArray[ i ] == 0;
+			    }
+            }
 		}
 #endregion
 

@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1538200441067359773, guid: 545ec604fc748cd498c43ac44e52ff52, type: 3}
+      propertyPath: slot_row
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4752811034223550998, guid: 545ec604fc748cd498c43ac44e52ff52, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -53,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9072996503628061310, guid: 545ec604fc748cd498c43ac44e52ff52, type: 3}
       propertyPath: m_Name
-      value: slot_clock_base
+      value: slot_clock_row
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 545ec604fc748cd498c43ac44e52ff52, type: 3}

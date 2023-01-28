@@ -12,6 +12,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 #region Fields
   [ Title( "Setup" ) ]
 	[ SerializeField ] int slot_index;
+	[ SerializeField ] bool slot_row;
 
   [ Title( "Component" ) ]
 	[ SerializeField ] Disc _disc;
@@ -34,9 +35,10 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 #endregion
 
 #region Unity API
-    private void OnEnable()
-    {
-		list_slot_all.itemList.Add( this );
+	private void OnEnable()
+	{
+		// list_slot_all.AddList( this );
+		list_slot_axis.AddDictionary( slot_index, this );
 	}
 
     private void OnDisable()
@@ -44,7 +46,27 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 		list_slot_all.itemList.Remove( this );
 	}
 
-	//todo implement loading save data
+	private void Start()
+	{
+		if( slot_row )
+		{
+			var saveValue = system_save.SaveData.slot_clock_array_row[ slot_index ];
+
+			if( saveValue > -1 )
+				StartWithClock( saveValue );
+			else if( saveValue == -1 )
+				StartUnlocked();
+		}
+		else if( !slot_row )
+		{
+			var saveValue = system_save.SaveData.slot_clock_array_column[ slot_index ];
+
+			if( saveValue > -1 )
+				StartWithClock( saveValue );
+			else if( saveValue == -1 )
+				StartUnlocked();
+		}
+	}
 #endregion
 
 #region API
@@ -106,6 +128,19 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 #endregion
 
 #region Implementation
+	void StartUnlocked()
+	{
+		list_slot_all.AddList( this );
+		_disc.enabled = true;
+	}
+
+	void StartWithClock( int level )
+	{
+		list_slot_all.AddList( this );
+		_disc.enabled = true;
+		LoadClock( level );
+	}
+
 	void LoadClock( int index )
 	{
 		var clock     = pool_clock.GetEntity();

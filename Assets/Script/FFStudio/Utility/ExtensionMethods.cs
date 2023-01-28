@@ -551,6 +551,13 @@ namespace FFStudio
 			return FormatFloat.FormatNumber( value );
 		}
 
+		public static int GetCustomHashCode( this Vector2Int v2 )
+		{
+			if( Mathf.Max( v2.x, v2.y ) == v2.x )
+				return v2.x * v2.x + v2.x + v2.y;
+			else
+				return v2.x + v2.y * v2.y;
+		}
 #if FF_OBI_IMPORTED
 		public static void MergeParticles( this Obi.ObiRope obiRope, int indexOfElementBefore, int indexOfElementOfInterest )
 		{

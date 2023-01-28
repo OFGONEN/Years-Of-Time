@@ -18,8 +18,8 @@ public class ClockPurchase : SharedBoolNotifier
     [ SerializeField ] Currency currency;
     [ SerializeField ] ClockDataLibrary clock_data_library;
 
-    int purchase_count;
-	int purchase_level;
+    [ ShowInInspector, ReadOnly ] int purchase_count;
+	[ ShowInInspector, ReadOnly ] int purchase_level;
 #endregion
 
 #region Properties
@@ -78,7 +78,7 @@ public class ClockPurchase : SharedBoolNotifier
 				purchase_level = i;
 		}
 
-		purchase_level = Mathf.Max( purchase_level, clock_data_library.ClockMaxLevel );
+		purchase_level = Mathf.Min( purchase_level, clock_data_library.ClockMaxLevel );
 	}
 #endregion
 

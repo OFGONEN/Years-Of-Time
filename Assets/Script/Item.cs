@@ -10,7 +10,7 @@ public class Item : MonoBehaviour
 {
 #region Fields
   [ Title( "Setup" ) ]
-    [ SerializeField ] Vector2Int item_coordinate_array;
+    [ SerializeField ] Vector2Int item_coordinate;
     [ SerializeField ] int item_index;
 
   [ Title( "Shared" ) ]
@@ -26,9 +26,14 @@ public class Item : MonoBehaviour
 #region Unity API
     private void OnEnable()
     {
-		list_item.AddDictionary( item_coordinate_array.GetCustomHashCode(), this );
+		list_item.AddDictionary( item_coordinate.GetCustomHashCode(), this );
 
     }
+
+	private void OnDisable()
+	{
+		list_item.RemoveDictionary( item_coordinate.GetCustomHashCode() );
+	}
 
     private void Awake()
     {

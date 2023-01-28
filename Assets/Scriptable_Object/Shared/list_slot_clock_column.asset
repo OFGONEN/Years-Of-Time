@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66795703b4a1db74bab1c086f0585dc6, type: 3}
-  m_Name: list_slot_clock
+  m_Name: list_slot_clock_column
   m_EditorClassIdentifier: 
   setSize: 0
   itemList: []

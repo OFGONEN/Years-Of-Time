@@ -196,7 +196,7 @@ public class Clock : MonoBehaviour
 		onUpdate                   = OnMovement;
 	}
 
-	void DeSelectedOnSpawnSlotGoToTargetSlot()
+	void DeSelectedGoToTargetSlot()
 	{
 		if( slot_target.IsClockPresent() && slot_target.CurrentClockLevel() != ClockData.ClockLevel )
 			DeSelectedOnSpawnSlotReturnToCurrentSlot();
@@ -262,7 +262,7 @@ public class Clock : MonoBehaviour
 		else
 		{
 			slot_target  = slotTarget;
-			onDeSelected = DeSelectedOnSpawnSlotGoToTargetSlot;
+			onDeSelected = DeSelectedGoToTargetSlot;
 
 			if( !slot_target.IsClockPresent() || slot_target.CurrentClockLevel() == ClockData.ClockLevel )
 				slot_target.HighlightPositive();

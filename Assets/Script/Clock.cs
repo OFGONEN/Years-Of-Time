@@ -231,7 +231,10 @@ public class Clock : MonoBehaviour
 
 	void OnGoToTargetSlotComplete()
 	{
-		slot_target.HandleIncomingClock( this );
+		slot_current = slot_target;
+		slot_target  = null;
+
+		slot_current.HandleIncomingClock( this );
 	}
 
 	void OnMovement()

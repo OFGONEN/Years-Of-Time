@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c33709d6b97472d4b8859200e124cb87, type: 3}
   m_Name: shared_item_data_18
   m_EditorClassIdentifier: 
+  item_level: 0
   item_duration: 105
   item_currency: 105
   item_cost: 315
-  item_texture_background: {fileID: 2800000, guid: e13232f7e6d5bd4488e535783067d97d, type: 3}
-  item_texture_foreground: {fileID: 2800000, guid: cde53b46564b9cb45b992f7dfaa7c726, type: 3}
+  item_texture_background: {fileID: 0}
+  item_texture_foreground: {fileID: 0}

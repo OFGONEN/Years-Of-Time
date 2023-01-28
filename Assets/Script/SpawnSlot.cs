@@ -48,8 +48,8 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 
 	private void Start()
 	{
-		if( system_save.SaveData != null && system_save.SaveData.slot_spawn_clock_level_array[ slot_index ] != -1 )
-			LoadClock( system_save.SaveData.slot_spawn_clock_level_array[ slot_index ] );
+		if( system_save.SaveData.slot_spawn_array[ slot_index ] > -1 )
+			LoadClock( system_save.SaveData.slot_spawn_array[ slot_index ] );
 	}
 #endregion
 
@@ -115,12 +115,12 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 
 	public void LoadClock( int index )
 	{
-		var clock = pool_clock.GetEntity();
-		var clockData = clock_data_library.GetClockData( index );
+		var clock         = pool_clock.GetEntity();
+		var clockData     = clock_data_library.GetClockData( index );
+		    clock_current = clock;
 
 		clock.SpawnIntoSpawnSlot( this, clockData );
 
-		clock_current = clock;
 		list_slot_spawn_empty.RemoveList( this );
 	}
 #endregion

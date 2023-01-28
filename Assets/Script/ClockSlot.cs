@@ -42,6 +42,8 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
     {
 		list_slot_all.itemList.Remove( this );
 	}
+
+	//todo implement loading save data
 #endregion
 
 #region API

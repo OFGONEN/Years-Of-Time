@@ -85,9 +85,6 @@ namespace FFStudio
 		[ Button() ]
 		public void CreateSaveDataAndSave()
 		{
-			if( save_data == null )
-				save_data = new SaveData();
-
 			save_data.slot_spawn_array = new int[ list_slot_spawn_all.itemDictionary.Count ];
 
 			foreach( var slot in list_slot_spawn_all.itemDictionary.Values )
@@ -106,19 +103,15 @@ namespace FFStudio
 			if( json != null )
 				save_data = JsonUtility.FromJson< SaveData >( json ) as SaveData;
 			else
-				save_data = null;
+				CreateDefaultSaveData();
 		}
-#endregion
 
-#region Implementation
-#endregion
-
-#region Editor Only
-#if UNITY_EDITOR
 		[ Button() ]
 		public void CreateDefaultSaveData()
 		{
+#if UNITY_EDITOR
 			UnityEditor.EditorUtility.SetDirty( this );
+#endif
 
 			int spawnSlotCount   = 4;
 			int spawnSlotDefault = -1;
@@ -142,8 +135,17 @@ namespace FFStudio
 				save_data.slot_clock_array[ i ] = clockSlotDefault;
 			}
 
+#if UNITY_EDITOR
 			UnityEditor.AssetDatabase.SaveAssets();
+#endif
 		}
+#endregion
+
+#region Implementation
+#endregion
+
+#region Editor Only
+#if UNITY_EDITOR
 #endif
 #endregion
 	}

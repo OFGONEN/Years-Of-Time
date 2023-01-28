@@ -15,7 +15,8 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 
   [ Title( "Component" ) ]
 	[ SerializeField ] Disc _disc;
-	[ SerializeField ] Rectangle _rectangle;
+	[ SerializeField ] Rectangle _rectangle_background;
+	[ SerializeField ] Rectangle _rectangle_foreground;
 
   [ Title( "Shared" ) ]
 	// [ SerializeField ] ListSpawnSlot list_slot_spawn_all; // This includes all spawn slots
@@ -77,17 +78,26 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 
 	public void HighlightPositive()
 	{
-		_rectangle.Color = GameSettings.Instance.slot_clock_highlight_color_positive;
+		_rectangle_background.enabled = true;
+		_rectangle_foreground.enabled = true;
+
+		_rectangle_background.Color = GameSettings.Instance.slot_clock_highlight_color_positive.SetAlpha( GameSettings.Instance.slot_clock_highlight_alpha_cofactor );
+		_rectangle_foreground.Color = GameSettings.Instance.slot_clock_highlight_color_positive;
 	}
 
 	public void HighlightNegative()
 	{
-		_rectangle.Color = GameSettings.Instance.slot_clock_highlight_color_negative;
+		_rectangle_background.enabled = true;
+		_rectangle_foreground.enabled = true;
+
+		_rectangle_background.Color = GameSettings.Instance.slot_clock_highlight_color_negative.SetAlpha( GameSettings.Instance.slot_clock_highlight_alpha_cofactor );
+		_rectangle_foreground.Color = GameSettings.Instance.slot_clock_highlight_color_negative;
 	}
 
 	public void HighlightDefault()
 	{
-		_rectangle.Color = GameSettings.Instance.slot_clock_highlight_color_default;
+		_rectangle_background.enabled = false;
+		_rectangle_foreground.enabled = false;
 	}
   //ISlotInterface END
 #endregion

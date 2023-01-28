@@ -546,6 +546,11 @@ namespace FFStudio
 			return Mathf.Lerp( value, target, delta );
 		}
 
+		public static string FormatValue( this float value )
+		{
+			return FormatFloat.FormatNumber( value );
+		}
+
 #if FF_OBI_IMPORTED
 		public static void MergeParticles( this Obi.ObiRope obiRope, int indexOfElementBefore, int indexOfElementOfInterest )
 		{

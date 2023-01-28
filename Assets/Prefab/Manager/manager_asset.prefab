@@ -170,6 +170,18 @@ MonoBehaviour:
   onAwakeEvent:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 11400000, guid: 14c8cdf5fcfc1b94ea236d4e34cb1e8f, type: 2}
+        m_TargetAssemblyTypeName: FFStudio.SharedFloatNotifier, FFStudio
+        m_MethodName: LoadFromPlayerPrefs
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: a395e2587bf5ebe43b058fb257efae00, type: 2}
         m_TargetAssemblyTypeName: FFStudio.SharedDataNotifier`1[[System.Boolean,
           mscorlib

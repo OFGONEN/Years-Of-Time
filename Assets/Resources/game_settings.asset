@@ -38,6 +38,7 @@ MonoBehaviour:
   slot_clock_highlight_color_negative: {r: 1, g: 0, b: 0, a: 1}
   slot_clock_highlight_color_default: {r: 1, g: 1, b: 1, a: 1}
   slot_clock_highlight_alpha_cofactor: 0.11764706
+  playArea_size_count: 1
   camera_follow_speed_depth: 2.8
   maxLevelCount: 1
   game_selection_layer: 30

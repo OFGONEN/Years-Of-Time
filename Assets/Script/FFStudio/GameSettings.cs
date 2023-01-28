@@ -38,7 +38,9 @@ namespace FFStudio
 		[ LabelText( "Highlight Default Color" ) ] public Color slot_clock_highlight_color_default;
 		[ LabelText( "Highlight Alpha Cofactor" ) ] public float slot_clock_highlight_alpha_cofactor;
 
-    
+    [ Title( "Play Area" ) ]
+		[ LabelText( "Size Count" ) ] public int playArea_size_count;
+
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;
     

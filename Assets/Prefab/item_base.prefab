@@ -282,10 +282,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b121daeae6e6c95439d9c695da164b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item_coordinate_array:
-  - {x: 0, y: 0}
+  item_coordinate: {x: 0, y: 0}
   item_index: 0
+  item_data: {fileID: 11400000, guid: ae8ca52e08b662641aede813910e5492, type: 2}
   list_item: {fileID: 11400000, guid: 6248a2f0e06c0e54c8c85ea47318182c, type: 2}
+  item_background: {fileID: 1021661326469277704}
+  item_image_background: {fileID: 3374079638975793255}
+  item_image_foreground: {fileID: 3374079640365222616}
 --- !u!1 &9005470100747161967
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blendMode: 1
   scaleMode: 0
-  color: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
+  color: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 0.33333334}
   detailLevel: 2
   renderQueue: -1
   zTest: 4
@@ -353,7 +356,7 @@ MonoBehaviour:
   pivot: 1
   width: 1.224
   height: 1.224
-  type: 2
+  type: 1
   cornerRadiusMode: 0
   cornerRadii: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
   thickness: 0.1
@@ -406,7 +409,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2ff2f8d08564fc84d80a4b2e2daa7c53, type: 2}
+  - {fileID: 2100000, guid: 7a2265fc202676141a8729ed7751f445, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

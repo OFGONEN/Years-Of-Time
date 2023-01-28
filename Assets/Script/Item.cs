@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
 using Sirenix.OdinInspector;
+using Shapes;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
@@ -12,9 +14,15 @@ public class Item : MonoBehaviour
   [ Title( "Setup" ) ]
     [ SerializeField ] Vector2Int item_coordinate;
     [ SerializeField ] int item_index;
+    [ SerializeField ] ItemData item_data;
 
   [ Title( "Shared" ) ]
     [ SerializeField ] ListItem list_item;
+
+  [ Title( "Components" ) ]
+    [ SerializeField ] Rectangle item_background;
+    [ SerializeField ] Image item_image_background;
+    [ SerializeField ] Image item_image_foreground;
 
 	List< ClockSlot > clock_slot_list = new List< ClockSlot >( 2 );
     UnityMessage onUpdate;
@@ -27,7 +35,6 @@ public class Item : MonoBehaviour
     private void OnEnable()
     {
 		list_item.AddDictionary( item_coordinate.GetCustomHashCode(), this );
-
     }
 
 	private void OnDisable()
@@ -38,6 +45,7 @@ public class Item : MonoBehaviour
     private void Awake()
     {
 		EmptyDelegates();
+		UpdateVisual(); //todo remove this line
 		//todo Invisible, Unlock, ReadyToUnlock, ReadyToProduce    
 	}
 
@@ -70,14 +78,17 @@ public class Item : MonoBehaviour
 #endregion
 
 #region Implementation
+	void UpdateVisual()
+	{
+	}
+
 	void StartProduction()
 	{
-		FFLogger.Log( "Start Production", this );
+
 	}
 
 	void StopProduction()
 	{
-		FFLogger.Log( "Stop Production", this );
 	}
 
 	void EmptyDelegates()

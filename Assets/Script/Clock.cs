@@ -92,7 +92,7 @@ public class Clock : MonoBehaviour
 		gameObject.SetActive( true );
 		transform.position = SlotPositionCurrent;
 
-		//todo implement item production
+		//todo start item production
 	}
 
 	public void LoadIntoSpawnSlot( ISlotEntity slotEntity, ClockData data )
@@ -108,6 +108,23 @@ public class Clock : MonoBehaviour
 
 		gameObject.SetActive( true );
 		transform.position = SlotPositionCurrent;
+	}
+
+	public void LoadIntoClockSlot( ISlotEntity slotEntity, ClockData data )
+	{
+		CacheCamera();
+		UpdateClockData( data );
+		UpdateVisuals();
+
+		slot_current = slotEntity;
+		// onSelected   = SelectedOnSpawnSlot;
+
+		collider_selection.enabled = true;
+
+		gameObject.SetActive( true );
+		transform.position = SlotPositionCurrent;
+
+		//todo start item production
 	}
 
 	public void UpgradeInSpawnSlot()
@@ -172,7 +189,7 @@ public class Clock : MonoBehaviour
 
 	public void OccupyClockSlot()
 	{
-		//todo Implement 
+		//todo start item production 
 	}
 
 	public void ReturnToPool()
@@ -198,6 +215,20 @@ public class Clock : MonoBehaviour
 		onUpdate                   = OnMovement;
 	}
 
+	void SelectedOnClockSlot()
+	{
+		onSelected        = ExtensionMethods.EmptyMethod;
+		onDeSelected      = DeSelectedOnClockSlotReturnToCurrentSlot;
+		onDeSelectedCache = DeSelectedOnClockSlotReturnToCurrentSlot;
+
+		recycledTween.Kill();
+
+		collider_selection.enabled = false;
+		onUpdate                   = OnMovement;
+
+		//todo item stop production
+	}
+
 	void DeSelectedGoToTargetSlot()
 	{
 		if( slot_target.IsClockPresent() && slot_target.CurrentClockLevel() != ClockData.ClockLevel )
@@ -215,6 +246,20 @@ public class Clock : MonoBehaviour
 
 			EmptyDelegates();
 		}
+	}
+
+	void DeSelectedOnClockSlotReturnToCurrentSlot()
+	{
+		slot_target = null;
+
+		recycledTween.Recycle( transform.DOMove(
+			SlotPositionCurrent,
+			GameSettings.Instance.clock_slot_return_duration )
+			.SetEase( GameSettings.Instance.clock_slot_return_ease ),
+			OccupyClockSlot
+		);
+
+		EmptyDelegates();
 	}
 
 	void DeSelectedOnSpawnSlotReturnToCurrentSlot()

@@ -153,6 +153,11 @@ namespace FFStudio
 
 #region Editor Only
 #if UNITY_EDITOR
+		[ Button() ]
+		void SaveCurrentSaveData()
+		{
+			SaveOverride( JsonUtility.ToJson( save_data ) );
+		}
 #endif
 #endregion
 	}

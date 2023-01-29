@@ -8,6 +8,7 @@ using Shapes;
 using DG.Tweening;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
+using UnityEngine.Events;
 
 public class Item : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Item : MonoBehaviour
     [ SerializeField ] Vector2Int item_coordinate;
     [ SerializeField ] int item_index;
     [ SerializeField ] ItemData item_data;
+	[ SerializeField ] UnityEvent item_event_onUnlock;
 
   [ Title( "Shared" ) ]
     [ SerializeField ] ListItem list_item_coordinate;
@@ -103,6 +105,8 @@ public class Item : MonoBehaviour
 	{
 		event_particle_spawn.Raise( "item_unlock", transform.position );
 		StartAsUnlocked();
+
+		item_event_onUnlock.Invoke();
 
 		if( clock_slot_list.Count == 2 )
 			StartProduction();

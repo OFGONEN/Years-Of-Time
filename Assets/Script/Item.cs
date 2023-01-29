@@ -256,6 +256,12 @@ public class Item : MonoBehaviour
 		UnityEditor.EditorUtility.SetDirty( gameObject );
 		item_index = index;
 	}
+
+	public void SetItemCoordinate( Vector2Int coordinate )
+	{
+		UnityEditor.EditorUtility.SetDirty( gameObject );
+		item_coordinate = coordinate;
+	}
 #endif
 #endregion
 }

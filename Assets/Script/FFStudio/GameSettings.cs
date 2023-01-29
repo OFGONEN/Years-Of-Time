@@ -51,6 +51,7 @@ namespace FFStudio
 		[ LabelText( "UI Height Offset" ) ] public float item_unlock_height;
 
     [ Title( "Play Area" ) ]
+		[ LabelText( "Size Array" ) ] public float[] playArea_size_array;
 		[ LabelText( "Size Count Row" ) ] public int playArea_size_count_row;
 		[ LabelText( "Size Count Column" ) ] public int playArea_size_count_column;
 		[ LabelText( "Spawn Slot Count" ) ] public int playArea_spawn_slot_count;

@@ -19,6 +19,8 @@ public class Item : MonoBehaviour
 
   [ Title( "Shared" ) ]
     [ SerializeField ] ListItem list_item;
+    [ SerializeField ] Currency notif_currency;
+    [ SerializeField ] IncomeCofactor notif_income_cofactor;
 
   [ Title( "Components" ) ]
     [ SerializeField ] Rectangle item_background;
@@ -99,6 +101,7 @@ public class Item : MonoBehaviour
 	void OnItemProduced()
 	{
 		item_duration = 0;
+		notif_currency.SharedValue += item_data.ItemCurrency * notif_income_cofactor.sharedValue;
 	}
 
 	void UpdateVisual()

@@ -286,6 +286,8 @@ MonoBehaviour:
   item_index: 0
   item_data: {fileID: 11400000, guid: ae8ca52e08b662641aede813910e5492, type: 2}
   list_item: {fileID: 11400000, guid: 6248a2f0e06c0e54c8c85ea47318182c, type: 2}
+  notif_currency: {fileID: 11400000, guid: 2e15de48de013c54b95496572fa9ffae, type: 2}
+  notif_income_cofactor: {fileID: 11400000, guid: 14c8cdf5fcfc1b94ea236d4e34cb1e8f, type: 2}
   item_background: {fileID: 1021661326469277704}
   item_image_background: {fileID: 3374079638975793255}
   item_image_foreground: {fileID: 3374079640365222616}

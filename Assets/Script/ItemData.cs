@@ -17,13 +17,13 @@ public class ItemData : ScriptableObject
     [ SerializeField ] float item_cost;
 
   [ Title( "Visual" ) ]
-    [ SerializeField ] Sprite item_texture_background;
-    [ SerializeField ] Sprite item_texture_foreground;
+    [ SerializeField ] Sprite item_sprite_background;
+    [ SerializeField ] Sprite item_sprite_foreground;
 #endregion
 
 #region Properties
-    public Sprite ItemTextureBackground => item_texture_background;
-    public Sprite ItemTextureForeground => item_texture_foreground;
+    public Sprite ItemSpriteBackground => item_sprite_background;
+    public Sprite ItemSpriteForeground => item_sprite_foreground;
 #endregion
 
 #region Editor Only

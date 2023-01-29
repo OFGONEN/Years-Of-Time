@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 public class PlayArea : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class PlayArea : MonoBehaviour
 #endregion
 
 #region Implementation
+    [ Button() ]
     void ChangeSize()
     {
 		var size = GameSettings.Instance.playArea_size_array[ notif_item_unlock_index.sharedValue ];
@@ -46,7 +48,7 @@ public class PlayArea : MonoBehaviour
     {
 		var size = GameSettings.Instance.playArea_size_array[ notif_item_unlock_index.sharedValue ];
 
-		recycledTween.Recycle( transform.DOScale( size, GameSettings.Instance.playArea_size_duration )
+		recycledTween.Recycle( transform.DOScale( Vector3.one.SetX( size ).SetZ( size ), GameSettings.Instance.playArea_size_duration )
 			.SetEase( GameSettings.Instance.playArea_size_ease ) );
 	}
 #endregion

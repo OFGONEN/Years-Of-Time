@@ -4,9 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
-using Sirenix.OdinInspector;
 using Shapes;
+using DG.Tweening;
 using UnityEngine.UI;
+using Sirenix.OdinInspector;
 
 public class Item : MonoBehaviour
 {
@@ -25,7 +26,9 @@ public class Item : MonoBehaviour
     [ SerializeField ] Image item_image_foreground;
 
 	float item_duration;
+	Color item_background_color;
 
+	RecycledTween recycledTween = new RecycledTween();
 	List< ClockSlot > clock_slot_list = new List< ClockSlot >( 2 );
     UnityMessage onUpdate;
 #endregion
@@ -47,6 +50,8 @@ public class Item : MonoBehaviour
     private void Awake()
     {
 		EmptyDelegates();
+
+		item_background_color = item_background.Color;
 
 		UpdateVisual(); //todo remove this line
 		//todo Invisible, Unlock, ReadyToUnlock, ReadyToProduce    
@@ -104,14 +109,25 @@ public class Item : MonoBehaviour
 
 	void StartProduction()
 	{
-		//todo do background color tween
+		item_background.Color = GameSettings.Instance.item_produce_start_color;
+		TweenBackgroundColorToDefault();
+
 		onUpdate = OnProduction;
 	}
 
 	void StopProduction()
 	{
-		//todo do background color tween
+		item_background.Color = GameSettings.Instance.item_produce_stop_color;
+		TweenBackgroundColorToDefault();
+
 		onUpdate = ExtensionMethods.EmptyMethod;
+	}
+
+	void TweenBackgroundColorToDefault()
+	{
+		recycledTween.Recycle( DOTween.To(
+			GetBackgroundColor, SetBackgroundColor, item_background_color, GameSettings.Instance.item_produce_duration )
+			.SetEase( GameSettings.Instance.item_produce_ease ) );
 	}
 
 	void EmptyDelegates()
@@ -129,6 +145,16 @@ public class Item : MonoBehaviour
 		}
 
 		return speed;
+	}
+
+	Color GetBackgroundColor()
+	{
+		return item_background.Color;
+	}
+
+	void SetBackgroundColor( Color color )
+	{
+		item_background.Color = color;
 	}
 #endregion
 

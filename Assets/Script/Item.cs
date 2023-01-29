@@ -23,6 +23,7 @@ public class Item : MonoBehaviour
     [ SerializeField ] Currency notif_currency;
     [ SerializeField ] IncomeCofactor notif_income_cofactor;
     [ SerializeField ] SaveSystem system_save;
+    [ SerializeField ] ParticleSpawnEvent event_particle_spawn;
 
   [ Title( "Components" ) ]
     [ SerializeField ] Rectangle item_background;
@@ -98,7 +99,7 @@ public class Item : MonoBehaviour
 	[ Button() ]
 	public void Unlock()
 	{
-		//todo play pfx
+		event_particle_spawn.Raise( "item_unlock", transform.position );
 		StartAsUnlocked();
 
 		if( clock_slot_list.Count == 2 )

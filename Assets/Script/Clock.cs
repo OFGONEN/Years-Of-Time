@@ -17,6 +17,7 @@ public class Clock : MonoBehaviour
     [ SerializeField ] SharedReferenceNotifier notif_camera_reference;
     [ SerializeField ] ListSlot list_slot;
 	[ SerializeField ] PoolClock pool_clock;
+	[ SerializeField ] ParticleSpawnEvent event_particle_spawn;
 
   [ Title( "Components" ) ]
 	[ SerializeField ] Transform transform_gfx;
@@ -110,7 +111,8 @@ public class Clock : MonoBehaviour
 			collider_selection.enabled = true;
 			DoWaveAnimation();
 		} );
-		//todo Play PFX
+
+		event_particle_spawn.Raise( "clock_upgrade", transform.position );
 	}
 
 	public void UpgradeInClockSlot()
@@ -120,7 +122,8 @@ public class Clock : MonoBehaviour
 
 		transform.position = SlotPositionCurrent;
 		DOPunchScale( () => collider_selection.enabled = true );
-		//todo Play PFX
+
+		event_particle_spawn.Raise( "clock_upgrade", transform.position );
 	}
 
 	public void UpdateClockData( ClockData data )

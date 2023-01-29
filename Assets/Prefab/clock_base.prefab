@@ -175,6 +175,7 @@ MonoBehaviour:
   notif_camera_reference: {fileID: 11400000, guid: 488e798dd6f140e4a84fa7485b885dd3, type: 2}
   list_slot: {fileID: 11400000, guid: 8bbbf5a431ff41c4bad8c5f8d5381de0, type: 2}
   pool_clock: {fileID: 11400000, guid: 1436a799764a7d043a4bd009ef3d321c, type: 2}
+  event_particle_spawn: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
   transform_gfx: {fileID: 3473131557580954200}
   collider_selection: {fileID: 8414447166023306716}
   clock_hand_second: {fileID: 6434320321014873073}

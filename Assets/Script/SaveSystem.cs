@@ -14,6 +14,7 @@ namespace FFStudio
 	  	[ SerializeField ] ListSpawnSlot list_slot_spawn_all;
 	  	[ SerializeField ] ListClockSlot list_slot_clock_row;
 	  	[ SerializeField ] ListClockSlot list_slot_clock_column;
+	  	[ SerializeField ] ListItem list_item_index;
 
 	  [ Title( "Setup" ) ]
 		[ SerializeField ] SharedStringNotifier save_string;
@@ -91,31 +92,35 @@ namespace FFStudio
 		[ Button() ]
 		public void SaveGameState()
 		{
-			save_data.slot_spawn_array = new int[ list_slot_spawn_all.itemDictionary.Count ];
-
+			// Spawn Slot
 			foreach( var slot in list_slot_spawn_all.itemDictionary.Values )
 			{
 				save_data.slot_spawn_array[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
 			}
 
+			// Clock Slot Row Default
 			save_data.slot_clock_array_row = new int[ GameSettings.Instance.playArea_size_count_row ];
 
 			for( var i = 0; i < save_data.slot_clock_array_row.Length; i++ )
 				save_data.slot_clock_array_row[ i ] = slot_clock_default;
 
+			// Clock Slot Column Default
 			save_data.slot_clock_array_column = new int[ GameSettings.Instance.playArea_size_count_column ];
 
 			for( var i = 0; i < save_data.slot_clock_array_column.Length; i++ )
 				save_data.slot_clock_array_column[ i ] = slot_clock_default;
 
-
+			// Clock Slot Row Current
 			foreach( var slot in list_slot_clock_row.itemDictionary.Values )
 				save_data.slot_clock_array_row[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
 
+			// Clock Slot Column Current
 			foreach( var slot in list_slot_clock_column.itemDictionary.Values )
-			{
 				save_data.slot_clock_array_column[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
-			}
+
+
+			foreach( var item in list_item_index.itemDictionary.Values )
+				save_data.item_array[ item.ItemIndex ] = (int)item.ItemState ;
 
 			SaveOverride( JsonUtility.ToJson( save_data ) );
 		}

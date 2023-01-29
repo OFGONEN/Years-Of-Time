@@ -27,7 +27,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ClockDataLibrary clock_data_library;
 	[ SerializeField ] SaveSystem system_save;
-	[ SerializeField ] ListItem list_item;
+	[ SerializeField ] ListItem list_item_coordinate;
 
 	[ ShowInInspector, ReadOnly ] Clock clock_current;
 	[ ShowInInspector, ReadOnly ] Item[] item_array;
@@ -60,7 +60,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 			for( var i = 0; i < GameSettings.Instance.playArea_size_count_column; i++ )
 			{
 				Item item;
-				list_item.itemDictionary.TryGetValue( new Vector2Int( i, slot_index ).GetCustomHashCode(), out item );
+				list_item_coordinate.itemDictionary.TryGetValue( new Vector2Int( i, slot_index ).GetCustomHashCode(), out item );
 				item_array[ i ] = item;
 			}
 		}
@@ -71,7 +71,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 			for( var i = 0; i < GameSettings.Instance.playArea_size_count_row; i++ )
 			{
 				Item item;
-				list_item.itemDictionary.TryGetValue( new Vector2Int( slot_index, i ).GetCustomHashCode(), out item );
+				list_item_coordinate.itemDictionary.TryGetValue( new Vector2Int( slot_index, i ).GetCustomHashCode(), out item );
 				item_array[ i ] = item;
 			}
 		}

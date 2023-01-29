@@ -55,7 +55,7 @@ MonoBehaviour:
   pool_clock: {fileID: 11400000, guid: 1436a799764a7d043a4bd009ef3d321c, type: 2}
   clock_data_library: {fileID: 11400000, guid: 40039483da29b41f7b32b07ba371c16e, type: 2}
   system_save: {fileID: 11400000, guid: 07c56239588814c1996e673febff6634, type: 2}
-  list_item: {fileID: 11400000, guid: 6248a2f0e06c0e54c8c85ea47318182c, type: 2}
+  list_item_coordinate: {fileID: 11400000, guid: 6248a2f0e06c0e54c8c85ea47318182c, type: 2}
 --- !u!1001 &259780646218378613
 PrefabInstance:
   m_ObjectHideFlags: 0

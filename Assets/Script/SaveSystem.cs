@@ -28,7 +28,7 @@ namespace FFStudio
 #endregion
 
 #region Properties
-		public SaveData SaveData => save_data;
+		public SaveData SaveData          => save_data;
 		public static SaveSystem Instance => instance;
 #endregion
 
@@ -99,14 +99,10 @@ namespace FFStudio
 			}
 
 			// Clock Slot Row Default
-			save_data.slot_clock_array_row = new int[ GameSettings.Instance.playArea_size_count_row ];
-
 			for( var i = 0; i < save_data.slot_clock_array_row.Length; i++ )
 				save_data.slot_clock_array_row[ i ] = slot_clock_default;
 
 			// Clock Slot Column Default
-			save_data.slot_clock_array_column = new int[ GameSettings.Instance.playArea_size_count_column ];
-
 			for( var i = 0; i < save_data.slot_clock_array_column.Length; i++ )
 				save_data.slot_clock_array_column[ i ] = slot_clock_default;
 
@@ -117,7 +113,6 @@ namespace FFStudio
 			// Clock Slot Column Current
 			foreach( var slot in list_slot_clock_column.itemDictionary.Values )
 				save_data.slot_clock_array_column[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
-
 
 			foreach( var item in list_item_index.itemDictionary.Values )
 				save_data.item_array[ item.ItemIndex ] = (int)item.ItemState ;
@@ -132,20 +127,28 @@ namespace FFStudio
 
 			if( json != null )
 				save_data = JsonUtility.FromJson< SaveData >( json ) as SaveData;
+#if UNITY_EDITOR
 			else
 				CreateDefaultSaveData();
+#endif
 		}
 
+#endregion
+
+#region Implementation
+#endregion
+
+#region Editor Only
+#if UNITY_EDITOR
 		[ Button() ]
 		public void CreateDefaultSaveData()
 		{
-#if UNITY_EDITOR
 			UnityEditor.EditorUtility.SetDirty( this );
-#endif
 
-			int spawnSlotCount   = 4;
-			int clockSlotCount   = 2;
-			int itemCount        = 2;
+			int spawnSlotCount       = GameSettings.Instance.playArea_spawn_slot_count;
+			int clockRowSlotCount    = GameSettings.Instance.playArea_size_count_row;
+			int clockColumnSlotCount = GameSettings.Instance.playArea_size_count_column;
+			int itemCount            = GameSettings.Instance.PlayAreaSize;
 
 			save_data = new SaveData();
 
@@ -156,15 +159,15 @@ namespace FFStudio
 				save_data.slot_spawn_array[ i ] = slot_spawn_default;
 
 			// Clock Slot Row
-			save_data.slot_clock_array_row = new int[ clockSlotCount ];
+			save_data.slot_clock_array_row = new int[ clockRowSlotCount ];
 
-			for( var i = 0; i < clockSlotCount; i++ )
+			for( var i = 0; i < clockRowSlotCount; i++ )
 				save_data.slot_clock_array_row[ i ] = slot_clock_default;
 
 			// Clock Slot Column
-			save_data.slot_clock_array_column = new int[ clockSlotCount ];
+			save_data.slot_clock_array_column = new int[ clockColumnSlotCount ];
 
-			for( var i = 0; i < clockSlotCount; i++ )
+			for( var i = 0; i < clockColumnSlotCount; i++ )
 				save_data.slot_clock_array_column[ i ] = slot_clock_default;
 
 			// Item
@@ -173,17 +176,10 @@ namespace FFStudio
 			for( var i = 0; i < itemCount; i++ )
 				save_data.item_array[ i ] = item_default;
 
-#if UNITY_EDITOR
 			UnityEditor.AssetDatabase.SaveAssets();
-#endif
+			SaveCurrentSaveData();
 		}
-#endregion
 
-#region Implementation
-#endregion
-
-#region Editor Only
-#if UNITY_EDITOR
 		[ Button() ]
 		void SaveCurrentSaveData()
 		{

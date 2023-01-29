@@ -19,6 +19,6 @@ MonoBehaviour:
   save_string: {fileID: 11400000, guid: 7a7ff5daa44de4fc3b72d51603cc7641, type: 2}
   save_data:
     slot_spawn_array: ffffffffffffffffffffffffffffffff
-    slot_clock_array_row: ffffffff
-    slot_clock_array_column: ffffffffffffffff
-    item_array: 00000000ffffffff
+    slot_clock_array_row: feffffff
+    slot_clock_array_column: fefffffffeffffff
+    item_array: fefffffffeffffff

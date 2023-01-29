@@ -19,8 +19,8 @@ public class ItemData : ScriptableObject
   [ Title( "Visual" ) ]
     [ SerializeField ] Sprite item_sprite_background;
     [ SerializeField ] Sprite item_sprite_foreground;
-    [ SerializeField ] float item_sprite_fill_bottom;
-    [ SerializeField ] float item_sprite_fill_top;
+    [ SerializeField ] float item_sprite_fill_bottom = 0;
+    [ SerializeField ] float item_sprite_fill_top = 1;
 #endregion
 
 #region Properties

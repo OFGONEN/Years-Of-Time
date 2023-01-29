@@ -91,6 +91,13 @@ public class Item : MonoBehaviour
 #endregion
 
 #region API
+	public void OnPlayAreaSizeChange( int size )
+	{
+		if( ( size == item_coordinate.x && item_coordinate.y <= size ) || 
+			( item_coordinate.x <= size && size == item_coordinate.y ) )
+			StartAsLocked();
+	}
+
 	public void OnAssignClockSlot( ClockSlot clockSlot )
 	{
 		onClockAssign( clockSlot );

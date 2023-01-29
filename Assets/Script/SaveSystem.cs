@@ -127,10 +127,6 @@ namespace FFStudio
 
 			if( json != null )
 				save_data = JsonUtility.FromJson< SaveData >( json ) as SaveData;
-#if UNITY_EDITOR
-			else
-				CreateDefaultSaveData();
-#endif
 		}
 
 #endregion

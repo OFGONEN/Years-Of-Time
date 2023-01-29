@@ -1712,6 +1712,34 @@ PrefabInstance:
       propertyPath: item_coordinate.y
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: fc4e2c07b35ed3d4781582823e44b236, type: 2}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Raise
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FFStudio.GameEvent, FFStudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7847381935867201880, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
       propertyPath: m_Name
       value: item_48
@@ -2247,6 +2275,34 @@ PrefabInstance:
       propertyPath: item_coordinate.y
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: fc4e2c07b35ed3d4781582823e44b236, type: 2}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Raise
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FFStudio.GameEvent, FFStudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7847381935867201880, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
       propertyPath: m_Name
       value: item_24
@@ -2595,6 +2651,34 @@ PrefabInstance:
       propertyPath: item_coordinate.y
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: fc4e2c07b35ed3d4781582823e44b236, type: 2}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Raise
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FFStudio.GameEvent, FFStudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7847381935867201880, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
       propertyPath: m_Name
       value: item_32
@@ -2736,6 +2820,34 @@ PrefabInstance:
     - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
       propertyPath: item_coordinate.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: fc4e2c07b35ed3d4781582823e44b236, type: 2}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Raise
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FFStudio.GameEvent, FFStudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7847381935867201880, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
       propertyPath: m_Name
@@ -3403,6 +3515,34 @@ PrefabInstance:
     - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
       propertyPath: item_coordinate.y
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: fc4e2c07b35ed3d4781582823e44b236, type: 2}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Raise
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FFStudio.GameEvent, FFStudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_event_onUnlock.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7847381935867201880, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
       propertyPath: m_Name

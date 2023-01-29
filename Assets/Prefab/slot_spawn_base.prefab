@@ -53,6 +53,7 @@ MonoBehaviour:
   pool_clock: {fileID: 11400000, guid: 1436a799764a7d043a4bd009ef3d321c, type: 2}
   clock_data_library: {fileID: 11400000, guid: 40039483da29b41f7b32b07ba371c16e, type: 2}
   system_save: {fileID: 11400000, guid: 07c56239588814c1996e673febff6634, type: 2}
+  notif_clock_purchase_condition: {fileID: 11400000, guid: a395e2587bf5ebe43b058fb257efae00, type: 2}
 --- !u!1001 &8029905887269115632
 PrefabInstance:
   m_ObjectHideFlags: 0

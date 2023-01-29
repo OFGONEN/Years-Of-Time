@@ -23,6 +23,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ClockDataLibrary clock_data_library;
 	[ SerializeField ] SaveSystem system_save;
+	[ SerializeField ] ClockPurchaseCondition notif_clock_purchase_condition;
 
 	[ ShowInInspector, ReadOnly ] Clock clock_current;
 #endregion
@@ -84,6 +85,7 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 	{
 		clock_current = null;
 		list_slot_spawn_empty.AddList( this );
+		notif_clock_purchase_condition.SetConditionSlot( true );
 	}
 
 	public void HighlightPositive()

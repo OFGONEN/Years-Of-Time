@@ -38,6 +38,8 @@ public class Item : MonoBehaviour
 	RecycledTween recycledTween_Scale = new RecycledTween();
 	List< ClockSlot > clock_slot_list = new List< ClockSlot >( 2 );
     UnityMessage onUpdate;
+	ClockMessage onClockAssign;
+	ClockMessage onClockRemove;
 #endregion
 
 #region Properties
@@ -60,13 +62,10 @@ public class Item : MonoBehaviour
     private void Awake()
     {
 		EmptyDelegates();
-
 		item_background_color = item_background.Color;
 
-		var saveData = system_save.SaveData;
-
-		UpdateVisual(); //todo remove this line
-		//todo Invisible, Unlock, ReadyToUnlock, ReadyToProduce    
+		// Load item state
+		var state = (ItemState)system_save.SaveData.item_array[ item_index ];
 	}
 
     private void Update()
@@ -149,7 +148,9 @@ public class Item : MonoBehaviour
 
 	void EmptyDelegates()
     {
-		onUpdate = ExtensionMethods.EmptyMethod;
+		onUpdate      = ExtensionMethods.EmptyMethod;
+		onClockAssign = EmptyMethod;
+		onClockRemove = EmptyMethod;
 	}
 
 	float GetCurrentClockSpeed()
@@ -173,6 +174,11 @@ public class Item : MonoBehaviour
 	{
 		item_background.Color = color;
 	}
+
+	void EmptyMethod( Clock clock )
+	{
+		// Left emtpy
+	}
 #endregion
 
 #region Editor Only
@@ -180,6 +186,8 @@ public class Item : MonoBehaviour
 #endif
 #endregion
 }
+
+public delegate void ClockMessage( Clock clock );
 
 public enum ItemState
 {

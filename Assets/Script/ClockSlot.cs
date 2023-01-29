@@ -164,6 +164,12 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 		_rectangle_foreground.enabled = false;
 	}
   //ISlotInterface END
+	
+	public void OnPlayAreaSizeChange( int size )
+	{
+		if( size == slot_index )
+			StartUnlocked();
+	}
 #endregion
 
 #region Implementation

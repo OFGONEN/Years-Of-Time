@@ -202,13 +202,13 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	void AssignClockToItems()
 	{
 		for( var i = 0; i < item_array.Length; i++ )
-			item_array[ i ].AssignClockSlot( this );
+			item_array[ i ].OnAssignClockSlot( this );
 	}
 
 	void RemoveClockFromItems()
 	{
 		for( var i = 0; i < item_array.Length; i++ )
-			item_array[ i ].RemoveClockSlot( this );
+			item_array[ i ].OnRemoveClockSlot( this );
 	}
 #endregion
 

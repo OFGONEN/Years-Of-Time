@@ -75,7 +75,19 @@ public class Item : MonoBehaviour
 #endregion
 
 #region API
-	public void AssignClockSlot( ClockSlot clockSlot )
+	public void OnAssignClockSlot( ClockSlot clockSlot )
+	{
+		onClockAssign( clockSlot );
+	}
+
+	public void OnRemoveClockSlot( ClockSlot clockSlot )
+	{
+		onClockRemove( clockSlot );
+	}
+#endregion
+
+#region Implementation
+	void AssignClockSlot( ClockSlot clockSlot )
 	{
 		clock_slot_list.Add( clockSlot );
 
@@ -83,7 +95,7 @@ public class Item : MonoBehaviour
 			StartProduction();
 	}
 
-	public void RemoveClockSlot( ClockSlot clockSlot )
+	void RemoveClockSlot( ClockSlot clockSlot )
 	{
 #if UNITY_EDITOR
 		var removed = clock_slot_list.Remove( clockSlot );
@@ -94,9 +106,6 @@ public class Item : MonoBehaviour
 #endif
 		StopProduction();
 	}
-#endregion
-
-#region Implementation
 	void OnProduction()
 	{
 		item_duration += Time.deltaTime * GetCurrentClockSpeed();
@@ -175,7 +184,7 @@ public class Item : MonoBehaviour
 		item_background.Color = color;
 	}
 
-	void EmptyMethod( Clock clock )
+	void EmptyMethod( ClockSlot clockSlot )
 	{
 		// Left emtpy
 	}
@@ -187,7 +196,7 @@ public class Item : MonoBehaviour
 #endregion
 }
 
-public delegate void ClockMessage( Clock clock );
+public delegate void ClockMessage( ClockSlot clockSlot );
 
 public enum ItemState
 {

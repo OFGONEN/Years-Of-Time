@@ -51,6 +51,7 @@ MonoBehaviour:
   item_locked_sprite: {fileID: 21300000, guid: 60f0a3b1dd82e2c4290f5c13175dd3ce, type: 3}
   playArea_size_count_row: 1
   playArea_size_count_column: 2
+  playArea_spawn_slot_count: 4
   camera_follow_speed_depth: 2.8
   maxLevelCount: 1
   game_selection_layer: 30

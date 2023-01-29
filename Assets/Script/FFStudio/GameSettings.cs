@@ -50,6 +50,7 @@ namespace FFStudio
     [ Title( "Play Area" ) ]
 		[ LabelText( "Size Count Row" ) ] public int playArea_size_count_row;
 		[ LabelText( "Size Count Column" ) ] public int playArea_size_count_column;
+		[ LabelText( "Spawn Slot Count" ) ] public int playArea_spawn_slot_count;
 
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;

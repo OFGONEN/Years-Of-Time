@@ -182,6 +182,8 @@ public class Clock : MonoBehaviour
 		onDeSelected      = DeSelectedOnSpawnSlotReturnToCurrentSlot;
 		onDeSelectedCache = DeSelectedOnSpawnSlotReturnToCurrentSlot;
 
+		slot_current.OnCurrentClockDeparted();
+
 		recycledTween.Kill();
 
 		collider_selection.enabled = false;
@@ -193,6 +195,8 @@ public class Clock : MonoBehaviour
 		onSelected        = ExtensionMethods.EmptyMethod;
 		onDeSelected      = DeSelectedOnClockSlotReturnToCurrentSlot;
 		onDeSelectedCache = DeSelectedOnClockSlotReturnToCurrentSlot;
+
+		slot_current.OnCurrentClockDeparted();
 
 		recycledTween.Kill();
 
@@ -206,8 +210,6 @@ public class Clock : MonoBehaviour
 			DeSelectedOnSpawnSlotReturnToCurrentSlot();
 		else
 		{
-			slot_current.OnCurrentClockDeparted();
-			
 			recycledTween.Recycle( transform.DOMove(
 				SlotPositionTarget,
 				GameSettings.Instance.clock_slot_go_duration )
@@ -227,7 +229,7 @@ public class Clock : MonoBehaviour
 			SlotPositionCurrent,
 			GameSettings.Instance.clock_slot_return_duration )
 			.SetEase( GameSettings.Instance.clock_slot_return_ease ),
-			OccupyClockSlot
+			OnReturnToCurrentSlotComplete
 		);
 
 		EmptyDelegates();
@@ -241,7 +243,7 @@ public class Clock : MonoBehaviour
 			SlotPositionCurrent,
 			GameSettings.Instance.clock_slot_return_duration )
 			.SetEase( GameSettings.Instance.clock_slot_return_ease ),
-			OccupySpawnSlot
+			OnReturnToCurrentSlotComplete
 		);
 
 		EmptyDelegates();
@@ -252,6 +254,11 @@ public class Clock : MonoBehaviour
 		slot_current = slot_target;
 		slot_target  = null;
 
+		slot_current.HandleIncomingClock( this );
+	}
+
+	void OnReturnToCurrentSlotComplete()
+	{
 		slot_current.HandleIncomingClock( this );
 	}
 

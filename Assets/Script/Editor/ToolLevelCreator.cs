@@ -23,6 +23,14 @@ public class ToolLevelCreator : ScriptableObject
     [ FoldoutGroup( "Clock Slot" ) ] public int slot_clock_count;
     [ FoldoutGroup( "Clock Slot" ) ] public Vector3 slot_clock_origin;
     [ FoldoutGroup( "Clock Slot" ) ] public Vector3 slot_clock_offset;
+
+    [ FoldoutGroup( "Item" ) ] public Item prefab_item;
+    [ FoldoutGroup( "Item" ) ] public int item_count_row;
+    [ FoldoutGroup( "Item" ) ] public int item_count_column;
+    [ FoldoutGroup( "Item" ) ] public float item_size;
+    [ FoldoutGroup( "Item" ) ] public Vector3 item_origin;
+    [ FoldoutGroup( "Item" ) ] public Vector3 item_offset;
+
 #endregion
 
 #region Properties
@@ -70,7 +78,7 @@ public class ToolLevelCreator : ScriptableObject
 	{
 		EditorSceneManager.MarkAllScenesDirty();
 
-		var playArea = GameObject.Find( "play_area" ).transform;
+		var playArea = GameObject.Find( "area_clock" ).transform;
 
 		EditorUtility.SetDirty( playArea.gameObject );
 		playArea.DestroyAllChildren();
@@ -101,6 +109,38 @@ public class ToolLevelCreator : ScriptableObject
 			clockSlotRow.transform.localScale = Vector3.one;
 
 			clockSlotRow.SetSlotIndex( i );
+		}
+	}
+
+	[ Button() ]
+	public void SpawnItems()
+	{
+		EditorSceneManager.MarkAllScenesDirty();
+
+		var playArea = GameObject.Find( "area_item" ).transform;
+
+		EditorUtility.SetDirty( playArea.gameObject );
+		playArea.DestroyAllChildren();
+
+		int spawnCount = 0;
+		Vector3 origin = item_origin + Vector3.right * item_offset.x + Vector3.forward * item_offset.z;
+
+		for( var x = 0; x < item_count_row; x++ )
+		{
+			for( var y = 0; y < item_count_column; y++ )
+			{
+				var item = PrefabUtility.InstantiatePrefab( prefab_item ) as Item;
+
+				item.gameObject.name = "item_" + spawnCount;
+				item.transform.position = origin + Vector3.right * x * item_offset.x + Vector3.forward * y * item_offset.z;
+
+				item.transform.localScale = new Vector3( item_size, 1, item_size );
+				item.transform.SetParent( playArea );
+
+				item.SetItemIndex( spawnCount );
+
+				spawnCount++;
+			}
 		}
 	}
 #endregion

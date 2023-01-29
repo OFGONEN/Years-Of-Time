@@ -22,3 +22,9 @@ MonoBehaviour:
   slot_clock_count: 7
   slot_clock_origin: {x: -5.5, y: 0, z: 8.85}
   slot_clock_offset: {x: 3.5, y: 0, z: -3.5}
+  prefab_item: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+  item_count_row: 7
+  item_count_column: 7
+  item_size: 2.35
+  item_origin: {x: -5.5, y: 0, z: 8.85}
+  item_offset: {x: 3.5, y: 0, z: -3.5}

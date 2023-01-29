@@ -30,6 +30,8 @@ public class ItemData : ScriptableObject
 	public float ItemCost              => item_cost;
 	public Sprite ItemSpriteBackground => item_sprite_background;
 	public Sprite ItemSpriteForeground => item_sprite_foreground;
+	public float ItemSpriteFillBottom  => item_sprite_fill_bottom;
+	public float ItemSpriteFillTop     => item_sprite_fill_top;
 #endregion
 
 #region Editor Only

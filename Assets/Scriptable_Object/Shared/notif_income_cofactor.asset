@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689d2cf4fee154643818204e4d5cf86e, type: 3}
   m_Name: notif_income_cofactor
   m_EditorClassIdentifier: 
-  sharedValue: 0
+  sharedValue: 1

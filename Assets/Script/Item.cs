@@ -251,6 +251,11 @@ public class Item : MonoBehaviour
 
 #region Editor Only
 #if UNITY_EDITOR
+	public void SetItemIndex( int index )
+	{
+		UnityEditor.EditorUtility.SetDirty( gameObject );
+		item_index = index;
+	}
 #endif
 #endregion
 }

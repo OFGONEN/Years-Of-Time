@@ -108,11 +108,11 @@ namespace FFStudio
 
 			// Clock Slot Row Current
 			foreach( var slot in list_slot_clock_row.itemDictionary.Values )
-				save_data.slot_clock_array_row[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
+				save_data.slot_clock_array_row[ slot.SlotIndex ] = slot.ClockSlotState == ClockSlotState.Invisible ? slot_clock_default : slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
 
 			// Clock Slot Column Current
 			foreach( var slot in list_slot_clock_column.itemDictionary.Values )
-				save_data.slot_clock_array_column[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
+				save_data.slot_clock_array_column[ slot.SlotIndex ] = slot.ClockSlotState == ClockSlotState.Invisible ? slot_clock_default : slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
 
 			foreach( var item in list_item_index.itemDictionary.Values )
 				save_data.item_array[ item.ItemIndex ] = (int)item.ItemState ;

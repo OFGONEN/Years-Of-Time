@@ -31,8 +31,7 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 
 	[ ShowInInspector, ReadOnly ] Clock clock_current;
 	[ ShowInInspector, ReadOnly ] Item[] item_array;
-
-	ClockSlotState slot_state;
+	[ ShowInInspector, ReadOnly ] ClockSlotState slot_state;
 #endregion
 
 #region Properties

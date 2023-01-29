@@ -45,6 +45,7 @@ namespace FFStudio
 		[ LabelText( "Produce Stop Color" ) ] public Color item_produce_stop_color;
 		[ LabelText( "Produce Tween Duration" ) ] public float item_produce_duration;
 		[ LabelText( "Produce Tween Ease" ) ] public Ease item_produce_ease;
+		[ LabelText( "Locked Sprite" ) ] public Sprite item_locked_sprite;
 
     [ Title( "Play Area" ) ]
 		[ LabelText( "Size Count Row" ) ] public int playArea_size_count_row;

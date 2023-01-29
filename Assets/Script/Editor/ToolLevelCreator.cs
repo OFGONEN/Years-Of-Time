@@ -10,7 +10,7 @@ using Sirenix.OdinInspector;
 using FFStudio;
 
 [ CreateAssetMenu( fileName = "tool_level_creator", menuName = "FF/Game/Tool/Level Creator" ) ]
-public class ToolLevelCreator : ScriptableObject
+public class ToolLevelCreator : SerializedScriptableObject
 {
 #region Fields
     [ FoldoutGroup( "Spawn Slot" ) ] public SpawnSlot prefab_slot_spawn;
@@ -31,6 +31,7 @@ public class ToolLevelCreator : ScriptableObject
     [ FoldoutGroup( "Item" ) ] public float item_size;
     [ FoldoutGroup( "Item" ) ] public Vector3 item_origin;
     [ FoldoutGroup( "Item" ) ] public Vector3 item_offset;
+    [ FoldoutGroup( "Item" ),  ] public int[][] item_index_array;
 
 #endregion
 
@@ -138,12 +139,20 @@ public class ToolLevelCreator : ScriptableObject
 				item.transform.localScale = new Vector3( item_size, 1, item_size );
 				item.transform.SetParent( playArea );
 
-				item.SetItemIndex( spawnCount );
+				item.SetItemIndex( item_index_array[ y ][ x ] );
 				item.SetItemCoordinate( new Vector2Int( x, y ) );
 
 				spawnCount++;				
 			}
 		}
+
+		//  0  1  4  9 16 25 36
+		//  2  3  6 11 18 27 38
+		//  5  7  8 13 20 29 40
+		// 10 12 14 15 22 31 42
+		// 17 19 21 23 24 33 44
+		// 26 28 30 32 34 35 46
+		// 37 39 41 43 45 47 49
 	}
 #endregion
 

@@ -114,6 +114,11 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 		return clock_current.ClockData.ClockLevel;
 	}
 
+	public float CurrentClockSpeed()
+	{
+		return clock_current.ClockData.ClockSpeed;
+	}
+
 	public void HandleIncomingClock( Clock incoming )
 	{
 		if( clock_current == null )

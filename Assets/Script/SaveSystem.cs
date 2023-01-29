@@ -12,12 +12,17 @@ namespace FFStudio
 #region Fields
 	  [ Title( "Save Targets" ) ]
 	  	[ SerializeField ] ListSpawnSlot list_slot_spawn_all;
+	  	[ SerializeField ] ListClockSlot list_slot_clock_row;
+	  	[ SerializeField ] ListClockSlot list_slot_clock_column;
 
 	  [ Title( "Setup" ) ]
 		[ SerializeField ] SharedStringNotifier save_string;
 
 		[ SerializeField ] SaveData save_data;
 		static SaveSystem instance;
+
+		const int slot_spawn_default = -1;
+		const int slot_clock_default = -2;
 #endregion
 
 #region Properties
@@ -83,13 +88,32 @@ namespace FFStudio
 		}
 
 		[ Button() ]
-		public void CreateSaveDataAndSave()
+		public void SaveGameState()
 		{
 			save_data.slot_spawn_array = new int[ list_slot_spawn_all.itemDictionary.Count ];
 
 			foreach( var slot in list_slot_spawn_all.itemDictionary.Values )
 			{
 				save_data.slot_spawn_array[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
+			}
+
+			save_data.slot_clock_array_row = new int[ GameSettings.Instance.playArea_size_count_row ];
+
+			for( var i = 0; i < save_data.slot_clock_array_row.Length; i++ )
+				save_data.slot_clock_array_row[ i ] = slot_clock_default;
+
+			save_data.slot_clock_array_column = new int[ GameSettings.Instance.playArea_size_count_column ];
+
+			for( var i = 0; i < save_data.slot_clock_array_column.Length; i++ )
+				save_data.slot_clock_array_column[ i ] = slot_clock_default;
+
+
+			foreach( var slot in list_slot_clock_row.itemDictionary.Values )
+				save_data.slot_clock_array_row[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
+
+			foreach( var slot in list_slot_clock_column.itemDictionary.Values )
+			{
+				save_data.slot_clock_array_column[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
 			}
 
 			SaveOverride( JsonUtility.ToJson( save_data ) );
@@ -114,10 +138,7 @@ namespace FFStudio
 #endif
 
 			int spawnSlotCount   = 4;
-			int spawnSlotDefault = -1;
-
 			int clockSlotCount   = 2;
-			int clockSlotDefault = -2;
 
 			save_data = new SaveData();
 
@@ -125,21 +146,21 @@ namespace FFStudio
 
 			for( var i = 0; i < spawnSlotCount; i++ )
 			{
-				save_data.slot_spawn_array[ i ] = spawnSlotDefault;
+				save_data.slot_spawn_array[ i ] = slot_spawn_default;
 			}
 
 			save_data.slot_clock_array_row = new int[ clockSlotCount ];
 
 			for( var i = 0; i < clockSlotCount; i++ )
 			{
-				save_data.slot_clock_array_row[ i ] = clockSlotDefault;
+				save_data.slot_clock_array_row[ i ] = slot_clock_default;
 			}
 
 			save_data.slot_clock_array_column = new int[ clockSlotCount ];
 
 			for( var i = 0; i < clockSlotCount; i++ )
 			{
-				save_data.slot_clock_array_column[ i ] = clockSlotDefault;
+				save_data.slot_clock_array_column[ i ] = slot_clock_default;
 			}
 
 #if UNITY_EDITOR

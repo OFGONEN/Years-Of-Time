@@ -41,12 +41,14 @@ public class UIItemUnlock : MonoBehaviour
 
     public void OnClick()
     {
-		item_current.Unlock();
-
 		notif_item_unlock_index.SharedValue++;
 		notif_item_unlock_index.SaveToPlayerPrefs();
 
+		var item = item_current;
+
 		TryToPlace();
+
+		item.Unlock();
 	}
 #endregion
 

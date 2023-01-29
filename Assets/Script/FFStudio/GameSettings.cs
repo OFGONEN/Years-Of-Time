@@ -99,7 +99,11 @@ namespace FFStudio
         delegate GameSettings ReturnGameSettings();
         static ReturnGameSettings returnInstance = LoadInstance;
 
+#endregion
+
+#region Properties
 		public static GameSettings Instance => returnInstance();
+		public int PlayAreaSize => playArea_size_count_row * playArea_size_count_column;
 #endregion
 
 #region API

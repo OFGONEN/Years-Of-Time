@@ -104,16 +104,16 @@ public class Item : MonoBehaviour
 		if( clock_slot_list.Count == 2 )
 			StartProduction();
 	}
-#endregion
 
-#region Implementation
-	void StartAsLocked()
+	public void StartAsLocked()
 	{
 		item_image_background.enabled = true;
 		item_image_background.sprite  = GameSettings.Instance.item_locked_sprite;
 	}
+#endregion
 
-	public void StartAsUnlocked()
+#region Implementation
+	void StartAsUnlocked()
 	{
 		item_background.enabled       = true;
 		item_image_background.enabled = true;

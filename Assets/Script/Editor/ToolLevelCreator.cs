@@ -125,9 +125,9 @@ public class ToolLevelCreator : ScriptableObject
 		int spawnCount = 0;
 		Vector3 origin = item_origin + Vector3.right * item_offset.x + Vector3.forward * item_offset.z;
 
-		for( var x = 0; x < item_count_row; x++ )
+		for( var y = 0; y < item_count_column; y++ )
 		{
-			for( var y = 0; y < item_count_column; y++ )
+			for( var x = 0; x < item_count_row; x++ )
 			{
 				var item = PrefabUtility.InstantiatePrefab( prefab_item ) as Item;
 
@@ -138,8 +138,9 @@ public class ToolLevelCreator : ScriptableObject
 				item.transform.SetParent( playArea );
 
 				item.SetItemIndex( spawnCount );
+				item.SetItemCoordinate( new Vector2Int( x, y ) );
 
-				spawnCount++;
+				spawnCount++;				
 			}
 		}
 	}

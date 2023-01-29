@@ -80,15 +80,18 @@ public class Item : MonoBehaviour
 #region Implementation
 	void UpdateVisual()
 	{
+		item_image_background.sprite = item_data.ItemSpriteBackground;
+		item_image_foreground.sprite = item_data.ItemSpriteForeground;
 	}
 
 	void StartProduction()
 	{
-
+		//todo do background color tween
 	}
 
 	void StopProduction()
 	{
+		//todo do background color tween
 	}
 
 	void EmptyDelegates()

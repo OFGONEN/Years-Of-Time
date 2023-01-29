@@ -1195,8 +1195,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1266,6 +1266,7 @@ MonoBehaviour:
         m_CallState: 2
   suffix: 
   prefix: 
+  format: 
 --- !u!1001 &3483446906375662878
 PrefabInstance:
   m_ObjectHideFlags: 0

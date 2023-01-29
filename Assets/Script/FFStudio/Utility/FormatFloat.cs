@@ -67,7 +67,7 @@ namespace FFStudio
 			}
 
 			// Math.Floor(m * 100) / 100) fixes rounding errors
-			return ( Math.Floor( m * 100 ) / 100 ).ToString( "0.##" ) + unit;
+			return ( Math.Floor( m * 100 ) / 100 ).ToString( "F0" ) + unit;
 		}
 #endregion
 	}

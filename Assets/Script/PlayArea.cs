@@ -10,7 +10,7 @@ using Sirenix.OdinInspector;
 public class PlayArea : MonoBehaviour
 {
 #region Fields
-    [ SerializeField ] SharedIntNotifier notif_item_unlock_index;
+    [ SerializeField ] SharedIntNotifier notif_playArea_size;
 
     RecycledTween recycledTween = new RecycledTween();
 #endregion
@@ -28,11 +28,11 @@ public class PlayArea : MonoBehaviour
 #region API
     public void OnItemUnlocked()
     {
-		notif_item_unlock_index.SharedValue = Mathf.Min( notif_item_unlock_index.sharedValue + 1, GameSettings.Instance.playArea_size_array.Length - 1 );
+		notif_playArea_size.SharedValue = Mathf.Min( notif_playArea_size.sharedValue + 1, GameSettings.Instance.playArea_size_array.Length - 1 );
 
 		TweenSize();
 
-		notif_item_unlock_index.SaveToPlayerPrefs();
+		notif_playArea_size.SaveToPlayerPrefs();
 	}
 #endregion
 
@@ -40,13 +40,13 @@ public class PlayArea : MonoBehaviour
     [ Button() ]
     void ChangeSize()
     {
-		var size = GameSettings.Instance.playArea_size_array[ notif_item_unlock_index.sharedValue ];
+		var size = GameSettings.Instance.playArea_size_array[ notif_playArea_size.sharedValue ];
 		transform.localScale = Vector3.one.SetX( size ).SetZ( size );
     }
 
     void TweenSize()
     {
-		var size = GameSettings.Instance.playArea_size_array[ notif_item_unlock_index.sharedValue ];
+		var size = GameSettings.Instance.playArea_size_array[ notif_playArea_size.sharedValue ];
 
 		recycledTween.Recycle( transform.DOScale( Vector3.one.SetX( size ).SetZ( size ), GameSettings.Instance.playArea_size_duration )
 			.SetEase( GameSettings.Instance.playArea_size_ease ) );

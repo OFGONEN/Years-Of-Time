@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e1db59522f4fc489f03ef88dd57e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notif_item_unlock_index: {fileID: 11400000, guid: a044d139199d410438955012a8243838, type: 2}
+  notif_playArea_size: {fileID: 11400000, guid: a044d139199d410438955012a8243838, type: 2}
 --- !u!1 &6203619536968463515
 GameObject:
   m_ObjectHideFlags: 0

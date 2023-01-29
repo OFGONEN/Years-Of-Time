@@ -30,6 +30,8 @@ public class PlayArea : MonoBehaviour
 		notif_item_unlock_index.SharedValue = Mathf.Min( notif_item_unlock_index.sharedValue + 1, GameSettings.Instance.playArea_size_array.Length - 1 );
 
 		TweenSize();
+
+		notif_item_unlock_index.SaveToPlayerPrefs();
 	}
 #endregion
 

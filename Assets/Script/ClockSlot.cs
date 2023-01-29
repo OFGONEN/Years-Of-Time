@@ -31,10 +31,13 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 
 	[ ShowInInspector, ReadOnly ] Clock clock_current;
 	[ ShowInInspector, ReadOnly ] Item[] item_array;
+
+	ClockSlotState slot_state;
 #endregion
 
 #region Properties
 	public int SlotIndex => slot_index;
+	public ClockSlotState ClockSlotState => slot_state;
 #endregion
 
 #region Unity API
@@ -75,6 +78,9 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 				item_array[ i ] = item;
 			}
 		}
+
+		//Load State
+		slot_state = ClockSlotState.Invisible;
 
 		if( slot_row )
 		{
@@ -164,12 +170,16 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 #region Implementation
 	void StartUnlocked()
 	{
+		slot_state = ClockSlotState.Unlocked;
+
 		list_slot_all.AddList( this );
 		_disc.enabled = true;
 	}
 
 	void StartWithClock( int level )
 	{
+		slot_state = ClockSlotState.Unlocked;
+
 		list_slot_all.AddList( this );
 		_disc.enabled = true;
 
@@ -221,5 +231,10 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 	}
 #endif
 #endregion
+}
 
+public enum ClockSlotState
+{
+	Invisible = -2,
+	Unlocked = -1
 }

@@ -63,6 +63,10 @@ public class Item : MonoBehaviour
     private void Awake()
     {
 		EmptyDelegates();
+		onClockAssign = AssignClockSlotLocked;
+		onClockRemove = RemoveClockSlotLocked;
+
+
 		item_background_color = item_background.Color;
 
 		// Load item state
@@ -71,7 +75,7 @@ public class Item : MonoBehaviour
 		if( item_state == ItemState.Locked )
 			StartAsLocked();
 		else if( item_state == ItemState.Unlocked )
-			Unlock();
+			StartAsUnlocked();
 	}
 
     private void Update()
@@ -94,17 +98,11 @@ public class Item : MonoBehaviour
 	[ Button() ]
 	public void Unlock()
 	{
-		item_background.enabled       = true;
-		item_image_background.enabled = true;
-		item_image_foreground.enabled = true;
+		//todo play pfx
+		StartAsUnlocked();
 
-		item_state = ItemState.Unlocked;
-
-		UpdateVisual();
-		//todo Play PFX
-
-		onClockAssign = AssignClockSlot;
-		onClockRemove = RemoveClockSlot;
+		if( clock_slot_list.Count == 2 )
+			StartProduction();
 	}
 #endregion
 
@@ -114,8 +112,23 @@ public class Item : MonoBehaviour
 		item_image_background.enabled = true;
 		item_image_background.sprite  = GameSettings.Instance.item_locked_sprite;
 	}
+
+	public void StartAsUnlocked()
+	{
+		item_background.enabled       = true;
+		item_image_background.enabled = true;
+		item_image_foreground.enabled = true;
+
+		item_state = ItemState.Unlocked;
+
+		UpdateVisual();
+		//todo Play PFX
+
+		onClockAssign = AssignClockSlotUnlocked;
+		onClockRemove = RemoveClockSlotUnlocked;
+	}
 	
-	void AssignClockSlot( ClockSlot clockSlot )
+	void AssignClockSlotUnlocked( ClockSlot clockSlot )
 	{
 		clock_slot_list.Add( clockSlot );
 
@@ -123,7 +136,7 @@ public class Item : MonoBehaviour
 			StartProduction();
 	}
 
-	void RemoveClockSlot( ClockSlot clockSlot )
+	void RemoveClockSlotUnlocked( ClockSlot clockSlot )
 	{
 #if UNITY_EDITOR
 		var removed = clock_slot_list.Remove( clockSlot );
@@ -134,6 +147,23 @@ public class Item : MonoBehaviour
 #endif
 		StopProduction();
 	}
+
+	void AssignClockSlotLocked( ClockSlot clockSlot )
+	{
+		clock_slot_list.Add( clockSlot );
+	}
+
+	void RemoveClockSlotLocked( ClockSlot clockSlot )
+	{
+#if UNITY_EDITOR
+		var removed = clock_slot_list.Remove( clockSlot );
+		if( !removed )
+			FFLogger.Log( name + " - Clock slot could not removed", clockSlot );
+#else
+		clock_slot_list.Remove( clockSlot );
+#endif
+	}
+
 	void OnProduction()
 	{
 		item_duration += Time.deltaTime * GetCurrentClockSpeed();

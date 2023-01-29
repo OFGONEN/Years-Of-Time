@@ -43,6 +43,7 @@ public class Item : MonoBehaviour
 #endregion
 
 #region Properties
+	public ItemData ItemData   => item_data;
 	public int ItemIndex       => item_index;
 	public ItemState ItemState => item_state;
 #endregion
@@ -65,7 +66,12 @@ public class Item : MonoBehaviour
 		item_background_color = item_background.Color;
 
 		// Load item state
-		var state = (ItemState)system_save.SaveData.item_array[ item_index ];
+		item_state = (ItemState)system_save.SaveData.item_array[ item_index ];
+
+		if( item_state == ItemState.Locked )
+			StartAsLocked();
+		else if( item_state == ItemState.Unlocked )
+			Unlock();
 	}
 
     private void Update()
@@ -84,9 +90,31 @@ public class Item : MonoBehaviour
 	{
 		onClockRemove( clockSlot );
 	}
+
+	[ Button() ]
+	public void Unlock()
+	{
+		item_background.enabled       = true;
+		item_image_background.enabled = true;
+		item_image_foreground.enabled = true;
+
+		item_state = ItemState.Unlocked;
+
+		UpdateVisual();
+		//todo Play PFX
+
+		onClockAssign = AssignClockSlot;
+		onClockRemove = RemoveClockSlot;
+	}
 #endregion
 
 #region Implementation
+	void StartAsLocked()
+	{
+		item_image_background.enabled = true;
+		item_image_background.sprite  = GameSettings.Instance.item_locked_sprite;
+	}
+	
 	void AssignClockSlot( ClockSlot clockSlot )
 	{
 		clock_slot_list.Add( clockSlot );

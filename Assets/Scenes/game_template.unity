@@ -210,6 +210,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 3deb7f180ea04294599b6371b3b18838, type: 2}
     - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
+      propertyPath: item_index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112842364427759552, guid: 540ca8bb543264c9997796fe78fe56ed, type: 3}
       propertyPath: item_coordinate.x
       value: 1
       objectReference: {fileID: 0}

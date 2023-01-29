@@ -18,9 +18,11 @@ public class Item : MonoBehaviour
     [ SerializeField ] ItemData item_data;
 
   [ Title( "Shared" ) ]
-    [ SerializeField ] ListItem list_item;
+    [ SerializeField ] ListItem list_item_coordinate;
+    [ SerializeField ] ListItem list_item_index;
     [ SerializeField ] Currency notif_currency;
     [ SerializeField ] IncomeCofactor notif_income_cofactor;
+    [ SerializeField ] SaveSystem system_save;
 
   [ Title( "Components" ) ]
     [ SerializeField ] Rectangle item_background;
@@ -28,6 +30,7 @@ public class Item : MonoBehaviour
     [ SerializeField ] Image item_image_foreground;
     [ SerializeField ] Transform item_image_parent;
 
+	ItemState item_state;
 	float item_duration;
 	Color item_background_color;
 
@@ -38,17 +41,20 @@ public class Item : MonoBehaviour
 #endregion
 
 #region Properties
+	public int ItemIndex       => item_index;
+	public ItemState ItemState => item_state;
 #endregion
 
 #region Unity API
-    private void OnEnable()
-    {
-		list_item.AddDictionary( item_coordinate.GetCustomHashCode(), this );
-    }
-
+	private void OnEnable()
+	{
+		list_item_coordinate.AddDictionary( item_coordinate.GetCustomHashCode(), this );
+		list_item_index.AddDictionary( item_index, this );
+	}
 	private void OnDisable()
 	{
-		list_item.RemoveDictionary( item_coordinate.GetCustomHashCode() );
+		list_item_coordinate.RemoveDictionary( item_coordinate.GetCustomHashCode() );
+		list_item_index.RemoveDictionary( item_index );
 	}
 
     private void Awake()
@@ -56,6 +62,8 @@ public class Item : MonoBehaviour
 		EmptyDelegates();
 
 		item_background_color = item_background.Color;
+
+		var saveData = system_save.SaveData;
 
 		UpdateVisual(); //todo remove this line
 		//todo Invisible, Unlock, ReadyToUnlock, ReadyToProduce    
@@ -171,4 +179,11 @@ public class Item : MonoBehaviour
 #if UNITY_EDITOR
 #endif
 #endregion
+}
+
+public enum ItemState
+{
+	Invisible = -2,
+	Locked = -1,
+	Unlocked = 0
 }

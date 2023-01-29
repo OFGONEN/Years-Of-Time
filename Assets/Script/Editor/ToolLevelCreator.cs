@@ -17,6 +17,12 @@ public class ToolLevelCreator : ScriptableObject
     [ FoldoutGroup( "Spawn Slot" ) ] public int slot_spawn_row_count;
     [ FoldoutGroup( "Spawn Slot" ) ] public Vector3 slot_spawn_origin;
     [ FoldoutGroup( "Spawn Slot" ) ] public Vector3 slot_spawn_offset;
+
+    [ FoldoutGroup( "Clock Slot" ) ] public ClockSlot prefab_slot_clock_row;
+    [ FoldoutGroup( "Clock Slot" ) ] public ClockSlot prefab_slot_clock_column;
+    [ FoldoutGroup( "Clock Slot" ) ] public int slot_clock_count;
+    [ FoldoutGroup( "Clock Slot" ) ] public Vector3 slot_clock_origin;
+    [ FoldoutGroup( "Clock Slot" ) ] public Vector3 slot_clock_offset;
 #endregion
 
 #region Properties
@@ -29,6 +35,8 @@ public class ToolLevelCreator : ScriptableObject
     [ Button() ]
     public void SpawnSpawnSlot()
     {
+		EditorSceneManager.MarkAllScenesDirty();
+
 		var startIndex = GameObject.Find( "--- Slot_Spawn_Start ---" ).transform.GetSiblingIndex();
 		var endIndex   = GameObject.Find( "--- Slot_Spawn_End ---" ).transform.GetSiblingIndex();
 
@@ -55,7 +63,45 @@ public class ToolLevelCreator : ScriptableObject
 				spawnCount++;
 			}           
         }
+	}
 
+	[ Button() ]
+	public void SpawnClockSlots()
+	{
+		EditorSceneManager.MarkAllScenesDirty();
+
+		var playArea = GameObject.Find( "play_area" ).transform;
+
+		EditorUtility.SetDirty( playArea.gameObject );
+		playArea.DestroyAllChildren();
+
+		// Column
+		for( var i = 0; i < slot_clock_count; i++ )
+		{
+			var clockSlotColumn = PrefabUtility.InstantiatePrefab( prefab_slot_clock_column ) as ClockSlot;
+
+			clockSlotColumn.gameObject.name    = "slot_clock_column_" + i;
+			clockSlotColumn.transform.position = slot_clock_origin +  Vector3.right * ( i + 1 ) * slot_clock_offset.x;
+
+			clockSlotColumn.transform.SetParent( playArea );
+			clockSlotColumn.transform.localScale = Vector3.one;
+
+			clockSlotColumn.SetSlotIndex( i );
+		}
+
+		// Row
+		for( var i = 0; i < slot_clock_count; i++ )
+		{
+			var clockSlotRow = PrefabUtility.InstantiatePrefab( prefab_slot_clock_row ) as ClockSlot;
+
+			clockSlotRow.gameObject.name    = "slot_clock_row_" + i;
+			clockSlotRow.transform.position = slot_clock_origin + Vector3.forward * ( i + 1 ) * slot_clock_offset.z;
+
+			clockSlotRow.transform.SetParent( playArea );
+			clockSlotRow.transform.localScale = Vector3.one;
+
+			clockSlotRow.SetSlotIndex( i );
+		}
 	}
 #endregion
 

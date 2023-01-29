@@ -17,3 +17,8 @@ MonoBehaviour:
   slot_spawn_row_count: 2
   slot_spawn_origin: {x: -4.5, y: 0, z: -9}
   slot_spawn_offset: {x: 3, y: 0, z: 3}
+  prefab_slot_clock_row: {fileID: 5186174947021639270, guid: 535eeafa8787aad43876296c594f678e, type: 3}
+  prefab_slot_clock_column: {fileID: 5186174947021639270, guid: d5c7713c7f5597f489f7f71a47a5c94f, type: 3}
+  slot_clock_count: 7
+  slot_clock_origin: {x: -5.5, y: 0, z: 8.85}
+  slot_clock_offset: {x: 3.5, y: 0, z: -3.5}

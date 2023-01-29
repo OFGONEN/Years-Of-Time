@@ -98,13 +98,13 @@ namespace FFStudio
 				save_data.slot_spawn_array[ slot.SlotIndex ] = slot.IsClockPresent() ? slot.CurrentClockLevel() - 1 : -1;
 			}
 
-			// Clock Slot Row Default
-			for( var i = 0; i < save_data.slot_clock_array_row.Length; i++ )
-				save_data.slot_clock_array_row[ i ] = slot_clock_default;
+			// // Clock Slot Row Default
+			// for( var i = 0; i < save_data.slot_clock_array_row.Length; i++ )
+			// 	save_data.slot_clock_array_row[ i ] = slot_clock_default;
 
-			// Clock Slot Column Default
-			for( var i = 0; i < save_data.slot_clock_array_column.Length; i++ )
-				save_data.slot_clock_array_column[ i ] = slot_clock_default;
+			// // Clock Slot Column Default
+			// for( var i = 0; i < save_data.slot_clock_array_column.Length; i++ )
+			// 	save_data.slot_clock_array_column[ i ] = slot_clock_default;
 
 			// Clock Slot Row Current
 			foreach( var slot in list_slot_clock_row.itemDictionary.Values )

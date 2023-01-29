@@ -15,7 +15,7 @@ MonoBehaviour:
   clock_height_idle: 0.3
   clock_movement_height: 0.6
   clock_movement_speed_vertical: 1
-  clock_movement_speed_horizontal: 2
+  clock_movement_speed_horizontal: 5
   clock_movement_speed_rotate: 90
   clock_movement_rotate_clamp: 45
   clock_spawn_punchScale:

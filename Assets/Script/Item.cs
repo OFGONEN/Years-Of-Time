@@ -34,6 +34,7 @@ public class Item : MonoBehaviour
 	ItemState item_state;
 	float item_duration;
 	Color item_background_color;
+	Vector3 item_scale;
 
 	RecycledTween recycledTween_Color = new RecycledTween();
 	RecycledTween recycledTween_Scale = new RecycledTween();
@@ -67,6 +68,7 @@ public class Item : MonoBehaviour
 		onClockAssign = AssignClockSlotLocked;
 		onClockRemove = RemoveClockSlotLocked;
 
+		item_scale = transform.localScale;
 
 		item_background_color = item_background.Color;
 
@@ -181,7 +183,7 @@ public class Item : MonoBehaviour
 
 		notif_currency.SharedValue += moneyGain;
 
-		transform.localScale = Vector3.one;
+		transform.localScale = item_scale;
 		recycledTween_Scale.Recycle( GameSettings.Instance.item_produce_tween_punchScale.CreateTween( item_image_parent ) );
 	}
 

@@ -22,8 +22,12 @@ public class ItemData : ScriptableObject
 #endregion
 
 #region Properties
-    public Sprite ItemSpriteBackground => item_sprite_background;
-    public Sprite ItemSpriteForeground => item_sprite_foreground;
+	public int ItemLevel               => item_level;
+	public float ItemDuration          => item_duration;
+	public float ItemCurrency          => item_currency;
+	public float ItemCost              => item_cost;
+	public Sprite ItemSpriteBackground => item_sprite_background;
+	public Sprite ItemSpriteForeground => item_sprite_foreground;
 #endregion
 
 #region Editor Only

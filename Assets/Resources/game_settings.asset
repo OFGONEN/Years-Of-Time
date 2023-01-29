@@ -44,8 +44,8 @@ MonoBehaviour:
     vibrato: 10
     elasticity: 1
     ease: 12
-  item_produce_start_color: {r: 0, g: 1, b: 0, a: 0.5019608}
-  item_produce_stop_color: {r: 1, g: 0, b: 0, a: 0.5019608}
+  item_produce_start_color: {r: 0, g: 1, b: 0, a: 1}
+  item_produce_stop_color: {r: 1, g: 0, b: 0, a: 1}
   item_produce_duration: 2
   item_produce_ease: 12
   item_locked_sprite: {fileID: 21300000, guid: 60f0a3b1dd82e2c4290f5c13175dd3ce, type: 3}

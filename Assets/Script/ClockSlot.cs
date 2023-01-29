@@ -214,6 +214,11 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 
 #region Editor Only
 #if UNITY_EDITOR
+	public void SetSlotIndex( int index )
+	{
+		UnityEditor.EditorUtility.SetDirty( gameObject );
+		slot_index = index;
+	}
 #endif
 #endregion
 

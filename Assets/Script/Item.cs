@@ -24,6 +24,8 @@ public class Item : MonoBehaviour
     [ SerializeField ] Image item_image_background;
     [ SerializeField ] Image item_image_foreground;
 
+	float item_duration;
+
 	List< ClockSlot > clock_slot_list = new List< ClockSlot >( 2 );
     UnityMessage onUpdate;
 #endregion
@@ -45,6 +47,7 @@ public class Item : MonoBehaviour
     private void Awake()
     {
 		EmptyDelegates();
+
 		UpdateVisual(); //todo remove this line
 		//todo Invisible, Unlock, ReadyToUnlock, ReadyToProduce    
 	}
@@ -78,6 +81,21 @@ public class Item : MonoBehaviour
 #endregion
 
 #region Implementation
+	void OnProduction()
+	{
+		item_duration += Time.deltaTime * GetCurrentClockSpeed();
+		item_image_foreground.fillAmount = item_duration / item_data.ItemDuration;
+
+		if( item_duration > item_data.ItemDuration )
+			OnItemProduced();
+
+	}
+
+	void OnItemProduced()
+	{
+		item_duration = 0;
+	}
+
 	void UpdateVisual()
 	{
 		item_image_background.sprite = item_data.ItemSpriteBackground;
@@ -87,16 +105,30 @@ public class Item : MonoBehaviour
 	void StartProduction()
 	{
 		//todo do background color tween
+		onUpdate = OnProduction;
 	}
 
 	void StopProduction()
 	{
 		//todo do background color tween
+		onUpdate = ExtensionMethods.EmptyMethod;
 	}
 
 	void EmptyDelegates()
     {
 		onUpdate = ExtensionMethods.EmptyMethod;
+	}
+
+	float GetCurrentClockSpeed()
+	{
+		float speed = 0;
+
+		for( var i = 0; i < clock_slot_list.Count; i++ )
+		{
+			speed += clock_slot_list[ i ].CurrentClockSpeed();
+		}
+
+		return speed;
 	}
 #endregion
 

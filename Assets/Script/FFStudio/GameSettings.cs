@@ -52,6 +52,8 @@ namespace FFStudio
 
     [ Title( "Play Area" ) ]
 		[ LabelText( "Size Array" ) ] public float[] playArea_size_array;
+		[ LabelText( "Size Change Duration" ) ] public float playArea_size_duration;
+		[ LabelText( "Size Change Ease" ) ] public Ease playArea_size_ease;
 		[ LabelText( "Size Count Row" ) ] public int playArea_size_count_row;
 		[ LabelText( "Size Count Column" ) ] public int playArea_size_count_column;
 		[ LabelText( "Spawn Slot Count" ) ] public int playArea_spawn_slot_count;

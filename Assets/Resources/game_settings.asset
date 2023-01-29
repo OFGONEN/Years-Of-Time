@@ -58,6 +58,8 @@ MonoBehaviour:
   - 1.3
   - 1.2
   - 1
+  playArea_size_duration: 0.75
+  playArea_size_ease: 12
   playArea_size_count_row: 7
   playArea_size_count_column: 7
   playArea_spawn_slot_count: 8

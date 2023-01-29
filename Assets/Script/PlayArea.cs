@@ -28,7 +28,10 @@ public class PlayArea : MonoBehaviour
 #region API
     public void OnItemUnlocked()
     {
-		notif_playArea_size.sharedValue = Mathf.Min( notif_playArea_size.sharedValue + 1, GameSettings.Instance.playArea_size_array.Length - 1 );
+		if( notif_playArea_size.sharedValue == GameSettings.Instance.playArea_size_array.Length - 1 )
+			return;
+
+		notif_playArea_size.sharedValue++;
 
 		TweenSize();
 

@@ -23,6 +23,7 @@ namespace FFStudio
 
 		const int slot_spawn_default = -1;
 		const int slot_clock_default = -2;
+		const int item_default = -2;
 #endregion
 
 #region Properties
@@ -139,29 +140,33 @@ namespace FFStudio
 
 			int spawnSlotCount   = 4;
 			int clockSlotCount   = 2;
+			int itemCount        = 2;
 
 			save_data = new SaveData();
 
+			// Spawn Slot
 			save_data.slot_spawn_array = new int[ spawnSlotCount ];
 
 			for( var i = 0; i < spawnSlotCount; i++ )
-			{
 				save_data.slot_spawn_array[ i ] = slot_spawn_default;
-			}
 
+			// Clock Slot Row
 			save_data.slot_clock_array_row = new int[ clockSlotCount ];
 
 			for( var i = 0; i < clockSlotCount; i++ )
-			{
 				save_data.slot_clock_array_row[ i ] = slot_clock_default;
-			}
 
+			// Clock Slot Column
 			save_data.slot_clock_array_column = new int[ clockSlotCount ];
 
 			for( var i = 0; i < clockSlotCount; i++ )
-			{
 				save_data.slot_clock_array_column[ i ] = slot_clock_default;
-			}
+
+			// Item
+			save_data.item_array = new int[ itemCount ];
+
+			for( var i = 0; i < itemCount; i++ )
+				save_data.item_array[ i ] = item_default;
 
 #if UNITY_EDITOR
 			UnityEditor.AssetDatabase.SaveAssets();
@@ -190,4 +195,5 @@ public class SaveData
 	public int[] slot_spawn_array;
 	public int[] slot_clock_array_row;
 	public int[] slot_clock_array_column;
+	public int[] item_array;
 }

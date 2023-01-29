@@ -18,6 +18,7 @@ public class Item : MonoBehaviour
     [ SerializeField ] int item_index;
     [ SerializeField ] ItemData item_data;
 	[ SerializeField ] UnityEvent item_event_onUnlock;
+	[ SerializeField ] Currency currency;
 
   [ Title( "Shared" ) ]
     [ SerializeField ] ListItem list_item_coordinate;
@@ -106,6 +107,7 @@ public class Item : MonoBehaviour
 		event_particle_spawn.Raise( "item_unlock", transform.position );
 		StartAsUnlocked();
 
+		notif_currency.SharedValue -= item_data.ItemCost;
 		item_event_onUnlock.Invoke();
 
 		if( clock_slot_list.Count == 2 )

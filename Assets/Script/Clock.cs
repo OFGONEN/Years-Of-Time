@@ -73,12 +73,13 @@ public class Clock : MonoBehaviour
 		slot_current = slotEntity;
 		onSelected   = SelectedOnSpawnSlot;
 
-		collider_selection.enabled = true;
-
 		gameObject.SetActive( true );
 		transform.position = SlotPositionCurrent;
 
-		DoWaveAnimation();
+		DOPunchScale( () => {
+			collider_selection.enabled = true;
+			DoWaveAnimation();
+		} );
 	}
 
 	public void LoadIntoClockSlot( ISlotEntity slotEntity, ClockData data )
@@ -104,7 +105,11 @@ public class Clock : MonoBehaviour
 		UpdateVisuals();
 
 		transform.position = SlotPositionCurrent;
-		DOPunchScale( DoWaveAnimation );
+		collider_selection.enabled = false;
+		DOPunchScale( () => {
+			collider_selection.enabled = true;
+			DoWaveAnimation();
+		} );
 		//todo Play PFX
 	}
 
@@ -114,7 +119,7 @@ public class Clock : MonoBehaviour
 		UpdateVisuals();
 
 		transform.position = SlotPositionCurrent;
-		DOPunchScale( null );
+		DOPunchScale( () => collider_selection.enabled = true );
 		//todo Play PFX
 	}
 

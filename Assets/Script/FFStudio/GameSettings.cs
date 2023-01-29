@@ -40,6 +40,7 @@ namespace FFStudio
 		[ LabelText( "Highlight Alpha Cofactor" ) ] public float slot_clock_highlight_alpha_cofactor;
 
     [ Title( "Item" ) ]
+		[ LabelText( "Produce Punch Scale" ) ] public PunchScaleTween item_produce_tween_punchScale;
 		[ LabelText( "Produce Start Color" ) ] public Color item_produce_start_color;
 		[ LabelText( "Produce Stop Color" ) ] public Color item_produce_stop_color;
 		[ LabelText( "Produce Tween Duration" ) ] public float item_produce_duration;

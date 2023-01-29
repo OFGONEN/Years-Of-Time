@@ -26,11 +26,13 @@ public class Item : MonoBehaviour
     [ SerializeField ] Rectangle item_background;
     [ SerializeField ] Image item_image_background;
     [ SerializeField ] Image item_image_foreground;
+    [ SerializeField ] Transform item_image_parent;
 
 	float item_duration;
 	Color item_background_color;
 
-	RecycledTween recycledTween = new RecycledTween();
+	RecycledTween recycledTween_Color = new RecycledTween();
+	RecycledTween recycledTween_Scale = new RecycledTween();
 	List< ClockSlot > clock_slot_list = new List< ClockSlot >( 2 );
     UnityMessage onUpdate;
 #endregion
@@ -102,6 +104,9 @@ public class Item : MonoBehaviour
 	{
 		item_duration = 0;
 		notif_currency.SharedValue += item_data.ItemCurrency * notif_income_cofactor.sharedValue;
+
+		transform.localScale = Vector3.one;
+		recycledTween_Scale.Recycle( GameSettings.Instance.item_produce_tween_punchScale.CreateTween( item_image_parent ) );
 	}
 
 	void UpdateVisual()
@@ -128,7 +133,7 @@ public class Item : MonoBehaviour
 
 	void TweenBackgroundColorToDefault()
 	{
-		recycledTween.Recycle( DOTween.To(
+		recycledTween_Color.Recycle( DOTween.To(
 			GetBackgroundColor, SetBackgroundColor, item_background_color, GameSettings.Instance.item_produce_duration )
 			.SetEase( GameSettings.Instance.item_produce_ease ) );
 	}

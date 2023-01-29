@@ -139,8 +139,10 @@ public class ToolLevelCreator : SerializedScriptableObject
 				item.transform.localScale = new Vector3( item_size, 1, item_size );
 				item.transform.SetParent( playArea );
 
-				item.SetItemIndex( item_index_array[ y ][ x ] );
+				var itemIndex = item_index_array[ y ][ x ];
+				item.SetItemIndex( itemIndex );
 				item.SetItemCoordinate( new Vector2Int( x, y ) );
+				item.SetItemData( AssetDatabase.LoadAssetAtPath<ItemData>( $"Assets/Scriptable_Object/Shared/Item_Data/shared_item_data_{itemIndex + 1}.asset" ) as ItemData );
 
 				spawnCount++;				
 			}

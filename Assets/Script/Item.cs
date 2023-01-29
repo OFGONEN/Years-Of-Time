@@ -93,17 +93,18 @@ public class Item : MonoBehaviour
 	void OnProduction()
 	{
 		item_duration += Time.deltaTime * GetCurrentClockSpeed();
-		item_image_foreground.fillAmount = item_duration / item_data.ItemDuration;
+		item_image_foreground.fillAmount = Mathf.Lerp( item_data.ItemSpriteFillBottom, item_data.ItemSpriteFillTop, item_duration / item_data.ItemDuration );
 
 		if( item_duration > item_data.ItemDuration )
 			OnItemProduced();
-
 	}
 
 	void OnItemProduced()
 	{
 		item_duration = 0;
-		notif_currency.SharedValue += item_data.ItemCurrency * notif_income_cofactor.sharedValue;
+		var moneyGain = item_data.ItemCurrency * notif_income_cofactor.sharedValue;
+
+		notif_currency.SharedValue += moneyGain;
 
 		transform.localScale = Vector3.one;
 		recycledTween_Scale.Recycle( GameSettings.Instance.item_produce_tween_punchScale.CreateTween( item_image_parent ) );

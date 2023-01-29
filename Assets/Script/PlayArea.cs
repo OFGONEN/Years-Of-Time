@@ -28,7 +28,7 @@ public class PlayArea : MonoBehaviour
 #region API
     public void OnItemUnlocked()
     {
-		notif_playArea_size.SharedValue = Mathf.Min( notif_playArea_size.sharedValue + 1, GameSettings.Instance.playArea_size_array.Length - 1 );
+		notif_playArea_size.sharedValue = Mathf.Min( notif_playArea_size.sharedValue + 1, GameSettings.Instance.playArea_size_array.Length - 1 );
 
 		TweenSize();
 
@@ -49,7 +49,7 @@ public class PlayArea : MonoBehaviour
 		var size = GameSettings.Instance.playArea_size_array[ notif_playArea_size.sharedValue ];
 
 		recycledTween.Recycle( transform.DOScale( Vector3.one.SetX( size ).SetZ( size ), GameSettings.Instance.playArea_size_duration )
-			.SetEase( GameSettings.Instance.playArea_size_ease ) );
+			.SetEase( GameSettings.Instance.playArea_size_ease ), notif_playArea_size.Notify );
 	}
 #endregion
 

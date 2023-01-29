@@ -18,7 +18,7 @@ MonoBehaviour:
   list_item_index: {fileID: 11400000, guid: 5f401bbe17f65b64f8055f4c880cdec3, type: 2}
   save_string: {fileID: 11400000, guid: 7a7ff5daa44de4fc3b72d51603cc7641, type: 2}
   save_data:
-    slot_spawn_array: ffffffffffffffffffffffffffffffff
-    slot_clock_array_row: feffffff
-    slot_clock_array_column: fefffffffeffffff
-    item_array: fefffffffeffffff
+    slot_spawn_array: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    slot_clock_array_row: fefffffffefffffffefffffffefffffffefffffffefffffffeffffff
+    slot_clock_array_column: fefffffffefffffffefffffffefffffffefffffffefffffffeffffff
+    item_array: fefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffeffffff

@@ -1,4 +1,5 @@
 /* Created by and for usage of FF Studios (2021). */
+#if UNITY_EDITOR
 
 using System.Collections;
 using System.Collections.Generic;
@@ -163,9 +164,5 @@ public class ToolLevelCreator : ScriptableObject
 			DestroyImmediate( go_list[ i ] );
 	}
 #endregion
-
-#region Editor Only
-#if UNITY_EDITOR
-#endif
-#endregion
 }
+#endif

@@ -52,12 +52,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 4684278216112045696}
-          m_TargetAssemblyTypeName: FFStudio.ParticleManager, Assembly-CSharp
+          m_TargetAssemblyTypeName: FFStudio.ParticleManager, FFStudio
           m_MethodName: SpawnParticle
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
-            m_ObjectArgumentAssemblyTypeName: FFStudio.ParticleSpawnEvent, Assembly-CSharp
+            m_ObjectArgumentAssemblyTypeName: FFStudio.ParticleSpawnEvent, FFStudio
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -70,12 +70,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 4684278216112045696}
-          m_TargetAssemblyTypeName: FFStudio.ParticleManager, Assembly-CSharp
+          m_TargetAssemblyTypeName: FFStudio.ParticleManager, FFStudio
           m_MethodName: SpawnParticleRandom
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: 0e566b9988b734020893e6b1049f50df, type: 2}
-            m_ObjectArgumentAssemblyTypeName: FFStudio.ParticleSpawnEvent, Assembly-CSharp
+            m_ObjectArgumentAssemblyTypeName: FFStudio.ParticleSpawnEvent, FFStudio
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

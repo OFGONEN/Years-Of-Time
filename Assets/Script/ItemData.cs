@@ -17,11 +17,21 @@ public class ItemData : ScriptableObject
     [ SerializeField ] float item_cost;
 
   [ Title( "Visual" ) ]
-    [ SerializeField ] Texture item_texture_background;
-    [ SerializeField ] Texture item_texture_foreground;
+    [ SerializeField ] Sprite item_sprite_background;
+    [ SerializeField ] Sprite item_sprite_foreground;
+    [ SerializeField ] float item_sprite_fill_bottom = 0;
+    [ SerializeField ] float item_sprite_fill_top = 1;
 #endregion
 
 #region Properties
+	public int ItemLevel               => item_level;
+	public float ItemDuration          => item_duration;
+	public float ItemCurrency          => item_currency;
+	public float ItemCost              => item_cost;
+	public Sprite ItemSpriteBackground => item_sprite_background;
+	public Sprite ItemSpriteForeground => item_sprite_foreground;
+	public float ItemSpriteFillBottom  => item_sprite_fill_bottom;
+	public float ItemSpriteFillTop     => item_sprite_fill_top;
 #endregion
 
 #region Editor Only

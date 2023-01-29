@@ -21,6 +21,9 @@ public class Clock : MonoBehaviour
   [ Title( "Components" ) ]
 	[ SerializeField ] Transform transform_gfx;
 	[ SerializeField ] Collider collider_selection;
+	[ SerializeField ] Transform clock_hand_second;
+	[ SerializeField ] Transform clock_hand_minute;
+	[ SerializeField ] Transform clock_hand_hour;
 
   [ Title( "Visual Components" ) ]
     [ SerializeField ] MeshFilter clock_circle_meshFilter;
@@ -38,6 +41,7 @@ public class Clock : MonoBehaviour
 
 	UnityMessage onSelected;
 	UnityMessage onDeSelected;
+	UnityMessage onDeSelectedCache;
 	UnityMessage onUpdate;
 #endregion
 
@@ -60,16 +64,58 @@ public class Clock : MonoBehaviour
 #endregion
 
 #region API
-	public void SpawnIntoSpawnSlot( ISlotEntity slotEntity )
+	public void SpawnIntoSpawnSlot( ISlotEntity slotEntity, ClockData data  )
 	{
 		CacheCamera();
+		UpdateClockData( data );
+		UpdateVisuals();
+
 		slot_current = slotEntity;
 		onSelected   = SelectedOnSpawnSlot;
+
+		collider_selection.enabled = true;
 
 		gameObject.SetActive( true );
 		transform.position = SlotPositionCurrent;
 
+		DoWaveAnimation();
+	}
+
+	public void LoadIntoClockSlot( ISlotEntity slotEntity, ClockData data )
+	{
+		CacheCamera();
+		UpdateClockData( data );
+		UpdateVisuals();
+
+		slot_current = slotEntity;
+		onSelected   = SelectedOnClockSlot;
+
+		collider_selection.enabled = true;
+
+		gameObject.SetActive( true );
+		transform.position = SlotPositionCurrent;
+
+		onUpdate = DoProductionAnimation;
+	}
+
+	public void UpgradeInSpawnSlot()
+	{
+		UpdateClockData( clock_data.ClockNextData );
+		UpdateVisuals();
+
+		transform.position = SlotPositionCurrent;
 		DOPunchScale( DoWaveAnimation );
+		//todo Play PFX
+	}
+
+	public void UpgradeInClockSlot()
+	{
+		UpdateClockData( clock_data.ClockNextData );
+		UpdateVisuals();
+
+		transform.position = SlotPositionCurrent;
+		DOPunchScale( null );
+		//todo Play PFX
 	}
 
 	public void UpdateClockData( ClockData data )
@@ -111,6 +157,14 @@ public class Clock : MonoBehaviour
 		DoWaveAnimation();
 	}
 
+	public void OccupyClockSlot()
+	{
+		collider_selection.enabled = true;
+		onSelected                 = SelectedOnClockSlot;
+
+		onUpdate = DoProductionAnimation;
+	}
+
 	public void ReturnToPool()
 	{
 		EmptyDelegates();
@@ -124,8 +178,11 @@ public class Clock : MonoBehaviour
 	void SelectedOnSpawnSlot()
 	{
 		//todo start scale tween
-		onSelected   = ExtensionMethods.EmptyMethod;
-		onDeSelected = DeSelectedOnSpawnSlotReturnToCurrentSlot;
+		onSelected        = ExtensionMethods.EmptyMethod;
+		onDeSelected      = DeSelectedOnSpawnSlotReturnToCurrentSlot;
+		onDeSelectedCache = DeSelectedOnSpawnSlotReturnToCurrentSlot;
+
+		slot_current.OnCurrentClockDeparted();
 
 		recycledTween.Kill();
 
@@ -133,14 +190,26 @@ public class Clock : MonoBehaviour
 		onUpdate                   = OnMovement;
 	}
 
-	void DeSelectedOnSpawnSlotGoToTargetSlot()
+	void SelectedOnClockSlot()
+	{
+		onSelected        = ExtensionMethods.EmptyMethod;
+		onDeSelected      = DeSelectedOnClockSlotReturnToCurrentSlot;
+		onDeSelectedCache = DeSelectedOnClockSlotReturnToCurrentSlot;
+
+		slot_current.OnCurrentClockDeparted();
+
+		recycledTween.Kill();
+
+		collider_selection.enabled = false;
+		onUpdate                   = OnMovement;
+	}
+
+	void DeSelectedGoToTargetSlot()
 	{
 		if( slot_target.IsClockPresent() && slot_target.CurrentClockLevel() != ClockData.ClockLevel )
 			DeSelectedOnSpawnSlotReturnToCurrentSlot();
 		else
 		{
-			slot_current.OnCurrentClockDeparted();
-			
 			recycledTween.Recycle( transform.DOMove(
 				SlotPositionTarget,
 				GameSettings.Instance.clock_slot_go_duration )
@@ -152,6 +221,20 @@ public class Clock : MonoBehaviour
 		}
 	}
 
+	void DeSelectedOnClockSlotReturnToCurrentSlot()
+	{
+		slot_target = null;
+
+		recycledTween.Recycle( transform.DOMove(
+			SlotPositionCurrent,
+			GameSettings.Instance.clock_slot_return_duration )
+			.SetEase( GameSettings.Instance.clock_slot_return_ease ),
+			OnReturnToCurrentSlotComplete
+		);
+
+		EmptyDelegates();
+	}
+
 	void DeSelectedOnSpawnSlotReturnToCurrentSlot()
 	{
 		slot_target = null;
@@ -160,7 +243,7 @@ public class Clock : MonoBehaviour
 			SlotPositionCurrent,
 			GameSettings.Instance.clock_slot_return_duration )
 			.SetEase( GameSettings.Instance.clock_slot_return_ease ),
-			OccupySpawnSlot
+			OnReturnToCurrentSlotComplete
 		);
 
 		EmptyDelegates();
@@ -168,7 +251,15 @@ public class Clock : MonoBehaviour
 
 	void OnGoToTargetSlotComplete()
 	{
-		slot_target.HandleIncomingClock( this );
+		slot_current = slot_target;
+		slot_target  = null;
+
+		slot_current.HandleIncomingClock( this );
+	}
+
+	void OnReturnToCurrentSlotComplete()
+	{
+		slot_current.HandleIncomingClock( this );
 	}
 
 	void OnMovement()
@@ -179,22 +270,33 @@ public class Clock : MonoBehaviour
 
 	void SearchTargetSlot()
 	{
-		    slot_target     = null;
-		var closestDistance = float.MaxValue;
-		var position        = transform.position;
+		ISlotEntity slotTarget      = slot_current;
+		var         closestDistance = float.MaxValue;
+		var         position        = transform.position;
 
 		foreach( var slot in list_slot.itemList )
 		{
 			var slotPosition = slot.GetPosition();
 			var distance = Vector3.Distance( slotPosition, position );
 			if( distance < closestDistance && distance <= GameSettings.Instance.clock_slot_search_distance  )
-				slot_target = slot;
+				slotTarget = slot;
 		}
 
-		if( slot_target == null || slot_target == slot_current )
-			onDeSelected = DeSelectedOnSpawnSlotReturnToCurrentSlot;
+		if( slotTarget == slot_current )
+		{
+			slot_target?.HighlightDefault();
+			onDeSelected = onDeSelectedCache;
+		}
 		else
-			onDeSelected = DeSelectedOnSpawnSlotGoToTargetSlot;
+		{
+			slot_target  = slotTarget;
+			onDeSelected = DeSelectedGoToTargetSlot;
+
+			if( !slot_target.IsClockPresent() || slot_target.CurrentClockLevel() == ClockData.ClockLevel )
+				slot_target.HighlightPositive();
+			else
+				slot_target.HighlightNegative();
+		}
 	}
 
 	Vector3 Movement()
@@ -223,6 +325,13 @@ public class Clock : MonoBehaviour
 			.SetSpeedBased(), DoWaveAnimation );
 
 		animation_wave_cofactor *= -1f;
+	}
+
+	void DoProductionAnimation()
+	{
+		clock_hand_second.Rotate( Vector3.forward * -1f * clock_data.ClockHandSecondSpeed * Time.deltaTime, Space.Self );
+		clock_hand_minute.Rotate( Vector3.forward * -1f * clock_data.ClockHandMinuteSpeed * Time.deltaTime, Space.Self );
+		clock_hand_hour.Rotate( Vector3.forward * -1f * clock_data.ClockHandHourSpeed * Time.deltaTime, Space.Self );
 	}
 
 	void CacheCamera()

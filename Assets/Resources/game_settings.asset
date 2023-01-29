@@ -31,6 +31,25 @@ MonoBehaviour:
   clock_slot_go_duration: 0.25
   clock_slot_go_ease: 12
   clock_slot_search_distance: 1
+  slot_spawn_highlight_color_positive: {r: 0, g: 1, b: 0, a: 1}
+  slot_spawn_highlight_color_negative: {r: 1, g: 0, b: 0, a: 1}
+  slot_spawn_highlight_color_default: {r: 1, g: 1, b: 1, a: 1}
+  slot_clock_highlight_color_positive: {r: 0, g: 1, b: 0, a: 1}
+  slot_clock_highlight_color_negative: {r: 1, g: 0, b: 0, a: 1}
+  slot_clock_highlight_color_default: {r: 1, g: 1, b: 1, a: 1}
+  slot_clock_highlight_alpha_cofactor: 0.11764706
+  item_produce_tween_punchScale:
+    strength: {x: 0.2, y: 0, z: 0.35}
+    duration: 1
+    vibrato: 10
+    elasticity: 1
+    ease: 12
+  item_produce_start_color: {r: 0, g: 1, b: 0, a: 0.5019608}
+  item_produce_stop_color: {r: 1, g: 0, b: 0, a: 0.5019608}
+  item_produce_duration: 2
+  item_produce_ease: 12
+  playArea_size_count_row: 1
+  playArea_size_count_column: 2
   camera_follow_speed_depth: 2.8
   maxLevelCount: 1
   game_selection_layer: 30

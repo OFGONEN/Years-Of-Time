@@ -21,3 +21,4 @@ MonoBehaviour:
   clock_material: {fileID: 2100000, guid: 68f769eb3d5c94947b617854e1e1942b, type: 2}
   clock_circle: {fileID: 5668297234169628275, guid: 9cc7adb25afc81845832522cb92747be, type: 3}
   clock_hand_second: {fileID: -9198354437484325398, guid: 1560e1dad139d294690822dde6ae4e36, type: 3}
+  clock_texture: {fileID: 21300000, guid: 1365405dd434a344cbf6d1c66ea126f7, type: 3}

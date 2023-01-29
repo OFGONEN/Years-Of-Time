@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c33709d6b97472d4b8859200e124cb87, type: 3}
   m_Name: shared_item_data_30
   m_EditorClassIdentifier: 
+  item_level: 30
   item_duration: 1408
   item_currency: 1408
   item_cost: 4224
-  item_texture_background: {fileID: 2800000, guid: c76338aa1d575254ba3d6dfa5c3b279b, type: 3}
-  item_texture_foreground: {fileID: 2800000, guid: b80e90dcb76a8fe47829a1aa72561a2f, type: 3}
+  item_sprite_background: {fileID: 21300000, guid: c76338aa1d575254ba3d6dfa5c3b279b, type: 3}
+  item_sprite_foreground: {fileID: 21300000, guid: b80e90dcb76a8fe47829a1aa72561a2f, type: 3}
+  item_sprite_fill_bottom: 0
+  item_sprite_fill_top: 1

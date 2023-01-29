@@ -12,6 +12,7 @@ namespace FFStudio
 	public static class ExtensionMethods
 	{
 		public static readonly string SAVE_PATH = Application.persistentDataPath + "/Saves/";
+		public static readonly string Key_ClockPurchaseCount = "clock_purchase_count";
 
 		static List< Transform > baseModelBones   = new List< Transform >( 96 );
 		static List< Transform > targetModelBones = new List< Transform >( 96 );
@@ -545,6 +546,18 @@ namespace FFStudio
 			return Mathf.Lerp( value, target, delta );
 		}
 
+		public static string FormatValue( this float value )
+		{
+			return FormatFloat.FormatNumber( value );
+		}
+
+		public static int GetCustomHashCode( this Vector2Int v2 )
+		{
+			if( Mathf.Max( v2.x, v2.y ) == v2.x )
+				return v2.x * v2.x + v2.x + v2.y;
+			else
+				return v2.x + v2.y * v2.y;
+		}
 #if FF_OBI_IMPORTED
 		public static void MergeParticles( this Obi.ObiRope obiRope, int indexOfElementBefore, int indexOfElementOfInterest )
 		{

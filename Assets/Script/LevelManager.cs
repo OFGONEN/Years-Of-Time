@@ -13,6 +13,9 @@ namespace FFStudio
         [ SerializeField ] ClockDataLibrary clock_data_library;
         [ SerializeField ] PoolClock pool_clock;
         [ SerializeField ] ListSpawnSlot list_slot_spawn;
+		[ SerializeField ] SaveSystem system_save;
+		[ SerializeField ] ClockPurchase notif_clock_purchase;
+		[ SerializeField ] ClockPurchaseCondition notif_clock_purchase_condition;
         
       [ Header( "Level Releated" ) ]
         public SharedProgressNotifier notifier_progress;
@@ -20,9 +23,22 @@ namespace FFStudio
       [ Header( "Fired Events" ) ]
         public GameEvent levelFailedEvent;
         public GameEvent levelCompleted;
+		public GameEvent event_clock_purchase;
 #endregion
 
 #region UnityAPI
+		private void Start()
+		{
+			var condition      = false ;
+			var spawnSlotArray = system_save.SaveData.slot_spawn_array;
+
+			for( var i = 0; i < spawnSlotArray.Length; i++ )
+			{
+				condition |= spawnSlotArray[ i ] < 0;
+			}
+
+			notif_clock_purchase_condition.SetConditionSlot( condition );
+		}
 #endregion
 
 #region API
@@ -50,13 +66,13 @@ namespace FFStudio
         }
 
         [ Button() ]
-        public void OnClockSpawn( int level )
+        public void OnClockSpawn()
         {
-			if( list_slot_spawn.itemList.Count > 0 )
-			{
-				var spawnSlot = list_slot_spawn.itemList.ReturnRandom();
-				spawnSlot.SpawnClock( level );
-			}
+			var spawnSlot = list_slot_spawn.itemList.ReturnRandom();
+			spawnSlot.SpawnClock( notif_clock_purchase.PurchaseLevel );
+
+			notif_clock_purchase_condition.SetConditionSlot( list_slot_spawn.itemList.Count > 0 );
+			event_clock_purchase.Raise();
 		}
 #endregion
 

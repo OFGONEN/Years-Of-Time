@@ -11,9 +11,10 @@ namespace FFStudio
 	public class FormatFloat : MonoBehaviour
 	{
 #region Fields
-		[ SerializeField ] UnityEvent<string> onFormatFloatEvent;
+		[ SerializeField ] UnityEvent< string > onFormatFloatEvent;
 		[ SerializeField ] string suffix;
 		[ SerializeField ] string prefix;
+		[ SerializeField ] string format;
 
 		private static readonly int charA = Convert.ToInt32( 'a' );
 		private static readonly Dictionary<int, string> units = new Dictionary<int, string>
@@ -32,7 +33,12 @@ namespace FFStudio
 #region API
 		public void UpdateTextRenderer( float value )
 		{
-			onFormatFloatEvent.Invoke( suffix + FormatNumber( value ) + prefix );
+			onFormatFloatEvent.Invoke( prefix + FormatNumber( value ) + suffix );
+		}
+
+		public void UpdateTextRendererWithFormat( float value )
+		{
+			onFormatFloatEvent.Invoke( prefix + value.ToString( format ) + suffix );
 		}
 #endregion
 

@@ -17,6 +17,7 @@ namespace FFStudio
 		[ LabelText( "Clock Movement Speed Horizontal" ) ] public float clock_movement_speed_horizontal;
 		[ LabelText( "Clock Movement Rotate Speed" ) ] public float clock_movement_speed_rotate;
 		[ LabelText( "Clock Movement Rotate Clamp" ) ] public float clock_movement_rotate_clamp;
+
     [ Title( "Clock" ) ]
 		[ LabelText( "Clock Spawn Punch Scale" ) ] public PunchScaleTween clock_spawn_punchScale;
 		[ LabelText( "Clock Wave Animation Radius" ) ] public float clock_animation_wave_radius;
@@ -26,7 +27,29 @@ namespace FFStudio
 		[LabelText( "Clock Slot Target Slot Move Duration" )] public float clock_slot_go_duration;
 		[LabelText( "Clock Slot Target Slot Move Ease" )] public Ease clock_slot_go_ease;
 		[ LabelText( "Clock Slot Search Distance" ) ] public float clock_slot_search_distance;
-    
+
+    [ Title( "Spawn Slot" ) ]
+		[ LabelText( "Highlight Positive Color" ) ] public Color slot_spawn_highlight_color_positive;
+		[ LabelText( "Highlight Negative Color" ) ] public Color slot_spawn_highlight_color_negative;
+		[ LabelText( "Highlight Default Color" ) ] public Color slot_spawn_highlight_color_default;
+
+    [ Title( "Clock Slot" ) ]
+		[ LabelText( "Highlight Positive Color" ) ] public Color slot_clock_highlight_color_positive;
+		[ LabelText( "Highlight Negative Color" ) ] public Color slot_clock_highlight_color_negative;
+		[ LabelText( "Highlight Default Color" ) ] public Color slot_clock_highlight_color_default;
+		[ LabelText( "Highlight Alpha Cofactor" ) ] public float slot_clock_highlight_alpha_cofactor;
+
+    [ Title( "Item" ) ]
+		[ LabelText( "Produce Punch Scale" ) ] public PunchScaleTween item_produce_tween_punchScale;
+		[ LabelText( "Produce Start Color" ) ] public Color item_produce_start_color;
+		[ LabelText( "Produce Stop Color" ) ] public Color item_produce_stop_color;
+		[ LabelText( "Produce Tween Duration" ) ] public float item_produce_duration;
+		[ LabelText( "Produce Tween Ease" ) ] public Ease item_produce_ease;
+
+    [ Title( "Play Area" ) ]
+		[ LabelText( "Size Count Row" ) ] public int playArea_size_count_row;
+		[ LabelText( "Size Count Column" ) ] public int playArea_size_count_column;
+
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;
     

@@ -4459,8 +4459,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1407833600}
-  - component: {fileID: 1407833602}
   - component: {fileID: 1407833601}
+  - component: {fileID: 1407833602}
   m_Layer: 0
   m_Name: tap_logic
   m_TagString: Untagged
@@ -4526,6 +4526,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: a5edacec3496d4c5f9e94958dd3b9adf, type: 2}
+        m_TargetAssemblyTypeName: FFStudio.IntGameEvent, FFStudio
+        m_MethodName: Raise
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1407833602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4535,53 +4547,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 1407833599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb097c07812299498915a0a3e793843, type: 3}
+  m_Script: {fileID: 11500000, guid: 245dc21cc9428744fa28ad2d6ce7d327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreStartedOverGui: 1
-  requiredButtons: -1
-  requiredSelectable: {fileID: 0}
-  onFinger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 69fdbad3237ece241b7dd83809b27ade, type: 2}
-        m_TargetAssemblyTypeName: TweenableFloatNotifier, Assembly-CSharp
-        m_MethodName: Initiate_AutoReverse
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1407833601}
-        m_TargetAssemblyTypeName: FFStudio.RunTimeInt, FFStudio
-        m_MethodName: OffsetData
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  ScreenDepth:
-    Conversion: 1
-    Camera: {fileID: 0}
-    Object: {fileID: 0}
-    Layers:
-      serializedVersion: 2
-      m_Bits: 4294967291
-    Distance: 0
-  onWorld:
-    m_PersistentCalls:
-      m_Calls: []
-  onScreen:
-    m_PersistentCalls:
-      m_Calls: []
+  eventPairs:
+  - eventListener:
+      gameEvents:
+      - {fileID: 11400000, guid: a4082a9420bb5b0498cb283ba93c93b6, type: 2}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 69fdbad3237ece241b7dd83809b27ade, type: 2}
+          m_TargetAssemblyTypeName: TweenableFloatNotifier, Assembly-CSharp
+          m_MethodName: Initiate_AutoReverse
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1407833601}
+          m_TargetAssemblyTypeName: FFStudio.RunTimeInt, FFStudio
+          m_MethodName: OffsetData
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1413844095
 PrefabInstance:
   m_ObjectHideFlags: 0

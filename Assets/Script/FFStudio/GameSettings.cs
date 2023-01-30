@@ -21,6 +21,10 @@ namespace FFStudio
 		[ LabelText( "Clock Movement Rotate Speed" ) ] public float clock_movement_speed_rotate;
 		[ LabelText( "Clock Movement Rotate Clamp" ) ] public float clock_movement_rotate_clamp;
 
+    [ Title( "Clock Rotation" ) ]
+		[ LabelText( "Clock Rotation Clamp" ) ] public float clock_rotation_clamp;
+		[ LabelText( "Clock Rotation Cofactor" ) ] public float clock_rotation_cofactor;
+
     [ Title( "Clock" ) ]
 		[ LabelText( "Clock Spawn Punch Scale" ) ] public PunchScaleTween clock_spawn_punchScale;
 		[ LabelText( "Clock Wave Animation Radius" ) ] public float clock_animation_wave_radius;

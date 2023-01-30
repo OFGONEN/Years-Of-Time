@@ -21,6 +21,8 @@ MonoBehaviour:
   clock_movement_speed_horizontal: 15
   clock_movement_speed_rotate: 90
   clock_movement_rotate_clamp: 45
+  clock_rotation_clamp: 30
+  clock_rotation_cofactor: 100
   clock_spawn_punchScale:
     strength: {x: 1, y: 0, z: 0.65}
     duration: 0.35

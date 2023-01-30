@@ -57,7 +57,7 @@ namespace FFStudio
 		public void SaveOverride( string save )
 		{
 			File.WriteAllText( ExtensionMethods.SAVE_PATH + "save.txt", save );
-			FFStudio.FFLogger.Log( "Savemanager: Saved Succesfully. Data saved: " + save );
+			// FFStudio.FFLogger.Log( "Savemanager: Saved Succesfully. Data saved: " + save );
 		}
 
 		public string LoadSave()

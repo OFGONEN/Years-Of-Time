@@ -28,6 +28,7 @@ public class Item : MonoBehaviour
     [ SerializeField ] SaveSystem system_save;
     [ SerializeField ] ParticleSpawnEvent event_particle_spawn;
     [ SerializeField ] SharedFloatNotifier notif_income_speed;
+    [ SerializeField ] TweenableFloatNotifier notif_tweenable_item_speed;
 
   [ Title( "Components" ) ]
     [ SerializeField ] Rectangle item_background;
@@ -187,7 +188,7 @@ public class Item : MonoBehaviour
 
 	void OnProduction()
 	{
-		item_duration += Time.deltaTime * GetCurrentClockSpeed();
+		item_duration += Time.deltaTime * GetCurrentClockSpeed() * notif_tweenable_item_speed.sharedValue;
 		item_image_foreground.fillAmount = Mathf.Lerp( item_data.ItemSpriteFillBottom, item_data.ItemSpriteFillTop, item_duration / item_data.ItemDuration );
 
 		if( item_duration > item_data.ItemDuration )
@@ -216,7 +217,7 @@ public class Item : MonoBehaviour
 		item_background.Color = GameSettings.Instance.item_produce_start_color;
 		TweenBackgroundColorToDefault();
 
-		item_currency_speed             = item_data.ItemCurrency / ( item_data.ItemDuration / CurrentSpeed() );
+		item_currency_speed             = item_data.ItemCurrency / ( item_data.ItemDuration / GetCurrentClockSpeed() );
 		notif_income_speed.SharedValue += item_currency_speed;
 
 		onUpdate = OnProduction;
@@ -230,15 +231,6 @@ public class Item : MonoBehaviour
 		notif_income_speed.SharedValue -= item_currency_speed;
 
 		onUpdate = ExtensionMethods.EmptyMethod;
-	}
-
-	float CurrentSpeed()
-	{
-		float speed = 0;
-		for( var i = 0; i < clock_slot_list.Count; i++ )
-			speed += clock_slot_list[ i ].CurrentClockSpeed();
-
-		return speed;
 	}
 
 	void TweenBackgroundColorToDefault()

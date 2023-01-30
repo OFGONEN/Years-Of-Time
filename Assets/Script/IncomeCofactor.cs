@@ -19,9 +19,9 @@ public class IncomeCofactor : SharedFloatNotifier
 #endregion
 
 #region Properties
-    public float IncomeCost     => income_data_array[ income_index ].income_cost;
-    public float IncomeValue    => income_data_array[ income_index ].income_value;
-    public float IncomeDataSize => income_data_array.Length;
+    public float NextIncomeCost  => income_data_array[ Mathf.Min( income_index + 1, income_data_array.Length - 1 ) ].income_cost;
+    public float NextIncomeValue => income_data_array[ Mathf.Min( income_index + 1, income_data_array.Length - 1 ) ].income_value;
+    public bool IsIncomeMaxed    => income_index == income_data_array.Length - 1;
 #endregion
 
 #region Unity API
@@ -31,16 +31,19 @@ public class IncomeCofactor : SharedFloatNotifier
     public void LoadIncomeCofactor()
     {
 		income_index = PlayerPrefsUtility.Instance.GetInt( ExtensionMethods.Key_Income, 0 );
-		SharedValue  = IncomeValue;
+		SharedValue  = income_data_array[ income_index ].income_value;
 	}
 
     public void UnlockIncome()
     {
-		notif_currency.SharedValue -= IncomeCost;
+		var cost = NextIncomeCost;
 
 		income_index++;
 		PlayerPrefsUtility.Instance.SetInt( ExtensionMethods.Key_Income, income_index );
-		SharedValue = IncomeValue;
+
+		SharedValue = income_data_array[ income_index ].income_value;
+
+		notif_currency.SharedValue -= cost;
 	}
 #endregion
 

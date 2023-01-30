@@ -18,6 +18,7 @@ public class Clock : MonoBehaviour
     [ SerializeField ] ListSlot list_slot;
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ParticleSpawnEvent event_particle_spawn;
+	[ SerializeField ] IntGameEvent event_vibrate;
 
   [ Title( "Components" ) ]
 	[ SerializeField ] Transform transform_gfx;
@@ -118,6 +119,7 @@ public class Clock : MonoBehaviour
 			DoWaveAnimation();
 		} );
 
+		event_vibrate.Raise( 0 );
 		event_particle_spawn.Raise( "clock_upgrade", transform.position );
 	}
 
@@ -130,6 +132,7 @@ public class Clock : MonoBehaviour
 
 		DOPunchScale( () => collider_selection.enabled = true );
 
+		event_vibrate.Raise( 0 );
 		event_particle_spawn.Raise( "clock_upgrade", transform.position );
 	}
 

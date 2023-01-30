@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sharedValue: 1
   value_start: 1
-  value_end: 3
+  value_end: 2
   duration: 1.5
   ease: 9
   autoReverse_cooldown_duration: 1

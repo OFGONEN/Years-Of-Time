@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notif_tweenable_value: {fileID: 11400000, guid: 69fdbad3237ece241b7dd83809b27ade, type: 2}
   notif_intensity: {fileID: 11400000, guid: 4e7ff7e6270e02547bc2008b2c440444, type: 2}
-  intensity_range: {x: 0, y: 7}
+  intensity_range: {x: 1.5, y: 8.5}
 --- !u!114 &6016222870619152443
 MonoBehaviour:
   m_ObjectHideFlags: 0

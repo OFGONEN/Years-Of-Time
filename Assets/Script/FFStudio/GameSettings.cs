@@ -13,6 +13,9 @@ namespace FFStudio
     [ Title( "Clock Movement" ) ]
 		[ LabelText( "Clock Height While Sitting Idle" ) ] public float clock_height_idle;
 		[ LabelText( "Clock Movement Height" ) ] public float clock_movement_height;
+		[ LabelText( "Clock Movement Scale" ) ] public float clock_movement_scale;
+		[ LabelText( "Clock Movement Duration" ) ] public float clock_movement_scale_duration;
+		[ LabelText( "Clock Movement Ease" ) ] public Ease clock_movement_scale_ease;
 		[ LabelText( "Clock Movement Speed Vertical" ) ] public float clock_movement_speed_vertical;
 		[ LabelText( "Clock Movement Speed Horizontal" ) ] public float clock_movement_speed_horizontal;
 		[ LabelText( "Clock Movement Rotate Speed" ) ] public float clock_movement_speed_rotate;

@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clock_height_idle: 0.3
   clock_movement_height: 0.6
+  clock_movement_scale: 0.5
+  clock_movement_scale_duration: 0.25
+  clock_movement_scale_ease: 12
   clock_movement_speed_vertical: 1
   clock_movement_speed_horizontal: 5
   clock_movement_speed_rotate: 90

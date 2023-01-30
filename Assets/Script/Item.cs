@@ -27,6 +27,7 @@ public class Item : MonoBehaviour
     [ SerializeField ] IncomeCofactor notif_income_cofactor;
     [ SerializeField ] SaveSystem system_save;
     [ SerializeField ] ParticleSpawnEvent event_particle_spawn;
+    [ SerializeField ] SharedFloatNotifier notif_income_speed;
 
   [ Title( "Components" ) ]
     [ SerializeField ] Rectangle item_background;
@@ -37,6 +38,7 @@ public class Item : MonoBehaviour
 	ItemState item_state;
 	float item_duration;
 	Color item_background_color;
+	[ ShowInInspector, ReadOnly ] float item_currency_speed;
 	[ ShowInInspector, ReadOnly ] Vector3 item_scale;
 
 	RecycledTween recycledTween_Color = new RecycledTween();
@@ -214,6 +216,9 @@ public class Item : MonoBehaviour
 		item_background.Color = GameSettings.Instance.item_produce_start_color;
 		TweenBackgroundColorToDefault();
 
+		item_currency_speed             = item_data.ItemCurrency / ( item_data.ItemDuration / CurrentSpeed() );
+		notif_income_speed.SharedValue += item_currency_speed;
+
 		onUpdate = OnProduction;
 	}
 
@@ -222,7 +227,18 @@ public class Item : MonoBehaviour
 		item_background.Color = GameSettings.Instance.item_produce_stop_color;
 		TweenBackgroundColorToDefault();
 
+		notif_income_speed.SharedValue -= item_currency_speed;
+
 		onUpdate = ExtensionMethods.EmptyMethod;
+	}
+
+	float CurrentSpeed()
+	{
+		float speed = 0;
+		for( var i = 0; i < clock_slot_list.Count; i++ )
+			speed += clock_slot_list[ i ].CurrentClockSpeed();
+
+		return speed;
 	}
 
 	void TweenBackgroundColorToDefault()

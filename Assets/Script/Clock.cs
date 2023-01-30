@@ -254,6 +254,10 @@ public class Clock : MonoBehaviour
 				GameSettings.Instance.clock_movement_scale_duration )
 				.SetEase( GameSettings.Instance.clock_movement_scale_ease ) );
 
+			sequence.Join( transform.DORotate( Vector3.zero,
+				GameSettings.Instance.clock_slot_go_duration )
+				.SetEase( GameSettings.Instance.clock_slot_go_ease ) );
+
 			EmptyDelegates();
 		}
 	}
@@ -274,6 +278,10 @@ public class Clock : MonoBehaviour
 			Vector3.one,
 			GameSettings.Instance.clock_movement_scale_duration )
 			.SetEase( GameSettings.Instance.clock_movement_scale_ease ) );
+		
+		sequence.Join( transform.DORotate( Vector3.zero,
+			GameSettings.Instance.clock_slot_go_duration )
+			.SetEase( GameSettings.Instance.clock_slot_go_ease ) );
 
 		EmptyDelegates();
 	}
@@ -294,6 +302,10 @@ public class Clock : MonoBehaviour
 			Vector3.one,
 			GameSettings.Instance.clock_movement_scale_duration )
 			.SetEase( GameSettings.Instance.clock_movement_scale_ease ) );
+		
+		sequence.Join( transform.DORotate( Vector3.zero,
+			GameSettings.Instance.clock_slot_go_duration )
+			.SetEase( GameSettings.Instance.clock_slot_go_ease ) );
 
 		EmptyDelegates();
 	}

@@ -170,6 +170,18 @@ MonoBehaviour:
   onAwakeEvent:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 11400000, guid: 2cf1d56eeee9db344aacf34bc6e8a085, type: 2}
+        m_TargetAssemblyTypeName: FFStudio.SharedDataNotifier`1[[System.Single, mscorlib
+        m_MethodName: SetValue_NotifyAlways
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 14c8cdf5fcfc1b94ea236d4e34cb1e8f, type: 2}
         m_TargetAssemblyTypeName: IncomeCofactor, Assembly-CSharp
         m_MethodName: LoadIncomeCofactor

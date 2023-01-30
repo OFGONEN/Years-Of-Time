@@ -105,9 +105,9 @@ MonoBehaviour:
     type: 0
     space: -2
     snap: 1
-    size: 16
+    size: 16.27
     spacing: 0.05882353
-    offset: 0
+    offset: 0.25
     shapeModifier: 1
   fill:
     type: 0

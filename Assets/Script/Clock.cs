@@ -320,6 +320,8 @@ public class Clock : MonoBehaviour
 		var         closestDistance = float.MaxValue;
 		var         position        = transform.position;
 
+		slot_target?.HighlightDefault();
+
 		foreach( var slot in list_slot.itemList )
 		{
 			var slotPosition = slot.GetPosition();

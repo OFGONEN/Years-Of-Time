@@ -357,12 +357,16 @@ public class Clock : MonoBehaviour
 		var movementDelta  = movementTarget - position;
 
 		//todo Use movementDelta and calculate rotation
+		var pitch = ( movementDelta.z * GameSettings.Instance.clock_rotation_cofactor ).Clamp( GameSettings.Instance.clock_rotation_clamp );
+
+		var roll = ( movementDelta.x * GameSettings.Instance.clock_rotation_cofactor ).Clamp( GameSettings.Instance.clock_rotation_clamp ) * -1f;
 
 		position.x = position.x.Lerp( movementTarget.x, Time.deltaTime * GameSettings.Instance.clock_movement_speed_horizontal );
 		position.y = position.y.Lerp( movementTarget.y, Time.deltaTime * GameSettings.Instance.clock_movement_speed_vertical );
 		position.z = position.z.Lerp( movementTarget.z, Time.deltaTime * GameSettings.Instance.clock_movement_speed_horizontal );
 
 		transform.position = position;
+		transform.eulerAngles = Vector3.zero.SetX( pitch ).SetZ( roll );
 		return position;
 	}
 

@@ -36,6 +36,11 @@ namespace FFStudio
 #endregion
 
 #region API
+		public void Notify()
+		{
+			changeEvent?.Invoke();
+		}
+
         public void Subscribe( ChangeEvent methodToSubscribe )
         {
 #if UNITY_EDITOR

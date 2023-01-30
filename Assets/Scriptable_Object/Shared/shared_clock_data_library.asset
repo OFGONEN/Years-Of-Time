@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 519eb09a00e594e79a22b93be9b18e76, type: 3}
+  m_Name: shared_clock_data_library
+  m_EditorClassIdentifier: 
+  clock_data_library:
+  - {fileID: 11400000, guid: 3569e4bc37ae7d6478561ce9f2aba6b0, type: 2}
+  - {fileID: 11400000, guid: dadfd30cc0d37264d98670a944ca50b3, type: 2}
+  - {fileID: 11400000, guid: 7d54730b431be9e468f0341caaa4fbdf, type: 2}
+  - {fileID: 11400000, guid: 30ce60887d0380345a650c596306edca, type: 2}
+  - {fileID: 11400000, guid: b42159c074473e248aed602f488f03e5, type: 2}
+  - {fileID: 11400000, guid: 951f5635886c55f498233173d3ddaede, type: 2}
+  - {fileID: 11400000, guid: 336d7dbe5302c6344afb7c854331900d, type: 2}
+  - {fileID: 11400000, guid: f7968b6aa26b79444b090b25cd1dbcd1, type: 2}
+  - {fileID: 11400000, guid: cb2a066dc07119241b15d2f1f78e60ec, type: 2}
+  - {fileID: 11400000, guid: 246dd129d9cf3b84296504a1aa5fea75, type: 2}
+  - {fileID: 11400000, guid: 97c5f33570df3ea4dbacbf8712c8a879, type: 2}
+  - {fileID: 11400000, guid: ad81b50c0f1646a489d84433762ceaaf, type: 2}

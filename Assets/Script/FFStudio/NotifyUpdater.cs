@@ -34,6 +34,11 @@ namespace FFStudio
 		{
 			notify_event.Invoke( sharedDataNotifier.SharedValue );
 		}
+
+		public virtual void ForceUpdate()
+		{
+			notify_event.Invoke( sharedDataNotifier.SharedValue );
+		}
 #endregion
 	}
 }

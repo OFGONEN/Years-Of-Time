@@ -1045,6 +1045,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: a5edacec3496d4c5f9e94958dd3b9adf, type: 2}
+        m_TargetAssemblyTypeName: FFStudio.IntGameEvent, FFStudio
+        m_MethodName: Raise
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5288767463336628119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1057,10 +1069,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f3d191fdd46eab4d8188ea8cebc7884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currency: {fileID: 11400000, guid: 2e15de48de013c54b95496572fa9ffae, type: 2}
   clock_purchase: {fileID: 11400000, guid: c30c7f2b780b24e448465656c212877f, type: 2}
   event_clock_spawn: {fileID: 11400000, guid: 35466aef448f18446b661e36d9c55ab9, type: 2}
-  notif_clock_purchase: {fileID: 11400000, guid: c30c7f2b780b24e448465656c212877f, type: 2}
   _image: {fileID: 7658592930388885080}
   _textRenderer: {fileID: 6159202535874088409}
 --- !u!1 &5247850611432916392

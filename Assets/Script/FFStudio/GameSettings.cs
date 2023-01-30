@@ -66,6 +66,7 @@ namespace FFStudio
 		[ Layer(), SerializeField ] int game_selection_layer;
 		[ System.NonSerialized ] public int game_selection_layer_mask;
 		public float game_selection_distance;
+		[ LabelText( "Save Frequency" ) ] public float game_save_cooldown;
         
         // Info: 3 groups below (coming from template project) are foldout by design: They should remain hidden.
 		[ FoldoutGroup( "Remote Config" ) ] public bool useRemoteConfig_GameSettings;

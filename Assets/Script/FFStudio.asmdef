@@ -7,14 +7,18 @@
         "GUID:688cfbbe2a536604ab4aa06ececa1da3",
         "GUID:df380645f10b7bc4b97d4f5eb6303d95",
         "GUID:15fc0a57446b3144c949da3e2b9737a9",
-        "GUID:051e709cd6b2a0649a2c66decdb82ea6",
-        "GUID:637dfb2b87b2cf0499a8da5b0b91da54"
+        "GUID:637dfb2b87b2cf0499a8da5b0b91da54",
+        "GUID:0e34048605cc146739c81bb369c14707",
+        "GUID:efae5787aec1c42c6b158e07084bb505"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "DOTween.dll",
+        "Sirenix.OdinInspector.Attributes.dll"
+    ],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],

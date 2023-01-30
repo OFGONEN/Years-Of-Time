@@ -6,44 +6,44 @@ using UnityEngine;
 using FFStudio;
 using Sirenix.OdinInspector;
 
-[ CreateAssetMenu( fileName = "notif_clock_purchase", menuName = "FF/Game/Clock Purchase" ) ]
+[CreateAssetMenu(fileName = "notif_clock_purchase", menuName = "FF/Game/Clock Purchase")]
 public class ClockPurchase : SharedBoolNotifier
 {
-#region Fields
-  [ Title( "Setup" ) ]
-    [ SerializeField ] float purchase_cost_base;
-    [ LabelText( "Purchase Level Range" ), SerializeField ] int[] purchase_level_range;
+	#region Fields
+	[Title("Setup")]
+	[SerializeField] float purchase_cost_base;
+	[LabelText("Purchase Level Range"), SerializeField] int[] purchase_level_range;
 
-  [ Title( "Shared" ) ]
-    [ SerializeField ] Currency currency;
-    [ SerializeField ] ClockDataLibrary clock_data_library;
+	[Title("Shared")]
+	[SerializeField] Currency currency;
+	[SerializeField] ClockDataLibrary clock_data_library;
 
-    [ ShowInInspector, ReadOnly ] int purchase_count;
-	[ ShowInInspector, ReadOnly ] int purchase_level;
-#endregion
+	[ShowInInspector, ReadOnly] int purchase_count;
+	[ShowInInspector, ReadOnly] int purchase_level;
+	#endregion
 
-#region Properties
+	#region Properties
 	public int PurchaseLevel => purchase_level;
-#endregion
+	#endregion
 
-#region Unity API
-#endregion
+	#region Unity API
+	#endregion
 
-#region API
-    public void LoadPurchaseCount( int defaultValue )
-    {
-		purchase_count = PlayerPrefsUtility.Instance.GetInt( ExtensionMethods.Key_ClockPurchaseCount, defaultValue );
+	#region API
+	public void LoadPurchaseCount(int defaultValue)
+	{
+		purchase_count = PlayerPrefsUtility.Instance.GetInt(ExtensionMethods.Key_ClockPurchaseCount, defaultValue);
 		SetPurchaseLevel();
 	}
 
-    public void SavePurchaseCount()
-    {
-        PlayerPrefsUtility.Instance.SetInt( ExtensionMethods.Key_ClockPurchaseCount, purchase_count );
-    }
+	public void SavePurchaseCount()
+	{
+		PlayerPrefsUtility.Instance.SetInt(ExtensionMethods.Key_ClockPurchaseCount, purchase_count);
+	}
 
-    public void CheckClockPurchase()
-    {
-		SetValue_NotifyAlways( currency.sharedValue >= GetClockPurchaseCost() );
+	public void CheckClockPurchase()
+	{
+		SetValue_NotifyAlways(currency.sharedValue >= GetClockPurchaseCost());
 	}
 
 	public void ClockPurchasedRespond()
@@ -51,40 +51,40 @@ public class ClockPurchase : SharedBoolNotifier
 		currency.SharedValue -= GetClockPurchaseCost();
 
 		purchase_count++;
-		PlayerPrefsUtility.Instance.SetInt( ExtensionMethods.Key_ClockPurchaseCount, purchase_count );
+		PlayerPrefsUtility.Instance.SetInt(ExtensionMethods.Key_ClockPurchaseCount, purchase_count);
 
 		SetPurchaseLevel();
 
 		CheckClockPurchase();
 	}
 
-    public Sprite GetClockSprite()
-    {
-		return clock_data_library.GetClockData( purchase_level ).ClockTexture;
+	public Sprite GetClockSprite()
+	{
+		return clock_data_library.GetClockData(purchase_level).ClockTexture;
 	}
-#endregion
+	#endregion
 
-#region Implementation
-    float GetClockPurchaseCost()
-    {
-        return purchase_cost_base + Mathf.Pow( purchase_count, 1.25f ) - purchase_count;
-    }
+	#region Implementation
+	float GetClockPurchaseCost()
+	{
+		return purchase_cost_base + Mathf.Pow(purchase_count, 1.9f) - purchase_count;
+	}
 
 	void SetPurchaseLevel()
 	{
 		purchase_level = 0;
 
-		for( var i = 0; i < purchase_level_range.Length; i++ )
+		for (var i = 0; i < purchase_level_range.Length; i++)
 		{
-			if( purchase_count >= purchase_level_range[ i ] )
+			if (purchase_count >= purchase_level_range[i])
 				purchase_level = i;
 		}
 
-		purchase_level = Mathf.Min( purchase_level, clock_data_library.ClockMaxLevel );
+		purchase_level = Mathf.Min(purchase_level, clock_data_library.ClockMaxLevel);
 	}
-#endregion
+	#endregion
 
-#region Editor Only
+	#region Editor Only
 #if UNITY_EDITOR
 	private void OnValidate()
 	{
@@ -94,5 +94,5 @@ public class ClockPurchase : SharedBoolNotifier
 		}
 	}
 #endif
-#endregion
+	#endregion
 }

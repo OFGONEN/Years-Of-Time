@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sharedValue: 0
   purchase_cost_base: 4
-  purchase_level_range: 00000000e8030000
+  purchase_level_range: 00000000140000003e0000008c0000002c0100006c020000ac030000ec0400002c0600006c070000ac080000ec090000
   currency: {fileID: 11400000, guid: 2e15de48de013c54b95496572fa9ffae, type: 2}
   clock_data_library: {fileID: 11400000, guid: 40039483da29b41f7b32b07ba371c16e, type: 2}

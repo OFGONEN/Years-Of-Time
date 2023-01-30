@@ -18,8 +18,11 @@ namespace FFStudio
 
 	  [ Title( "Setup" ) ]
 		[ SerializeField ] SharedStringNotifier save_string;
+		[ SerializeField ] Currency notif_currency;
 
 		[ SerializeField ] SaveData save_data;
+
+		Cooldown cooldown = new Cooldown();
 		static SaveSystem instance;
 
 		const int slot_spawn_default = -1;
@@ -89,6 +92,19 @@ namespace FFStudio
 			}
 		}
 
+		public void StartSaveCooldown()
+		{
+			cooldown.Start( GameSettings.Instance.game_save_cooldown, OnSaveCooldownComplete );
+		}
+
+		void OnSaveCooldownComplete()
+		{
+			SaveGameState();
+			notif_currency.SaveToPlayerPrefs();
+
+			StartSaveCooldown();
+		}
+
 		[ Button() ]
 		public void SaveGameState()
 		{
@@ -128,7 +144,6 @@ namespace FFStudio
 			if( json != null )
 				save_data = JsonUtility.FromJson< SaveData >( json ) as SaveData;
 		}
-
 #endregion
 
 #region Implementation

@@ -76,11 +76,13 @@ public class Item : MonoBehaviour
 		item_background_color = item_background.Color;
 
 		// Load item state
-		var itemState = (ItemState)system_save.SaveData.item_array[ item_index ];
 
-		if( itemState == ItemState.Locked )
+		item_state = ItemState.Invisible;
+		var data = (ItemState)system_save.SaveData.item_array[ item_index ];
+
+		if( data == ItemState.Locked )
 			StartAsLocked();
-		else if( itemState == ItemState.Unlocked )
+		else if( data == ItemState.Unlocked )
 			StartAsUnlocked();
 	}
 

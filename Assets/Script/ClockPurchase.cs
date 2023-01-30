@@ -51,6 +51,8 @@ public class ClockPurchase : SharedBoolNotifier
 		currency.SharedValue -= GetClockPurchaseCost();
 
 		purchase_count++;
+		PlayerPrefsUtility.Instance.SetInt( ExtensionMethods.Key_ClockPurchaseCount, purchase_count );
+
 		SetPurchaseLevel();
 
 		CheckClockPurchase();

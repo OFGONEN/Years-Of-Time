@@ -187,6 +187,24 @@ namespace FFStudio
 			for( var i = 0; i < itemCount; i++ )
 				save_data.item_array[ i ] = item_default;
 
+			save_data.slot_clock_array_column[ 0 ] = -1;
+			save_data.slot_clock_array_column[ 1 ] = -1;
+			save_data.slot_clock_array_column[ 2 ] = -1;
+
+			save_data.slot_clock_array_row[ 0 ] = -1;
+			save_data.slot_clock_array_row[ 1 ] = -1;
+			save_data.slot_clock_array_row[ 2 ] = -1;
+
+			save_data.item_array[ 0 ] = 0;
+			save_data.item_array[ 1 ] = 0;
+			save_data.item_array[ 2 ] = 0;
+			save_data.item_array[ 3 ] = 0;
+			save_data.item_array[ 4 ] = -1;
+			save_data.item_array[ 5 ] = -1;
+			save_data.item_array[ 6 ] = -1;
+			save_data.item_array[ 7 ] = -1;
+			save_data.item_array[ 8 ] = -1;
+
 			UnityEditor.AssetDatabase.SaveAssets();
 			SaveCurrentSaveData();
 		}

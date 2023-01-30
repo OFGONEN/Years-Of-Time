@@ -23,6 +23,7 @@ public class TweenableFloatNotifier : SharedFloatNotifier
 #endregion
 
 #region Properties
+	public float ValueProgress => Mathf.InverseLerp( value_start, value_end, sharedValue );
 #endregion
 
 #region Unity API

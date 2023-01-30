@@ -13,6 +13,9 @@ namespace FFStudio
     [ Title( "Clock Movement" ) ]
 		[ LabelText( "Clock Height While Sitting Idle" ) ] public float clock_height_idle;
 		[ LabelText( "Clock Movement Height" ) ] public float clock_movement_height;
+		[ LabelText( "Clock Movement Scale" ) ] public float clock_movement_scale;
+		[ LabelText( "Clock Movement Duration" ) ] public float clock_movement_scale_duration;
+		[ LabelText( "Clock Movement Ease" ) ] public Ease clock_movement_scale_ease;
 		[ LabelText( "Clock Movement Speed Vertical" ) ] public float clock_movement_speed_vertical;
 		[ LabelText( "Clock Movement Speed Horizontal" ) ] public float clock_movement_speed_horizontal;
 		[ LabelText( "Clock Movement Rotate Speed" ) ] public float clock_movement_speed_rotate;
@@ -66,6 +69,7 @@ namespace FFStudio
 		[ Layer(), SerializeField ] int game_selection_layer;
 		[ System.NonSerialized ] public int game_selection_layer_mask;
 		public float game_selection_distance;
+		[ LabelText( "Save Frequency" ) ] public float game_save_cooldown;
         
         // Info: 3 groups below (coming from template project) are foldout by design: They should remain hidden.
 		[ FoldoutGroup( "Remote Config" ) ] public bool useRemoteConfig_GameSettings;

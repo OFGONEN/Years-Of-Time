@@ -15,7 +15,7 @@ MonoBehaviour:
   item_level: 22
   item_duration: 385
   item_currency: 385
-  item_cost: 1155
+  item_cost: 11550
   item_sprite_background: {fileID: 21300000, guid: 638fda43a17abb049a11a0ed1f3ffd05, type: 3}
   item_sprite_foreground: {fileID: 21300000, guid: 1b94bd6becabf5b4e887c6103191c39c, type: 3}
   item_sprite_fill_bottom: 0

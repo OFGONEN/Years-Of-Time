@@ -76,11 +76,13 @@ public class Item : MonoBehaviour
 		item_background_color = item_background.Color;
 
 		// Load item state
-		item_state = (ItemState)system_save.SaveData.item_array[ item_index ];
 
-		if( item_state == ItemState.Locked )
+		item_state = ItemState.Invisible;
+		var data = (ItemState)system_save.SaveData.item_array[ item_index ];
+
+		if( data == ItemState.Locked )
 			StartAsLocked();
-		else if( item_state == ItemState.Unlocked )
+		else if( data == ItemState.Unlocked )
 			StartAsUnlocked();
 	}
 
@@ -123,6 +125,8 @@ public class Item : MonoBehaviour
 
 	public void StartAsLocked()
 	{
+		item_state = ItemState.Locked;
+
 		item_image_background.enabled = true;
 		item_image_background.sprite  = GameSettings.Instance.item_locked_sprite;
 	}
@@ -138,7 +142,6 @@ public class Item : MonoBehaviour
 		item_state = ItemState.Unlocked;
 
 		UpdateVisual();
-		//todo Play PFX
 
 		onClockAssign = AssignClockSlotUnlocked;
 		onClockRemove = RemoveClockSlotUnlocked;

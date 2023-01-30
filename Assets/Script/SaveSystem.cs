@@ -18,8 +18,11 @@ namespace FFStudio
 
 	  [ Title( "Setup" ) ]
 		[ SerializeField ] SharedStringNotifier save_string;
+		[ SerializeField ] Currency notif_currency;
 
 		[ SerializeField ] SaveData save_data;
+
+		Cooldown cooldown = new Cooldown();
 		static SaveSystem instance;
 
 		const int slot_spawn_default = -1;
@@ -54,7 +57,7 @@ namespace FFStudio
 		public void SaveOverride( string save )
 		{
 			File.WriteAllText( ExtensionMethods.SAVE_PATH + "save.txt", save );
-			FFStudio.FFLogger.Log( "Savemanager: Saved Succesfully. Data saved: " + save );
+			// FFStudio.FFLogger.Log( "Savemanager: Saved Succesfully. Data saved: " + save );
 		}
 
 		public string LoadSave()
@@ -87,6 +90,19 @@ namespace FFStudio
 				FFStudio.FFLogger.Log( "SaveSystem: Found save file. Deleting it." );
 				File.Delete( ExtensionMethods.SAVE_PATH + "save.txt" );
 			}
+		}
+
+		public void StartSaveCooldown()
+		{
+			cooldown.Start( GameSettings.Instance.game_save_cooldown, OnSaveCooldownComplete );
+		}
+
+		void OnSaveCooldownComplete()
+		{
+			SaveGameState();
+			notif_currency.SaveToPlayerPrefs();
+
+			StartSaveCooldown();
 		}
 
 		[ Button() ]
@@ -128,7 +144,6 @@ namespace FFStudio
 			if( json != null )
 				save_data = JsonUtility.FromJson< SaveData >( json ) as SaveData;
 		}
-
 #endregion
 
 #region Implementation
@@ -171,6 +186,24 @@ namespace FFStudio
 
 			for( var i = 0; i < itemCount; i++ )
 				save_data.item_array[ i ] = item_default;
+
+			save_data.slot_clock_array_column[ 0 ] = -1;
+			save_data.slot_clock_array_column[ 1 ] = -1;
+			save_data.slot_clock_array_column[ 2 ] = -1;
+
+			save_data.slot_clock_array_row[ 0 ] = -1;
+			save_data.slot_clock_array_row[ 1 ] = -1;
+			save_data.slot_clock_array_row[ 2 ] = -1;
+
+			save_data.item_array[ 0 ] = 0;
+			save_data.item_array[ 1 ] = 0;
+			save_data.item_array[ 2 ] = 0;
+			save_data.item_array[ 3 ] = 0;
+			save_data.item_array[ 4 ] = -1;
+			save_data.item_array[ 5 ] = -1;
+			save_data.item_array[ 6 ] = -1;
+			save_data.item_array[ 7 ] = -1;
+			save_data.item_array[ 8 ] = -1;
 
 			UnityEditor.AssetDatabase.SaveAssets();
 			SaveCurrentSaveData();

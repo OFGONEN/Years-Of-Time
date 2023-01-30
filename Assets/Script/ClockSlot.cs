@@ -104,8 +104,13 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 
 #region API
   //ISlotInterface START
-    public Vector3 GetPosition()
+    public Transform GetTransform()
     {
+		return transform;
+	}
+
+	public Vector3 GetPosition()
+	{
 		return transform.position;
 	}
 

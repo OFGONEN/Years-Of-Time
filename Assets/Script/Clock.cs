@@ -38,7 +38,8 @@ public class Clock : MonoBehaviour
 	ISlotEntity slot_target;
 	float animation_wave_cofactor;
 
-	RecycledTween recycledTween = new RecycledTween();
+	RecycledTween    recycledTween    = new RecycledTween();
+	RecycledSequence recycledSequence = new RecycledSequence();
 
 	UnityMessage onSelected;
 	UnityMessage onDeSelected;
@@ -48,8 +49,6 @@ public class Clock : MonoBehaviour
 
 #region Properties
 	public  ClockData ClockData => clock_data;
-	Vector3 SlotPositionCurrent => slot_current.GetPosition().SetY( GameSettings.Instance.clock_height_idle );
-	Vector3 SlotPositionTarget  => slot_target.GetPosition().SetY( GameSettings.Instance.clock_height_idle );
 #endregion
 
 #region Unity API
@@ -75,7 +74,10 @@ public class Clock : MonoBehaviour
 		onSelected   = SelectedOnSpawnSlot;
 
 		gameObject.SetActive( true );
-		transform.position = SlotPositionCurrent;
+
+		transform.SetParent( slot_current.GetTransform() );
+		transform.localScale = Vector3.one;
+		transform.localPosition = Vector3.up * GameSettings.Instance.clock_height_idle;
 
 		DOPunchScale( () => {
 			collider_selection.enabled = true;
@@ -95,7 +97,10 @@ public class Clock : MonoBehaviour
 		collider_selection.enabled = true;
 
 		gameObject.SetActive( true );
-		transform.position = SlotPositionCurrent;
+
+		transform.SetParent( slot_current.GetTransform() );
+		transform.localScale = Vector3.one;
+		transform.localPosition = Vector3.up * GameSettings.Instance.clock_height_idle;
 
 		onUpdate = DoProductionAnimation;
 	}
@@ -105,7 +110,8 @@ public class Clock : MonoBehaviour
 		UpdateClockData( clock_data.ClockNextData );
 		UpdateVisuals();
 
-		transform.position = SlotPositionCurrent;
+		transform.localPosition = Vector3.up * GameSettings.Instance.clock_height_idle;
+
 		collider_selection.enabled = false;
 		DOPunchScale( () => {
 			collider_selection.enabled = true;
@@ -120,7 +126,8 @@ public class Clock : MonoBehaviour
 		UpdateClockData( clock_data.ClockNextData );
 		UpdateVisuals();
 
-		transform.position = SlotPositionCurrent;
+		transform.localPosition = Vector3.up * GameSettings.Instance.clock_height_idle;
+
 		DOPunchScale( () => collider_selection.enabled = true );
 
 		event_particle_spawn.Raise( "clock_upgrade", transform.position );
@@ -176,7 +183,10 @@ public class Clock : MonoBehaviour
 	public void ReturnToPool()
 	{
 		EmptyDelegates();
+
+		recycledTween.Kill();
 		collider_selection.enabled = false;
+		transform.localScale       = Vector3.one;
 
 		pool_clock.ReturnEntity( this );
 	}
@@ -185,14 +195,18 @@ public class Clock : MonoBehaviour
 #region Implementation
 	void SelectedOnSpawnSlot()
 	{
-		//todo start scale tween
 		onSelected        = ExtensionMethods.EmptyMethod;
 		onDeSelected      = DeSelectedOnSpawnSlotReturnToCurrentSlot;
 		onDeSelectedCache = DeSelectedOnSpawnSlotReturnToCurrentSlot;
 
-		slot_current.OnCurrentClockDeparted();
+		transform.SetParent( null );
 
 		recycledTween.Kill();
+		recycledTween.Recycle( transform.DOScale( Vector3.one * GameSettings.Instance.clock_movement_scale,
+			GameSettings.Instance.clock_movement_scale_duration )
+			.SetEase( GameSettings.Instance.clock_movement_scale_ease ) );
+
+		slot_current.OnCurrentClockDeparted();
 
 		collider_selection.enabled = false;
 		onUpdate                   = OnMovement;
@@ -204,9 +218,14 @@ public class Clock : MonoBehaviour
 		onDeSelected      = DeSelectedOnClockSlotReturnToCurrentSlot;
 		onDeSelectedCache = DeSelectedOnClockSlotReturnToCurrentSlot;
 
-		slot_current.OnCurrentClockDeparted();
+		transform.SetParent( null );
 
 		recycledTween.Kill();
+		recycledTween.Recycle( transform.DOScale( Vector3.one * GameSettings.Instance.clock_movement_scale,
+			GameSettings.Instance.clock_movement_scale_duration )
+			.SetEase( GameSettings.Instance.clock_movement_scale_ease ) );
+
+		slot_current.OnCurrentClockDeparted();
 
 		collider_selection.enabled = false;
 		onUpdate                   = OnMovement;
@@ -218,12 +237,19 @@ public class Clock : MonoBehaviour
 			DeSelectedOnSpawnSlotReturnToCurrentSlot();
 		else
 		{
-			recycledTween.Recycle( transform.DOMove(
-				SlotPositionTarget,
+			transform.SetParent( slot_target.GetTransform() );
+
+			var sequence = recycledSequence.Recycle( OnGoToTargetSlotComplete );
+
+			sequence.Append( transform.DOLocalMove(
+				Vector3.up * GameSettings.Instance.clock_height_idle,
 				GameSettings.Instance.clock_slot_go_duration )
-				.SetEase( GameSettings.Instance.clock_slot_go_ease ),
-				OnGoToTargetSlotComplete
-			);
+				.SetEase( GameSettings.Instance.clock_slot_go_ease ) );
+
+			sequence.Join( transform.DOScale(
+				Vector3.one,
+				GameSettings.Instance.clock_movement_scale_duration )
+				.SetEase( GameSettings.Instance.clock_movement_scale_ease ) );
 
 			EmptyDelegates();
 		}
@@ -231,28 +257,40 @@ public class Clock : MonoBehaviour
 
 	void DeSelectedOnClockSlotReturnToCurrentSlot()
 	{
+		transform.SetParent( slot_current.GetTransform() );
 		slot_target = null;
 
-		recycledTween.Recycle( transform.DOMove(
-			SlotPositionCurrent,
-			GameSettings.Instance.clock_slot_return_duration )
-			.SetEase( GameSettings.Instance.clock_slot_return_ease ),
-			OnReturnToCurrentSlotComplete
-		);
+		var sequence = recycledSequence.Recycle( OnReturnToCurrentSlotComplete );
+
+		sequence.Append( transform.DOLocalMove(
+			Vector3.up * GameSettings.Instance.clock_height_idle,
+			GameSettings.Instance.clock_slot_go_duration )
+			.SetEase( GameSettings.Instance.clock_slot_go_ease ) );
+
+		sequence.Join( transform.DOScale(
+			Vector3.one,
+			GameSettings.Instance.clock_movement_scale_duration )
+			.SetEase( GameSettings.Instance.clock_movement_scale_ease ) );
 
 		EmptyDelegates();
 	}
 
 	void DeSelectedOnSpawnSlotReturnToCurrentSlot()
 	{
+		transform.SetParent( slot_current.GetTransform() );
 		slot_target = null;
 
-		recycledTween.Recycle( transform.DOMove(
-			SlotPositionCurrent,
-			GameSettings.Instance.clock_slot_return_duration )
-			.SetEase( GameSettings.Instance.clock_slot_return_ease ),
-			OnReturnToCurrentSlotComplete
-		);
+		var sequence = recycledSequence.Recycle( OnReturnToCurrentSlotComplete );
+
+		sequence.Append( transform.DOLocalMove(
+			Vector3.up * GameSettings.Instance.clock_height_idle,
+			GameSettings.Instance.clock_slot_go_duration )
+			.SetEase( GameSettings.Instance.clock_slot_go_ease ) );
+
+		sequence.Join( transform.DOScale(
+			Vector3.one,
+			GameSettings.Instance.clock_movement_scale_duration )
+			.SetEase( GameSettings.Instance.clock_movement_scale_ease ) );
 
 		EmptyDelegates();
 	}
@@ -281,6 +319,8 @@ public class Clock : MonoBehaviour
 		ISlotEntity slotTarget      = slot_current;
 		var         closestDistance = float.MaxValue;
 		var         position        = transform.position;
+
+		slot_target?.HighlightDefault();
 
 		foreach( var slot in list_slot.itemList )
 		{
@@ -325,9 +365,9 @@ public class Clock : MonoBehaviour
 
 	void DoWaveAnimation()
 	{
-		var targetPosition = SlotPositionCurrent + Random.insideUnitCircle.ConvertV3_Z() * GameSettings.Instance.clock_animation_wave_radius + Vector3.right * GameSettings.Instance.clock_animation_wave_radius * animation_wave_cofactor;
+		var targetPosition = Vector3.up * GameSettings.Instance.clock_height_idle + Random.insideUnitCircle.ConvertV3_Z() * GameSettings.Instance.clock_animation_wave_radius + Vector3.right * GameSettings.Instance.clock_animation_wave_radius * animation_wave_cofactor;
 
-		recycledTween.Recycle( transform.DOMove(
+		recycledTween.Recycle( transform.DOLocalMove(
 			targetPosition,
 			GameSettings.Instance.clock_animation_wave_speed )
 			.SetSpeedBased(), DoWaveAnimation );

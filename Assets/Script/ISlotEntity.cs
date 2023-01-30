@@ -3,6 +3,7 @@ using UnityEngine;
 
 public interface ISlotEntity
 {
+	Transform GetTransform();
 	Vector3 GetPosition();
 	bool IsClockPresent(); // Returns -1 if no clock is present
 	int CurrentClockLevel(); // Return current clock level

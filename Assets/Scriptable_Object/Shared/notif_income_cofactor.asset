@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: notif_income_cofactor
   m_EditorClassIdentifier: 
   sharedValue: 1
+  income_data_array:
+  - income_cost: 0
+    income_value: 1
+  - income_cost: 10000
+    income_value: 1.01
+  notif_currency: {fileID: 0}

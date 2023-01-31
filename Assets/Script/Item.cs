@@ -50,6 +50,7 @@ public class Item : MonoBehaviour
 	List< ClockSlot > clock_slot_list = new List< ClockSlot >( 2 );
     UnityMessage onUpdate;
 	UnityMessage onItemProduce;
+	GetFillAmount onFillAmount;
 	ClockMessage onClockAssign;
 	ClockMessage onClockRemove;
 
@@ -84,6 +85,7 @@ public class Item : MonoBehaviour
 		item_background_color = item_background.Color;
 
 		onItemProduce = OnItemProduced;
+		onFillAmount  = GetFillAmount;
 
 		// Load item state
 
@@ -153,6 +155,7 @@ public class Item : MonoBehaviour
 
 		item_state = ItemState.Unlocked;
 
+		onFillAmount  = GetFillAmountAsSpoiler;
 		onItemProduce = OnItemProducedAsSpoiler;
 		onClockAssign = AssignClockSlotUnlocked;
 		onClockRemove = RemoveClockSlotUnlocked;
@@ -211,10 +214,20 @@ public class Item : MonoBehaviour
 	void OnProduction()
 	{
 		item_duration += Time.deltaTime * GetCurrentClockSpeed() * notif_tweenable_item_speed.sharedValue;
-		item_image_foreground.fillAmount = Mathf.Lerp( item_data.ItemSpriteFillBottom, item_data.ItemSpriteFillTop, item_duration / item_data.ItemDuration );
+		item_image_foreground.fillAmount = onFillAmount();
 
 		if( item_duration > item_data.ItemDuration )
 			onItemProduce();
+	}
+
+	float GetFillAmount()
+	{
+		return Mathf.Lerp( item_data.ItemSpriteFillBottom, item_data.ItemSpriteFillTop, item_duration / item_data.ItemDuration );
+	}
+
+	float GetFillAmountAsSpoiler()
+	{
+		return item_duration / item_data.ItemDuration;
 	}
 
 	void OnItemProducedAsSpoiler()

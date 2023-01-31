@@ -34,6 +34,7 @@ namespace FFStudio
 		[LabelText( "Clock Slot Target Slot Move Duration" )] public float clock_slot_go_duration;
 		[LabelText( "Clock Slot Target Slot Move Ease" )] public Ease clock_slot_go_ease;
 		[ LabelText( "Clock Slot Search Distance" ) ] public float clock_slot_search_distance;
+		[ LabelText( "Clock Produce Speed Cofactor" ) ] public float clock_produce_cofactor;
 
     [ Title( "Spawn Slot" ) ]
 		[ LabelText( "Highlight Positive Color" ) ] public Color slot_spawn_highlight_color_positive;

@@ -19,6 +19,7 @@ public class Clock : MonoBehaviour
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ParticleSpawnEvent event_particle_spawn;
 	[ SerializeField ] IntGameEvent event_vibrate;
+	[ SerializeField ] TweenableFloatNotifier notif_item_speed;
 
   [ Title( "Components" ) ]
 	[ SerializeField ] Transform transform_gfx;
@@ -397,9 +398,9 @@ public class Clock : MonoBehaviour
 
 	void DoProductionAnimation()
 	{
-		clock_hand_second.Rotate( Vector3.forward * -1f * clock_data.ClockHandSecondSpeed * Time.deltaTime, Space.Self );
-		clock_hand_minute.Rotate( Vector3.forward * -1f * clock_data.ClockHandMinuteSpeed * Time.deltaTime, Space.Self );
-		clock_hand_hour.Rotate( Vector3.forward * -1f * clock_data.ClockHandHourSpeed * Time.deltaTime, Space.Self );
+		clock_hand_second.Rotate( Vector3.forward * -1f * clock_data.ClockHandSecondSpeed * ( notif_item_speed.sharedValue * GameSettings.Instance.clock_produce_cofactor ) * Time.deltaTime, Space.Self );
+		clock_hand_minute.Rotate( Vector3.forward * -1f * clock_data.ClockHandMinuteSpeed * ( notif_item_speed.sharedValue * GameSettings.Instance.clock_produce_cofactor ) * Time.deltaTime, Space.Self );
+		clock_hand_hour.Rotate( Vector3.forward * -1f * clock_data.ClockHandHourSpeed * ( notif_item_speed.sharedValue * GameSettings.Instance.clock_produce_cofactor ) * Time.deltaTime, Space.Self );
 	}
 
 	void CacheCamera()

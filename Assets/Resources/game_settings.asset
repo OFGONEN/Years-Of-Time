@@ -36,6 +36,7 @@ MonoBehaviour:
   clock_slot_go_duration: 0.25
   clock_slot_go_ease: 12
   clock_slot_search_distance: 1
+  clock_produce_cofactor: 1
   slot_spawn_highlight_color_positive: {r: 0, g: 1, b: 0, a: 1}
   slot_spawn_highlight_color_negative: {r: 1, g: 0, b: 0, a: 1}
   slot_spawn_highlight_color_default: {r: 1, g: 1, b: 1, a: 1}

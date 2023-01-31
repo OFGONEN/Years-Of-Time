@@ -177,6 +177,7 @@ MonoBehaviour:
   pool_clock: {fileID: 11400000, guid: 1436a799764a7d043a4bd009ef3d321c, type: 2}
   event_particle_spawn: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
   event_vibrate: {fileID: 11400000, guid: a5edacec3496d4c5f9e94958dd3b9adf, type: 2}
+  notif_item_speed: {fileID: 11400000, guid: 69fdbad3237ece241b7dd83809b27ade, type: 2}
   transform_gfx: {fileID: 3473131557580954200}
   collider_selection: {fileID: 8414447166023306716}
   clock_hand_second: {fileID: 6434320321014873073}

@@ -14,16 +14,21 @@ public class Tutorial : MonoBehaviour
   [ Title( "Setup" ) ]
     [ SerializeField ] RectTransform transform_hand;
     [ SerializeField ] RectTransform transform_mask;
-    [ SerializeField ] RectTransform transform_information;
-    [ SerializeField ] TextMeshProUGUI textRenderer_information;
+    [ SerializeField ] GameEvent event_clock_selection_enable;
+    [ SerializeField ] GameEvent event_clock_selection_disable;
 
   [ Title( "Settings" ) ]
     [ SerializeField ] float hand_click_scale;
     [ SerializeField ] float hand_click_cooldown;
     
-    [ FoldoutGroup( "Phase 1" ), SerializeField ] RectTransform target_hand;
+    [ FoldoutGroup( "Phase 1" ), SerializeField ] RectTransform phase_one_target_hand;
+    [ FoldoutGroup( "Phase 1" ), SerializeField ] RectTransform phase_one_information;
+    [ FoldoutGroup( "Phase 2" ), SerializeField ] float phase_two_cooldown_start;
+    [ FoldoutGroup( "Phase 2" ), SerializeField ] RectTransform phase_two_information;
 
     RecycledSequence recycledSequence = new RecycledSequence();
+    UnityMessage onClockSpawn;
+    Cooldown cooldown = new Cooldown();
 #endregion
 
 #region Properties
@@ -36,14 +41,40 @@ public class Tutorial : MonoBehaviour
     [ Button() ]
     public void StartPhaseOne()
     {
-		transform_hand.position = target_hand.position;
-		transform_hand.rotation = target_hand.rotation;
+		transform_hand.position = phase_one_target_hand.position;
+		transform_hand.rotation = phase_one_target_hand.rotation;
 
 		transform_hand.gameObject.SetActive( true );
 		transform_mask.gameObject.SetActive( true );
-		transform_information.gameObject.SetActive( true );
+		phase_one_information.gameObject.SetActive( true );
+
+		event_clock_selection_disable.Raise();
+		onClockSpawn = StopPhaseOne;
 
 		DoHandClickAnimation();
+	}
+
+    public void StopPhaseOne()
+    {
+		transform_hand.gameObject.SetActive( false );
+		transform_mask.gameObject.SetActive( false );
+		phase_one_information.gameObject.SetActive( false );
+
+		cooldown.Start( phase_two_cooldown_start, StartPhaseTwo );
+	}
+
+    public void StartPhaseTwo()
+    {
+		event_clock_selection_disable.Raise();
+
+        transform_hand.gameObject.SetActive( true );
+		phase_two_information.gameObject.SetActive( true );
+	}
+
+    public void OnClockSpawn()
+    {
+        FFLogger.Log( "OnClockSpawn" );
+		onClockSpawn();
 	}
 #endregion
 

@@ -78,7 +78,6 @@ public class Clock : MonoBehaviour
 		gameObject.SetActive( true );
 
 		transform.SetParent( slot_current.GetTransform() );
-		transform.localScale = Vector3.one;
 		transform.localPosition = Vector3.up * GameSettings.Instance.clock_height_idle;
 
 		DOPunchScale( () => {
@@ -101,8 +100,9 @@ public class Clock : MonoBehaviour
 		gameObject.SetActive( true );
 
 		transform.SetParent( slot_current.GetTransform() );
-		transform.localScale = Vector3.one;
-		transform.localPosition = Vector3.up * GameSettings.Instance.clock_height_idle;
+		transform.localScale     = Vector3.one;
+		transform_gfx.localScale = Vector3.one;
+		transform.localPosition  = Vector3.up * GameSettings.Instance.clock_height_idle;
 
 		onUpdate = DoProductionAnimation;
 	}
@@ -156,6 +156,7 @@ public class Clock : MonoBehaviour
 
 	public void DOPunchScale( UnityMessage onComplete )
 	{
+		transform_gfx.localScale = Vector3.one;
 		recycledTween.Recycle( GameSettings.Instance.clock_spawn_punchScale.CreateTween( transform_gfx ), onComplete ) ;
 	}
 
@@ -192,6 +193,7 @@ public class Clock : MonoBehaviour
 		recycledTween.Kill();
 		collider_selection.enabled = false;
 		transform.localScale       = Vector3.one;
+		transform_gfx.localScale   = Vector3.one;
 
 		pool_clock.ReturnEntity( this );
 	}

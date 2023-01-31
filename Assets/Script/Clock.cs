@@ -241,7 +241,10 @@ public class Clock : MonoBehaviour
 	void DeSelectedGoToTargetSlot()
 	{
 		if( slot_target.IsClockPresent() && slot_target.CurrentClockLevel() != ClockData.ClockLevel )
+		{
+			slot_target.HighlightDefault();
 			DeSelectedOnSpawnSlotReturnToCurrentSlot();
+		}
 		else
 		{
 			transform.SetParent( slot_target.GetTransform() );

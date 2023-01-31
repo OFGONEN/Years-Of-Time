@@ -54,6 +54,8 @@ namespace FFStudio
 		[ LabelText( "Produce Tween Duration" ) ] public float item_produce_duration;
 		[ LabelText( "Produce Tween Ease" ) ] public Ease item_produce_ease;
 		[ LabelText( "Locked Sprite" ) ] public Sprite item_locked_sprite;
+		[ LabelText( "Spoiler Background Sprite" ) ] public Sprite item_spoiler_background_sprite;
+		[ LabelText( "Spoiler Foreground Sprite" ) ] public Sprite item_spoiler_foreground_sprite;
 	
 	[ Title( "Item PopUp Text" ) ]
 		[ LabelText( "Item PopUp Start Color" ) ] public Color item_popUp_color_start;

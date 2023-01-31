@@ -313,6 +313,7 @@ MonoBehaviour:
   currentLevelData: {fileID: 11400000, guid: d35c98ef4c868d94f85bf38a98066033, type: 2}
   pool_UIPopUpText: {fileID: 11400000, guid: eaaacbd90b1464ad2b2a3a962a8a84b2, type: 2}
   pool_clock: {fileID: 11400000, guid: 1436a799764a7d043a4bd009ef3d321c, type: 2}
+  pool_item_popUp_text: {fileID: 11400000, guid: 2f92188a5156f444cb3453d65e5195ad, type: 2}
 --- !u!114 &7751064681048781016
 MonoBehaviour:
   m_ObjectHideFlags: 0

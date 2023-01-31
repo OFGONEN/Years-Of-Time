@@ -79,6 +79,7 @@ public class Clock : MonoBehaviour
 
 		transform.SetParent( slot_current.GetTransform() );
 		transform.localPosition = Vector3.up * GameSettings.Instance.clock_height_idle;
+		transform.localScale    = Vector3.one;
 
 		DOPunchScale( () => {
 			collider_selection.enabled = true;
@@ -100,9 +101,9 @@ public class Clock : MonoBehaviour
 		gameObject.SetActive( true );
 
 		transform.SetParent( slot_current.GetTransform() );
+		transform.localPosition  = Vector3.up * GameSettings.Instance.clock_height_idle;
 		transform.localScale     = Vector3.one;
 		transform_gfx.localScale = Vector3.one;
-		transform.localPosition  = Vector3.up * GameSettings.Instance.clock_height_idle;
 
 		onUpdate = DoProductionAnimation;
 	}

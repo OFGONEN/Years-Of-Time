@@ -7,10 +7,11 @@ using TMPro;
 using FFStudio;
 using DG.Tweening;
 
-public class UIPopUpText : MonoBehaviour
+public class UIItemPopUpText : MonoBehaviour
 {
 #region Fields
     [ SerializeField ] TextMeshProUGUI _textRenderer;
+    [ SerializeField ] PoolUIPopUpText pool_popUp;
 
     RecycledSequence recycledSequence = new RecycledSequence();
 #endregion
@@ -32,7 +33,8 @@ public class UIPopUpText : MonoBehaviour
 
 		sequence.Append( _textRenderer.DOColor( GameSettings.Instance.item_popUp_color_end,
 			GameSettings.Instance.ui_PopUp_duration )
-			.SetEase( GameSettings.Instance.item_popUp_color_ease) );
+			.SetEase( GameSettings.Instance.item_popUp_color_ease ) );
+
 		sequence.Join( transform.DOMoveZ( GameSettings.Instance.item_popUp_movement_delta,
 			GameSettings.Instance.ui_PopUp_duration )
 			.SetEase( GameSettings.Instance.item_popUp_movement_ease )
@@ -43,8 +45,9 @@ public class UIPopUpText : MonoBehaviour
 #region Implementation
     void OnSequenceComplete()
     {
-
-    }
+		recycledSequence.Kill();
+		pool_popUp.ReturnEntity( this );
+	}
 #endregion
 
 #region Editor Only

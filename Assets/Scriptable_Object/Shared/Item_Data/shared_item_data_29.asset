@@ -20,4 +20,4 @@ MonoBehaviour:
   item_sprite_foreground: {fileID: 21300000, guid: 31bc23165320c09459b7b77761fe604c, type: 3}
   item_sprite_fill_bottom: 0.07
   item_sprite_fill_top: 0.93
-  item_popUp_count: 8
+  item_popUp_count: 6

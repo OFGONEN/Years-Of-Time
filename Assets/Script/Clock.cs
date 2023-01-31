@@ -158,7 +158,7 @@ public class Clock : MonoBehaviour
 	public void DOPunchScale( UnityMessage onComplete )
 	{
 		transform_gfx.localScale = Vector3.one;
-		recycledTween.Recycle( GameSettings.Instance.clock_spawn_punchScale.CreateTween( transform_gfx ), onComplete ) ;
+		recycledTween.Recycle( GameSettings.Instance.clock_spawn_shake_scale.CreateTween( transform_gfx ), onComplete ) ;
 	}
 
 	public void OnSelected()

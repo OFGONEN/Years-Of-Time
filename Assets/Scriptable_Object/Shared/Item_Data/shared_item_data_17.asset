@@ -18,5 +18,5 @@ MonoBehaviour:
   item_cost: 5490
   item_sprite_background: {fileID: 21300000, guid: 7630244290ee2ac4b98d9ce9530c3777, type: 3}
   item_sprite_foreground: {fileID: 21300000, guid: 33cef268ccbb01647add3ed8fb5f5a81, type: 3}
-  item_sprite_fill_bottom: 0
-  item_sprite_fill_top: 1
+  item_sprite_fill_bottom: 0.12
+  item_sprite_fill_top: 0.88

@@ -191,7 +191,7 @@ namespace FFStudio
 			save_data.slot_clock_array_column[ 1 ] = -1;
 			save_data.slot_clock_array_column[ 2 ] = -1;
 
-			save_data.slot_clock_array_row[ 0 ] = -1;
+			save_data.slot_clock_array_row[ 0 ] = 0;
 			save_data.slot_clock_array_row[ 1 ] = -1;
 			save_data.slot_clock_array_row[ 2 ] = -1;
 

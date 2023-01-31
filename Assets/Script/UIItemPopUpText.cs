@@ -13,6 +13,7 @@ public class UIItemPopUpText : MonoBehaviour
 #region Fields
     [ SerializeField ] TextMeshProUGUI _textRenderer;
     [ SerializeField ] PoolUIPopUpText pool_popUp;
+    [ SerializeField ] SharedIntNotifier notif_playArea_size;
 
 	public UnityMessage onComplete;
 	RecycledSequence recycledSequence = new RecycledSequence();
@@ -33,13 +34,17 @@ public class UIItemPopUpText : MonoBehaviour
     public void Spawn( string text, Vector3 position, UnityMessage complete )
     {
 		gameObject.SetActive( true );
-		transform.position = position;
+
+		_textRenderer.color = GameSettings.Instance.item_popUp_color_start;
+		_textRenderer.text  = text;
+
+		var size = GameSettings.Instance.playArea_size_array[ notif_playArea_size.sharedValue ];
+		transform.position = position + GameSettings.Instance.item_popUp_spawn_radius * size * Random.insideUnitCircle.ConvertV3_Z();
+		transform.localScale = Vector3.one * size;
 
 		onComplete = complete;
 
 		var sequence = recycledSequence.Recycle( OnSequenceComplete );
-
-		_textRenderer.color = GameSettings.Instance.item_popUp_color_start;
 
 		sequence.Append( _textRenderer.DOColor( GameSettings.Instance.item_popUp_color_end,
 			GameSettings.Instance.ui_PopUp_duration )

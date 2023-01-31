@@ -207,13 +207,13 @@ public class Item : MonoBehaviour
 
 		notif_currency.SharedValue += moneyGain;
 
-		if( item_popUp_count < GameSettings.Instance.item_popUp_spawn_count )
+		if( item_popUp_count < item_data.ItemPopUpCount )
 		{
 			stringBuilder.Clear().Append( "$" ).Append( moneyGain );
 
 			var popUp = pool_ui_item_popUp.GetEntity();
 			popUp.Spawn( stringBuilder.ToString(),
-				transform.position + GameSettings.Instance.item_popUp_spawn_radius * Random.insideUnitCircle.ConvertV3_Z(),
+				transform.position,
 				OnItemPopUpComplete );
 
 			item_popUp_count++;

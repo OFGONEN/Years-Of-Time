@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1
-  m_fontSizeBase: 1
+  m_fontSize: 0.5
+  m_fontSizeBase: 0.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -233,3 +233,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textRenderer: {fileID: 5613116313365020535}
   pool_popUp: {fileID: 11400000, guid: 2f92188a5156f444cb3453d65e5195ad, type: 2}
+  notif_playArea_size: {fileID: 11400000, guid: a044d139199d410438955012a8243838, type: 2}

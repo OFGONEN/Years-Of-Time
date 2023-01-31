@@ -14,6 +14,7 @@ namespace FFStudio
 		public static readonly string SAVE_PATH = Application.persistentDataPath + "/Saves/";
 		public static readonly string Key_ClockPurchaseCount = "clock_purchase_count";
 		public static readonly string Key_Income = "income_index";
+		public static readonly string Key_Tutorial = "tutorial";
 
 		static List< Transform > baseModelBones   = new List< Transform >( 96 );
 		static List< Transform > targetModelBones = new List< Transform >( 96 );

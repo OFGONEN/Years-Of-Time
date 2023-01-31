@@ -40,6 +40,8 @@ public class Tutorial : MonoBehaviour
 
     [ FoldoutGroup( "Phase 4" ), SerializeField ] RectTransform phase_four_information;
 
+    [ FoldoutGroup( "Phase 5" ), SerializeField ] RectTransform phase_five_information;
+    [ FoldoutGroup( "Phase 5" ), SerializeField ] RectTransform phase_five_hand_target;
     [ FoldoutGroup( "Phase 5" ), SerializeField ] int phase_five_tap_count;
 
 	Clock clock_current;
@@ -63,9 +65,7 @@ public class Tutorial : MonoBehaviour
 #region Unity API
 	private void Awake()
 	{
-		onUpdate     = ExtensionMethods.EmptyMethod;
-		onClockSpawn = ExtensionMethods.EmptyMethod;
-		onTap        = ExtensionMethods.EmptyMethod;
+		EmptyDelegates();
 	}
 
 	private void Update()
@@ -82,6 +82,12 @@ public class Tutorial : MonoBehaviour
 
     public void StartPhaseOne()
     {
+		if( PlayerPrefsUtility.Instance.GetInt( ExtensionMethods.Key_Tutorial, 0 ) == 1 )
+		{
+			gameObject.SetActive( false );
+			return;
+		}
+
 		_camera = ( notif_camera_reference.sharedValue as Transform ).GetComponent< Camera >();
 
 		list_clock_slot_column.itemDictionary.TryGetValue( 0, out clock_slot_column );
@@ -183,12 +189,42 @@ public class Tutorial : MonoBehaviour
 
 		clock_slot_current = clock_slot_row;
 		clock_slot_row.AddToAllSlotList();
+		clock_slot_column.RemoveFromAllSlotList();
 
 		transform_hand.localScale = Vector3.one;
 		transform_hand.rotation = Quaternion.identity;
 
 		DoHandMoveAnimation();
 		onUpdate = PhaseFourCheckIfComplete;
+	}
+
+	public void StartPhaseFive()
+	{
+		event_clock_selection_disable.Raise();
+		phase_five_information.gameObject.SetActive( true );
+
+		onTap = TapResponse;
+
+		transform_hand.gameObject.SetActive( true );
+		transform_hand.position   = phase_five_hand_target.position;
+		transform_hand.rotation   = phase_five_hand_target.rotation;
+		transform_hand.localScale = Vector3.one;
+
+		DoHandClickAnimation();
+	}
+
+	public void StopPhaseFive()
+	{
+		recycledSequence.Kill();
+		event_clock_selection_enable.Raise();
+
+		phase_five_information.gameObject.SetActive( false );
+		transform_hand.gameObject.SetActive( false );
+
+		clock_slot_column.AddToAllSlotList();
+
+		PlayerPrefsUtility.Instance.SetInt( ExtensionMethods.Key_Tutorial, 1 );
+		EmptyDelegates();
 	}
 
     public void OnClockSpawn()
@@ -198,6 +234,13 @@ public class Tutorial : MonoBehaviour
 #endregion
 
 #region Implementation
+	void TapResponse()
+	{
+		tap_count++;
+
+		if( tap_count == phase_five_tap_count )
+			StopPhaseFive();
+	}
     void DoHandClickAnimation()
     {
 		var sequence = recycledSequence.Recycle( DoHandClickAnimation );
@@ -244,7 +287,7 @@ public class Tutorial : MonoBehaviour
 			recycledSequence.Kill();
 			transform_hand.gameObject.SetActive( false );
 
-			cooldown.Start( GameSettings.Instance.clock_spawn_shake_scale.duration, event_clock_selection_disable.Raise ); //todo start phase five
+			cooldown.Start( GameSettings.Instance.clock_spawn_shake_scale.duration, StartPhaseFive ); 
 		}
 	}
 
@@ -256,6 +299,13 @@ public class Tutorial : MonoBehaviour
     void SetHandClickScale()
     {
 		transform_hand.localScale = Vector3.one * hand_click_scale;
+	}
+
+	void EmptyDelegates()
+	{
+		onUpdate     = ExtensionMethods.EmptyMethod;
+		onClockSpawn = ExtensionMethods.EmptyMethod;
+		onTap        = ExtensionMethods.EmptyMethod;
 	}
 #endregion
 

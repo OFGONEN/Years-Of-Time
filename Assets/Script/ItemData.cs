@@ -21,6 +21,7 @@ public class ItemData : ScriptableObject
     [ SerializeField ] Sprite item_sprite_foreground;
     [ SerializeField ] float item_sprite_fill_bottom = 0;
     [ SerializeField ] float item_sprite_fill_top = 1;
+    [ SerializeField ] float item_popUp_count;
 #endregion
 
 #region Properties
@@ -32,6 +33,7 @@ public class ItemData : ScriptableObject
 	public Sprite ItemSpriteForeground => item_sprite_foreground;
 	public float ItemSpriteFillBottom  => item_sprite_fill_bottom;
 	public float ItemSpriteFillTop     => item_sprite_fill_top;
+	public float ItemPopUpCount        => item_popUp_count ;
 #endregion
 
 #region Editor Only

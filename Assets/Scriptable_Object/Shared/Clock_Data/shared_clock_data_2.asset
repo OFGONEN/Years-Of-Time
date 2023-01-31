@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clock_level: 2
   clock_next: {fileID: 11400000, guid: 7d54730b431be9e468f0341caaa4fbdf, type: 2}
-  clock_speed: 5
-  clock_hand_speed_second: 230
-  clock_hand_speed_minute: 135
-  clock_hand_speed_hour: 85
+  clock_speed: 2.5
+  clock_hand_speed_second: 92
+  clock_hand_speed_minute: 54
+  clock_hand_speed_hour: 34
   clock_material: {fileID: 2100000, guid: 68f769eb3d5c94947b617854e1e1942b, type: 2}
   clock_circle: {fileID: 5668297234169628275, guid: 9cc7adb25afc81845832522cb92747be, type: 3}
   clock_hand_second: {fileID: -9198354437484325398, guid: 1560e1dad139d294690822dde6ae4e36, type: 3}

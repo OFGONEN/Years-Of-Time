@@ -12,12 +12,12 @@ public class UIClockPurchaseButton : MonoBehaviour
 {
 #region Fields
   [ Title( "Shared" ) ]
-    [ SerializeField ] Currency currency;
     [ SerializeField ] ClockPurchase clock_purchase;
     [ SerializeField ] GameEvent event_clock_spawn;
 
   [ Title( "Components" ) ]
     [ SerializeField ] Image _image;
+    [ SerializeField ] TextMeshProUGUI _textRenderer;
 #endregion
 
 #region Properties
@@ -26,7 +26,7 @@ public class UIClockPurchaseButton : MonoBehaviour
 #region Unity API
     private void Start()
     {
-		_image.sprite = clock_purchase.GetClockSprite();
+		UpdateVisual();
 	}
 #endregion
 
@@ -34,11 +34,16 @@ public class UIClockPurchaseButton : MonoBehaviour
     public void OnButtonClick()
     {
 		event_clock_spawn.Raise();
-		_image.sprite = clock_purchase.GetClockSprite();
+		UpdateVisual();
 	}
 #endregion
 
 #region Implementation
+	void UpdateVisual()
+	{
+		_textRenderer.text = clock_purchase.GetClockPurchaseCost().FormatValue();
+		_image.sprite      = clock_purchase.GetClockSprite();
+	}
 #endregion
 
 #region Editor Only

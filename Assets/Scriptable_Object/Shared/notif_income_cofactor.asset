@@ -12,4 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689d2cf4fee154643818204e4d5cf86e, type: 3}
   m_Name: notif_income_cofactor
   m_EditorClassIdentifier: 
-  sharedValue: 1
+  sharedValue: 1.1
+  income_data_array:
+  - income_cost: 0
+    income_value: 1
+  - income_cost: 10890
+    income_value: 1.1
+  - income_cost: 46170
+    income_value: 1.2
+  - income_cost: 192150
+    income_value: 1.3
+  - income_cost: 1013760
+    income_value: 1.4
+  - income_cost: 2344320
+    income_value: 1.5
+  notif_currency: {fileID: 11400000, guid: 2e15de48de013c54b95496572fa9ffae, type: 2}

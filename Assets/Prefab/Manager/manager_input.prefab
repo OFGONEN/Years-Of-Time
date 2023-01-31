@@ -337,7 +337,19 @@ MonoBehaviour:
       m_Calls: []
   onNothing:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: a4082a9420bb5b0498cb283ba93c93b6, type: 2}
+        m_TargetAssemblyTypeName: FFStudio.GameEvent, FFStudio
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Nothing
+          m_BoolArgument: 0
+        m_CallState: 2
   ScreenQuery:
     Method: 0
     Layers:

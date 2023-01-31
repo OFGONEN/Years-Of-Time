@@ -197,7 +197,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.59607846, g: 0.59607846, b: 0.59607846, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.31746507, g: 0, b: 0.95239484, a: 1}
+    - _EmissionColor: {r: 0.89844155, g: 0, b: 2.6953247, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}

@@ -123,6 +123,7 @@ public class Clock : MonoBehaviour
 		event_particle_spawn.Raise( "clock_upgrade", transform.position );
 	}
 
+	[ Button() ]
 	public void UpgradeInClockSlot()
 	{
 		UpdateClockData( clock_data.ClockNextData );

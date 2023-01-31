@@ -14,20 +14,28 @@ public class UIItemPopUpText : MonoBehaviour
     [ SerializeField ] TextMeshProUGUI _textRenderer;
     [ SerializeField ] PoolUIPopUpText pool_popUp;
 
-    RecycledSequence recycledSequence = new RecycledSequence();
+	public UnityMessage onComplete;
+	RecycledSequence recycledSequence = new RecycledSequence();
 #endregion
 
 #region Properties
 #endregion
 
 #region Unity API
+	private void OnDisable()
+	{
+		onComplete = ExtensionMethods.EmptyMethod;
+	}
 #endregion
 
 #region API
     [ Button() ]
-    public void Spawn( string text, Vector3 position )
+    public void Spawn( string text, Vector3 position, UnityMessage complete )
     {
+		gameObject.SetActive( true );
 		transform.position = position;
+
+		onComplete = complete;
 
 		var sequence = recycledSequence.Recycle( OnSequenceComplete );
 
@@ -47,6 +55,8 @@ public class UIItemPopUpText : MonoBehaviour
 #region Implementation
     void OnSequenceComplete()
     {
+		onComplete.Invoke();
+
 		recycledSequence.Kill();
 		pool_popUp.ReturnEntity( this );
 	}

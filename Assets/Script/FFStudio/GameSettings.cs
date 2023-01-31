@@ -63,8 +63,6 @@ namespace FFStudio
 		[ LabelText( "Item PopUp Movement Offset" ) ] public Ease item_popUp_movement_ease;
 		[ LabelText( "Item PopUp Duration" ) ] public float item_popUp_duration;
 		[ LabelText( "Item PopUp Spawn Radius" ) ] public float item_popUp_spawn_radius;
-		[ LabelText( "Item PopUp Spawn Max Count" ) ] public float item_popUp_spawn_count;
-		
 
     [ Title( "Item Unlock" ) ]
 		[ LabelText( "UI Height Offset" ) ] public float item_unlock_height;

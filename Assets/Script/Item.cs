@@ -49,6 +49,7 @@ public class Item : MonoBehaviour
 	RecycledTween recycledTween_Scale = new RecycledTween();
 	List< ClockSlot > clock_slot_list = new List< ClockSlot >( 2 );
     UnityMessage onUpdate;
+	UnityMessage onItemProduce;
 	ClockMessage onClockAssign;
 	ClockMessage onClockRemove;
 
@@ -79,9 +80,10 @@ public class Item : MonoBehaviour
 		onClockAssign = AssignClockSlotLocked;
 		onClockRemove = RemoveClockSlotLocked;
 
-		item_scale = item_image_parent.localScale;
-
+		item_scale            = item_image_parent.localScale;
 		item_background_color = item_background.Color;
+
+		onItemProduce = OnItemProduced;
 
 		// Load item state
 
@@ -122,7 +124,7 @@ public class Item : MonoBehaviour
 	public void Unlock()
 	{
 		event_particle_spawn.Raise( "item_unlock", transform.position );
-		StartAsUnlocked();
+		OnUnlock();
 
 		notif_currency.SharedValue -= item_data.ItemCost;
 		item_event_onUnlock.Invoke();
@@ -141,6 +143,21 @@ public class Item : MonoBehaviour
 #endregion
 
 #region Implementation
+	void OnUnlock()
+	{
+		item_background.enabled = true;
+		item_image_background.enabled = true;
+		item_image_foreground.enabled = true;
+
+		UpdateVisualAsSpoiler();
+
+		item_state = ItemState.Unlocked;
+
+		onItemProduce = OnItemProducedAsSpoiler;
+		onClockAssign = AssignClockSlotUnlocked;
+		onClockRemove = RemoveClockSlotUnlocked;
+	}
+
 	void StartAsUnlocked()
 	{
 		item_background.enabled       = true;
@@ -197,7 +214,13 @@ public class Item : MonoBehaviour
 		item_image_foreground.fillAmount = Mathf.Lerp( item_data.ItemSpriteFillBottom, item_data.ItemSpriteFillTop, item_duration / item_data.ItemDuration );
 
 		if( item_duration > item_data.ItemDuration )
-			OnItemProduced();
+			onItemProduce();
+	}
+
+	void OnItemProducedAsSpoiler()
+	{
+		UpdateVisual();
+		OnItemProduced();
 	}
 
 	void OnItemProduced()
@@ -232,6 +255,12 @@ public class Item : MonoBehaviour
 	{
 		item_image_background.sprite = item_data.ItemSpriteBackground;
 		item_image_foreground.sprite = item_data.ItemSpriteForeground;
+	}
+
+	void UpdateVisualAsSpoiler()
+	{
+		item_image_background.sprite = GameSettings.Instance.item_spoiler_background_sprite;
+		item_image_foreground.sprite = GameSettings.Instance.item_spoiler_foreground_sprite;
 	}
 
 	void StartProduction()

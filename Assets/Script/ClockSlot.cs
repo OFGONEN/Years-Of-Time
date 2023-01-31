@@ -109,6 +109,11 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 
 #region API
   //ISlotInterface START
+	public Clock GetCurrentClock()
+	{
+		return clock_current;
+	}
+
     public Transform GetTransform()
     {
 		return transform;

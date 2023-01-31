@@ -6,6 +6,7 @@ using UnityEngine;
 using TMPro;
 using FFStudio;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 public class UIItemPopUpText : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class UIItemPopUpText : MonoBehaviour
 #endregion
 
 #region API
+    [ Button() ]
     public void Spawn( string text, Vector3 position )
     {
 		transform.position = position;

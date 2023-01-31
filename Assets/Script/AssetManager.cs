@@ -23,6 +23,7 @@ namespace FFStudio
 	[ Title( "Pool" ) ]
 		[ SerializeField ] Pool_UIPopUpText pool_UIPopUpText;
 		[ SerializeField ] PoolClock pool_clock;
+		[ SerializeField ] PoolUIPopUpText pool_item_popUp_text;
 #endregion
 
 #region UnityAPI
@@ -36,6 +37,7 @@ namespace FFStudio
 			Vibration.Init();
 
 			pool_UIPopUpText.InitPool( transform, false );
+			pool_item_popUp_text.InitPool( transform, false );
 			pool_clock.InitPool( transform, false );
 
 			onAwakeEvent.Invoke();

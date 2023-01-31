@@ -16,6 +16,6 @@ MonoBehaviour:
   income_data_array:
   - income_cost: 0
     income_value: 1
-  - income_cost: 10000
+  - income_cost: 20000
     income_value: 1.01
-  notif_currency: {fileID: 0}
+  notif_currency: {fileID: 11400000, guid: 2e15de48de013c54b95496572fa9ffae, type: 2}

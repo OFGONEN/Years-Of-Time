@@ -254,7 +254,7 @@ public class Item : MonoBehaviour
 
 		if( item_popUp_count < item_data.ItemPopUpCount )
 		{
-			stringBuilder.Clear().Append( "$" ).Append( moneyGain );
+			stringBuilder.Clear().Append( "$" ).Append( moneyGain.ToString( "F1" ) );
 
 			var popUp = pool_ui_item_popUp.GetEntity();
 			popUp.Spawn( stringBuilder.ToString(),

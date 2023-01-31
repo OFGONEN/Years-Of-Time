@@ -185,6 +185,16 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 		if( size == slot_index )
 			StartUnlocked();
 	}
+
+	public void AddToAllSlotList()
+	{
+		list_slot_all.AddList( this );
+	}
+
+	public void RemoveFromAllSlotList()
+	{
+		list_slot_all.RemoveList( this );
+	}
 #endregion
 
 #region Implementation

@@ -41,6 +41,8 @@ public class Tutorial : MonoBehaviour
     [ FoldoutGroup( "Phase 4" ), SerializeField ] RectTransform phase_four_information;
 
 	Clock clock_current;
+	ClockSlot clock_slot_column;
+	ClockSlot clock_slot_row;
 	ClockSlot clock_slot_current;
 
 	Camera _camera;
@@ -70,6 +72,11 @@ public class Tutorial : MonoBehaviour
     public void StartPhaseOne()
     {
 		_camera = ( notif_camera_reference.sharedValue as Transform ).GetComponent< Camera >();
+
+		list_clock_slot_column.itemDictionary.TryGetValue( 0, out clock_slot_column );
+		list_clock_slot_row.itemDictionary.TryGetValue( 0, out clock_slot_row );
+
+		clock_slot_row.RemoveFromAllSlotList();
 
 		transform_hand.position = phase_one_target_hand.position;
 		transform_hand.rotation = phase_one_target_hand.rotation;
@@ -110,7 +117,7 @@ public class Tutorial : MonoBehaviour
 			}
 		}
 
-		list_clock_slot_column.itemDictionary.TryGetValue( 0, out clock_slot_current );
+		clock_slot_current = clock_slot_column;
 
 		transform_hand.localScale = Vector3.one;
 		transform_hand.rotation   = Quaternion.identity;
@@ -163,7 +170,8 @@ public class Tutorial : MonoBehaviour
 			}
 		}
 
-		list_clock_slot_row.itemDictionary.TryGetValue( 0, out clock_slot_current );
+		clock_slot_current = clock_slot_row;
+		clock_slot_row.AddToAllSlotList();
 
 		transform_hand.localScale = Vector3.one;
 		transform_hand.rotation = Quaternion.identity;

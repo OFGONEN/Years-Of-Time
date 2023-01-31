@@ -40,16 +40,21 @@ public class Tutorial : MonoBehaviour
 
     [ FoldoutGroup( "Phase 4" ), SerializeField ] RectTransform phase_four_information;
 
+    [ FoldoutGroup( "Phase 5" ), SerializeField ] int phase_five_tap_count;
+
 	Clock clock_current;
 	ClockSlot clock_slot_column;
 	ClockSlot clock_slot_row;
 	ClockSlot clock_slot_current;
 
+	int tap_count;
+
 	Camera _camera;
 	RecycledSequence recycledSequence = new RecycledSequence();
     UnityMessage onClockSpawn;
     UnityMessage onUpdate;
-    Cooldown cooldown = new Cooldown();
+	UnityMessage onTap;
+	Cooldown cooldown = new Cooldown();
 #endregion
 
 #region Properties
@@ -60,6 +65,7 @@ public class Tutorial : MonoBehaviour
 	{
 		onUpdate     = ExtensionMethods.EmptyMethod;
 		onClockSpawn = ExtensionMethods.EmptyMethod;
+		onTap        = ExtensionMethods.EmptyMethod;
 	}
 
 	private void Update()
@@ -69,6 +75,11 @@ public class Tutorial : MonoBehaviour
 #endregion
 
 #region API
+	public void OnTap()
+	{
+		onTap();
+	}
+
     public void StartPhaseOne()
     {
 		_camera = ( notif_camera_reference.sharedValue as Transform ).GetComponent< Camera >();

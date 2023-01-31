@@ -142,6 +142,15 @@ public class Item : MonoBehaviour
 		item_image_background.enabled = true;
 		item_image_background.sprite  = GameSettings.Instance.item_locked_sprite;
 	}
+	
+	public void TurnIntoSpoiler()
+	{
+		if( item_state == ItemState.Locked )
+		{
+			item_image_background.enabled = true;
+			item_image_background.sprite  = GameSettings.Instance.item_spoiler_background_sprite;
+		}
+	}
 #endregion
 
 #region Implementation

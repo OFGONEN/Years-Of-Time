@@ -54,6 +54,15 @@ namespace FFStudio
 		[ LabelText( "Produce Tween Duration" ) ] public float item_produce_duration;
 		[ LabelText( "Produce Tween Ease" ) ] public Ease item_produce_ease;
 		[ LabelText( "Locked Sprite" ) ] public Sprite item_locked_sprite;
+	
+	[ Title( "Item PopUp Text" ) ]
+		[ LabelText( "Item PopUp Start Color" ) ] public Color item_popUp_color_start;
+		[ LabelText( "Item PopUp End Color" ) ] public Color item_popUp_color_end;
+		[ LabelText( "Item PopUp Color Ease" ) ] public Ease item_popUp_color_ease;
+		[ LabelText( "Item PopUp Movement Offset" ) ] public float item_popUp_movement_delta;
+		[ LabelText( "Item PopUp Movement Offset" ) ] public Ease item_popUp_movement_ease;
+		[ LabelText( "Item PopUp Duration" ) ] public float item_popUp_duration;
+		
 
     [ Title( "Item Unlock" ) ]
 		[ LabelText( "UI Height Offset" ) ] public float item_unlock_height;

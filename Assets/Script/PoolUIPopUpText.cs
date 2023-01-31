@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FFStudio;
 
-public class PoolUIPopUpText : ComponentPool< UIPopUpText >
+[ CreateAssetMenu( fileName = "pool_ui_item_popUp", menuName = "FF/Game/Pool Item PopUp" ) ]
+public class PoolUIPopUpText : ComponentPool< UIItemPopUpText >
 {
 }

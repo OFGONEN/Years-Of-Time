@@ -390,6 +390,7 @@ MonoBehaviour:
   event_particle_spawn: {fileID: 11400000, guid: fe240f220ab36cc44923227184f9c2a7, type: 2}
   notif_income_speed: {fileID: 11400000, guid: 2cf1d56eeee9db344aacf34bc6e8a085, type: 2}
   notif_tweenable_item_speed: {fileID: 11400000, guid: 69fdbad3237ece241b7dd83809b27ade, type: 2}
+  pool_ui_item_popUp: {fileID: 11400000, guid: 2f92188a5156f444cb3453d65e5195ad, type: 2}
   item_background: {fileID: 1021661326469277704}
   item_image_background: {fileID: 3374079638975793255}
   item_image_foreground: {fileID: 3374079640365222616}

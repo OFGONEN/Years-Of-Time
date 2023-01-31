@@ -9,6 +9,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
+using System.Text;
 
 public class Item : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class Item : MonoBehaviour
     [ SerializeField ] ParticleSpawnEvent event_particle_spawn;
     [ SerializeField ] SharedFloatNotifier notif_income_speed;
     [ SerializeField ] TweenableFloatNotifier notif_tweenable_item_speed;
+	[ SerializeField ] PoolUIPopUpText pool_ui_item_popUp;
 
   [ Title( "Components" ) ]
     [ SerializeField ] Rectangle item_background;
@@ -41,6 +43,7 @@ public class Item : MonoBehaviour
 	Color item_background_color;
 	[ ShowInInspector, ReadOnly ] float item_currency_speed;
 	[ ShowInInspector, ReadOnly ] Vector3 item_scale;
+	[ ShowInInspector, ReadOnly ] int item_popUp_count;
 
 	RecycledTween recycledTween_Color = new RecycledTween();
 	RecycledTween recycledTween_Scale = new RecycledTween();
@@ -48,6 +51,8 @@ public class Item : MonoBehaviour
     UnityMessage onUpdate;
 	ClockMessage onClockAssign;
 	ClockMessage onClockRemove;
+
+	StringBuilder stringBuilder = new StringBuilder( 8 );
 #endregion
 
 #region Properties
@@ -202,8 +207,25 @@ public class Item : MonoBehaviour
 
 		notif_currency.SharedValue += moneyGain;
 
+		if( item_popUp_count < GameSettings.Instance.item_popUp_spawn_count )
+		{
+			stringBuilder.Clear().Append( "$" ).Append( moneyGain );
+
+			var popUp = pool_ui_item_popUp.GetEntity();
+			popUp.Spawn( stringBuilder.ToString(),
+				transform.position + GameSettings.Instance.item_popUp_spawn_radius * Random.insideUnitCircle.ConvertV3_Z(),
+				OnItemPopUpComplete );
+
+			item_popUp_count++;
+		}
+
 		item_image_parent.localScale = item_scale;
 		recycledTween_Scale.Recycle( GameSettings.Instance.item_produce_tween_punchScale.CreateTween( item_image_parent ) );
+	}
+
+	void OnItemPopUpComplete()
+	{
+		item_popUp_count--;
 	}
 
 	void UpdateVisual()

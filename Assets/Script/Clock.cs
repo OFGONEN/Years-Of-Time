@@ -18,6 +18,8 @@ public class Clock : MonoBehaviour
     [ SerializeField ] ListSlot list_slot;
 	[ SerializeField ] PoolClock pool_clock;
 	[ SerializeField ] ParticleSpawnEvent event_particle_spawn;
+	[ SerializeField ] IntGameEvent event_vibrate;
+	[ SerializeField ] TweenableFloatNotifier notif_item_speed;
 
   [ Title( "Components" ) ]
 	[ SerializeField ] Transform transform_gfx;
@@ -76,7 +78,6 @@ public class Clock : MonoBehaviour
 		gameObject.SetActive( true );
 
 		transform.SetParent( slot_current.GetTransform() );
-		transform.localScale = Vector3.one;
 		transform.localPosition = Vector3.up * GameSettings.Instance.clock_height_idle;
 
 		DOPunchScale( () => {
@@ -99,8 +100,9 @@ public class Clock : MonoBehaviour
 		gameObject.SetActive( true );
 
 		transform.SetParent( slot_current.GetTransform() );
-		transform.localScale = Vector3.one;
-		transform.localPosition = Vector3.up * GameSettings.Instance.clock_height_idle;
+		transform.localScale     = Vector3.one;
+		transform_gfx.localScale = Vector3.one;
+		transform.localPosition  = Vector3.up * GameSettings.Instance.clock_height_idle;
 
 		onUpdate = DoProductionAnimation;
 	}
@@ -118,9 +120,11 @@ public class Clock : MonoBehaviour
 			DoWaveAnimation();
 		} );
 
+		event_vibrate.Raise( 0 );
 		event_particle_spawn.Raise( "clock_upgrade", transform.position );
 	}
 
+	[ Button() ]
 	public void UpgradeInClockSlot()
 	{
 		UpdateClockData( clock_data.ClockNextData );
@@ -130,6 +134,7 @@ public class Clock : MonoBehaviour
 
 		DOPunchScale( () => collider_selection.enabled = true );
 
+		event_vibrate.Raise( 0 );
 		event_particle_spawn.Raise( "clock_upgrade", transform.position );
 	}
 
@@ -151,6 +156,7 @@ public class Clock : MonoBehaviour
 
 	public void DOPunchScale( UnityMessage onComplete )
 	{
+		transform_gfx.localScale = Vector3.one;
 		recycledTween.Recycle( GameSettings.Instance.clock_spawn_punchScale.CreateTween( transform_gfx ), onComplete ) ;
 	}
 
@@ -187,6 +193,7 @@ public class Clock : MonoBehaviour
 		recycledTween.Kill();
 		collider_selection.enabled = false;
 		transform.localScale       = Vector3.one;
+		transform_gfx.localScale   = Vector3.one;
 
 		pool_clock.ReturnEntity( this );
 	}
@@ -251,6 +258,10 @@ public class Clock : MonoBehaviour
 				GameSettings.Instance.clock_movement_scale_duration )
 				.SetEase( GameSettings.Instance.clock_movement_scale_ease ) );
 
+			sequence.Join( transform.DORotate( Vector3.zero,
+				GameSettings.Instance.clock_slot_go_duration )
+				.SetEase( GameSettings.Instance.clock_slot_go_ease ) );
+
 			EmptyDelegates();
 		}
 	}
@@ -271,6 +282,10 @@ public class Clock : MonoBehaviour
 			Vector3.one,
 			GameSettings.Instance.clock_movement_scale_duration )
 			.SetEase( GameSettings.Instance.clock_movement_scale_ease ) );
+		
+		sequence.Join( transform.DORotate( Vector3.zero,
+			GameSettings.Instance.clock_slot_go_duration )
+			.SetEase( GameSettings.Instance.clock_slot_go_ease ) );
 
 		EmptyDelegates();
 	}
@@ -291,6 +306,10 @@ public class Clock : MonoBehaviour
 			Vector3.one,
 			GameSettings.Instance.clock_movement_scale_duration )
 			.SetEase( GameSettings.Instance.clock_movement_scale_ease ) );
+		
+		sequence.Join( transform.DORotate( Vector3.zero,
+			GameSettings.Instance.clock_slot_go_duration )
+			.SetEase( GameSettings.Instance.clock_slot_go_ease ) );
 
 		EmptyDelegates();
 	}
@@ -354,12 +373,16 @@ public class Clock : MonoBehaviour
 		var movementDelta  = movementTarget - position;
 
 		//todo Use movementDelta and calculate rotation
+		var pitch = ( movementDelta.z * GameSettings.Instance.clock_rotation_cofactor ).Clamp( GameSettings.Instance.clock_rotation_clamp );
+
+		var roll = ( movementDelta.x * GameSettings.Instance.clock_rotation_cofactor ).Clamp( GameSettings.Instance.clock_rotation_clamp ) * -1f;
 
 		position.x = position.x.Lerp( movementTarget.x, Time.deltaTime * GameSettings.Instance.clock_movement_speed_horizontal );
 		position.y = position.y.Lerp( movementTarget.y, Time.deltaTime * GameSettings.Instance.clock_movement_speed_vertical );
 		position.z = position.z.Lerp( movementTarget.z, Time.deltaTime * GameSettings.Instance.clock_movement_speed_horizontal );
 
 		transform.position = position;
+		transform.eulerAngles = Vector3.zero.SetX( pitch ).SetZ( roll );
 		return position;
 	}
 
@@ -377,9 +400,9 @@ public class Clock : MonoBehaviour
 
 	void DoProductionAnimation()
 	{
-		clock_hand_second.Rotate( Vector3.forward * -1f * clock_data.ClockHandSecondSpeed * Time.deltaTime, Space.Self );
-		clock_hand_minute.Rotate( Vector3.forward * -1f * clock_data.ClockHandMinuteSpeed * Time.deltaTime, Space.Self );
-		clock_hand_hour.Rotate( Vector3.forward * -1f * clock_data.ClockHandHourSpeed * Time.deltaTime, Space.Self );
+		clock_hand_second.Rotate( Vector3.forward * -1f * clock_data.ClockHandSecondSpeed * ( notif_item_speed.sharedValue * GameSettings.Instance.clock_produce_cofactor ) * Time.deltaTime, Space.Self );
+		clock_hand_minute.Rotate( Vector3.forward * -1f * clock_data.ClockHandMinuteSpeed * ( notif_item_speed.sharedValue * GameSettings.Instance.clock_produce_cofactor ) * Time.deltaTime, Space.Self );
+		clock_hand_hour.Rotate( Vector3.forward * -1f * clock_data.ClockHandHourSpeed * ( notif_item_speed.sharedValue * GameSettings.Instance.clock_produce_cofactor ) * Time.deltaTime, Space.Self );
 	}
 
 	void CacheCamera()

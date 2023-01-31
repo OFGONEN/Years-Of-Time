@@ -9,6 +9,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
+using System.Text;
 
 public class Item : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class Item : MonoBehaviour
     [ SerializeField ] IncomeCofactor notif_income_cofactor;
     [ SerializeField ] SaveSystem system_save;
     [ SerializeField ] ParticleSpawnEvent event_particle_spawn;
+    [ SerializeField ] SharedFloatNotifier notif_income_speed;
+    [ SerializeField ] TweenableFloatNotifier notif_tweenable_item_speed;
+	[ SerializeField ] PoolUIPopUpText pool_ui_item_popUp;
 
   [ Title( "Components" ) ]
     [ SerializeField ] Rectangle item_background;
@@ -37,14 +41,20 @@ public class Item : MonoBehaviour
 	ItemState item_state;
 	float item_duration;
 	Color item_background_color;
+	[ ShowInInspector, ReadOnly ] float item_currency_speed;
 	[ ShowInInspector, ReadOnly ] Vector3 item_scale;
+	[ ShowInInspector, ReadOnly ] int item_popUp_count;
 
 	RecycledTween recycledTween_Color = new RecycledTween();
 	RecycledTween recycledTween_Scale = new RecycledTween();
 	List< ClockSlot > clock_slot_list = new List< ClockSlot >( 2 );
     UnityMessage onUpdate;
+	UnityMessage onItemProduce;
+	GetFillAmount onFillAmount;
 	ClockMessage onClockAssign;
 	ClockMessage onClockRemove;
+
+	StringBuilder stringBuilder = new StringBuilder( 8 );
 #endregion
 
 #region Properties
@@ -71,9 +81,11 @@ public class Item : MonoBehaviour
 		onClockAssign = AssignClockSlotLocked;
 		onClockRemove = RemoveClockSlotLocked;
 
-		item_scale = item_image_parent.localScale;
-
+		item_scale            = item_image_parent.localScale;
 		item_background_color = item_background.Color;
+
+		onItemProduce = OnItemProduced;
+		onFillAmount  = GetFillAmount;
 
 		// Load item state
 
@@ -114,7 +126,7 @@ public class Item : MonoBehaviour
 	public void Unlock()
 	{
 		event_particle_spawn.Raise( "item_unlock", transform.position );
-		StartAsUnlocked();
+		OnUnlock();
 
 		notif_currency.SharedValue -= item_data.ItemCost;
 		item_event_onUnlock.Invoke();
@@ -130,9 +142,34 @@ public class Item : MonoBehaviour
 		item_image_background.enabled = true;
 		item_image_background.sprite  = GameSettings.Instance.item_locked_sprite;
 	}
+	
+	public void TurnIntoSpoiler()
+	{
+		if( item_state == ItemState.Locked )
+		{
+			item_image_background.enabled = true;
+			item_image_background.sprite  = GameSettings.Instance.item_spoiler_background_sprite;
+		}
+	}
 #endregion
 
 #region Implementation
+	void OnUnlock()
+	{
+		item_background.enabled = true;
+		item_image_background.enabled = true;
+		item_image_foreground.enabled = true;
+
+		UpdateVisualAsSpoiler();
+
+		item_state = ItemState.Unlocked;
+
+		onFillAmount  = GetFillAmountAsSpoiler;
+		onItemProduce = OnItemProducedAsSpoiler;
+		onClockAssign = AssignClockSlotUnlocked;
+		onClockRemove = RemoveClockSlotUnlocked;
+	}
+
 	void StartAsUnlocked()
 	{
 		item_background.enabled       = true;
@@ -185,11 +222,27 @@ public class Item : MonoBehaviour
 
 	void OnProduction()
 	{
-		item_duration += Time.deltaTime * GetCurrentClockSpeed();
-		item_image_foreground.fillAmount = Mathf.Lerp( item_data.ItemSpriteFillBottom, item_data.ItemSpriteFillTop, item_duration / item_data.ItemDuration );
+		item_duration += Time.deltaTime * GetCurrentClockSpeed() * notif_tweenable_item_speed.sharedValue;
+		item_image_foreground.fillAmount = onFillAmount();
 
 		if( item_duration > item_data.ItemDuration )
-			OnItemProduced();
+			onItemProduce();
+	}
+
+	float GetFillAmount()
+	{
+		return Mathf.Lerp( item_data.ItemSpriteFillBottom, item_data.ItemSpriteFillTop, item_duration / item_data.ItemDuration );
+	}
+
+	float GetFillAmountAsSpoiler()
+	{
+		return item_duration / item_data.ItemDuration;
+	}
+
+	void OnItemProducedAsSpoiler()
+	{
+		UpdateVisual();
+		OnItemProduced();
 	}
 
 	void OnItemProduced()
@@ -199,8 +252,25 @@ public class Item : MonoBehaviour
 
 		notif_currency.SharedValue += moneyGain;
 
+		if( item_popUp_count < item_data.ItemPopUpCount )
+		{
+			stringBuilder.Clear().Append( "$" ).Append( moneyGain );
+
+			var popUp = pool_ui_item_popUp.GetEntity();
+			popUp.Spawn( stringBuilder.ToString(),
+				transform.position,
+				OnItemPopUpComplete );
+
+			item_popUp_count++;
+		}
+
 		item_image_parent.localScale = item_scale;
 		recycledTween_Scale.Recycle( GameSettings.Instance.item_produce_tween_punchScale.CreateTween( item_image_parent ) );
+	}
+
+	void OnItemPopUpComplete()
+	{
+		item_popUp_count--;
 	}
 
 	void UpdateVisual()
@@ -209,10 +279,19 @@ public class Item : MonoBehaviour
 		item_image_foreground.sprite = item_data.ItemSpriteForeground;
 	}
 
+	void UpdateVisualAsSpoiler()
+	{
+		item_image_background.sprite = GameSettings.Instance.item_spoiler_background_sprite;
+		item_image_foreground.sprite = GameSettings.Instance.item_spoiler_foreground_sprite;
+	}
+
 	void StartProduction()
 	{
 		item_background.Color = GameSettings.Instance.item_produce_start_color;
 		TweenBackgroundColorToDefault();
+
+		item_currency_speed             = item_data.ItemCurrency / ( item_data.ItemDuration / GetCurrentClockSpeed() );
+		notif_income_speed.SharedValue += item_currency_speed;
 
 		onUpdate = OnProduction;
 	}
@@ -221,6 +300,8 @@ public class Item : MonoBehaviour
 	{
 		item_background.Color = GameSettings.Instance.item_produce_stop_color;
 		TweenBackgroundColorToDefault();
+
+		notif_income_speed.SharedValue -= item_currency_speed;
 
 		onUpdate = ExtensionMethods.EmptyMethod;
 	}

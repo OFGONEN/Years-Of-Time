@@ -18,5 +18,6 @@ MonoBehaviour:
   item_cost: 0
   item_sprite_background: {fileID: 21300000, guid: 8ea7cb27e94a22248a9cc14f3fe85d9d, type: 3}
   item_sprite_foreground: {fileID: 21300000, guid: e3117ec1e757e354f93045f721eb608b, type: 3}
-  item_sprite_fill_bottom: 0.19
+  item_sprite_fill_bottom: 0.2
   item_sprite_fill_top: 0.8
+  item_popUp_count: 6

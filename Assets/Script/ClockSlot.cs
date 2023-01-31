@@ -52,6 +52,11 @@ public class ClockSlot : MonoBehaviour, ISlotEntity
 		list_slot_axis.RemoveDictionary( slot_index );
 	}
 
+	private void Awake()
+	{
+		_disc.Color = GameSettings.Instance.slot_clock_highlight_color_default;
+	}
+
 	private void Start()
 	{
 		//Cache Item

@@ -47,6 +47,11 @@ public class SpawnSlot : MonoBehaviour, ISlotEntity
 		list_slot_all.RemoveList( this );
 	}
 
+	private void Awake()
+	{
+		HighlightDefault();
+	}
+
 	private void Start()
 	{
 		if( system_save.SaveData.slot_spawn_array[ slot_index ] > -1 )

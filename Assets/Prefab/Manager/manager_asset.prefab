@@ -170,10 +170,22 @@ MonoBehaviour:
   onAwakeEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 14c8cdf5fcfc1b94ea236d4e34cb1e8f, type: 2}
-        m_TargetAssemblyTypeName: FFStudio.SharedFloatNotifier, FFStudio
-        m_MethodName: LoadFromPlayerPrefs_DefaultCustom
+      - m_Target: {fileID: 11400000, guid: 2cf1d56eeee9db344aacf34bc6e8a085, type: 2}
+        m_TargetAssemblyTypeName: FFStudio.SharedDataNotifier`1[[System.Single, mscorlib
+        m_MethodName: SetValue_NotifyAlways
         m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 14c8cdf5fcfc1b94ea236d4e34cb1e8f, type: 2}
+        m_TargetAssemblyTypeName: IncomeCofactor, Assembly-CSharp
+        m_MethodName: LoadIncomeCofactor
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -301,6 +313,7 @@ MonoBehaviour:
   currentLevelData: {fileID: 11400000, guid: d35c98ef4c868d94f85bf38a98066033, type: 2}
   pool_UIPopUpText: {fileID: 11400000, guid: eaaacbd90b1464ad2b2a3a962a8a84b2, type: 2}
   pool_clock: {fileID: 11400000, guid: 1436a799764a7d043a4bd009ef3d321c, type: 2}
+  pool_item_popUp_text: {fileID: 11400000, guid: 2f92188a5156f444cb3453d65e5195ad, type: 2}
 --- !u!114 &7751064681048781016
 MonoBehaviour:
   m_ObjectHideFlags: 0

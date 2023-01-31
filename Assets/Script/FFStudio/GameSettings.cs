@@ -21,6 +21,10 @@ namespace FFStudio
 		[ LabelText( "Clock Movement Rotate Speed" ) ] public float clock_movement_speed_rotate;
 		[ LabelText( "Clock Movement Rotate Clamp" ) ] public float clock_movement_rotate_clamp;
 
+    [ Title( "Clock Rotation" ) ]
+		[ LabelText( "Clock Rotation Clamp" ) ] public float clock_rotation_clamp;
+		[ LabelText( "Clock Rotation Cofactor" ) ] public float clock_rotation_cofactor;
+
     [ Title( "Clock" ) ]
 		[ LabelText( "Clock Spawn Punch Scale" ) ] public PunchScaleTween clock_spawn_punchScale;
 		[ LabelText( "Clock Wave Animation Radius" ) ] public float clock_animation_wave_radius;
@@ -30,6 +34,7 @@ namespace FFStudio
 		[LabelText( "Clock Slot Target Slot Move Duration" )] public float clock_slot_go_duration;
 		[LabelText( "Clock Slot Target Slot Move Ease" )] public Ease clock_slot_go_ease;
 		[ LabelText( "Clock Slot Search Distance" ) ] public float clock_slot_search_distance;
+		[ LabelText( "Clock Produce Speed Cofactor" ) ] public float clock_produce_cofactor;
 
     [ Title( "Spawn Slot" ) ]
 		[ LabelText( "Highlight Positive Color" ) ] public Color slot_spawn_highlight_color_positive;
@@ -49,6 +54,17 @@ namespace FFStudio
 		[ LabelText( "Produce Tween Duration" ) ] public float item_produce_duration;
 		[ LabelText( "Produce Tween Ease" ) ] public Ease item_produce_ease;
 		[ LabelText( "Locked Sprite" ) ] public Sprite item_locked_sprite;
+		[ LabelText( "Spoiler Background Sprite" ) ] public Sprite item_spoiler_background_sprite;
+		[ LabelText( "Spoiler Foreground Sprite" ) ] public Sprite item_spoiler_foreground_sprite;
+	
+	[ Title( "Item PopUp Text" ) ]
+		[ LabelText( "Item PopUp Start Color" ) ] public Color item_popUp_color_start;
+		[ LabelText( "Item PopUp End Color" ) ] public Color item_popUp_color_end;
+		[ LabelText( "Item PopUp Color Ease" ) ] public Ease item_popUp_color_ease;
+		[ LabelText( "Item PopUp Movement Offset" ) ] public float item_popUp_movement_delta;
+		[ LabelText( "Item PopUp Movement Offset" ) ] public Ease item_popUp_movement_ease;
+		[ LabelText( "Item PopUp Duration" ) ] public float item_popUp_duration;
+		[ LabelText( "Item PopUp Spawn Radius" ) ] public float item_popUp_spawn_radius;
 
     [ Title( "Item Unlock" ) ]
 		[ LabelText( "UI Height Offset" ) ] public float item_unlock_height;

@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842a4fc68ca64419ba749eaf43ca0fd3, type: 3}
   m_Name: system_save
   m_EditorClassIdentifier: 
+  list_slot_spawn_all: {fileID: 11400000, guid: beb76a8c093fcfa449654e32c92df782, type: 2}
+  list_slot_clock_row: {fileID: 11400000, guid: 1379e001364c49e40866f6c7c884e61a, type: 2}
+  list_slot_clock_column: {fileID: 11400000, guid: 38638408ebd6a1540b5375551d02e9c9, type: 2}
+  list_item_index: {fileID: 11400000, guid: 5f401bbe17f65b64f8055f4c880cdec3, type: 2}
   save_string: {fileID: 11400000, guid: 7a7ff5daa44de4fc3b72d51603cc7641, type: 2}
+  notif_currency: {fileID: 11400000, guid: 2e15de48de013c54b95496572fa9ffae, type: 2}
+  save_data:
+    slot_spawn_array: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    slot_clock_array_row: 00000000fffffffffffffffffefffffffefffffffefffffffeffffff
+    slot_clock_array_column: fffffffffffffffffffffffffefffffffefffffffefffffffeffffff
+    item_array: 00000000000000000000000000000000fffffffffffffffffffffffffffffffffffffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffefffffffeffffff

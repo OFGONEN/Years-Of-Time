@@ -36,8 +36,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - WorldSelection
+  - Selectable
   m_SortingLayers:
   - name: Default
     uniqueID: 0

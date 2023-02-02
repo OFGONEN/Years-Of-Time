@@ -12,8 +12,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a385bd3b4416492409284c9a366cb52a, type: 3}
   m_Name: game_settings
   m_EditorClassIdentifier: 
+  clock_height_idle: 0.3
+  clock_movement_height: 0.6
+  clock_movement_scale: 0.7
+  clock_movement_scale_duration: 0.25
+  clock_movement_scale_ease: 12
+  clock_movement_speed_vertical: 1
+  clock_movement_speed_horizontal: 15
+  clock_movement_speed_rotate: 90
+  clock_movement_rotate_clamp: 45
+  clock_rotation_clamp: 30
+  clock_rotation_cofactor: 100
+  clock_spawn_shake_scale:
+    strength: {x: 1, y: 1, z: 0}
+    duration: 0.35
+    vibrato: 10
+    randomness: 90
+    fadeOut: 1
+    ease: 12
+  clock_animation_wave_radius: 0.1
+  clock_animation_wave_speed: 0.1
+  clock_slot_return_duration: 0.25
+  clock_slot_return_ease: 12
+  clock_slot_go_duration: 0.25
+  clock_slot_go_ease: 12
+  clock_slot_search_distance: 1
+  clock_produce_cofactor: 1
+  slot_spawn_highlight_color_positive: {r: 0, g: 1, b: 0, a: 1}
+  slot_spawn_highlight_color_negative: {r: 1, g: 0, b: 0, a: 1}
+  slot_spawn_highlight_color_default: {r: 1, g: 1, b: 1, a: 1}
+  slot_clock_highlight_color_positive: {r: 0, g: 1, b: 0, a: 1}
+  slot_clock_highlight_color_negative: {r: 1, g: 0, b: 0, a: 1}
+  slot_clock_highlight_color_default: {r: 1, g: 1, b: 1, a: 1}
+  slot_clock_highlight_alpha_cofactor: 0.11764706
+  item_produce_tween_punchScale:
+    strength: {x: 0.2, y: 0, z: 0.35}
+    duration: 1
+    vibrato: 10
+    elasticity: 1
+    ease: 12
+  item_produce_start_color: {r: 0, g: 1, b: 0, a: 1}
+  item_produce_stop_color: {r: 1, g: 0, b: 0, a: 1}
+  item_produce_duration: 2
+  item_produce_ease: 12
+  item_locked_sprite: {fileID: 21300000, guid: 60f0a3b1dd82e2c4290f5c13175dd3ce, type: 3}
+  item_spoiler_background_sprite: {fileID: 21300000, guid: 323038c9e606fd14ca0c14668a94ad75, type: 3}
+  item_spoiler_foreground_sprite: {fileID: 21300000, guid: 07b6bebe53ff2624e95043824ed7c7e7, type: 3}
+  item_popUp_color_start: {r: 0, g: 0.5754717, b: 0.013711259, a: 1}
+  item_popUp_color_end: {r: 0, g: 0.8207547, b: 0.016750088, a: 0.101960786}
+  item_popUp_color_ease: 8
+  item_popUp_movement_delta: 0.2
+  item_popUp_movement_ease: 12
+  item_popUp_duration: 0.2
+  item_popUp_spawn_radius: 1
+  item_unlock_height: 0.1
+  playArea_size_array:
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.15
+  - 0.95
+  - 0.8
+  - 0.7
+  playArea_size_duration: 0.75
+  playArea_size_ease: 12
+  playArea_size_count_row: 7
+  playArea_size_count_column: 7
+  playArea_spawn_slot_count: 8
   camera_follow_speed_depth: 2.8
   maxLevelCount: 1
+  game_selection_layer: 30
+  game_selection_distance: 100
+  game_save_cooldown: 1
   useRemoteConfig_GameSettings: 0
   useRemoteConfig_Components: 0
   ui_Entity_Move_TweenDuration: 0.5

@@ -10,12 +10,82 @@ namespace FFStudio
     {
 #region Fields (Settings)
     // Info: You can use Title() attribute ONCE for every game-specific group of settings.
-    
+    [ Title( "Clock Movement" ) ]
+		[ LabelText( "Clock Height While Sitting Idle" ) ] public float clock_height_idle;
+		[ LabelText( "Clock Movement Height" ) ] public float clock_movement_height;
+		[ LabelText( "Clock Movement Scale" ) ] public float clock_movement_scale;
+		[ LabelText( "Clock Movement Duration" ) ] public float clock_movement_scale_duration;
+		[ LabelText( "Clock Movement Ease" ) ] public Ease clock_movement_scale_ease;
+		[ LabelText( "Clock Movement Speed Vertical" ) ] public float clock_movement_speed_vertical;
+		[ LabelText( "Clock Movement Speed Horizontal" ) ] public float clock_movement_speed_horizontal;
+		[ LabelText( "Clock Movement Rotate Speed" ) ] public float clock_movement_speed_rotate;
+		[ LabelText( "Clock Movement Rotate Clamp" ) ] public float clock_movement_rotate_clamp;
+
+    [ Title( "Clock Rotation" ) ]
+		[ LabelText( "Clock Rotation Clamp" ) ] public float clock_rotation_clamp;
+		[ LabelText( "Clock Rotation Cofactor" ) ] public float clock_rotation_cofactor;
+
+    [ Title( "Clock" ) ]
+		[ LabelText( "Clock Spawn Shake Scale" ) ] public ShakeScaleTween clock_spawn_shake_scale;
+		[ LabelText( "Clock Wave Animation Radius" ) ] public float clock_animation_wave_radius;
+		[ LabelText( "Clock Wave Animation Speed" ) ] public float clock_animation_wave_speed;
+		[ LabelText( "Clock Slot Return Duration" ) ] public float clock_slot_return_duration;
+		[ LabelText( "Clock Slot Return Ease" ) ] public Ease clock_slot_return_ease;
+		[LabelText( "Clock Slot Target Slot Move Duration" )] public float clock_slot_go_duration;
+		[LabelText( "Clock Slot Target Slot Move Ease" )] public Ease clock_slot_go_ease;
+		[ LabelText( "Clock Slot Search Distance" ) ] public float clock_slot_search_distance;
+		[ LabelText( "Clock Produce Speed Cofactor" ) ] public float clock_produce_cofactor;
+
+    [ Title( "Spawn Slot" ) ]
+		[ LabelText( "Highlight Positive Color" ) ] public Color slot_spawn_highlight_color_positive;
+		[ LabelText( "Highlight Negative Color" ) ] public Color slot_spawn_highlight_color_negative;
+		[ LabelText( "Highlight Default Color" ) ] public Color slot_spawn_highlight_color_default;
+
+    [ Title( "Clock Slot" ) ]
+		[ LabelText( "Highlight Positive Color" ) ] public Color slot_clock_highlight_color_positive;
+		[ LabelText( "Highlight Negative Color" ) ] public Color slot_clock_highlight_color_negative;
+		[ LabelText( "Highlight Default Color" ) ] public Color slot_clock_highlight_color_default;
+		[ LabelText( "Highlight Alpha Cofactor" ) ] public float slot_clock_highlight_alpha_cofactor;
+
+    [ Title( "Item" ) ]
+		[ LabelText( "Produce Punch Scale" ) ] public PunchScaleTween item_produce_tween_punchScale;
+		[ LabelText( "Produce Start Color" ) ] public Color item_produce_start_color;
+		[ LabelText( "Produce Stop Color" ) ] public Color item_produce_stop_color;
+		[ LabelText( "Produce Tween Duration" ) ] public float item_produce_duration;
+		[ LabelText( "Produce Tween Ease" ) ] public Ease item_produce_ease;
+		[ LabelText( "Locked Sprite" ) ] public Sprite item_locked_sprite;
+		[ LabelText( "Spoiler Background Sprite" ) ] public Sprite item_spoiler_background_sprite;
+		[ LabelText( "Spoiler Foreground Sprite" ) ] public Sprite item_spoiler_foreground_sprite;
+	
+	[ Title( "Item PopUp Text" ) ]
+		[ LabelText( "Item PopUp Start Color" ) ] public Color item_popUp_color_start;
+		[ LabelText( "Item PopUp End Color" ) ] public Color item_popUp_color_end;
+		[ LabelText( "Item PopUp Color Ease" ) ] public Ease item_popUp_color_ease;
+		[ LabelText( "Item PopUp Movement Offset" ) ] public float item_popUp_movement_delta;
+		[ LabelText( "Item PopUp Movement Offset" ) ] public Ease item_popUp_movement_ease;
+		[ LabelText( "Item PopUp Duration" ) ] public float item_popUp_duration;
+		[ LabelText( "Item PopUp Spawn Radius" ) ] public float item_popUp_spawn_radius;
+
+    [ Title( "Item Unlock" ) ]
+		[ LabelText( "UI Height Offset" ) ] public float item_unlock_height;
+
+    [ Title( "Play Area" ) ]
+		[ LabelText( "Size Array" ) ] public float[] playArea_size_array;
+		[ LabelText( "Size Change Duration" ) ] public float playArea_size_duration;
+		[ LabelText( "Size Change Ease" ) ] public Ease playArea_size_ease;
+		[ LabelText( "Size Count Row" ) ] public int playArea_size_count_row;
+		[ LabelText( "Size Count Column" ) ] public int playArea_size_count_column;
+		[ LabelText( "Spawn Slot Count" ) ] public int playArea_spawn_slot_count;
+
     [ Title( "Camera" ) ]
         [ LabelText( "Follow Speed (Z)" ), SuffixLabel( "units/seconds" ), Min( 0 ) ] public float camera_follow_speed_depth = 2.8f;
     
     [ Title( "Project Setup", "These settings should not be edited by Level Designer(s).", TitleAlignments.Centered ) ]
         public int maxLevelCount;
+		[ Layer(), SerializeField ] int game_selection_layer;
+		[ System.NonSerialized ] public int game_selection_layer_mask;
+		public float game_selection_distance;
+		[ LabelText( "Save Frequency" ) ] public float game_save_cooldown;
         
         // Info: 3 groups below (coming from template project) are foldout by design: They should remain hidden.
 		[ FoldoutGroup( "Remote Config" ) ] public bool useRemoteConfig_GameSettings;
@@ -57,7 +127,18 @@ namespace FFStudio
         delegate GameSettings ReturnGameSettings();
         static ReturnGameSettings returnInstance = LoadInstance;
 
+#endregion
+
+#region Properties
 		public static GameSettings Instance => returnInstance();
+		public int PlayAreaSize => playArea_size_count_row * playArea_size_count_column;
+#endregion
+
+#region API
+		public void OnAwake()
+		{
+			game_selection_layer_mask = 1 << game_selection_layer;
+		}
 #endregion
 
 #region Implementation

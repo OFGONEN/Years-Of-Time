@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca49c95cb784624ca99c97bb30d8ad5, type: 3}
+  m_Name: shared_clock_data_8
+  m_EditorClassIdentifier: 
+  clock_level: 8
+  clock_next: {fileID: 11400000, guid: cb2a066dc07119241b15d2f1f78e60ec, type: 2}
+  clock_speed: 145
+  clock_hand_speed_second: 212
+  clock_hand_speed_minute: 126
+  clock_hand_speed_hour: 65.2
+  clock_material: {fileID: 2100000, guid: 09d2bb324a92b9f46a92d0ab9bcd27ff, type: 2}
+  clock_circle: {fileID: -2410994074058225437, guid: 597278cc06af0d74ea527734b6206e4b, type: 3}
+  clock_hand_second: {fileID: 4415200860173559902, guid: 17b05868a5a0b7b45b63333203e95b8b, type: 3}
+  clock_texture: {fileID: 21300000, guid: 231a3fa9b61974a48acb72d52f794b54, type: 3}

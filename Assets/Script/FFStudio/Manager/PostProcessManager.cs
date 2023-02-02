@@ -14,7 +14,7 @@ namespace FFStudio
 		[ SerializeField ] Volume volume;
 
 		// Post-Process Effects.
-		Vignette volume_vignette;
+		Bloom volume_bloom;
 #endregion
 
 #region Properties
@@ -23,14 +23,14 @@ namespace FFStudio
 #region Unity API
 		void Awake()
 		{
-			volume.profile.TryGet< Vignette >( out volume_vignette );
+			volume.profile.TryGet< Bloom >( out volume_bloom );
 		}
 #endregion
 
 #region API
 		public void UpdateVignetteIntensity( float value )
 		{
-			volume_vignette.intensity.value = value;
+			volume_bloom.intensity.value = value;
 		}
 #endregion
 

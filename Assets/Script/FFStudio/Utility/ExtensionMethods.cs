@@ -12,6 +12,9 @@ namespace FFStudio
 	public static class ExtensionMethods
 	{
 		public static readonly string SAVE_PATH = Application.persistentDataPath + "/Saves/";
+		public static readonly string Key_ClockPurchaseCount = "clock_purchase_count";
+		public static readonly string Key_Income = "income_index";
+		public static readonly string Key_Tutorial = "tutorial";
 
 		static List< Transform > baseModelBones   = new List< Transform >( 96 );
 		static List< Transform > targetModelBones = new List< Transform >( 96 );
@@ -80,6 +83,16 @@ namespace FFStudio
 		public static Vector3 ConvertV3( this Vector2 v2 )
 		{
 			return new Vector3( v2.x, v2.y, 0 );
+		}
+
+		public static Vector3 ConvertV3( this Vector2 v2, float z )
+		{
+			return new Vector3( v2.x, v2.y, z );
+		}
+
+		public static Vector3 ConvertV3_Z( this Vector2 v2 )
+		{
+			return new Vector3( v2.x, 0, v2.y );
 		}
 
 		public static Vector3 RandomPointBetween( this Vector3 first, Vector3 second )
@@ -477,6 +490,11 @@ namespace FFStudio
 			return array[ Random.Range( 0, array.Length ) ];
 		}
 
+		public static T ReturnRandom< T >( this List< T > list )
+		{
+			return list[ Random.Range( 0, list.Count ) ];
+		}
+
 		public static float ReturnRandom( this Vector2 vector )
 		{
 			return Random.Range( vector.x, vector.y );
@@ -515,6 +533,38 @@ namespace FFStudio
 			return Mathf.Clamp( value, vector.x, vector.y );
 		}
 
+		public static Vector3 ScreenToWorldPoint_NearClipPlane( this Camera camera, Vector2 screenPosition )
+		{
+			return camera.ScreenToWorldPoint( screenPosition.ConvertV3( camera.nearClipPlane ) );
+		}
+
+		public static Vector3 ScreenToWorldPoint_FarClipPlane( this Camera camera, Vector2 screenPosition )
+		{
+			return camera.ScreenToWorldPoint( screenPosition.ConvertV3( camera.farClipPlane ) );
+		}
+
+		public static float Lerp( this float value, float target, float delta )
+		{
+			return Mathf.Lerp( value, target, delta );
+		}
+
+		public static string FormatValue( this float value )
+		{
+			return FormatFloat.FormatNumber( value );
+		}
+
+		public static int GetCustomHashCode( this Vector2Int v2 )
+		{
+			if( Mathf.Max( v2.x, v2.y ) == v2.x )
+				return v2.x * v2.x + v2.x + v2.y;
+			else
+				return v2.x + v2.y * v2.y;
+		}
+
+		public static float Clamp( this float value, float clamp )
+		{
+			return Mathf.Clamp( value, -clamp, clamp );
+		}
 #if FF_OBI_IMPORTED
 		public static void MergeParticles( this Obi.ObiRope obiRope, int indexOfElementBefore, int indexOfElementOfInterest )
 		{

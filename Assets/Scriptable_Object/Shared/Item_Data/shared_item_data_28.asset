@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c33709d6b97472d4b8859200e124cb87, type: 3}
+  m_Name: shared_item_data_28
+  m_EditorClassIdentifier: 
+  item_level: 28
+  item_duration: 768
+  item_currency: 768
+  item_cost: 23040
+  item_sprite_background: {fileID: 21300000, guid: b87c243004d46804586ca6df6852c007, type: 3}
+  item_sprite_foreground: {fileID: 21300000, guid: f798b30467586df43a3b220d5b451710, type: 3}
+  item_sprite_fill_bottom: 0.06
+  item_sprite_fill_top: 0.93
+  item_popUp_count: 6
